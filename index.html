@@ -267,16 +267,19 @@ nav {
 }
 
 /* ── DESTINATIONS ── */
-.dest-row {
-  display: grid; grid-template-columns: 1.55fr 1fr;
-  border-bottom: 1px solid var(--sand); min-height: 560px;
+/* ── DESTINATIONS dual panel ── */
+.dest-dual {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--sand);
+  min-height: 560px;
 }
-.dest-main {
+.dest-panel {
   position: relative; overflow: hidden;
-  border-right: 1px solid var(--sand);
-  cursor: pointer;
   display: flex; flex-direction: column; justify-content: flex-end;
+  cursor: pointer; text-decoration: none;
+  border-right: 1px solid var(--sand);
 }
+.dest-panel:last-child { border-right: none; }
 .dest-bg {
   position: absolute; inset: 0;
   background: linear-gradient(150deg, var(--linen), var(--sand) 50%, var(--stone) 100%);
@@ -284,11 +287,14 @@ nav {
   flex-direction: column; gap: 14px;
   transition: transform 0.7s ease;
 }
-.dest-main:hover .dest-bg { transform: scale(1.03); }
+.dest-bg-shanghai {
+  background: linear-gradient(150deg, var(--sand) 0%, var(--stone) 50%, var(--warm-gray) 100%);
+}
+.dest-panel:hover .dest-bg { transform: scale(1.03); }
 .dest-overlay {
   position: relative; z-index: 2;
   padding: 3rem 4rem;
-  background: linear-gradient(to top, rgba(42,38,32,0.52) 0%, transparent 100%);
+  background: linear-gradient(to top, rgba(42,38,32,0.55) 0%, transparent 100%);
 }
 .dest-tag {
   font-size: 9px; letter-spacing: 0.28em;
@@ -296,7 +302,7 @@ nav {
 }
 .dest-city {
   font-family: var(--serif);
-  font-size: 2.8rem; font-weight: 300;
+  font-size: clamp(2.4rem, 3.8vw, 3.8rem); font-weight: 300;
   color: var(--white); line-height: 1.1;
 }
 .dest-city-sub {
@@ -304,27 +310,26 @@ nav {
   letter-spacing: 0.14em; margin-top: 0.4rem;
   color: rgba(253,252,249,0.6);
 }
-.dest-soon-list { display: flex; flex-direction: column; }
-.dest-soon-item {
-  flex: 1; padding: 0 3rem;
-  display: flex; align-items: center; justify-content: space-between;
-  border-bottom: 1px solid var(--sand); min-height: 115px;
-}
-.dest-soon-item:last-child { border-bottom: none; }
-.dest-soon-active { transition: background 0.25s; }
-.dest-soon-active:hover { background: var(--parchment); }
-.dest-explore {
-  position: absolute; bottom: 2rem; right: 2.5rem;
+.dest-explore-btn {
+  position: absolute; bottom: 2rem; right: 2.5rem; z-index: 3;
   font-size: 10px; font-weight: 300;
   letter-spacing: 0.24em; text-transform: uppercase;
-  color: rgba(253,252,249,0.7);
-  background: rgba(42,38,32,0.45);
+  color: rgba(253,252,249,0.8);
+  border: 1px solid rgba(253,252,249,0.3);
   padding: 8px 18px;
-  border: 1px solid rgba(253,252,249,0.25);
   opacity: 0; transition: opacity 0.3s;
-  z-index: 3; position: relative;
 }
-.dest-main:hover .dest-explore { opacity: 1; }
+.dest-panel:hover .dest-explore-btn { opacity: 1; }
+.dest-soon-row {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid var(--sand);
+}
+.dest-soon-item {
+  padding: 2.2rem 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+  border-right: 1px solid var(--sand);
+}
+.dest-soon-item:last-child { border-right: none; }
 .soon-name {
   font-family: var(--serif);
   font-size: 1.5rem; font-weight: 300;
@@ -338,6 +343,7 @@ nav {
   font-size: 8.5px; letter-spacing: 0.22em;
   text-transform: uppercase; color: var(--gold-dim);
   border: 1px solid var(--gold-dim); padding: 5px 14px; opacity: 0.65;
+  white-space: nowrap;
 }
 
 /* ── HOTELS ── */
@@ -684,9 +690,9 @@ footer {
     </div>
     <p class="sec-desc">Test test test test test test test test test test test test test test test test test test test test test.</p>
   </div>
-  <div class="dest-row">
+  <div class="dest-dual">
     <!-- München -->
-    <a href="muenchen.html" class="dest-main" style="text-decoration:none;">
+    <a href="muenchen.html" class="dest-panel">
       <div class="dest-bg">
         <div class="ph-frame">◎</div>
         <span class="ph-label">München Bild</span>
@@ -696,114 +702,36 @@ footer {
         <div class="dest-city">München</div>
         <div class="dest-city-sub">Test test test test test test test</div>
       </div>
-      <div class="dest-explore">Explore →</div>
+      <div class="dest-explore-btn">Explore →</div>
     </a>
-    <!-- Shanghai + Coming Soon -->
-    <div class="dest-soon-list">
-      <a href="shanghai.html" class="dest-soon-item dest-soon-active" style="text-decoration:none;">
-        <div>
-          <div class="soon-name" style="color:var(--ink);">Shanghai</div>
-          <div class="soon-country" style="opacity:1; color:var(--warm-gray);">China · East Asia</div>
-        </div>
-        <div class="soon-badge" style="color:var(--gold); border-color:var(--gold); opacity:1;">Explore →</div>
-      </a>
-      <div class="dest-soon-item">
-        <div>
-          <div class="soon-name">Test Test</div>
-          <div class="soon-country">Test · Test</div>
-        </div>
-        <div class="soon-badge">Coming Soon</div>
+    <!-- Shanghai -->
+    <a href="shanghai.html" class="dest-panel">
+      <div class="dest-bg dest-bg-shanghai">
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">Shanghai Bild</span>
       </div>
-      <div class="dest-soon-item">
-        <div>
-          <div class="soon-name">Test Test</div>
-          <div class="soon-country">Test · Test</div>
-        </div>
-        <div class="soon-badge">Coming Soon</div>
+      <div class="dest-overlay">
+        <div class="dest-tag">China · East Asia</div>
+        <div class="dest-city">Shanghai</div>
+        <div class="dest-city-sub">Test test test test test test test</div>
       </div>
-      <div class="dest-soon-item">
-        <div>
-          <div class="soon-name">Test Test</div>
-          <div class="soon-country">Test · Test</div>
-        </div>
-        <div class="soon-badge">Coming Soon</div>
-      </div>
-    </div>
+      <div class="dest-explore-btn">Explore →</div>
+    </a>
   </div>
-</section>
 
-<!-- DIVIDER -->
-<div class="divider"><div class="divider-line"></div><div class="divider-mark">✦</div><div class="divider-line"></div></div>
-
-<!-- HOTELS -->
-<section id="hotels">
-  <div class="sec-header">
-    <div>
-      <div class="sec-eyebrow">Hotels</div>
-      <h2 class="sec-h">Curated<br><em>Stays</em></h2>
+  <!-- Coming Soon row -->
+  <div class="dest-soon-row">
+    <div class="dest-soon-item">
+      <div><div class="soon-name">Test Test</div><div class="soon-country">Test · Test</div></div>
+      <div class="soon-badge">Coming Soon</div>
     </div>
-    <p class="sec-desc">Test test test test test test test test test test test test test test test test test test.</p>
-  </div>
-  <div class="hotels-grid">
-    <div class="hotel-card">
-      <div class="hotel-img a"><div class="ph-frame">◎</div><span class="ph-label">Bild</span></div>
-      <div class="hotel-body">
-        <div>
-          <div class="hotel-stars">★★★★★</div>
-          <div class="hotel-name">Test Test Test Hotel</div>
-          <div class="hotel-area">Maxvorstadt · München</div>
-          <p class="hotel-desc">Test test test test test test test test test test test test test test test.</p>
-        </div>
-        <div class="hotel-footer">
-          <div class="hotel-price"><span class="price-from">ab</span><span class="price-val">€000</span><span class="price-night">/ Nacht</span></div>
-          <a class="hotel-link">Entdecken</a>
-        </div>
-      </div>
+    <div class="dest-soon-item">
+      <div><div class="soon-name">Test Test</div><div class="soon-country">Test · Test</div></div>
+      <div class="soon-badge">Coming Soon</div>
     </div>
-    <div class="hotel-card">
-      <div class="hotel-img b"><div class="ph-frame">◎</div><span class="ph-label">Bild</span></div>
-      <div class="hotel-body">
-        <div>
-          <div class="hotel-stars">★★★★★</div>
-          <div class="hotel-name">Test Test Test Hotel</div>
-          <div class="hotel-area">Schwabing · München</div>
-          <p class="hotel-desc">Test test test test test test test test test test test test test test test.</p>
-        </div>
-        <div class="hotel-footer">
-          <div class="hotel-price"><span class="price-from">ab</span><span class="price-val">€000</span><span class="price-night">/ Nacht</span></div>
-          <a class="hotel-link">Entdecken</a>
-        </div>
-      </div>
-    </div>
-    <div class="hotel-card">
-      <div class="hotel-img c"><div class="ph-frame">◎</div><span class="ph-label">Bild</span></div>
-      <div class="hotel-body">
-        <div>
-          <div class="hotel-stars">★★★★</div>
-          <div class="hotel-name">Test Test Test Hotel</div>
-          <div class="hotel-area">Altstadt · München</div>
-          <p class="hotel-desc">Test test test test test test test test test test test test test test test.</p>
-        </div>
-        <div class="hotel-footer">
-          <div class="hotel-price"><span class="price-from">ab</span><span class="price-val">€000</span><span class="price-night">/ Nacht</span></div>
-          <a class="hotel-link">Entdecken</a>
-        </div>
-      </div>
-    </div>
-    <div class="hotel-card">
-      <div class="hotel-img d"><div class="ph-frame">◎</div><span class="ph-label">Bild</span></div>
-      <div class="hotel-body">
-        <div>
-          <div class="hotel-stars">★★★★</div>
-          <div class="hotel-name">Test Test Test Hotel</div>
-          <div class="hotel-area">Bogenhausen · München</div>
-          <p class="hotel-desc">Test test test test test test test test test test test test test test test.</p>
-        </div>
-        <div class="hotel-footer">
-          <div class="hotel-price"><span class="price-from">ab</span><span class="price-val">€000</span><span class="price-night">/ Nacht</span></div>
-          <a class="hotel-link">Entdecken</a>
-        </div>
-      </div>
+    <div class="dest-soon-item">
+      <div><div class="soon-name">Test Test</div><div class="soon-country">Test · Test</div></div>
+      <div class="soon-badge">Coming Soon</div>
     </div>
   </div>
 </section>
