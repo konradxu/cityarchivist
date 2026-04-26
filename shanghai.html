@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shanghai — City Archivist</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --white:     #fdfcf9;
+  --parchment: #f8f5ef;
+  --linen:     #f2ede4;
+  --sand:      #e4ddd1;
+  --stone:     #c8bfb0;
+  --warm-gray: #9c9488;
+  --ink-light: #7a756e;
+  --ink-mid:   #4a4540;
+  --ink:       #2a2620;
+  --gold:      #b8995a;
+  --gold-dim:  #d4bc8a;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans:  'Jost', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--white);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; cursor: pointer; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  height: 70px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 4rem;
+  background: rgba(253,252,249,0.94);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--sand);
+}
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.1rem; font-weight: 400;
+  letter-spacing: 0.22em; text-transform: uppercase;
+}
+.nav-logo span { color: var(--gold); }
+.nav-back {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 10px; font-weight: 300;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--ink-light); transition: color 0.2s;
+}
+.nav-back::before { content: '←'; font-size: 14px; }
+.nav-back:hover { color: var(--ink); }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-size: 10px; font-weight: 300;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink-light); position: relative; transition: color 0.25s;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -2px; left: 0;
+  width: 0; height: 1px; background: var(--gold); transition: width 0.3s;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-links a:hover::after { width: 100%; }
+
+/* ── HERO ── */
+.city-hero {
+  height: 100vh; padding-top: 70px;
+  display: grid; grid-template-columns: 1fr 1fr;
+}
+.city-hero-left {
+  background: var(--linen);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 4rem 5rem 6rem; position: relative;
+}
+.city-eyebrow {
+  position: absolute; top: 3.5rem; left: 5rem;
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 0.34em; text-transform: uppercase;
+  color: var(--warm-gray);
+  display: flex; align-items: center; gap: 14px;
+}
+.city-eyebrow::before {
+  content: ''; width: 22px; height: 1px;
+  background: var(--stone); display: inline-block;
+}
+.city-h1 {
+  font-family: var(--serif);
+  font-size: clamp(3.5rem, 6vw, 6.5rem);
+  font-weight: 300; line-height: 1.05;
+  color: var(--ink); margin-bottom: 2rem;
+}
+.city-h1 em { font-style: italic; color: var(--gold); }
+.city-tagline {
+  font-size: 12.5px; font-weight: 300;
+  color: var(--ink-light); max-width: 320px;
+  line-height: 1.9; margin-bottom: 3rem;
+}
+.city-meta {
+  display: flex; gap: 2.5rem;
+}
+.city-meta-item { border-top: 1px solid var(--sand); padding-top: 1rem; min-width: 90px; }
+.city-meta-num {
+  font-family: var(--serif); font-size: 1.6rem;
+  font-weight: 300; color: var(--gold); line-height: 1;
+  margin-bottom: 0.3rem;
+}
+.city-meta-label {
+  font-size: 9px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--warm-gray);
+}
+.city-hero-right {
+  position: relative; overflow: hidden; background: var(--sand);
+}
+.city-hero-img {
+  position: absolute; inset: 0;
+  background: linear-gradient(150deg, var(--linen) 0%, var(--sand) 45%, var(--stone) 100%);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 14px;
+}
+.ph-frame {
+  width: 56px; height: 56px;
+  border: 1px solid var(--stone);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--stone); font-size: 20px;
+}
+.ph-label {
+  font-size: 9px; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--stone);
+}
+
+/* ── SECTION ANCHOR NAV ── */
+.section-tabs {
+  position: sticky; top: 70px; z-index: 100;
+  background: var(--white);
+  border-bottom: 1px solid var(--sand);
+  display: flex; gap: 0;
+  padding: 0 4rem;
+  overflow-x: auto;
+}
+.tab-link {
+  font-size: 10px; font-weight: 300;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink-light);
+  padding: 1.2rem 2rem;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap; transition: all 0.25s;
+}
+.tab-link:hover, .tab-link.active {
+  color: var(--ink); border-bottom-color: var(--gold);
+}
+
+/* ── SHARED SECTION STYLES ── */
+.sec-header {
+  padding: 7rem 4rem 4rem;
+  display: grid; grid-template-columns: 1fr 1.3fr;
+  gap: 5rem; align-items: end;
+  border-bottom: 1px solid var(--sand);
+}
+.sec-eyebrow {
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--warm-gray); margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: 12px;
+}
+.sec-eyebrow::before {
+  content: ''; width: 20px; height: 1px;
+  background: var(--stone); display: inline-block;
+}
+.sec-h {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 3.5vw, 3.5rem);
+  font-weight: 300; line-height: 1.15; color: var(--ink);
+}
+.sec-h em { font-style: italic; color: var(--gold); }
+.sec-desc {
+  font-size: 13px; color: var(--ink-light);
+  font-weight: 300; line-height: 1.95;
+  max-width: 440px; align-self: end;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  display: flex; align-items: center; gap: 2rem;
+  padding: 0 4rem; margin: 4rem 0;
+}
+.divider-line { flex: 1; height: 1px; background: var(--sand); }
+.divider-mark {
+  font-family: var(--serif); font-style: italic;
+  font-size: 1rem; color: var(--stone);
+}
+
+/* ── HIDDEN SPOTS ── */
+#spots { background: var(--white); }
+.spots-filter {
+  display: flex; gap: 0.5rem; flex-wrap: wrap;
+  padding: 2.5rem 4rem;
+  border-bottom: 1px solid var(--sand);
+}
+.filter-btn {
+  font-family: var(--sans); font-size: 10px; font-weight: 300;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--ink-light);
+  border: 1px solid var(--sand);
+  background: transparent;
+  padding: 8px 18px; cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-btn:hover, .filter-btn.active {
+  background: var(--ink); color: var(--parchment);
+  border-color: var(--ink);
+}
+.spots-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--sand);
+  border-bottom: 1px solid var(--sand);
+}
+.spot-card {
+  background: var(--white);
+  display: flex; flex-direction: column;
+  cursor: pointer; transition: background 0.25s;
+}
+.spot-card:hover { background: var(--parchment); }
+.spot-img {
+  aspect-ratio: 4/3;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 10px;
+  position: relative;
+}
+.spot-img.a { background: linear-gradient(150deg, var(--linen), var(--sand)); }
+.spot-img.b { background: linear-gradient(150deg, var(--sand), var(--stone)); }
+.spot-img.c { background: linear-gradient(150deg, var(--parchment), var(--linen)); }
+.spot-img.d { background: linear-gradient(150deg, var(--sand), var(--warm-gray)); }
+.spot-img.e { background: linear-gradient(150deg, var(--linen), var(--stone)); }
+.spot-img.f { background: linear-gradient(150deg, var(--stone), var(--warm-gray)); }
+.spot-cat {
+  position: absolute; top: 1rem; left: 1rem;
+  font-size: 8.5px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink); background: rgba(253,252,249,0.85);
+  padding: 4px 10px;
+}
+.spot-body { padding: 1.8rem 2rem 2rem; }
+.spot-title {
+  font-family: var(--serif);
+  font-size: 1.25rem; font-weight: 300;
+  color: var(--ink); margin-bottom: 0.5rem; line-height: 1.3;
+}
+.spot-desc {
+  font-size: 12.5px; color: var(--ink-light);
+  font-weight: 300; line-height: 1.8; margin-bottom: 1.2rem;
+}
+.spot-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid var(--sand); padding-top: 1rem;
+}
+.spot-location {
+  font-size: 10px; letter-spacing: 0.14em;
+  color: var(--warm-gray);
+  display: flex; align-items: center; gap: 5px;
+}
+.spot-location::before { content: '◎'; font-size: 8px; }
+.spot-read {
+  font-size: 9.5px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--gold);
+  display: flex; align-items: center; gap: 6px; transition: gap 0.2s;
+}
+.spot-read::after { content: '→'; }
+.spot-read:hover { gap: 12px; }
+
+/* ── FEATURED ARTICLE ── */
+#reads { background: var(--linen); }
+.featured-article {
+  display: grid; grid-template-columns: 1.1fr 0.9fr;
+  border-bottom: 1px solid var(--sand); min-height: 480px;
+}
+.feat-img {
+  background: linear-gradient(150deg, var(--sand), var(--stone) 80%);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 14px;
+  position: relative; overflow: hidden; cursor: pointer;
+  transition: transform 0.6s;
+}
+.feat-img:hover { transform: scale(1.01); }
+.feat-badge {
+  position: absolute; top: 2rem; left: 2rem;
+  font-size: 8.5px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink); background: var(--gold-dim); padding: 5px 14px;
+}
+.feat-body {
+  padding: 4rem 4.5rem;
+  display: flex; flex-direction: column; justify-content: center;
+  border-left: 1px solid var(--sand);
+}
+.feat-meta {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 1.4rem;
+}
+.feat-tag {
+  font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--sage); border: 1px solid var(--sand); padding: 4px 10px;
+  color: var(--warm-gray);
+}
+.feat-dot { width: 3px; height: 3px; background: var(--gold); border-radius: 50%; }
+.feat-date { font-size: 11px; color: var(--ink-light); }
+.feat-title {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  font-weight: 300; line-height: 1.25;
+  color: var(--ink); margin-bottom: 1.2rem;
+}
+.feat-excerpt {
+  font-size: 13px; color: var(--ink-light);
+  font-weight: 300; line-height: 1.9; margin-bottom: 2rem;
+}
+.feat-cta {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase;
+  color: var(--ink); transition: gap 0.3s;
+}
+.feat-cta::after { content: ''; width: 30px; height: 1px; background: var(--gold); transition: width 0.3s; }
+.feat-cta:hover { gap: 18px; }
+.feat-cta:hover::after { width: 46px; }
+
+/* Article list */
+.article-list { padding: 0 4rem 7rem; }
+.article-row {
+  display: grid;
+  grid-template-columns: 100px 1fr auto;
+  gap: 2rem; align-items: start;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--sand);
+  cursor: pointer; transition: background 0.2s;
+  padding-left: 0.5rem; padding-right: 0.5rem;
+}
+.article-row:hover { background: rgba(228,221,209,0.3); }
+.art-img {
+  aspect-ratio: 1;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--stone); font-size: 16px;
+}
+.art-img.a { background: linear-gradient(135deg, var(--linen), var(--sand)); }
+.art-img.b { background: linear-gradient(135deg, var(--sand), var(--stone)); }
+.art-img.c { background: linear-gradient(135deg, var(--parchment), var(--linen)); }
+.art-tag {
+  font-size: 9px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--warm-gray); margin-bottom: 0.4rem;
+}
+.art-title {
+  font-family: var(--serif);
+  font-size: 1.15rem; font-weight: 300;
+  color: var(--ink); margin-bottom: 0.35rem; line-height: 1.3;
+}
+.art-excerpt {
+  font-size: 12.5px; color: var(--ink-light);
+  font-weight: 300; line-height: 1.75;
+}
+.art-arrow {
+  font-size: 16px; color: var(--gold); align-self: center;
+  opacity: 0; transition: opacity 0.2s, transform 0.2s;
+  transform: translateX(-6px);
+}
+.article-row:hover .art-arrow { opacity: 1; transform: translateX(0); }
+
+/* ── HOTELS ── */
+#hotels { background: var(--white); }
+.hotels-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: var(--sand);
+  border-bottom: 1px solid var(--sand); margin-top: 1px;
+}
+.hotel-card {
+  background: var(--white);
+  display: grid; grid-template-columns: 200px 1fr;
+  cursor: pointer; transition: background 0.25s; min-height: 210px;
+}
+.hotel-card:hover { background: var(--parchment); }
+.hotel-img {
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 10px;
+}
+.hotel-img.a { background: linear-gradient(140deg, var(--linen), var(--sand)); }
+.hotel-img.b { background: linear-gradient(140deg, var(--sand), var(--stone)); }
+.hotel-img.c { background: linear-gradient(140deg, var(--parchment), var(--linen)); }
+.hotel-img.d { background: linear-gradient(140deg, var(--linen), var(--warm-gray)); }
+.hotel-body {
+  padding: 2.4rem 2.8rem;
+  border-left: 1px solid var(--sand);
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.hotel-stars { font-size: 10px; color: var(--gold); letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+.hotel-name {
+  font-family: var(--serif);
+  font-size: 1.3rem; font-weight: 400;
+  color: var(--ink); margin-bottom: 0.2rem; line-height: 1.3;
+}
+.hotel-area {
+  font-size: 10px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--warm-gray); margin-bottom: 0.9rem;
+}
+.hotel-desc {
+  font-size: 12.5px; color: var(--ink-light);
+  font-weight: 300; line-height: 1.8; flex: 1; margin-bottom: 1.1rem;
+}
+.hotel-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid var(--sand); padding-top: 0.9rem;
+}
+.hotel-price { display: flex; align-items: baseline; gap: 5px; }
+.price-from { font-size: 10px; color: var(--warm-gray); }
+.price-val { font-family: var(--serif); font-size: 1.45rem; font-weight: 300; color: var(--ink); }
+.price-night { font-size: 10px; color: var(--warm-gray); }
+.hotel-link {
+  font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold); display: flex; align-items: center;
+  gap: 8px; transition: gap 0.25s;
+}
+.hotel-link::after { content: '→'; }
+.hotel-link:hover { gap: 14px; }
+
+/* ── NIGHTCLUBS ── */
+#nightclubs { background: var(--ink); }
+#nightclubs .sec-header { border-bottom-color: rgba(255,255,255,0.08); }
+#nightclubs .sec-eyebrow { color: var(--gold-dim); }
+#nightclubs .sec-eyebrow::before { background: var(--gold-dim); }
+#nightclubs .sec-h { color: var(--parchment); }
+#nightclubs .sec-desc { color: rgba(248,245,239,0.42); }
+.clubs-list { padding: 0 4rem 8rem; }
+.club-row {
+  display: grid;
+  grid-template-columns: 70px 1fr 260px 130px;
+  gap: 2.5rem; align-items: center;
+  padding: 2rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  cursor: pointer; transition: background 0.2s;
+}
+.club-row:hover { background: rgba(255,255,255,0.03); }
+.club-num {
+  font-family: var(--serif); font-style: italic;
+  font-size: 1.05rem; color: rgba(200,191,176,0.3);
+}
+.club-name {
+  font-family: var(--serif);
+  font-size: 1.35rem; font-weight: 300;
+  color: var(--parchment); margin-bottom: 0.15rem;
+}
+.club-genre {
+  font-size: 9.5px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: rgba(200,191,176,0.4);
+}
+.club-desc {
+  font-size: 12px; color: rgba(248,245,239,0.35);
+  font-weight: 300; line-height: 1.7;
+}
+.club-tag {
+  font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+  border: 1px solid rgba(184,153,90,0.28); color: var(--gold-dim);
+  padding: 6px 14px; text-align: center; justify-self: end;
+  transition: border-color 0.25s;
+}
+.club-row:hover .club-tag { border-color: rgba(184,153,90,0.6); }
+
+/* ── FOOTER ── */
+footer {
+  background: #1e1c18;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 4rem 4rem 2.5rem;
+}
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid rgba(255,255,255,0.06); padding-top: 2rem; margin-top: 3rem;
+}
+.footer-logo {
+  font-family: var(--serif); font-size: 1.05rem; font-weight: 400;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--parchment); margin-bottom: 0.6rem;
+}
+.footer-logo span { color: var(--gold); }
+.footer-city { font-size: 11px; color: rgba(248,245,239,0.35); }
+.footer-copy { font-size: 10.5px; color: rgba(248,245,239,0.2); letter-spacing: 0.08em; }
+.footer-socials { display: flex; gap: 1rem; }
+.soc {
+  font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(248,245,239,0.3); border: 1px solid rgba(255,255,255,0.1);
+  padding: 6px 14px; transition: all 0.2s;
+}
+.soc:hover { color: var(--gold-dim); border-color: rgba(184,153,90,0.4); }
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  nav { padding: 0 1.5rem; gap: 0; }
+  .nav-links { display: none; }
+  .nav-back { font-size: 9px; letter-spacing: 0.16em; }
+
+  .city-hero { grid-template-columns: 1fr; height: auto; min-height: 100svh; }
+  .city-hero-right { display: none; }
+  .city-hero-left { padding: 6rem 1.8rem 4rem; }
+  .city-eyebrow { left: 1.8rem; top: 2rem; }
+  .city-h1 { font-size: clamp(3.2rem, 14vw, 5rem); }
+  .city-tagline { max-width: 100%; }
+  .city-meta { gap: 1.5rem; }
+
+  .section-tabs { padding: 0 1.5rem; gap: 0; }
+  .tab-link { padding: 1rem 1.2rem; font-size: 9px; }
+
+  .sec-header { grid-template-columns: 1fr; gap: 1.2rem; padding: 4rem 1.8rem 2.5rem; }
+
+  .spots-filter { padding: 1.5rem 1.8rem; gap: 0.4rem; }
+  .filter-btn { padding: 7px 12px; font-size: 9px; }
+  .spots-grid { grid-template-columns: 1fr; }
+
+  .featured-article { grid-template-columns: 1fr; }
+  .feat-img { min-height: 240px; }
+  .feat-body { padding: 2rem 1.8rem; border-left: none; border-top: 1px solid var(--sand); }
+
+  .article-list { padding: 0 1.8rem 4rem; }
+  .article-row { grid-template-columns: 70px 1fr; }
+  .art-arrow { display: none; }
+
+  .hotels-grid { grid-template-columns: 1fr; }
+  .hotel-card { grid-template-columns: 1fr; }
+  .hotel-img { min-height: 180px; }
+  .hotel-body { border-left: none; border-top: 1px solid var(--sand); }
+
+  .clubs-list { padding: 0 1.8rem 4rem; }
+  .club-row { grid-template-columns: 40px 1fr; gap: 1rem; padding: 1.5rem 0; }
+  .club-desc { display: none; }
+  .club-tag { display: none; }
+
+  #about { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 1.8rem; }
+  .about-imgs { display: none; }
+
+  footer { padding: 3rem 1.8rem 2rem; }
+  .footer-bottom { flex-direction: column; gap: 1rem; }
+
+  .divider { margin: 2.5rem 0; padding: 0 1.8rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">City <span>Archivist</span></a>
+  <ul class="nav-links">
+    <li><a href="#spots">Hidden Spots</a></li>
+    <li><a href="#reads">Reads</a></li>
+    <li><a href="#hotels">Hotels</a></li>
+    <li><a href="#nightclubs">Nightclubs</a></li>
+  </ul>
+  <a class="nav-back" href="index.html">All Cities</a>
+</nav>
+
+<!-- HERO -->
+<section class="city-hero">
+  <div class="city-hero-left">
+    <div class="city-eyebrow">China · East Asia · City Guide</div>
+    <h1 class="city-h1"><em>Shanghai</em></h1>
+    <p class="city-tagline">Test test test test test test test test test test test test test test test test test.</p>
+    <div class="city-meta">
+      <div class="city-meta-item">
+        <div class="city-meta-num">00</div>
+        <div class="city-meta-label">Hidden Spots</div>
+      </div>
+      <div class="city-meta-item">
+        <div class="city-meta-num">00</div>
+        <div class="city-meta-label">Hotels</div>
+      </div>
+      <div class="city-meta-item">
+        <div class="city-meta-num">00</div>
+        <div class="city-meta-label">Clubs</div>
+      </div>
+    </div>
+  </div>
+  <div class="city-hero-right">
+    <div class="city-hero-img">
+      <div class="ph-frame">◎</div>
+      <span class="ph-label">Shanghai Hero Bild</span>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION TABS -->
+<div class="section-tabs">
+  <a href="#spots" class="tab-link active">Hidden Spots</a>
+  <a href="#reads" class="tab-link">Reads</a>
+  <a href="#hotels" class="tab-link">Hotels</a>
+  <a href="#nightclubs" class="tab-link">Nightclubs</a>
+</div>
+
+<!-- HIDDEN SPOTS -->
+<section id="spots">
+  <div class="sec-header">
+    <div>
+      <div class="sec-eyebrow">Hidden Spots</div>
+      <h2 class="sec-h">Secret<br><em>Shanghai</em></h2>
+    </div>
+    <p class="sec-desc">Test test test test test test test test test test test test test test test test test test test test test.</p>
+  </div>
+
+  <div class="spots-filter">
+    <button class="filter-btn active">Alle</button>
+    <button class="filter-btn">Cafés</button>
+    <button class="filter-btn">Bars</button>
+    <button class="filter-btn">Parks</button>
+    <button class="filter-btn">Kultur</button>
+    <button class="filter-btn">Shopping</button>
+    <button class="filter-btn">Essen</button>
+  </div>
+
+  <div class="spots-grid">
+    <div class="spot-card">
+      <div class="spot-img a">
+        <span class="spot-cat">Café</span>
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">Bild</span>
+      </div>
+      <div class="spot-body">
+        <div class="spot-title">Test Test Test Test</div>
+        <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
+        <div class="spot-footer">
+          <span class="spot-location">The Bund</span>
+          <a class="spot-read">Mehr lesen</a>
+        </div>
+      </div>
+    </div>
+    <div class="spot-card">
+      <div class="spot-img b">
+        <span class="spot-cat">Bar</span>
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">Bild</span>
+      </div>
+      <div class="spot-body">
+        <div class="spot-title">Test Test Test Test</div>
+        <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
+        <div class="spot-footer">
+          <span class="spot-location">Lujiazui</span>
+          <a class="spot-read">Mehr lesen</a>
+        </div>
+      </div>
+    </div>
+    <div class="spot-card">
+      <div class="spot-img c">
+        <span class="spot-cat">Park</span>
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">Bild</span>
+      </div>
+      <div class="spot-body">
+        <div class="spot-title">Test Test Test Test</div>
+        <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
+        <div class="spot-footer">
+          <span class="spot-location">French Concession</span>
+          <a class="spot-read">Mehr lesen</a>
+        </div>
+      </div>
+    </div>
+    <div class="spot-card">
+      <div class="spot-img d">
+        <span class="spot-cat">Kultur</span>
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">Bild</span>
+      </div>
+      <div class="spot-body">
+        <div class="spot-title">Test Test Test Test</div>
+        <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
+        <div class="spot-footer">
+          <span class="spot-location">Jing'an</span>
+          <a class="spot-read">Mehr lesen</a>
+        </div>
+      </div>
+    </div>
+    <div class="spot-card">
+      <div class="spot-img e">
+        <span class="spot-cat">Essen</span>
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">Bild</span>
+      </div>
+      <div class="spot-body">
+        <div class="spot-title">Test Test Test Test</div>
+        <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
+        <div class="spot-footer">
+          <span class="spot-location">Xintiandi</span>
+          <a class="spot-read">Mehr lesen</a>
+        </div>
+      </div>
+    </div>
+    <div class="spot-card">
+      <div class="spot-img f">
+        <span class="spot-cat">Shopping</span>
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">Bild</span>
+      </div>
+      <div class="spot-body">
+        <div class="spot-title">Test Test Test Test</div>
+        <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
+        <div class="spot-footer">
+          <span class="spot-location">Hongqiao</span>
+          <a class="spot-read">Mehr lesen</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="divider"><div class="divider-line"></div><div class="divider-mark">✦</div><div class="divider-line"></div></div>
+
+<!-- READS / ARTICLES -->
+<section id="reads">
+  <div class="sec-header" style="background:var(--linen);">
+    <div>
+      <div class="sec-eyebrow">Reads</div>
+      <h2 class="sec-h">Über<br><em>Shanghai</em></h2>
+    </div>
+    <p class="sec-desc">Test test test test test test test test test test test test test test test test test test.</p>
+  </div>
+
+  <div class="featured-article" style="background:var(--linen);">
+    <div class="feat-img">
+      <div class="feat-badge">Featured Read</div>
+      <div class="ph-frame">◎</div>
+      <span class="ph-label">Bild</span>
+    </div>
+    <div class="feat-body" style="background:var(--linen);">
+      <div class="feat-meta">
+        <span class="feat-tag">Stadtgeschichte</span>
+        <div class="feat-dot"></div>
+        <span class="feat-date">Test Test 2025</span>
+      </div>
+      <div class="feat-title">Test test test test test test test test test test.</div>
+      <p class="feat-excerpt">Test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test.</p>
+      <a class="feat-cta">Weiterlesen</a>
+    </div>
+  </div>
+
+  <div class="article-list" style="background:var(--linen);">
+    <div class="article-row">
+      <div class="art-img a">◎</div>
+      <div>
+        <div class="art-tag">Architektur · Test Test 2025</div>
+        <div class="art-title">Test test test test test test test test test</div>
+        <p class="art-excerpt">Test test test test test test test test test test test test test test test.</p>
+      </div>
+      <div class="art-arrow">→</div>
+    </div>
+    <div class="article-row">
+      <div class="art-img b">◎</div>
+      <div>
+        <div class="art-tag">Kulinarik · Test Test 2025</div>
+        <div class="art-title">Test test test test test test test test test</div>
+        <p class="art-excerpt">Test test test test test test test test test test test test test test test.</p>
+      </div>
+      <div class="art-arrow">→</div>
+    </div>
+    <div class="article-row">
+      <div class="art-img c">◎</div>
+      <div>
+        <div class="art-tag">Nightlife · Test Test 2025</div>
+        <div class="art-title">Test test test test test test test test test</div>
+        <p class="art-excerpt">Test test test test test test test test test test test test test test test.</p>
+      </div>
+      <div class="art-arrow">→</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOTELS -->
+<section id="hotels">
+  <div class="sec-header">
+    <div>
+      <div class="sec-eyebrow">Hotels</div>
+      <h2 class="sec-h">Where to<br><em>Stay</em></h2>
+    </div>
+    <p class="sec-desc">Test test test test test test test test test test test test test test test test test test.</p>
+  </div>
+  <div class="hotels-grid">
+    <div class="hotel-card">
+      <div class="hotel-img a"><div class="ph-frame">◎</div><span class="ph-label">Bild</span></div>
+      <div class="hotel-body">
+        <div>
+          <div class="hotel-stars">★★★★★</div>
+          <div class="hotel-name">Test Test Test Hotel</div>
+          <div class="hotel-area">The Bund · Shanghai</div>
+          <p class="hotel-desc">Test test test test test test test test test test test test test test test.</p>
+        </div>
+        <div class="hotel-footer">
+          <div class="hotel-price"><span class="price-from">ab</span><span class="price-val">€000</span><span class="price-night">/ Nacht</span></div>
+          <a class="hotel-link">Entdecken</a>
+        </div>
+      </div>
+    </div>
+    <div class="hotel-card">
+      <div class="hotel-img b"><div class="ph-frame">◎</div><span class="ph-label">Bild</span></div>
+      <div class="hotel-body">
+        <div>
+          <div class="hotel-stars">★★★★★</div>
+          <div class="hotel-name">Test Test Test Hotel</div>
+          <div class="hotel-area">French Concession · Shanghai</div>
+          <p class="hotel-desc">Test test test test test test test test test test test test test test test.</p>
+        </div>
+        <div class="hotel-footer">
+          <div class="hotel-price"><span class="price-from">ab</span><span class="price-val">€000</span><span class="price-night">/ Nacht</span></div>
+          <a class="hotel-link">Entdecken</a>
+        </div>
+      </div>
+    </div>
+    <div class="hotel-card">
+      <div class="hotel-img c"><div class="ph-frame">◎</div><span class="ph-label">Bild</span></div>
+      <div class="hotel-body">
+        <div>
+          <div class="hotel-stars">★★★★</div>
+          <div class="hotel-name">Test Test Test Hotel</div>
+          <div class="hotel-area">Jing'an · Shanghai</div>
+          <p class="hotel-desc">Test test test test test test test test test test test test test test test.</p>
+        </div>
+        <div class="hotel-footer">
+          <div class="hotel-price"><span class="price-from">ab</span><span class="price-val">€000</span><span class="price-night">/ Nacht</span></div>
+          <a class="hotel-link">Entdecken</a>
+        </div>
+      </div>
+    </div>
+    <div class="hotel-card">
+      <div class="hotel-img d"><div class="ph-frame">◎</div><span class="ph-label">Bild</span></div>
+      <div class="hotel-body">
+        <div>
+          <div class="hotel-stars">★★★★</div>
+          <div class="hotel-name">Test Test Test Hotel</div>
+          <div class="hotel-area">Pudong · Shanghai</div>
+          <p class="hotel-desc">Test test test test test test test test test test test test test test test.</p>
+        </div>
+        <div class="hotel-footer">
+          <div class="hotel-price"><span class="price-from">ab</span><span class="price-val">€000</span><span class="price-night">/ Nacht</span></div>
+          <a class="hotel-link">Entdecken</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="divider"><div class="divider-line"></div><div class="divider-mark">✦</div><div class="divider-line"></div></div>
+
+<!-- NIGHTCLUBS -->
+<section id="nightclubs">
+  <div class="sec-header">
+    <div>
+      <div class="sec-eyebrow">Nightclubs</div>
+      <h2 class="sec-h">After<br><em>Dark</em></h2>
+    </div>
+    <p class="sec-desc">Test test test test test test test test test test test test test test test test test.</p>
+  </div>
+  <div class="clubs-list">
+    <div class="club-row">
+      <div class="club-num">01</div>
+      <div><div class="club-name">Test Test Test</div><div class="club-genre">Techno · Xintiandi</div></div>
+      <p class="club-desc">Test test test test test test test test test test test test.</p>
+      <div class="club-tag">Test Tag</div>
+    </div>
+    <div class="club-row">
+      <div class="club-num">02</div>
+      <div><div class="club-name">Test Test Test</div><div class="club-genre">House · Lujiazui</div></div>
+      <p class="club-desc">Test test test test test test test test test test test test.</p>
+      <div class="club-tag">Test Tag</div>
+    </div>
+    <div class="club-row">
+      <div class="club-num">03</div>
+      <div><div class="club-name">Test Test Test</div><div class="club-genre">Electronic · French Concession</div></div>
+      <p class="club-desc">Test test test test test test test test test test test test.</p>
+      <div class="club-tag">Test Tag</div>
+    </div>
+    <div class="club-row">
+      <div class="club-num">04</div>
+      <div><div class="club-name">Test Test Test</div><div class="club-genre">Jazz · The Bund</div></div>
+      <p class="club-desc">Test test test test test test test test test test test test.</p>
+      <div class="club-tag">Test Tag</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div style="display:flex; justify-content:space-between; align-items:start; margin-bottom:3rem;">
+    <div>
+      <div class="footer-logo">City <span>Archivist</span></div>
+      <div class="footer-city">Shanghai City Guide</div>
+    </div>
+    <a href="index.html" style="font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(248,245,239,0.4); display:flex; align-items:center; gap:10px; transition:color 0.2s;">
+      ← Alle Städte
+    </a>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 City Archivist — Shanghai</span>
+    <div class="footer-socials">
+      <a class="soc">Instagram</a>
+      <a class="soc">TikTok</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+  const tabs = document.querySelectorAll('.tab-link');
+  const sections = ['spots','reads','hotels','nightclubs'];
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 200) current = id;
+    });
+    tabs.forEach(t => {
+      t.classList.toggle('active', t.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+</body>
+</html>
