@@ -572,6 +572,298 @@ footer {
   padding: 6px 14px; transition: all 0.2s;
 }
 .soc:hover { color: var(--gold-dim); border-color: rgba(184,153,90,0.4); }
+
+
+/* ── RESPONSIVE / MOBILE ── */
+@media (max-width: 1024px) {
+  nav { padding: 0 2rem; }
+  .nav-links { gap: 1.6rem; }
+  .hero-left { padding: 4rem 3rem 5rem; }
+  .hero-eyebrow { left: 3rem; }
+  .home-intro,
+  .sec-header,
+  #about,
+  .cta-strip { gap: 4rem; padding-left: 2rem; padding-right: 2rem; }
+  .nav-overview { padding-left: 2rem; padding-right: 2rem; }
+  .ov-grid { grid-template-columns: repeat(2, 1fr); }
+  .hotels-grid { grid-template-columns: 1fr; }
+  .clubs-list { padding-left: 2rem; padding-right: 2rem; }
+  .club-row { grid-template-columns: 50px 1fr 220px 110px; gap: 1.5rem; }
+  footer { padding-left: 2rem; padding-right: 2rem; }
+  .footer-top { grid-template-columns: 1.4fr 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  nav {
+    height: auto;
+    min-height: 70px;
+    padding: 1rem 1.25rem;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.8rem 1rem;
+  }
+
+  .nav-logo {
+    font-size: 0.95rem;
+    letter-spacing: 0.16em;
+  }
+
+  .nav-links {
+    order: 3;
+    width: 100%;
+    display: flex;
+    gap: 1.25rem;
+    overflow-x: auto;
+    padding: 0.15rem 0 0.45rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .nav-links::-webkit-scrollbar { display: none; }
+
+  .nav-links a {
+    white-space: nowrap;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+  }
+
+  .nav-search { display: none; }
+
+  .hero {
+    height: auto;
+    min-height: 100vh;
+    grid-template-columns: 1fr;
+    padding-top: 112px;
+  }
+
+  .hero-left {
+    min-height: 58vh;
+    padding: 3.5rem 1.5rem 3rem;
+  }
+
+  .hero-eyebrow {
+    position: static;
+    margin-bottom: 2rem;
+    font-size: 8px;
+    letter-spacing: 0.28em;
+  }
+
+  .hero-h1 {
+    font-size: clamp(3rem, 16vw, 4.8rem);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-sub {
+    max-width: 100%;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-right {
+    min-height: 42vh;
+  }
+
+  .scroll-hint {
+    right: 1.5rem;
+    bottom: 1.5rem;
+  }
+
+  .home-intro,
+  .sec-header,
+  #about,
+  .cta-strip,
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .home-intro {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .intro-label { padding-top: 0; }
+
+  .nav-overview {
+    padding: 0 1.5rem 5rem;
+  }
+
+  .ov-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ov-card {
+    min-height: 250px;
+    padding: 2rem;
+  }
+
+  .ov-img {
+    margin: 1.4rem 0;
+    min-height: 110px;
+  }
+
+  .sec-header {
+    padding-top: 5rem;
+    padding-bottom: 2.5rem;
+    gap: 1.5rem;
+  }
+
+  .sec-desc {
+    max-width: 100%;
+  }
+
+  .dest-row {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .dest-main {
+    min-height: 430px;
+    border-right: none;
+  }
+
+  .dest-overlay {
+    padding: 2rem 1.5rem;
+  }
+
+  .dest-city {
+    font-size: 2.4rem;
+  }
+
+  .dest-soon-item {
+    min-height: auto;
+    padding: 1.4rem 1.5rem;
+    gap: 1rem;
+  }
+
+  .soon-badge {
+    white-space: nowrap;
+    padding: 5px 10px;
+  }
+
+  .hotels-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hotel-card {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .hotel-img {
+    min-height: 220px;
+  }
+
+  .hotel-body {
+    border-left: none;
+    padding: 2rem 1.5rem;
+  }
+
+  .hotel-footer {
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .clubs-list {
+    padding: 0 1.5rem 5rem;
+  }
+
+  .club-row {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+    padding: 1.8rem 0;
+  }
+
+  .club-num {
+    font-size: 0.95rem;
+  }
+
+  .club-tag {
+    justify-self: start;
+  }
+
+  #about {
+    padding-top: 5rem;
+    padding-bottom: 6rem;
+  }
+
+  .about-img-accent {
+    right: 0;
+    bottom: -1.5rem;
+    border-width: 4px;
+  }
+
+  .about-values {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+
+  .cta-strip {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .cta-form {
+    flex-direction: column;
+  }
+
+  .cta-input {
+    width: 100%;
+  }
+
+  .cta-btn {
+    width: 100%;
+  }
+
+  footer {
+    padding: 4rem 1.5rem 2rem;
+  }
+
+  .footer-top {
+    margin-bottom: 3rem;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .footer-socials {
+    flex-wrap: wrap;
+  }
+
+  .divider {
+    padding: 0 1.5rem;
+    margin: 3rem 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero-h1 { font-size: clamp(2.8rem, 18vw, 4.1rem); }
+  .hero-left { padding-left: 1.15rem; padding-right: 1.15rem; }
+  .home-intro,
+  .sec-header,
+  #about,
+  .cta-strip,
+  .footer-top { padding-left: 1.15rem; padding-right: 1.15rem; }
+  .nav-overview,
+  .clubs-list { padding-left: 1.15rem; padding-right: 1.15rem; }
+  .dest-overlay,
+  .dest-soon-item,
+  .hotel-body { padding-left: 1.15rem; padding-right: 1.15rem; }
+  .hotel-footer { align-items: flex-start; flex-direction: column; }
+  .soon-name { font-size: 1.3rem; }
+  .soon-badge { font-size: 7.5px; }
+  .soc { padding: 6px 10px; }
+}
+
 </style>
 </head>
 <body>
