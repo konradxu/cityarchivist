@@ -43,6 +43,12 @@ const TRANSLATIONS = {
     'dest.shanghai.tag': 'China · East Asia',
     'dest.shanghai.city': 'Shanghai',
     'dest.shanghai.sub': 'China’s largest city, defined by skyline, culture and nonstop energy.',
+    'dest.london.tag': 'United Kingdom · England',
+    'dest.london.city': 'London',
+    'dest.london.sub': 'A capital of layers — royal pageantry, underground sound and quiet corners between.',
+    'dest.tokyo.tag': 'Japan · Kantō',
+    'dest.tokyo.city': 'Tokyo',
+    'dest.tokyo.sub': 'Where neon and ritual coexist — a city of small streets and immense scale.',
     'dest.explore': 'Explore →',
     'dest.soon': 'Coming Soon',
 
