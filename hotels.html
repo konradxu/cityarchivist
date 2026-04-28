@@ -97,14 +97,14 @@ nav {
 }
 
 /* ── CHAIN LIST ── */
-.chains-list { border-bottom: 1px solid var(--sand); }
+.chains-list { border-bottom: 1px solid var(--sand); background: var(--white); }
 
 .chain-row {
   display: grid;
-  grid-template-columns: 80px 1fr 1fr 1fr 120px;
-  align-items: center;
-  gap: 2rem;
-  padding: 2.6rem 4rem;
+  grid-template-columns: 60px 360px 1fr 130px;
+  align-items: stretch;
+  gap: 3rem;
+  padding: 3rem 4rem;
   border-bottom: 1px solid var(--sand);
   transition: background 0.2s;
   text-decoration: none; color: inherit;
@@ -116,27 +116,72 @@ nav {
 .chain-num {
   font-family: var(--serif); font-style: italic;
   font-size: 1rem; color: var(--stone);
+  padding-top: 0.4rem;
+}
+
+.chain-img {
+  position: relative; overflow: hidden;
+  aspect-ratio: 4/3;
+  background: linear-gradient(150deg, var(--linen), var(--sand) 60%, var(--stone) 100%);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 12px;
+}
+.chain-img img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  transition: transform 0.6s;
+}
+.chain-row:hover .chain-img img { transform: scale(1.04); }
+.chain-img.a { background: linear-gradient(150deg, var(--linen), var(--sand)); }
+.chain-img.b { background: linear-gradient(150deg, var(--sand), var(--stone)); }
+.chain-img.c { background: linear-gradient(150deg, var(--parchment), var(--linen)); }
+.chain-img.d { background: linear-gradient(150deg, var(--linen), var(--warm-gray)); }
+.chain-img.e { background: linear-gradient(150deg, var(--sand), var(--warm-gray)); }
+.chain-img.f { background: linear-gradient(150deg, var(--stone), var(--warm-gray)); }
+.ph-frame {
+  width: 50px; height: 50px;
+  border: 1px solid var(--stone);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--stone); font-size: 18px;
+  position: relative; z-index: 1;
+}
+.ph-label {
+  font-size: 9px; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--stone);
+  position: relative; z-index: 1;
+}
+
+.chain-body {
+  display: flex; flex-direction: column; justify-content: center;
 }
 .chain-name {
   font-family: var(--serif);
-  font-size: 1.8rem; font-weight: 300;
-  color: var(--ink); line-height: 1;
+  font-size: 2rem; font-weight: 300;
+  color: var(--ink); line-height: 1; margin-bottom: 0.6rem;
 }
 .chain-identity {
-  font-size: 10px; letter-spacing: 0.18em;
-  text-transform: uppercase; color: var(--warm-gray);
+  font-size: 10px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 0.5rem;
 }
 .chain-origin {
-  font-size: 12px; color: var(--ink-light); font-weight: 300;
+  font-size: 11px; color: var(--warm-gray); font-weight: 300;
+  letter-spacing: 0.05em; margin-bottom: 1.2rem;
+}
+.chain-desc {
+  font-size: 13px; color: var(--ink-light);
+  font-weight: 300; line-height: 1.9;
+  max-width: 540px;
 }
 .chain-cta {
-  font-size: 9px; letter-spacing: 0.22em;
+  font-size: 10px; letter-spacing: 0.24em;
   text-transform: uppercase; color: var(--gold);
-  display: flex; align-items: center; gap: 8px;
-  justify-content: flex-end;
-  opacity: 0; transition: opacity 0.25s;
+  display: flex; align-items: center; gap: 10px;
+  justify-content: flex-end; align-self: center;
+  white-space: nowrap; transition: gap 0.25s;
 }
-.chain-row:hover .chain-cta { opacity: 1; }
+.chain-row:hover .chain-cta { gap: 16px; }
 .chain-cta::after { content: '→'; }
 
 /* ── NOTE ── */
@@ -184,9 +229,10 @@ footer {
   nav { padding: 0 1.5rem; }
   .page-hero { padding: 5rem 1.8rem 3rem; min-height: 260px; }
   .page-eyebrow { left: 1.8rem; top: 2rem; }
-  .chain-row { grid-template-columns: 40px 1fr; gap: 1rem; padding: 1.8rem 1.8rem; }
-  .chain-identity, .chain-origin { display: none; }
-  .chain-cta { opacity: 1; }
+  .chain-row { grid-template-columns: 1fr; gap: 1.5rem; padding: 2.2rem 1.8rem; }
+  .chain-num { font-size: 0.9rem; padding-top: 0; }
+  .chain-img { aspect-ratio: 16/10; }
+  .chain-cta { justify-content: flex-start; }
   .bottom-note { grid-template-columns: 1fr; gap: 1rem; padding: 3rem 1.8rem; }
   footer { flex-direction: column; gap: 1.5rem; padding: 2.5rem 1.8rem; text-align: center; }
 }
@@ -208,44 +254,97 @@ footer {
 <div class="chains-list">
   <a href="https://www.aman.com" target="_blank" class="chain-row">
     <div class="chain-num">01</div>
-    <div class="chain-name">Aman</div>
-    <div class="chain-identity">Ultra-Luxury · Remote</div>
-    <div class="chain-origin">Founded 1988 · Phuket, Thailand</div>
+    <div class="chain-img a">
+      <!-- Bild hier einfügen, z.B. <img src="aman.jpg" alt="Aman"> -->
+      <div class="ph-frame">◎</div>
+      <span class="ph-label">Aman Bild</span>
+    </div>
+    <div class="chain-body">
+      <div class="chain-name">Aman</div>
+      <div class="chain-identity">Ultra-Luxury · Remote Sanctuaries</div>
+      <div class="chain-origin">Founded 1988 · Phuket, Thailand</div>
+      <p class="chain-desc">Aman pioneered the idea of the small, intensely private resort. Each property is built into its landscape — temples in Bhutan, dunes in Utah, palaces in Venice — with an unmistakable architectural language of stone, water and quiet. The brand stands for solitude, ritual and absolute discretion.</p>
+    </div>
     <div class="chain-cta">Visit</div>
   </a>
+
   <a href="https://www.fourseasons.com" target="_blank" class="chain-row">
     <div class="chain-num">02</div>
-    <div class="chain-name">Four Seasons</div>
-    <div class="chain-identity">Luxury · Global Scale</div>
-    <div class="chain-origin">Founded 1960 · Toronto, Canada</div>
+    <div class="chain-img b">
+      <!-- Bild hier einfügen -->
+      <div class="ph-frame">◎</div>
+      <span class="ph-label">Four Seasons Bild</span>
+    </div>
+    <div class="chain-body">
+      <div class="chain-name">Four Seasons</div>
+      <div class="chain-identity">Luxury · Global Scale</div>
+      <div class="chain-origin">Founded 1960 · Toronto, Canada</div>
+      <p class="chain-desc">The benchmark for consistent five-star service across more than 50 countries. From the historic George V in Paris to over-water bungalows in Bora Bora, Four Seasons defines what reliable, generous luxury feels like — anywhere in the world.</p>
+    </div>
     <div class="chain-cta">Visit</div>
   </a>
+
   <a href="https://www.sixsenses.com" target="_blank" class="chain-row">
     <div class="chain-num">03</div>
-    <div class="chain-name">Six Senses</div>
-    <div class="chain-identity">Wellness · Sustainability</div>
-    <div class="chain-origin">Founded 1995 · Maldives</div>
+    <div class="chain-img c">
+      <!-- Bild hier einfügen -->
+      <div class="ph-frame">◎</div>
+      <span class="ph-label">Six Senses Bild</span>
+    </div>
+    <div class="chain-body">
+      <div class="chain-name">Six Senses</div>
+      <div class="chain-identity">Wellness · Sustainability</div>
+      <div class="chain-origin">Founded 1995 · Maldives</div>
+      <p class="chain-desc">A different definition of luxury — barefoot, conscious, deeply restorative. Six Senses pairs world-class wellness programs with serious sustainability practice, set in some of the planet's most beautiful coastal and mountain landscapes.</p>
+    </div>
     <div class="chain-cta">Visit</div>
   </a>
+
   <a href="https://www.marriott.com/en-us/hotel-brands/st-regis-hotels-and-resorts.mi" target="_blank" class="chain-row">
     <div class="chain-num">04</div>
-    <div class="chain-name">The St. Regis</div>
-    <div class="chain-identity">Grand Luxury · Heritage</div>
-    <div class="chain-origin">Founded 1904 · New York, USA</div>
+    <div class="chain-img d">
+      <!-- Bild hier einfügen -->
+      <div class="ph-frame">◎</div>
+      <span class="ph-label">St. Regis Bild</span>
+    </div>
+    <div class="chain-body">
+      <div class="chain-name">The St. Regis</div>
+      <div class="chain-identity">Grand Luxury · Heritage</div>
+      <div class="chain-origin">Founded 1904 · New York, USA</div>
+      <p class="chain-desc">Old-world grandeur with a modern address book. Born from John Jacob Astor IV's vision in 1904, St. Regis is known for its butler service, rich interiors and signature rituals — the evening sabering of champagne included — across cities and resorts worldwide.</p>
+    </div>
     <div class="chain-cta">Visit</div>
   </a>
+
   <a href="https://www.rosewoodhotels.com" target="_blank" class="chain-row">
     <div class="chain-num">05</div>
-    <div class="chain-name">Rosewood</div>
-    <div class="chain-identity">Sense of Place · Culture</div>
-    <div class="chain-origin">Founded 1979 · Dallas, USA</div>
+    <div class="chain-img e">
+      <!-- Bild hier einfügen -->
+      <div class="ph-frame">◎</div>
+      <span class="ph-label">Rosewood Bild</span>
+    </div>
+    <div class="chain-body">
+      <div class="chain-name">Rosewood</div>
+      <div class="chain-identity">Sense of Place · Culture</div>
+      <div class="chain-origin">Founded 1979 · Dallas, USA</div>
+      <p class="chain-desc">Rosewood's "A Sense of Place" philosophy means no two hotels feel the same. Each property — from Hôtel de Crillon in Paris to The Carlyle in New York — is rooted in the architecture, art and culture of its city, designed to feel less like a chain and more like a private residence.</p>
+    </div>
     <div class="chain-cta">Visit</div>
   </a>
+
   <a href="https://www.belmond.com" target="_blank" class="chain-row">
     <div class="chain-num">06</div>
-    <div class="chain-name">Belmond</div>
-    <div class="chain-identity">Iconic Journeys · Rail & Sea</div>
-    <div class="chain-origin">Founded 1976 · Orient-Express</div>
+    <div class="chain-img f">
+      <!-- Bild hier einfügen -->
+      <div class="ph-frame">◎</div>
+      <span class="ph-label">Belmond Bild</span>
+    </div>
+    <div class="chain-body">
+      <div class="chain-name">Belmond</div>
+      <div class="chain-identity">Iconic Journeys · Rail & Sea</div>
+      <div class="chain-origin">Founded 1976 · Orient-Express</div>
+      <p class="chain-desc">Where the journey is the destination. Belmond began with the revival of the Venice Simplon-Orient-Express and has since gathered a portfolio of the world's most romantic experiences — Italian cliffside hotels, Peruvian sleeper trains, river barges through Burgundy.</p>
+    </div>
     <div class="chain-cta">Visit</div>
   </a>
 </div>

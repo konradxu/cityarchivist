@@ -94,8 +94,8 @@ nav {
 }
 .city-h1 {
   font-family: var(--serif);
-  font-size: clamp(3.5rem, 6vw, 6.5rem);
-  font-weight: 300; line-height: 1.05;
+  font-size: clamp(4rem, 7vw, 7.5rem);
+  font-weight: 300; line-height: 0.95;
   color: var(--ink); margin-bottom: 2rem;
 }
 .city-h1 em { font-style: italic; color: var(--gold); }
@@ -492,77 +492,27 @@ footer {
   padding: 6px 14px; transition: all 0.2s;
 }
 .soc:hover { color: var(--gold-dim); border-color: rgba(184,153,90,0.4); }
-
-/* ── MOBILE ── */
-@media (max-width: 768px) {
-  nav { padding: 0 1.5rem; gap: 0; }
-  .nav-links { display: none; }
-  .nav-back { font-size: 9px; letter-spacing: 0.16em; }
-
-  .city-hero { grid-template-columns: 1fr; height: auto; min-height: 100svh; }
-  .city-hero-right { display: none; }
-  .city-hero-left { padding: 6rem 1.8rem 4rem; }
-  .city-eyebrow { left: 1.8rem; top: 2rem; }
-  .city-h1 { font-size: clamp(3.2rem, 14vw, 5rem); }
-  .city-tagline { max-width: 100%; }
-  .city-meta { gap: 1.5rem; }
-
-  .section-tabs { padding: 0 1.5rem; gap: 0; }
-  .tab-link { padding: 1rem 1.2rem; font-size: 9px; }
-
-  .sec-header { grid-template-columns: 1fr; gap: 1.2rem; padding: 4rem 1.8rem 2.5rem; }
-
-  .spots-filter { padding: 1.5rem 1.8rem; gap: 0.4rem; }
-  .filter-btn { padding: 7px 12px; font-size: 9px; }
-  .spots-grid { grid-template-columns: 1fr; }
-
-  .featured-article { grid-template-columns: 1fr; }
-  .feat-img { min-height: 240px; }
-  .feat-body { padding: 2rem 1.8rem; border-left: none; border-top: 1px solid var(--sand); }
-
-  .article-list { padding: 0 1.8rem 4rem; }
-  .article-row { grid-template-columns: 70px 1fr; }
-  .art-arrow { display: none; }
-
-  .hotels-grid { grid-template-columns: 1fr; }
-  .hotel-card { grid-template-columns: 1fr; }
-  .hotel-img { min-height: 180px; }
-  .hotel-body { border-left: none; border-top: 1px solid var(--sand); }
-
-  .clubs-list { padding: 0 1.8rem 4rem; }
-  .club-row { grid-template-columns: 40px 1fr; gap: 1rem; padding: 1.5rem 0; }
-  .club-desc { display: none; }
-  .club-tag { display: none; }
-
-  #about { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 1.8rem; }
-  .about-imgs { display: none; }
-
-  footer { padding: 3rem 1.8rem 2rem; }
-  .footer-bottom { flex-direction: column; gap: 1rem; }
-
-  .divider { margin: 2.5rem 0; padding: 0 1.8rem; }
-}
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="index.html">City <span>Archivist</span></a>
+  <a class="nav-logo" href="city-archivist.html">City <span>Archivist</span></a>
   <ul class="nav-links">
     <li><a href="#spots">Hidden Spots</a></li>
     <li><a href="#reads">Reads</a></li>
     <li><a href="#hotels">Hotels</a></li>
     <li><a href="#nightclubs">Nightclubs</a></li>
   </ul>
-  <a class="nav-back" href="index.html">All Cities</a>
+  <a class="nav-back" href="city-archivist.html">All Cities</a>
 </nav>
 
 <!-- HERO -->
 <section class="city-hero">
   <div class="city-hero-left">
     <div class="city-eyebrow">China · East Asia · City Guide</div>
-    <h1 class="city-h1"><em>Shanghai</em></h1>
+    <h1 class="city-h1">Shang<br><em>hai</em></h1>
     <p class="city-tagline">Test test test test test test test test test test test test test test test test test.</p>
     <div class="city-meta">
       <div class="city-meta-item">
@@ -891,7 +841,7 @@ footer {
       <div class="footer-logo">City <span>Archivist</span></div>
       <div class="footer-city">Shanghai City Guide</div>
     </div>
-    <a href="index.html" style="font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(248,245,239,0.4); display:flex; align-items:center; gap:10px; transition:color 0.2s;">
+    <a href="city-archivist.html" style="font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(248,245,239,0.4); display:flex; align-items:center; gap:10px; transition:color 0.2s;">
       ← Alle Städte
     </a>
   </div>

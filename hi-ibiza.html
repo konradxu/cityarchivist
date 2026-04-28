@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hï Ibiza — City Archivist</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --white:     #fdfcf9;
+  --parchment: #f8f5ef;
+  --linen:     #f2ede4;
+  --sand:      #e4ddd1;
+  --stone:     #c8bfb0;
+  --warm-gray: #9c9488;
+  --ink-light: #7a756e;
+  --ink:       #2a2620;
+  --ink-deep:  #1e1c18;
+  --gold:      #b8995a;
+  --gold-dim:  #d4bc8a;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans:  'Jost', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--ink);
+  color: var(--parchment);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; cursor: pointer; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  height: 70px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 4rem;
+  background: rgba(30,28,24,0.85);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.1rem; font-weight: 400;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--parchment);
+}
+.nav-logo span { color: var(--gold); }
+.nav-back {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 10px; font-weight: 300;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: rgba(248,245,239,0.5); transition: color 0.2s;
+}
+.nav-back::before { content: '←'; font-size: 14px; }
+.nav-back:hover { color: var(--gold-dim); }
+
+/* ── HERO ── */
+.club-hero {
+  height: 100vh; padding-top: 70px;
+  display: grid; grid-template-columns: 1fr 1fr;
+}
+.club-hero-left {
+  background: var(--ink);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 4rem 5rem 6rem; position: relative;
+  border-right: 1px solid rgba(255,255,255,0.05);
+}
+.club-eyebrow {
+  position: absolute; top: 3.5rem; left: 5rem;
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 0.34em; text-transform: uppercase;
+  color: var(--gold-dim);
+  display: flex; align-items: center; gap: 14px;
+}
+.club-eyebrow::before {
+  content: ''; width: 22px; height: 1px;
+  background: var(--gold-dim); display: inline-block;
+}
+.club-h1 {
+  font-family: var(--serif);
+  font-size: clamp(3.5rem, 6vw, 6.5rem);
+  font-weight: 300; line-height: 1.05;
+  color: var(--parchment); margin-bottom: 2rem;
+}
+.club-h1 em { font-style: italic; color: var(--gold); }
+.club-tagline {
+  font-size: 13px; font-weight: 300;
+  color: rgba(248,245,239,0.55); max-width: 380px;
+  line-height: 1.9; margin-bottom: 3rem;
+}
+.club-meta { display: flex; gap: 2.5rem; }
+.club-meta-item {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 1rem; min-width: 100px;
+}
+.club-meta-num {
+  font-family: var(--serif); font-size: 1.5rem;
+  font-weight: 300; color: var(--gold); line-height: 1;
+  margin-bottom: 0.3rem;
+}
+.club-meta-label {
+  font-size: 9px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: rgba(248,245,239,0.4);
+}
+.club-hero-right {
+  position: relative; overflow: hidden;
+  background: linear-gradient(150deg, #2a2620 0%, #1e1c18 60%, #0e0c08 100%);
+}
+.club-hero-img {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 14px;
+}
+.ph-frame {
+  width: 56px; height: 56px;
+  border: 1px solid rgba(200,191,176,0.3);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(200,191,176,0.5); font-size: 20px;
+}
+.ph-label {
+  font-size: 9px; letter-spacing: 0.3em;
+  text-transform: uppercase; color: rgba(200,191,176,0.4);
+}
+
+/* ── SECTION SHARED ── */
+section.block {
+  padding: 7rem 4rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.sec-eyebrow {
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--gold-dim); margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: 12px;
+}
+.sec-eyebrow::before {
+  content: ''; width: 20px; height: 1px;
+  background: var(--gold-dim); display: inline-block;
+}
+.sec-h {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 3vw, 3rem);
+  font-weight: 300; line-height: 1.18; color: var(--parchment);
+  margin-bottom: 2.5rem;
+}
+.sec-h em { font-style: italic; color: var(--gold); }
+
+/* ── LOCATION ── */
+.loc-grid {
+  display: grid; grid-template-columns: 1fr 1.3fr;
+  gap: 5rem; align-items: start;
+}
+.loc-info-row {
+  display: flex; flex-direction: column; gap: 1.6rem;
+}
+.loc-item {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 1rem;
+}
+.loc-label {
+  font-size: 9px; letter-spacing: 0.26em;
+  text-transform: uppercase; color: rgba(248,245,239,0.4);
+  margin-bottom: 0.4rem;
+}
+.loc-value {
+  font-family: var(--serif);
+  font-size: 1.15rem; font-weight: 300;
+  color: var(--parchment); line-height: 1.4;
+}
+.loc-map {
+  aspect-ratio: 4/3;
+  background: linear-gradient(140deg, #2a2620, #1a1814);
+  border: 1px solid rgba(255,255,255,0.06);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 12px;
+  position: relative;
+}
+
+/* ── HISTORY / TEXT ── */
+.text-grid {
+  display: grid; grid-template-columns: 220px 1fr;
+  gap: 6rem; align-items: start;
+}
+.text-label {
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: rgba(248,245,239,0.4); padding-top: 0.4rem;
+}
+.text-body p {
+  font-size: 14px; color: rgba(248,245,239,0.65);
+  font-weight: 300; line-height: 2;
+  max-width: 720px; margin-bottom: 1.4rem;
+}
+.text-body p em {
+  font-style: italic; color: var(--gold-dim);
+}
+
+/* ── MUSIC TAGS ── */
+.tag-row {
+  display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 1rem;
+}
+.tag {
+  font-size: 10px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--gold-dim);
+  border: 1px solid rgba(184,153,90,0.32);
+  padding: 8px 18px;
+}
+
+/* ── VISIT CTA ── */
+.visit-block {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: center;
+  background: var(--ink-deep);
+  padding: 7rem 4rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.visit-h {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+  font-weight: 300; line-height: 1.25;
+  color: var(--parchment);
+}
+.visit-h em { font-style: italic; color: var(--gold); }
+.visit-right p {
+  font-size: 13px; color: rgba(248,245,239,0.55);
+  font-weight: 300; line-height: 1.95;
+  margin-bottom: 2rem; max-width: 480px;
+}
+.visit-cta {
+  display: inline-flex; align-items: center; gap: 14px;
+  background: var(--gold);
+  color: var(--ink-deep);
+  font-size: 10px; font-weight: 400;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  padding: 16px 30px;
+  transition: background 0.25s, gap 0.3s;
+}
+.visit-cta:hover { background: var(--gold-dim); gap: 22px; }
+.visit-cta::after { content: '↗'; font-size: 14px; }
+
+/* ── FOOTER ── */
+footer {
+  background: #161410;
+  padding: 3.5rem 4rem 2.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.footer-logo {
+  font-family: var(--serif);
+  font-size: 1rem; font-weight: 400;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--parchment);
+}
+.footer-logo span { color: var(--gold); }
+.footer-copy { font-size: 10.5px; color: rgba(248,245,239,0.2); letter-spacing: 0.08em; }
+.footer-back {
+  font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(248,245,239,0.35);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 7px 18px; transition: all 0.2s;
+}
+.footer-back:hover { color: var(--gold-dim); border-color: rgba(184,153,90,0.4); }
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  nav { padding: 0 1.5rem; }
+  .club-hero { grid-template-columns: 1fr; height: auto; min-height: 100svh; }
+  .club-hero-right { display: none; }
+  .club-hero-left { padding: 6rem 1.8rem 4rem; border-right: none; }
+  .club-eyebrow { left: 1.8rem; top: 2rem; }
+  .club-h1 { font-size: clamp(3rem, 14vw, 5rem); }
+  .club-meta { gap: 1.5rem; flex-wrap: wrap; }
+
+  section.block { padding: 4rem 1.8rem; }
+  .loc-grid, .text-grid, .visit-block { grid-template-columns: 1fr; gap: 2.5rem; padding: 4rem 1.8rem; }
+
+  footer { flex-direction: column; gap: 1.5rem; padding: 2.5rem 1.8rem; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">City <span>Archivist</span></a>
+  <a class="nav-back" href="index.html#nightclubs">All Clubs</a>
+</nav>
+
+<!-- HERO -->
+<section class="club-hero">
+  <div class="club-hero-left">
+    <div class="club-eyebrow">Spain · Ibiza · Nightclub</div>
+    <h1 class="club-h1">Hï <em>Ibiza</em></h1>
+    <p class="club-tagline">A futuristic temple of sound on the White Isle — voted №1 Club in the World multiple times since opening in 2017.</p>
+    <div class="club-meta">
+      <div class="club-meta-item">
+        <div class="club-meta-num">2017</div>
+        <div class="club-meta-label">Opened</div>
+      </div>
+      <div class="club-meta-item">
+        <div class="club-meta-num">5,000</div>
+        <div class="club-meta-label">Capacity</div>
+      </div>
+      <div class="club-meta-item">
+        <div class="club-meta-num">№1</div>
+        <div class="club-meta-label">DJ Mag Top 100</div>
+      </div>
+    </div>
+  </div>
+  <div class="club-hero-right">
+    <div class="club-hero-img">
+      <div class="ph-frame">◎</div>
+      <span class="ph-label">Hï Ibiza Hero</span>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section class="block">
+  <div class="loc-grid">
+    <div>
+      <div class="sec-eyebrow">Location</div>
+      <h2 class="sec-h">Find <em>the Club</em></h2>
+      <div class="loc-info-row">
+        <div class="loc-item">
+          <div class="loc-label">Address</div>
+          <div class="loc-value">Platja d'en Bossa, s/n<br>07817 Sant Josep de sa Talaia<br>Ibiza, Spain</div>
+        </div>
+        <div class="loc-item">
+          <div class="loc-label">Season</div>
+          <div class="loc-value">Late May — Early October</div>
+        </div>
+        <div class="loc-item">
+          <div class="loc-label">Hours</div>
+          <div class="loc-value">23:30 — 06:30</div>
+        </div>
+      </div>
+    </div>
+    <div class="loc-map">
+      <div class="ph-frame">◎</div>
+      <span class="ph-label">Map / Photo Placeholder</span>
+    </div>
+  </div>
+</section>
+
+<!-- HISTORY -->
+<section class="block">
+  <div class="text-grid">
+    <div class="text-label">The Story</div>
+    <div class="text-body">
+      <h2 class="sec-h">A <em>new era</em> of Ibiza</h2>
+      <p>Hï Ibiza opened in May 2017 on the site of the legendary Space Ibiza, marking the beginning of a new chapter for the island that gave the world modern club culture. Backed by The Night League and Ushuaïa Entertainment, the venue was designed from the ground up as a <em>state-of-the-art experience</em> — futuristic visuals, custom-built sound systems and a layout engineered for the world's most demanding artists.</p>
+      <p>Within a single season, Hï climbed to the top of DJ Mag's "Top 100 Clubs" list, a ranking it has held repeatedly since. Residencies from artists like Black Coffee, FISHER and David Guetta have made it a global pilgrimage site for electronic music — and a defining stage of the modern Ibiza summer.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MUSIC -->
+<section class="block">
+  <div class="text-grid">
+    <div class="text-label">Music & Vibe</div>
+    <div class="text-body">
+      <h2 class="sec-h">Sound of <em>Hï</em></h2>
+      <p>Two main rooms — the Theatre and the Club — run parallel programs every night, anchored by world-class residencies. The atmosphere is high-energy, theatrical and visually overwhelming, with a polished crowd that travels from across the globe.</p>
+      <div class="tag-row">
+        <span class="tag">Tech House</span>
+        <span class="tag">Techno</span>
+        <span class="tag">House</span>
+        <span class="tag">EDM</span>
+        <span class="tag">Afro House</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT -->
+<div class="visit-block">
+  <div>
+    <div class="sec-eyebrow">Visit</div>
+    <h2 class="visit-h">Tickets, residencies<br>& <em>line-ups</em>.</h2>
+  </div>
+  <div class="visit-right">
+    <p>All tickets, the full season calendar and table reservations are handled directly via the official Hï Ibiza website.</p>
+    <a href="https://hiibiza.com" target="_blank" rel="noopener" class="visit-cta">Visit hiibiza.com</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">City <span>Archivist</span></div>
+  <span class="footer-copy">© 2026 City Archivist — Hï Ibiza</span>
+  <a class="footer-back" href="index.html#nightclubs">← All Clubs</a>
+</footer>
+
+</body>
+</html>

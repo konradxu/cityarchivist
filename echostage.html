@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Echostage — City Archivist</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --white:#fdfcf9; --parchment:#f8f5ef; --linen:#f2ede4; --sand:#e4ddd1;
+  --stone:#c8bfb0; --warm-gray:#9c9488; --ink-light:#7a756e;
+  --ink:#2a2620; --ink-deep:#1e1c18;
+  --gold:#b8995a; --gold-dim:#d4bc8a;
+  --serif:'Cormorant Garamond', Georgia, serif;
+  --sans:'Jost', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans); background: var(--ink); color: var(--parchment);
+  font-size: 14px; font-weight: 300; line-height: 1.8;
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; cursor: pointer; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  height: 70px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 4rem;
+  background: rgba(30,28,24,0.85); backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.nav-logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--parchment); }
+.nav-logo span { color: var(--gold); }
+.nav-back { display:flex; align-items:center; gap:10px; font-size:10px; font-weight:300; letter-spacing:0.24em; text-transform:uppercase; color:rgba(248,245,239,0.5); transition: color .2s; }
+.nav-back::before { content:'←'; font-size:14px; }
+.nav-back:hover { color: var(--gold-dim); }
+
+.club-hero { height: 100vh; padding-top: 70px; display: grid; grid-template-columns: 1fr 1fr; }
+.club-hero-left { background: var(--ink); display: flex; flex-direction: column; justify-content: flex-end; padding: 4rem 5rem 6rem; position: relative; border-right: 1px solid rgba(255,255,255,0.05); }
+.club-eyebrow { position:absolute; top: 3.5rem; left: 5rem; font-size:9px; font-weight:300; letter-spacing:0.34em; text-transform:uppercase; color: var(--gold-dim); display: flex; align-items: center; gap: 14px; }
+.club-eyebrow::before { content:''; width:22px; height:1px; background: var(--gold-dim); display: inline-block; }
+.club-h1 { font-family: var(--serif); font-size: clamp(3.5rem, 6vw, 6.5rem); font-weight: 300; line-height: 1.05; color: var(--parchment); margin-bottom: 2rem; }
+.club-h1 em { font-style: italic; color: var(--gold); }
+.club-tagline { font-size: 13px; font-weight: 300; color: rgba(248,245,239,0.55); max-width: 380px; line-height: 1.9; margin-bottom: 3rem; }
+.club-meta { display: flex; gap: 2.5rem; }
+.club-meta-item { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; min-width: 100px; }
+.club-meta-num { font-family: var(--serif); font-size: 1.5rem; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 0.3rem; }
+.club-meta-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(248,245,239,0.4); }
+.club-hero-right { position: relative; overflow: hidden; background: linear-gradient(150deg, #2a2620 0%, #1e1c18 60%, #0e0c08 100%); }
+.club-hero-img { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 14px; }
+.ph-frame { width:56px; height:56px; border:1px solid rgba(200,191,176,0.3); display:flex; align-items:center; justify-content:center; color: rgba(200,191,176,0.5); font-size:20px; }
+.ph-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(200,191,176,0.4); }
+
+section.block { padding: 7rem 4rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.sec-eyebrow { font-size:9px; font-weight:300; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 1.5rem; display:flex; align-items:center; gap: 12px; }
+.sec-eyebrow::before { content:''; width: 20px; height: 1px; background: var(--gold-dim); display: inline-block; }
+.sec-h { font-family: var(--serif); font-size: clamp(2rem, 3vw, 3rem); font-weight: 300; line-height: 1.18; color: var(--parchment); margin-bottom: 2.5rem; }
+.sec-h em { font-style: italic; color: var(--gold); }
+
+.loc-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 5rem; align-items: start; }
+.loc-info-row { display: flex; flex-direction: column; gap: 1.6rem; }
+.loc-item { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1rem; }
+.loc-label { font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; color: rgba(248,245,239,0.4); margin-bottom: 0.4rem; }
+.loc-value { font-family: var(--serif); font-size: 1.15rem; font-weight: 300; color: var(--parchment); line-height: 1.4; }
+.loc-map { aspect-ratio: 4/3; background: linear-gradient(140deg, #2a2620, #1a1814); border: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px; }
+
+.text-grid { display: grid; grid-template-columns: 220px 1fr; gap: 6rem; align-items: start; }
+.text-label { font-size: 9px; font-weight: 300; letter-spacing: 0.32em; text-transform: uppercase; color: rgba(248,245,239,0.4); padding-top: 0.4rem; }
+.text-body p { font-size: 14px; color: rgba(248,245,239,0.65); font-weight: 300; line-height: 2; max-width: 720px; margin-bottom: 1.4rem; }
+.text-body p em { font-style: italic; color: var(--gold-dim); }
+
+.tag-row { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 1rem; }
+.tag { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-dim); border: 1px solid rgba(184,153,90,0.32); padding: 8px 18px; }
+
+.visit-block { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; background: var(--ink-deep); padding: 7rem 4rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.visit-h { font-family: var(--serif); font-size: clamp(1.8rem, 2.8vw, 2.6rem); font-weight: 300; line-height: 1.25; color: var(--parchment); }
+.visit-h em { font-style: italic; color: var(--gold); }
+.visit-right p { font-size: 13px; color: rgba(248,245,239,0.55); font-weight: 300; line-height: 1.95; margin-bottom: 2rem; max-width: 480px; }
+.visit-cta { display: inline-flex; align-items: center; gap: 14px; background: var(--gold); color: var(--ink-deep); font-size: 10px; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; padding: 16px 30px; transition: background 0.25s, gap 0.3s; }
+.visit-cta:hover { background: var(--gold-dim); gap: 22px; }
+.visit-cta::after { content: '↗'; font-size: 14px; }
+
+footer { background: #161410; padding: 3.5rem 4rem 2.5rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.06); }
+.footer-logo { font-family: var(--serif); font-size: 1rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--parchment); }
+.footer-logo span { color: var(--gold); }
+.footer-copy { font-size: 10.5px; color: rgba(248,245,239,0.2); letter-spacing: 0.08em; }
+.footer-back { font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(248,245,239,0.35); border: 1px solid rgba(255,255,255,0.1); padding: 7px 18px; transition: all 0.2s; }
+.footer-back:hover { color: var(--gold-dim); border-color: rgba(184,153,90,0.4); }
+
+@media (max-width: 768px) {
+  nav { padding: 0 1.5rem; }
+  .club-hero { grid-template-columns: 1fr; height: auto; min-height: 100svh; }
+  .club-hero-right { display: none; }
+  .club-hero-left { padding: 6rem 1.8rem 4rem; border-right: none; }
+  .club-eyebrow { left: 1.8rem; top: 2rem; }
+  .club-h1 { font-size: clamp(3rem, 14vw, 5rem); }
+  .club-meta { gap: 1.5rem; flex-wrap: wrap; }
+  section.block { padding: 4rem 1.8rem; }
+  .loc-grid, .text-grid, .visit-block { grid-template-columns: 1fr; gap: 2.5rem; padding: 4rem 1.8rem; }
+  footer { flex-direction: column; gap: 1.5rem; padding: 2.5rem 1.8rem; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">City <span>Archivist</span></a>
+  <a class="nav-back" href="index.html#nightclubs">All Clubs</a>
+</nav>
+
+<section class="club-hero">
+  <div class="club-hero-left">
+    <div class="club-eyebrow">USA · Washington D.C. · Nightclub</div>
+    <h1 class="club-h1"><em>Echostage</em></h1>
+    <p class="club-tagline">North America's premier electronic music venue — a 30,000-square-foot warehouse purpose-built for the biggest names in dance music.</p>
+    <div class="club-meta">
+      <div class="club-meta-item">
+        <div class="club-meta-num">2012</div>
+        <div class="club-meta-label">Opened</div>
+      </div>
+      <div class="club-meta-item">
+        <div class="club-meta-num">3,000</div>
+        <div class="club-meta-label">Capacity</div>
+      </div>
+      <div class="club-meta-item">
+        <div class="club-meta-num">30k</div>
+        <div class="club-meta-label">Sq Ft</div>
+      </div>
+    </div>
+  </div>
+  <div class="club-hero-right">
+    <div class="club-hero-img">
+      <div class="ph-frame">◎</div>
+      <span class="ph-label">Echostage Hero</span>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="loc-grid">
+    <div>
+      <div class="sec-eyebrow">Location</div>
+      <h2 class="sec-h">Find <em>the Venue</em></h2>
+      <div class="loc-info-row">
+        <div class="loc-item">
+          <div class="loc-label">Address</div>
+          <div class="loc-value">2135 Queens Chapel Road NE<br>Washington, D.C. 20018<br>United States</div>
+        </div>
+        <div class="loc-item">
+          <div class="loc-label">Schedule</div>
+          <div class="loc-value">Year-round · Event-based</div>
+        </div>
+        <div class="loc-item">
+          <div class="loc-label">Hours</div>
+          <div class="loc-value">Doors typically 21:00 — 03:00</div>
+        </div>
+      </div>
+    </div>
+    <div class="loc-map">
+      <div class="ph-frame">◎</div>
+      <span class="ph-label">Map / Photo Placeholder</span>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="text-grid">
+    <div class="text-label">The Story</div>
+    <div class="text-body">
+      <h2 class="sec-h">A capital for <em>club culture</em></h2>
+      <p>Echostage opened in 2012 in Washington D.C.'s Northeast warehouse district, founded by Club Glow with a mission rare in the United States: to create a venue <em>built around electronic music</em>, not retrofitted from a concert hall or repurposed from a generic nightclub. From day one it was designed for sound, scale and sightlines — a single, clear room with a massive stage and an open dancefloor.</p>
+      <p>The result has been a steady run as one of the world's most-respected club venues, repeatedly placed in DJ Mag's "Top 100 Clubs" — and frequently ranked the №1 club in North America. Headliners from Tiësto and Calvin Harris to Eric Prydz and Charlotte de Witte have made it a regular tour stop, and its production values have set the standard for U.S. nightlife.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="text-grid">
+    <div class="text-label">Music & Vibe</div>
+    <div class="text-body">
+      <h2 class="sec-h">Sound of <em>Echostage</em></h2>
+      <p>Programming runs the full electronic spectrum — from peak-time house and trance to bass, dubstep and hard techno — with an LED wall and rig that turn each show into a full audiovisual production. The crowd is energetic, dance-focused and dressed for the floor rather than for show.</p>
+      <div class="tag-row">
+        <span class="tag">House</span>
+        <span class="tag">Trance</span>
+        <span class="tag">Techno</span>
+        <span class="tag">Bass</span>
+        <span class="tag">Dubstep</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="visit-block">
+  <div>
+    <div class="sec-eyebrow">Visit</div>
+    <h2 class="visit-h">Calendar, tickets<br>& <em>VIP tables</em>.</h2>
+  </div>
+  <div class="visit-right">
+    <p>Find the full event calendar, presale access and table reservations on the official Echostage website.</p>
+    <a href="https://echostage.com" target="_blank" rel="noopener" class="visit-cta">Visit echostage.com</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">City <span>Archivist</span></div>
+  <span class="footer-copy">© 2026 City Archivist — Echostage</span>
+  <a class="footer-back" href="index.html#nightclubs">← All Clubs</a>
+</footer>
+
+</body>
+</html>
