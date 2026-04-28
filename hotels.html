@@ -241,14 +241,19 @@ footer {
 <body>
 
 <nav id="top-nav">
-  <div class="nav-logo">City <span>Archivist</span></div>
-  <a class="nav-back" href="index.html">Back to Home</a>
+  <a class="nav-logo" href="index.html">City <span>Archivist</span></a>
+  <div style="display:flex; align-items:center; gap:2rem;">
+    <a class="nav-back" href="index.html" data-i18n="nav.back">Back to Home</a>
+    <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
+      <span data-lang-current>EN</span>
+    </button>
+  </div>
 </nav>
 
 <div class="page-hero">
-  <div class="page-eyebrow">The Hotel Archive</div>
-  <h1 class="page-h1">Top Hotel Chains<br>on the <em>Globe</em></h1>
-  <p class="page-sub">Six names that define modern luxury hospitality.</p>
+  <div class="page-eyebrow" data-i18n="hotelsPage.eyebrow">The Hotel Archive</div>
+  <h1 class="page-h1" data-i18n="hotelsPage.h1">Top Hotel Chains<br>on the <em>Globe</em></h1>
+  <p class="page-sub" data-i18n="hotelsPage.sub">Six names that define modern luxury hospitality.</p>
 </div>
 
 <div class="chains-list">
@@ -259,107 +264,103 @@ footer {
     </div>
     <div class="chain-body">
       <div class="chain-name">Aman</div>
-      <div class="chain-identity">Ultra-Luxury · Remote Sanctuaries</div>
-      <div class="chain-origin">Founded 1988 · Phuket, Thailand</div>
-      <p class="chain-desc">Aman pioneered the idea of the small, intensely private resort. Each property is built into its landscape — temples in Bhutan, dunes in Utah, palaces in Venice — with an unmistakable architectural language of stone, water and quiet. The brand stands for solitude, ritual and absolute discretion.</p>
+      <div class="chain-identity" data-i18n="hotels.aman.identity">Ultra-Luxury · Remote Sanctuaries</div>
+      <div class="chain-origin" data-i18n="hotels.aman.origin">Founded 1988 · Phuket, Thailand</div>
+      <p class="chain-desc" data-i18n="hotels.aman.desc">Aman pioneered the idea of the small, intensely private resort.</p>
     </div>
-    <div class="chain-cta">Visit</div>
+    <div class="chain-cta" data-i18n="hotels.visit">Visit</div>
   </a>
 
   <a href="https://www.fourseasons.com" target="_blank" class="chain-row">
     <div class="chain-num">02</div>
     <div class="chain-img b">
-      <!-- Bild hier einfügen -->
       <div class="ph-frame">◎</div>
       <span class="ph-label">Four Seasons Bild</span>
     </div>
     <div class="chain-body">
       <div class="chain-name">Four Seasons</div>
-      <div class="chain-identity">Luxury · Global Scale</div>
-      <div class="chain-origin">Founded 1960 · Toronto, Canada</div>
-      <p class="chain-desc">The benchmark for consistent five-star service across more than 50 countries. From the historic George V in Paris to over-water bungalows in Bora Bora, Four Seasons defines what reliable, generous luxury feels like — anywhere in the world.</p>
+      <div class="chain-identity" data-i18n="hotels.fs.identity">Luxury · Global Scale</div>
+      <div class="chain-origin" data-i18n="hotels.fs.origin">Founded 1960 · Toronto, Canada</div>
+      <p class="chain-desc" data-i18n="hotels.fs.desc">The benchmark for consistent five-star service across more than 50 countries.</p>
     </div>
-    <div class="chain-cta">Visit</div>
+    <div class="chain-cta" data-i18n="hotels.visit">Visit</div>
   </a>
 
   <a href="https://www.sixsenses.com" target="_blank" class="chain-row">
     <div class="chain-num">03</div>
     <div class="chain-img c">
-      <!-- Bild hier einfügen -->
       <div class="ph-frame">◎</div>
       <span class="ph-label">Six Senses Bild</span>
     </div>
     <div class="chain-body">
       <div class="chain-name">Six Senses</div>
-      <div class="chain-identity">Wellness · Sustainability</div>
-      <div class="chain-origin">Founded 1995 · Maldives</div>
-      <p class="chain-desc">A different definition of luxury — barefoot, conscious, deeply restorative. Six Senses pairs world-class wellness programs with serious sustainability practice, set in some of the planet's most beautiful coastal and mountain landscapes.</p>
+      <div class="chain-identity" data-i18n="hotels.six.identity">Wellness · Sustainability</div>
+      <div class="chain-origin" data-i18n="hotels.six.origin">Founded 1995 · Maldives</div>
+      <p class="chain-desc" data-i18n="hotels.six.desc">A different definition of luxury — barefoot, conscious, deeply restorative.</p>
     </div>
-    <div class="chain-cta">Visit</div>
+    <div class="chain-cta" data-i18n="hotels.visit">Visit</div>
   </a>
 
   <a href="https://www.marriott.com/en-us/hotel-brands/st-regis-hotels-and-resorts.mi" target="_blank" class="chain-row">
     <div class="chain-num">04</div>
     <div class="chain-img d">
-      <!-- Bild hier einfügen -->
       <div class="ph-frame">◎</div>
       <span class="ph-label">St. Regis Bild</span>
     </div>
     <div class="chain-body">
       <div class="chain-name">The St. Regis</div>
-      <div class="chain-identity">Grand Luxury · Heritage</div>
-      <div class="chain-origin">Founded 1904 · New York, USA</div>
-      <p class="chain-desc">Old-world grandeur with a modern address book. Born from John Jacob Astor IV's vision in 1904, St. Regis is known for its butler service, rich interiors and signature rituals — the evening sabering of champagne included — across cities and resorts worldwide.</p>
+      <div class="chain-identity" data-i18n="hotels.stregis.identity">Grand Luxury · Heritage</div>
+      <div class="chain-origin" data-i18n="hotels.stregis.origin">Founded 1904 · New York, USA</div>
+      <p class="chain-desc" data-i18n="hotels.stregis.desc">Old-world grandeur with a modern address book.</p>
     </div>
-    <div class="chain-cta">Visit</div>
+    <div class="chain-cta" data-i18n="hotels.visit">Visit</div>
   </a>
 
   <a href="https://www.rosewoodhotels.com" target="_blank" class="chain-row">
     <div class="chain-num">05</div>
     <div class="chain-img e">
-      <!-- Bild hier einfügen -->
       <div class="ph-frame">◎</div>
       <span class="ph-label">Rosewood Bild</span>
     </div>
     <div class="chain-body">
       <div class="chain-name">Rosewood</div>
-      <div class="chain-identity">Sense of Place · Culture</div>
-      <div class="chain-origin">Founded 1979 · Dallas, USA</div>
-      <p class="chain-desc">Rosewood's "A Sense of Place" philosophy means no two hotels feel the same. Each property — from Hôtel de Crillon in Paris to The Carlyle in New York — is rooted in the architecture, art and culture of its city, designed to feel less like a chain and more like a private residence.</p>
+      <div class="chain-identity" data-i18n="hotels.rosewood.identity">Sense of Place · Culture</div>
+      <div class="chain-origin" data-i18n="hotels.rosewood.origin">Founded 1979 · Dallas, USA</div>
+      <p class="chain-desc" data-i18n="hotels.rosewood.desc">Rosewood's "A Sense of Place" philosophy means no two hotels feel the same.</p>
     </div>
-    <div class="chain-cta">Visit</div>
+    <div class="chain-cta" data-i18n="hotels.visit">Visit</div>
   </a>
 
   <a href="https://www.belmond.com" target="_blank" class="chain-row">
     <div class="chain-num">06</div>
     <div class="chain-img f">
-      <!-- Bild hier einfügen -->
       <div class="ph-frame">◎</div>
       <span class="ph-label">Belmond Bild</span>
     </div>
     <div class="chain-body">
       <div class="chain-name">Belmond</div>
-      <div class="chain-identity">Iconic Journeys · Rail & Sea</div>
-      <div class="chain-origin">Founded 1976 · Orient-Express</div>
-      <p class="chain-desc">Where the journey is the destination. Belmond began with the revival of the Venice Simplon-Orient-Express and has since gathered a portfolio of the world's most romantic experiences — Italian cliffside hotels, Peruvian sleeper trains, river barges through Burgundy.</p>
+      <div class="chain-identity" data-i18n="hotels.belmond.identity">Iconic Journeys · Rail & Sea</div>
+      <div class="chain-origin" data-i18n="hotels.belmond.origin">Founded 1976 · Orient-Express</div>
+      <p class="chain-desc" data-i18n="hotels.belmond.desc">Where the journey is the destination.</p>
     </div>
-    <div class="chain-cta">Visit</div>
+    <div class="chain-cta" data-i18n="hotels.visit">Visit</div>
   </a>
 </div>
 
 <div class="bottom-note">
-  <div class="note-label">A Note</div>
+  <div class="note-label" data-i18n="hotelsPage.note.label">A Note</div>
   <div class="note-body">
-    <p>This list is a starting point, not a ranking. Each of these groups represents a different philosophy of hospitality — and the best one is simply the one that speaks to how you like to travel.</p>
+    <p data-i18n="hotelsPage.note.p">This list is a starting point, not a ranking. Each of these groups represents a different philosophy of hospitality — and the best one is simply the one that speaks to how you like to travel.</p>
   </div>
 </div>
 
 <footer>
   <div class="footer-logo">City <span>Archivist</span></div>
-  <span class="footer-copy">© 2026 City Archivist</span>
-  <a class="footer-back" href="index.html">← Back to Home</a>
+  <span class="footer-copy" data-i18n="footer.copy">© 2026 City Archivist</span>
+  <a class="footer-back" href="index.html" data-i18n="nav.back">← Back to Home</a>
 </footer>
 
+<script src="lang.js" defer></script>
 <script>
   window.addEventListener('scroll', () => {
     const nav = document.getElementById('top-nav');

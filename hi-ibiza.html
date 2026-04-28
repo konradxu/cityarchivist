@@ -289,7 +289,12 @@ footer {
 
 <nav>
   <a class="nav-logo" href="index.html">City <span>Archivist</span></a>
-  <a class="nav-back" href="index.html#nightclubs">All Clubs</a>
+  <div style="display:flex; align-items:center; gap:2rem;">
+    <a class="nav-back" href="index.html#nightclubs" data-i18n="nav.allClubs">All Clubs</a>
+    <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
+      <span data-lang-current>EN</span>
+    </button>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -324,19 +329,19 @@ footer {
 <section class="block">
   <div class="loc-grid">
     <div>
-      <div class="sec-eyebrow">Location</div>
+      <div class="sec-eyebrow" data-i18n="club.location.eyebrow">Location</div>
       <h2 class="sec-h">Find <em>the Club</em></h2>
       <div class="loc-info-row">
         <div class="loc-item">
-          <div class="loc-label">Address</div>
+          <div class="loc-label" data-i18n="club.location.address">Address</div>
           <div class="loc-value">Platja d'en Bossa, s/n<br>07817 Sant Josep de sa Talaia<br>Ibiza, Spain</div>
         </div>
         <div class="loc-item">
-          <div class="loc-label">Season</div>
+          <div class="loc-label" data-i18n="club.location.season">Season</div>
           <div class="loc-value">Late May — Early October</div>
         </div>
         <div class="loc-item">
-          <div class="loc-label">Hours</div>
+          <div class="loc-label" data-i18n="club.location.hours">Hours</div>
           <div class="loc-value">23:30 — 06:30</div>
         </div>
       </div>
@@ -350,7 +355,7 @@ footer {
 <!-- HISTORY -->
 <section class="block">
   <div class="text-grid">
-    <div class="text-label">The Story</div>
+    <div class="text-label" data-i18n="club.story.label">The Story</div>
     <div class="text-body">
       <h2 class="sec-h">A <em>new era</em> of Ibiza</h2>
       <p>Hï Ibiza opened in May 2017 on the site of the legendary Space Ibiza, marking the beginning of a new chapter for the island that gave the world modern club culture. Backed by The Night League and Ushuaïa Entertainment, the venue was designed from the ground up as a <em>state-of-the-art experience</em> — futuristic visuals, custom-built sound systems and a layout engineered for the world's most demanding artists.</p>
@@ -362,7 +367,7 @@ footer {
 <!-- MUSIC -->
 <section class="block">
   <div class="text-grid">
-    <div class="text-label">Music & Vibe</div>
+    <div class="text-label" data-i18n="club.music.label">Music &amp; Vibe</div>
     <div class="text-body">
       <h2 class="sec-h">Sound of <em>Hï</em></h2>
       <p>Two main rooms — the Theatre and the Club — run parallel programs every night, anchored by world-class residencies. The atmosphere is high-energy, theatrical and visually overwhelming, with a polished crowd that travels from across the globe.</p>
@@ -380,7 +385,7 @@ footer {
 <!-- VISIT -->
 <div class="visit-block">
   <div>
-    <div class="sec-eyebrow">Visit</div>
+    <div class="sec-eyebrow" data-i18n="club.visit.eyebrow">Visit</div>
     <h2 class="visit-h">Tickets, residencies<br>& <em>line-ups</em>.</h2>
   </div>
   <div class="visit-right">
@@ -395,5 +400,6 @@ footer {
   <a class="footer-back" href="index.html#nightclubs">← All Clubs</a>
 </footer>
 
+<script src="lang.js" defer></script>
 </body>
 </html>

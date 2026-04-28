@@ -592,13 +592,15 @@ nav {
   font-size: 13px; color: rgba(248,245,239,0.42);
   font-weight: 300; line-height: 1.85; margin-bottom: 1.5rem;
 }
-.cta-form { display: flex; border: 1px solid rgba(255,255,255,0.12); }
+.cta-form { display: grid; grid-template-columns: 1fr 1fr auto; border: 1px solid rgba(255,255,255,0.12); }
 .cta-input {
-  flex: 1; background: transparent; border: none; outline: none;
+  background: transparent; border: none; outline: none;
   padding: 14px 20px;
   font-family: var(--sans); font-size: 12px;
   font-weight: 300; color: var(--parchment); letter-spacing: 0.06em;
+  border-right: 1px solid rgba(255,255,255,0.08);
 }
+.cta-input:last-of-type { border-right: none; }
 .cta-input::placeholder { color: rgba(248,245,239,0.28); }
 .cta-btn {
   background: var(--gold); border: none; padding: 14px 28px;
@@ -608,6 +610,13 @@ nav {
   cursor: pointer; transition: background 0.2s;
 }
 .cta-btn:hover { background: var(--gold-dim); }
+.cta-msg {
+  font-size: 11px; letter-spacing: 0.06em;
+  margin-top: 1rem; min-height: 1.2em;
+  color: rgba(248,245,239,0.6);
+}
+.cta-msg[data-state="ok"]    { color: var(--gold-dim); }
+.cta-msg[data-state="error"] { color: #d97a6c; }
 
 /* ── FOOTER ── */
 footer {
@@ -696,7 +705,9 @@ footer {
   .about-values { grid-template-columns: 1fr; }
 
   .cta-strip { grid-template-columns: 1fr; gap: 2rem; padding: 4rem 1.8rem; }
-  .cta-form { flex-direction: column; }
+  .cta-form { grid-template-columns: 1fr; }
+  .cta-input { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .cta-input:last-of-type { border-bottom: none; }
   .cta-btn { padding: 14px; text-align: center; }
 
   footer { padding: 3rem 1.8rem 2rem; }
@@ -720,22 +731,24 @@ footer {
 <nav id="top-nav">
   <div class="nav-logo">City <span>Archivist</span></div>
   <ul class="nav-links">
-    <li><a href="#home">Home</a></li>
-    <li><a href="#destinations">Destinations</a></li>
-    <li><a href="hotels.html">Hotels</a></li>
-    <li><a href="#nightclubs">Nightclubs</a></li>
-    <li><a href="#about">About Us</a></li>
+    <li><a href="#home" data-i18n="nav.home">Home</a></li>
+    <li><a href="#destinations" data-i18n="nav.destinations">Destinations</a></li>
+    <li><a href="hotels.html" data-i18n="nav.hotels">Hotels</a></li>
+    <li><a href="#nightclubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
+    <li><a href="#about" data-i18n="nav.about">About Us</a></li>
   </ul>
-  <span class="nav-search">Search</span>
+  <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
+    <span data-lang-current>EN</span>
+  </button>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-left">
-    <div class="hero-eyebrow">The Urban Archive</div>
-    <h1 class="hero-h1">Discover<br>the <em>Hidden</em><br>City</h1>
-    <p class="hero-sub">Go beyond the familiar. Discover what others miss.</p>
-    <a href="#destinations" class="hero-cta">Explore Now</a>
+    <div class="hero-eyebrow" data-i18n="hero.eyebrow">The Urban Archive</div>
+    <h1 class="hero-h1" data-i18n="hero.h1">Discover<br>the <em>Hidden</em><br>City</h1>
+    <p class="hero-sub" data-i18n="hero.sub">Go beyond the familiar. Discover what others miss.</p>
+    <a href="#destinations" class="hero-cta" data-i18n="hero.cta">Explore Now</a>
   </div>
   <div class="hero-right">
     <div class="hero-img-fill">
@@ -744,18 +757,17 @@ footer {
     </div>
     <div class="scroll-hint">
       <div class="scroll-bar"></div>
-      <span>Scroll</span>
+      <span data-i18n="hero.scroll">Scroll</span>
     </div>
   </div>
 </section>
 
 <!-- HOME INTRO TEXT -->
 <div class="home-intro">
-  <div class="intro-label">The Archive</div>
+  <div class="intro-label" data-i18n="intro.label">The Archive</div>
   <div class="intro-body">
-    <h2>A collection of <em>hidden places.</em> </h2>
-    <p>handpicked hotels, hidden gems and destinations across the Globe, chosen for their character, atmosphere and uniqueness.</p>
-    <p></p>
+    <h2 data-i18n="intro.h2">A collection of <em>hidden places.</em> </h2>
+    <p data-i18n="intro.p">handpicked hotels, hidden gems and destinations across the Globe, chosen for their character, atmosphere and uniqueness.</p>
   </div>
 </div>
 
@@ -763,51 +775,48 @@ footer {
 <section id="destinations">
   <div class="sec-header">
     <div>
-      <div class="sec-eyebrow">Destinations</div>
-      <h2 class="sec-h">Explore<br><em>the Cities</em></h2>
+      <div class="sec-eyebrow" data-i18n="dest.eyebrow">Destinations</div>
+      <h2 class="sec-h" data-i18n="dest.h2">Explore<br><em>the Cities</em></h2>
     </div>
     <p class="sec-desc"></p>
   </div>
   <div class="dest-dual">
-    <!-- München -->
     <a href="muenchen.html" class="dest-panel">
       <div class="dest-bg" style="background:none;">
         <img src="muenchen_bild.png" alt="München" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;">
       </div>
       <div class="dest-overlay">
-        <div class="dest-tag">Germany · Bavaria</div>
-        <div class="dest-city">Munich</div>
-        <div class="dest-city-sub">Bavaria’s capital, where tradition, culture, and lifestyle come together.</div>
+        <div class="dest-tag" data-i18n="dest.munich.tag">Germany · Bavaria</div>
+        <div class="dest-city" data-i18n="dest.munich.city">Munich</div>
+        <div class="dest-city-sub" data-i18n="dest.munich.sub">Bavaria’s capital, where tradition, culture, and lifestyle come together.</div>
       </div>
-      <div class="dest-explore-btn">Explore →</div>
+      <div class="dest-explore-btn" data-i18n="dest.explore">Explore →</div>
     </a>
-    <!-- Shanghai -->
     <a href="shanghai.html" class="dest-panel">
       <div class="dest-bg dest-bg-shanghai" style="background:none;">
         <img src="shanghai.png" alt="Shanghai" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;">
       </div>
       <div class="dest-overlay">
-        <div class="dest-tag">China · East Asia</div>
-        <div class="dest-city">Shanghai</div>
-        <div class="dest-city-sub">China’s largest city, defined by skyline, culture, and nonstop energy.</div>
+        <div class="dest-tag" data-i18n="dest.shanghai.tag">China · East Asia</div>
+        <div class="dest-city" data-i18n="dest.shanghai.city">Shanghai</div>
+        <div class="dest-city-sub" data-i18n="dest.shanghai.sub">China’s largest city, defined by skyline, culture, and nonstop energy.</div>
       </div>
-      <div class="dest-explore-btn">Explore →</div>
+      <div class="dest-explore-btn" data-i18n="dest.explore">Explore →</div>
     </a>
   </div>
 
-  <!-- Coming Soon row -->
   <div class="dest-soon-row">
     <div class="dest-soon-item">
-      <div><div class="soon-name">Coming Soon</div><div class="soon-country">Test · Test</div></div>
-      <div class="soon-badge">Coming Soon</div>
+      <div><div class="soon-name" data-i18n="dest.soon">Coming Soon</div><div class="soon-country">— · —</div></div>
+      <div class="soon-badge" data-i18n="dest.soon">Coming Soon</div>
     </div>
     <div class="dest-soon-item">
-      <div><div class="soon-name">Coming Soon</div><div class="soon-country">Test · Test</div></div>
-      <div class="soon-badge">Coming Soon</div>
+      <div><div class="soon-name" data-i18n="dest.soon">Coming Soon</div><div class="soon-country">— · —</div></div>
+      <div class="soon-badge" data-i18n="dest.soon">Coming Soon</div>
     </div>
     <div class="dest-soon-item">
-      <div><div class="soon-name">Coming Soon</div><div class="soon-country">Test · Test</div></div>
-      <div class="soon-badge">Coming Soon</div>
+      <div><div class="soon-name" data-i18n="dest.soon">Coming Soon</div><div class="soon-country">— · —</div></div>
+      <div class="soon-badge" data-i18n="dest.soon">Coming Soon</div>
     </div>
   </div>
 </section>
@@ -819,8 +828,8 @@ footer {
       <div class="ov-num">01</div>
       <div class="ov-img a">◎</div>
       <div>
-        <div class="ov-title">Destinations</div>
-        <div class="ov-sub">Cities &amp; Hidden Spots</div>
+        <div class="ov-title" data-i18n="ov.destinations">Destinations</div>
+        <div class="ov-sub" data-i18n="ov.destinations.sub">Cities &amp; Hidden Spots</div>
       </div>
       <div class="ov-arrow">→</div>
     </div>
@@ -828,8 +837,8 @@ footer {
       <div class="ov-num">02</div>
       <div class="ov-img b">◎</div>
       <div>
-        <div class="ov-title">Hotels</div>
-        <div class="ov-sub">Top Hotelchains on the Globe</div>
+        <div class="ov-title" data-i18n="ov.hotels">Hotels</div>
+        <div class="ov-sub" data-i18n="ov.hotels.sub">Top Hotel Chains on the Globe</div>
       </div>
       <div class="ov-arrow">→</div>
     </div>
@@ -837,8 +846,8 @@ footer {
       <div class="ov-num">03</div>
       <div class="ov-img c">◎</div>
       <div>
-        <div class="ov-title">Nightclubs</div>
-        <div class="ov-sub">After Dark</div>
+        <div class="ov-title" data-i18n="ov.nightclubs">Nightclubs</div>
+        <div class="ov-sub" data-i18n="ov.nightclubs.sub">After Dark</div>
       </div>
       <div class="ov-arrow">→</div>
     </div>
@@ -846,8 +855,8 @@ footer {
       <div class="ov-num">04</div>
       <div class="ov-img d">◎</div>
       <div>
-        <div class="ov-title">About Us</div>
-        <div class="ov-sub">The Story</div>
+        <div class="ov-title" data-i18n="ov.about">About Us</div>
+        <div class="ov-sub" data-i18n="ov.about.sub">The Story</div>
       </div>
       <div class="ov-arrow">→</div>
     </div>
@@ -861,15 +870,14 @@ footer {
 <section id="hotels" class="hotels-teaser">
   <a href="hotels.html" class="hotels-feature">
     <div class="hotels-feature-img">
-      <!-- Bild hier einfügen, z.B. <img src="hotels-hero.jpg" alt="Hotels"> -->
       <div class="ph-frame">◎</div>
       <span class="ph-label">Hotels Hero Bild</span>
     </div>
     <div class="hotels-feature-body">
-      <div class="hotels-feature-eyebrow">Hotels</div>
-      <h2 class="hotels-feature-title">Top Hotel Chains on the <em>Globe</em></h2>
-      <p class="hotels-feature-text">From legendary heritage houses to remote sanctuaries — a curated selection of the names that define what luxury hospitality means today. Each chain stands for a different philosophy: design, place, wellness, or pure grandeur.</p>
-      <span class="hotels-feature-cta">Discover the Chains</span>
+      <div class="hotels-feature-eyebrow" data-i18n="hotelsFeature.eyebrow">Hotels</div>
+      <h2 class="hotels-feature-title" data-i18n="hotelsFeature.title">Top Hotel Chains on the <em>Globe</em></h2>
+      <p class="hotels-feature-text" data-i18n="hotelsFeature.text">From legendary heritage houses to remote sanctuaries — a curated selection of the names that define what luxury hospitality means today. Each chain stands for a different philosophy: design, place, wellness, or pure grandeur.</p>
+      <span class="hotels-feature-cta" data-i18n="hotelsFeature.cta">Discover the Chains</span>
     </div>
   </a>
 </section>
@@ -877,41 +885,41 @@ footer {
 <section id="nightclubs">
   <div class="sec-header">
     <div>
-      <div class="sec-eyebrow">Best Nightclubs on the Globe</div>
-      <h2 class="sec-h">After<br><em>Dark</em></h2>
+      <div class="sec-eyebrow" data-i18n="clubs.eyebrow">Best Nightclubs on the Globe</div>
+      <h2 class="sec-h" data-i18n="clubs.h2">After<br><em>Dark</em></h2>
     </div>
-    <p class="sec-desc">Explore the world’s top nightclubs for unmatched beats and unforgettable nights.</p>
+    <p class="sec-desc" data-i18n="clubs.desc">Explore the world’s top nightclubs for unmatched beats and unforgettable nights.</p>
   </div>
   <div class="clubs-list">
     <a href="hi-ibiza.html" class="club-row">
       <div class="club-num">01</div>
-      <div><div class="club-name">Hï Ibiza</div><div class="club-genre">Ibiza, Spain · Techno · House · EDM</div></div>
-      <p class="club-desc">Voted the world's №1 club multiple times — futuristic design, two main rooms, and the most in-demand DJs of the decade.</p>
-      <div class="club-tag">Explore →</div>
+      <div><div class="club-name" data-i18n="clubs.hi.name">Hï Ibiza</div><div class="club-genre" data-i18n="clubs.hi.genre">Ibiza, Spain · Techno · House · EDM</div></div>
+      <p class="club-desc" data-i18n="clubs.hi.desc">Voted the world's №1 club multiple times — futuristic design, two main rooms, and the most in-demand DJs of the decade.</p>
+      <div class="club-tag" data-i18n="dest.explore">Explore →</div>
     </a>
     <a href="echostage.html" class="club-row">
       <div class="club-num">02</div>
-      <div><div class="club-name">Echostage</div><div class="club-genre">Washington D.C., USA · House · Trance · Bass</div></div>
-      <p class="club-desc">North America's largest concert venue dedicated to electronic music — vast warehouse space, immersive light shows, headline residencies.</p>
-      <div class="club-tag">Explore →</div>
+      <div><div class="club-name" data-i18n="clubs.echo.name">Echostage</div><div class="club-genre" data-i18n="clubs.echo.genre">Washington D.C., USA · House · Trance · Bass</div></div>
+      <p class="club-desc" data-i18n="clubs.echo.desc">North America's largest concert venue dedicated to electronic music — vast warehouse space, immersive light shows, headline residencies.</p>
+      <div class="club-tag" data-i18n="dest.explore">Explore →</div>
     </a>
     <a href="berghain.html" class="club-row">
       <div class="club-num">03</div>
-      <div><div class="club-name">Berghain</div><div class="club-genre">Berlin, Germany · Techno · Industrial</div></div>
-      <p class="club-desc">A former power plant turned temple of techno. Famous for its uncompromising door, marathon sets and a sound system that defines the genre.</p>
-      <div class="club-tag">Explore →</div>
+      <div><div class="club-name" data-i18n="clubs.berg.name">Berghain</div><div class="club-genre" data-i18n="clubs.berg.genre">Berlin, Germany · Techno · Industrial</div></div>
+      <p class="club-desc" data-i18n="clubs.berg.desc">A former power plant turned temple of techno. Famous for its uncompromising door, marathon sets and a sound system that defines the genre.</p>
+      <div class="club-tag" data-i18n="dest.explore">Explore →</div>
     </a>
     <a href="fabric.html" class="club-row">
       <div class="club-num">04</div>
-      <div><div class="club-name">Fabric</div><div class="club-genre">London, UK · House · Techno · Drum & Bass</div></div>
-      <p class="club-desc">Three rooms beneath Smithfield Market and a bodysonic dancefloor that moves with the bass — a London institution for over two decades.</p>
-      <div class="club-tag">Explore →</div>
+      <div><div class="club-name" data-i18n="clubs.fab.name">Fabric</div><div class="club-genre" data-i18n="clubs.fab.genre">London, UK · House · Techno · Drum & Bass</div></div>
+      <p class="club-desc" data-i18n="clubs.fab.desc">Three rooms beneath Smithfield Market and a bodysonic dancefloor that moves with the bass — a London institution for over two decades.</p>
+      <div class="club-tag" data-i18n="dest.explore">Explore →</div>
     </a>
     <a href="pacha.html" class="club-row">
       <div class="club-num">05</div>
-      <div><div class="club-name">Pacha</div><div class="club-genre">Ibiza, Spain · House · Disco · Open Format</div></div>
-      <p class="club-desc">The cherry-logo legend. Open since 1973, Pacha turned Ibiza into the global capital of nightlife — glamour, history and endless summers.</p>
-      <div class="club-tag">Explore →</div>
+      <div><div class="club-name" data-i18n="clubs.pacha.name">Pacha</div><div class="club-genre" data-i18n="clubs.pacha.genre">Ibiza, Spain · House · Disco · Open Format</div></div>
+      <p class="club-desc" data-i18n="clubs.pacha.desc">The cherry-logo legend. Open since 1973, Pacha turned Ibiza into the global capital of nightlife — glamour, history and endless summers.</p>
+      <div class="club-tag" data-i18n="dest.explore">Explore →</div>
     </a>
   </div>
 </section>
@@ -936,35 +944,26 @@ footer {
     </div>
   </div>
   <div class="about-content">
-    <div class="about-eyebrow">About Us</div>
-    <h2 class="about-h">built from passion for <em>hospitality and tourism.</em></h2>
-    <p class="about-p">Hi, I’m Konrad Xu. My passion for hotels and hospitality started when I was just 12 years old, and over time it grew into a deep interest in how places can create truly memorable experiences. I realized that many people traveling through Europe often don’t know where to go beyond the typical destinations, even though some of the most special places are often hidden. That’s why I created this platform—to help people discover unique hotels, hidden spots, and inspiring locations across Europe that go beyond standard travel guides. My goal is to make it easier for travelers to find places that feel personal, exciting, and worth remembering, whether they are planning a trip or simply looking for new inspiration.</p>
-    <p class="about-p">.</p>
-    <div class="about-values">
-      <div class="about-val">
-        <div class="about-val-title"></div>
-        <p class="about-val-text"></p>
-      </div>
-      <div class="about-val">
-        <div class="about-val-title"></div>
-        <p class="about-val-text"></p>
-      </div>
-    </div>
+    <div class="about-eyebrow" data-i18n="about.eyebrow">About Us</div>
+    <h2 class="about-h" data-i18n="about.h">built from passion for <em>hospitality and tourism.</em></h2>
+    <p class="about-p" data-i18n="about.p">Hi, I’m Konrad Xu. My passion for hotels and hospitality started when I was just 12 years old, and over time it grew into a deep interest in how places can create truly memorable experiences.</p>
   </div>
 </section>
 
-<!-- CTA / NEWSLETTER -->
+<!-- NEWSLETTER -->
 <div class="cta-strip">
   <div>
-    <div class="cta-eyebrow">Newsletter</div>
-    <h2 class="cta-h">If there <br><em>would be </em><br>a tutorial how to.</h2>
+    <div class="cta-eyebrow" data-i18n="news.eyebrow">Newsletter</div>
+    <h2 class="cta-h" data-i18n="news.h">Stay in <em>the Archive.</em></h2>
   </div>
   <div class="cta-right">
-    <p>to do newsletters :( its so complicated wow.</p>
-    <div class="cta-form">
-      <input class="cta-input" type="email" placeholder="your@email.de">
-      <button class="cta-btn">Subscribe</button>
-    </div>
+    <p data-i18n="news.p">Get new destinations, hotel features and city guides — straight to your inbox.</p>
+    <form id="newsletter-form" class="cta-form" novalidate>
+      <input class="cta-input" type="text" name="name" autocomplete="name" required data-i18n-placeholder="news.namePlaceholder" placeholder="Your name">
+      <input class="cta-input" type="email" name="email" autocomplete="email" required data-i18n-placeholder="news.emailPlaceholder" placeholder="your@email.com">
+      <button type="submit" class="cta-btn" data-i18n="news.button">Subscribe</button>
+    </form>
+    <div id="newsletter-msg" class="cta-msg"></div>
   </div>
 </div>
 
@@ -976,33 +975,33 @@ footer {
       <p class="footer-about"></p>
     </div>
     <div>
-      <div class="footer-col-title">Navigation</div>
+      <div class="footer-col-title" data-i18n="footer.nav">Navigation</div>
       <ul class="footer-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#destinations">Destinations</a></li>
-        <li><a href="hotels.html">Hotels</a></li>
-        <li><a href="#nightclubs">Nightclubs</a></li>
-        <li><a href="#about">About Us</a></li>
+        <li><a href="#home" data-i18n="nav.home">Home</a></li>
+        <li><a href="#destinations" data-i18n="nav.destinations">Destinations</a></li>
+        <li><a href="hotels.html" data-i18n="nav.hotels">Hotels</a></li>
+        <li><a href="#nightclubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
+        <li><a href="#about" data-i18n="nav.about">About Us</a></li>
       </ul>
     </div>
     <div>
-      <div class="footer-col-title">Info</div>
+      <div class="footer-col-title" data-i18n="footer.info">Info</div>
       <ul class="footer-links">
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Newsletter</a></li>
-        <li><a href="#">Kontakt</a></li>
-        <li><a href="#">Impressum</a></li>
-        <li><a href="#">Datenschutz</a></li>
+        <li><a href="#about" data-i18n="footer.aboutLink">About Us</a></li>
+        <li><a href="#" data-i18n="footer.newsletter">Newsletter</a></li>
+        <li><a href="#" data-i18n="footer.contact">Contact</a></li>
+        <li><a href="#" data-i18n="footer.imprint">Imprint</a></li>
+        <li><a href="#" data-i18n="footer.privacy">Privacy</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <span class="footer-copy">© 2026 City Archivist — All rights reserved</span>
-    <div class="footer-socials">
-    </div>
+    <span class="footer-copy" data-i18n="footer.copy">© 2026 City Archivist — All rights reserved</span>
+    <div class="footer-socials"></div>
   </div>
 </footer>
 
+<script src="lang.js" defer></script>
 <script>
   window.addEventListener('scroll', () => {
     const nav = document.getElementById('top-nav');

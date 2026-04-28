@@ -106,7 +106,12 @@ footer { background: #161410; padding: 3.5rem 4rem 2.5rem; display: flex; justif
 
 <nav>
   <a class="nav-logo" href="index.html">City <span>Archivist</span></a>
-  <a class="nav-back" href="index.html#nightclubs">All Clubs</a>
+  <div style="display:flex; align-items:center; gap:2rem;">
+    <a class="nav-back" href="index.html#nightclubs" data-i18n="nav.allClubs">All Clubs</a>
+    <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
+      <span data-lang-current>EN</span>
+    </button>
+  </div>
 </nav>
 
 <section class="club-hero">
@@ -140,19 +145,19 @@ footer { background: #161410; padding: 3.5rem 4rem 2.5rem; display: flex; justif
 <section class="block">
   <div class="loc-grid">
     <div>
-      <div class="sec-eyebrow">Location</div>
+      <div class="sec-eyebrow" data-i18n="club.location.eyebrow">Location</div>
       <h2 class="sec-h">Find <em>the Club</em></h2>
       <div class="loc-info-row">
         <div class="loc-item">
-          <div class="loc-label">Address</div>
+          <div class="loc-label" data-i18n="club.location.address">Address</div>
           <div class="loc-value">77a Charterhouse Street<br>Farringdon, London EC1M 6HJ<br>United Kingdom</div>
         </div>
         <div class="loc-item">
-          <div class="loc-label">Schedule</div>
+          <div class="loc-label" data-i18n="club.location.schedule">Schedule</div>
           <div class="loc-value">Friday & Saturday nights<br>Plus FABRICLIVE & special events</div>
         </div>
         <div class="loc-item">
-          <div class="loc-label">Hours</div>
+          <div class="loc-label" data-i18n="club.location.hours">Hours</div>
           <div class="loc-value">23:00 — 07:00 (typical)</div>
         </div>
       </div>
@@ -166,7 +171,7 @@ footer { background: #161410; padding: 3.5rem 4rem 2.5rem; display: flex; justif
 
 <section class="block">
   <div class="text-grid">
-    <div class="text-label">The Story</div>
+    <div class="text-label" data-i18n="club.story.label">The Story</div>
     <div class="text-body">
       <h2 class="sec-h">London's <em>underground</em> home</h2>
       <p>Fabric opened in October 1999 in the cold-storage cellars beneath the old Smithfield meat market — a labyrinth of bare brick and concrete that immediately felt unlike any other London venue. Founders Keith Reilly and Cameron Leslie wanted a club where the music came first, and built three connected rooms around it, including the now-famous Room One with its <em>bodysonic dancefloor</em> — 450 bass transducers wired into the floor itself, so the room literally moves with the bass.</p>
@@ -177,7 +182,7 @@ footer { background: #161410; padding: 3.5rem 4rem 2.5rem; display: flex; justif
 
 <section class="block">
   <div class="text-grid">
-    <div class="text-label">Music & Vibe</div>
+    <div class="text-label" data-i18n="club.music.label">Music &amp; Vibe</div>
     <div class="text-body">
       <h2 class="sec-h">Sound of <em>Fabric</em></h2>
       <p>Room One is house and techno; Room Two leans deeper, dub and minimal; Room Three is the spiritual home of UK drum & bass and bass music. Expect a serious, music-first crowd, marathon sets from international residents like Craig Richards and Terry Francis, and a soundsystem tuned to feel as much as it is heard.</p>
@@ -194,7 +199,7 @@ footer { background: #161410; padding: 3.5rem 4rem 2.5rem; display: flex; justif
 
 <div class="visit-block">
   <div>
-    <div class="sec-eyebrow">Visit</div>
+    <div class="sec-eyebrow" data-i18n="club.visit.eyebrow">Visit</div>
     <h2 class="visit-h">Line-ups, mixes<br>& <em>tickets</em>.</h2>
   </div>
   <div class="visit-right">
@@ -209,5 +214,6 @@ footer { background: #161410; padding: 3.5rem 4rem 2.5rem; display: flex; justif
   <a class="footer-back" href="index.html#nightclubs">← All Clubs</a>
 </footer>
 
+<script src="lang.js" defer></script>
 </body>
 </html>
