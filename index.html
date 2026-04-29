@@ -327,7 +327,7 @@ nav {
   opacity: 0; transition: opacity 0.3s;
 }
 .dest-panel:hover .dest-explore-btn { opacity: 1; }
-/* Read-more button (under destinations grid) */
+/* Read-more button + inline Coming Soon expand */
 .dest-readmore {
   text-align: center;
   padding: 3.5rem 4rem 4.5rem;
@@ -346,9 +346,43 @@ nav {
   display: inline-flex; align-items: center; gap: 14px;
   transition: background 0.25s, color 0.25s, gap 0.3s;
 }
-.dest-more-btn::after { content: '→'; }
+.dest-more-btn::after { content: '↓'; transition: transform 0.4s; }
 .dest-more-btn:hover {
   background: var(--ink); color: var(--parchment); gap: 22px;
+}
+.dest-more-btn[aria-expanded="true"]::after { transform: rotate(180deg); }
+
+.dest-coming-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+  padding: 0 4rem;
+}
+.dest-coming-panel[data-open="true"] {
+  max-height: 320px;
+  padding: 3.5rem 4rem 4rem;
+  opacity: 1;
+}
+.dest-coming-mark {
+  font-family: var(--serif); font-style: italic;
+  font-size: 1rem; color: var(--gold);
+  margin-bottom: 0.8rem;
+}
+.dest-coming-title {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+  font-weight: 300; line-height: 1.25;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+}
+.dest-coming-title em { font-style: normal; color: var(--gold); }
+.dest-coming-sub {
+  font-size: 12px; font-weight: 300;
+  letter-spacing: 0.06em;
+  color: var(--ink-light);
+  max-width: 420px;
+  margin: 0 auto;
 }
 
 .dest-soon-row {
@@ -625,17 +659,26 @@ nav {
 .about-imgs { position: relative; }
 .about-img-main {
   aspect-ratio: 3/4;
-  background: linear-gradient(150deg, var(--sand), var(--stone) 80%);
-  display: flex; align-items: center; justify-content: center;
-  flex-direction: column; gap: 14px;
+  background: var(--sand);
+  position: relative; overflow: hidden;
+}
+.about-img-main img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  display: block;
 }
 .about-img-accent {
   position: absolute; bottom: -2.5rem; right: -2.5rem;
   width: 52%; aspect-ratio: 1;
-  background: linear-gradient(135deg, var(--linen), var(--sand));
+  background: var(--linen);
   border: 6px solid var(--linen);
-  display: flex; align-items: center; justify-content: center;
-  flex-direction: column; gap: 10px;
+  overflow: hidden;
+}
+.about-img-accent img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  display: block;
 }
 .about-eyebrow {
   font-size: 9px; font-weight: 300;
@@ -813,7 +856,8 @@ footer {
   .club-card-img { aspect-ratio: 16/9; }
 
   #about { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 1.8rem; }
-  .about-imgs { display: none; }
+  .about-imgs { display: block; max-width: 360px; margin: 0 auto 2rem; }
+  .about-img-accent { bottom: -1.4rem; right: -1.4rem; width: 42%; border-width: 4px; }
   .about-values { grid-template-columns: 1fr; }
 
   .cta-strip { grid-template-columns: 1fr; gap: 2rem; padding: 4rem 1.8rem; }
@@ -945,7 +989,12 @@ footer {
   </div>
 
   <div class="dest-readmore">
-    <button type="button" class="dest-more-btn" data-coming-soon data-i18n="dest.readmore">More cities</button>
+    <button type="button" class="dest-more-btn" id="dest-more-btn" aria-expanded="false" aria-controls="dest-coming-panel" data-i18n="dest.readmore">More cities</button>
+  </div>
+  <div class="dest-coming-panel" id="dest-coming-panel" data-open="false">
+    <div class="dest-coming-mark">✦</div>
+    <div class="dest-coming-title" data-i18n="dest.comingsoon.title">Coming <em>Soon</em></div>
+    <p class="dest-coming-sub" data-i18n="dest.comingsoon.sub">More cities arriving in the archive</p>
   </div>
 </section>
 
@@ -1082,12 +1131,10 @@ footer {
 <section id="about">
   <div class="about-imgs">
     <div class="about-img-main">
-      <div class="ph-frame">◎</div>
-      <span class="ph-label">Bild Platzhalter</span>
+      <img src="aboutus1.png" alt="">
     </div>
     <div class="about-img-accent">
-      <div class="ph-frame" style="width:38px;height:38px;font-size:14px;">◎</div>
-      <span class="ph-label">Bild</span>
+      <img src="aboutus2.png" alt="">
     </div>
   </div>
   <div class="about-content">
@@ -1165,6 +1212,18 @@ footer {
     nav.style.background = window.scrollY > 40
       ? 'rgba(253,252,249,0.98)'
       : 'rgba(253,252,249,0.94)';
+  });
+
+  // Inline expand for "More cities" → Coming Soon
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('dest-more-btn');
+    const panel = document.getElementById('dest-coming-panel');
+    if (!btn || !panel) return;
+    btn.addEventListener('click', () => {
+      const open = panel.dataset.open === 'true';
+      panel.dataset.open = open ? 'false' : 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+    });
   });
 </script>
 </body>
