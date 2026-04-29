@@ -94,6 +94,9 @@ const TRANSLATIONS = {
     'clubs.pacha.name': 'Pacha',
     'clubs.pacha.genre': 'Ibiza, Spain · House · Disco · Open Format',
     'clubs.pacha.desc': 'The cherry-logo legend. Open since 1973, Pacha turned Ibiza into the global capital of nightlife — glamour, history and endless summers.',
+    'clubs.unvrs.name': 'UNVRS',
+    'clubs.unvrs.genre': 'Ibiza, Spain · Techno · House · EDM',
+    'clubs.unvrs.desc': 'Opened summer 2025 on the legendary Privilege site — a multi-room mega-venue with the world’s first 360° open-air club stage and the most ambitious production on the island.',
 
     'about.eyebrow': 'About Us',
     'about.h': 'Built from passion for <em>hospitality and tourism.</em>',
@@ -257,6 +260,9 @@ const TRANSLATIONS = {
     'clubs.pacha.name': 'Pacha',
     'clubs.pacha.genre': 'Ibiza, Spanien · House · Disco · Open Format',
     'clubs.pacha.desc': 'Die Legende mit den Kirschen. Seit 1973 geöffnet — Pacha hat Ibiza zur globalen Hauptstadt des Nachtlebens gemacht. Glamour, Geschichte, endlose Sommer.',
+    'clubs.unvrs.name': 'UNVRS',
+    'clubs.unvrs.genre': 'Ibiza, Spanien · Techno · House · EDM',
+    'clubs.unvrs.desc': 'Eröffnet im Sommer 2025 auf dem legendären Privilege-Gelände — ein Mehrraum-Mega-Venue mit der weltweit ersten 360°-Open-Air-Bühne und der ambitioniertesten Produktion der Insel.',
 
     'about.eyebrow': 'Über uns',
     'about.h': 'Aus Leidenschaft für <em>Hotellerie und Tourismus.</em>',
@@ -420,6 +426,9 @@ const TRANSLATIONS = {
     'clubs.pacha.name': 'Pacha',
     'clubs.pacha.genre': '伊比萨, 西班牙 · House · Disco · Open Format',
     'clubs.pacha.desc': '樱桃标志的传奇。1973 年开业至今,Pacha 让伊比萨成为全球夜生活之都 — 魅力、历史与永恒的夏天。',
+    'clubs.unvrs.name': 'UNVRS',
+    'clubs.unvrs.genre': '伊比萨, 西班牙 · Techno · House · EDM',
+    'clubs.unvrs.desc': '2025 年夏天在传奇的 Privilege 旧址开业 — 多厅巨型场地,拥有全球首个 360° 露天舞池,以及全岛最雄心勃勃的制作。',
 
     'about.eyebrow': '关于我们',
     'about.h': '源于对<em>酒店与旅游业</em>的热爱。',

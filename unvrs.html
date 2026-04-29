@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pacha — City Archivist</title>
+<title>UNVRS — City Archivist</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -63,7 +63,7 @@ section.block { padding: 7rem 4rem; border-bottom: 1px solid rgba(255,255,255,0.
 .loc-item { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1rem; }
 .loc-label { font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; color: rgba(248,245,239,0.4); margin-bottom: 0.4rem; }
 .loc-value { font-family: var(--serif); font-size: 1.15rem; font-weight: 300; color: var(--parchment); line-height: 1.4; }
-.loc-map { aspect-ratio: 4/3; background: linear-gradient(140deg, #2a2620, #1a1814); border: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px; }
+.loc-map { aspect-ratio: 4/3; background: linear-gradient(140deg, #2a2620, #1a1814); border: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px; position: relative; overflow: hidden; }
 
 .text-grid { display: grid; grid-template-columns: 220px 1fr; gap: 6rem; align-items: start; }
 .text-label { font-size: 9px; font-weight: 300; letter-spacing: 0.32em; text-transform: uppercase; color: rgba(248,245,239,0.4); padding-top: 0.4rem; }
@@ -117,26 +117,26 @@ footer { background: #161410; padding: 3.5rem 4rem 2.5rem; display: flex; justif
 <section class="club-hero">
   <div class="club-hero-left">
     <div class="club-eyebrow">Spain · Ibiza · Nightclub</div>
-    <h1 class="club-h1"><em>Pacha</em></h1>
-    <p class="club-tagline">The cherry-logo legend — the club that turned Ibiza into the world's nightlife capital, dancing under the same roof since 1973.</p>
+    <h1 class="club-h1"><em>UNVRS</em></h1>
+    <p class="club-tagline">The biggest club in the world — opened summer 2025 on the Privilege site, with two main rooms, a 360° outdoor amphitheatre and a sound stage built for a new era of Ibiza.</p>
     <div class="club-meta">
       <div class="club-meta-item">
-        <div class="club-meta-num">1973</div>
+        <div class="club-meta-num">2025</div>
         <div class="club-meta-label" data-i18n="club.meta.opened">Opened</div>
       </div>
       <div class="club-meta-item">
-        <div class="club-meta-num">3,000</div>
+        <div class="club-meta-num">15,000</div>
         <div class="club-meta-label" data-i18n="club.meta.capacity">Capacity</div>
       </div>
       <div class="club-meta-item">
-        <div class="club-meta-num">50+</div>
-        <div class="club-meta-label" data-i18n="club.meta.years">Years</div>
+        <div class="club-meta-num">2</div>
+        <div class="club-meta-label" data-i18n="club.meta.rooms">Main Rooms</div>
       </div>
     </div>
   </div>
   <div class="club-hero-right">
     <div class="club-hero-img" style="background:none;">
-      <img src="pacha.png" alt="Pacha" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;">
+      <img src="unvrs.png" alt="UNVRS" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;">
     </div>
   </div>
 </section>
@@ -145,24 +145,24 @@ footer { background: #161410; padding: 3.5rem 4rem 2.5rem; display: flex; justif
   <div class="loc-grid">
     <div>
       <div class="sec-eyebrow" data-i18n="club.location.eyebrow">Location</div>
-      <h2 class="sec-h">Find <em>the Cherry</em></h2>
+      <h2 class="sec-h">Find <em>the Universe</em></h2>
       <div class="loc-info-row">
         <div class="loc-item">
           <div class="loc-label" data-i18n="club.location.address">Address</div>
-          <div class="loc-value">Avinguda 8 d'Agost, 27<br>07800 Ibiza Town<br>Balearic Islands, Spain</div>
+          <div class="loc-value">Urbanización San Rafael<br>Ctra. Eivissa-Sant Antoni km 7<br>07816 Sant Antoni de Portmany, Ibiza</div>
         </div>
         <div class="loc-item">
           <div class="loc-label" data-i18n="club.location.season">Season</div>
-          <div class="loc-value">Year-round (full program May — October)</div>
+          <div class="loc-value">Late May — Early October</div>
         </div>
         <div class="loc-item">
           <div class="loc-label" data-i18n="club.location.hours">Hours</div>
-          <div class="loc-value">23:30 — 06:00</div>
+          <div class="loc-value">23:30 — 06:30</div>
         </div>
       </div>
     </div>
     <div class="loc-map">
-      <iframe src="https://maps.google.com/maps?q=Pacha%20Ibiza%2C%20Avinguda%208%20d%27Agost%2C%20Ibiza&t=&z=16&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0; position:absolute; inset:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Pacha on Google Maps"></iframe>
+      <iframe src="https://maps.google.com/maps?q=UNVRS%20Ibiza%20San%20Rafael%20Privilege&t=&z=16&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0; position:absolute; inset:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="UNVRS on Google Maps"></iframe>
     </div>
   </div>
 </section>
@@ -171,24 +171,25 @@ footer { background: #161410; padding: 3.5rem 4rem 2.5rem; display: flex; justif
   <div class="text-grid">
     <div class="text-label" data-i18n="club.story.label">The Story</div>
     <div class="text-body">
-      <h2 class="sec-h">Where it <em>all began</em></h2>
-      <p>Pacha was founded in 1967 in Sitges by Ricardo Urgell and opened its now-iconic Ibiza Town location in 1973 — long before "Ibiza" became shorthand for global club culture. The whitewashed Mediterranean villa, the open-air courtyards, the famous twin cherries: Pacha didn't just host a scene, <em>it created one</em>, becoming the bridge between 1970s European disco and the rise of house music in the late '80s.</p>
-      <p>Five decades on, the brand stretches across hotels, restaurants and clubs around the world, but the original Ibiza venue remains the heart of it all. After a major renovation in 2022, Pacha reopened with a redesigned main room, refreshed terraces and a renewed focus on its core idea: glamour, music and community under one Balearic roof.</p>
+      <h2 class="sec-h">A new <em>universe</em></h2>
+      <p>UNVRS opened in May 2025 on the legendary site of Privilege Ibiza — for two decades the largest nightclub in the world, and the venue that hosted Manumission's most uninhibited years. After a complete teardown by The Night League, it was rebuilt from the ground up as <em>UNVRS</em>: a multi-room, fully-engineered venue designed by the same team behind Hï Ibiza and Ushuaïa.</p>
+      <p>The architecture pairs an indoor main room with the world's first 360° open-air club stage — a circular amphitheatre under the Ibiza sky, programmed independently of the indoor floor. Add a redesigned terrace, a private pool club and a backstage built for arena-scale residencies, and UNVRS arrives as the most ambitious club opening of its decade.</p>
     </div>
   </div>
 </section>
 
 <section class="block">
   <div class="text-grid">
-    <div class="text-label" data-i18n="club.music.label">Music &amp; Vibe</div>
+    <div class="text-label" data-i18n="club.music.label">Music & Vibe</div>
     <div class="text-body">
-      <h2 class="sec-h">Sound of <em>Pacha</em></h2>
-      <p>Pacha is open-format by tradition — house, disco and contemporary club music, with long-running residencies and headline parties like Solomun +1, Pure Pacha and Insane. The crowd is a mix of locals, residents and international travellers, dressed for the night and there to dance until sunrise.</p>
+      <h2 class="sec-h">Sound of <em>UNVRS</em></h2>
+      <p>Programming runs the full electronic spectrum — peak-time house, melodic and main-stage techno, big-room EDM and Afro House — anchored by exclusive residencies from headliners that previously called Ushuaïa and Hï home. Production is on a different scale: a wraparound LED ceiling, a custom soundsystem and visuals designed for the indoor and outdoor stages to play in conversation.</p>
       <div class="tag-row">
-        <span class="tag">House</span>
-        <span class="tag">Disco</span>
         <span class="tag">Tech House</span>
-        <span class="tag">Open Format</span>
+        <span class="tag">Techno</span>
+        <span class="tag">House</span>
+        <span class="tag">Afro House</span>
+        <span class="tag">EDM</span>
       </div>
     </div>
   </div>
@@ -197,18 +198,18 @@ footer { background: #161410; padding: 3.5rem 4rem 2.5rem; display: flex; justif
 <div class="visit-block">
   <div>
     <div class="sec-eyebrow" data-i18n="club.visit.eyebrow">Visit</div>
-    <h2 class="visit-h">Calendar, tables<br>& <em>residencies</em>.</h2>
+    <h2 class="visit-h">Tickets, residencies<br>& <em>line-ups</em>.</h2>
   </div>
   <div class="visit-right">
-    <p>Tickets, seasonal residencies and table reservations are managed via the official Pacha Ibiza website.</p>
-    <a href="https://pacha.com" target="_blank" rel="noopener" class="visit-cta">Visit pacha.com</a>
+    <p>Tickets, the full season calendar and table reservations are handled directly through the official UNVRS website.</p>
+    <a href="https://unvrs.com" target="_blank" rel="noopener" class="visit-cta">Visit unvrs.com</a>
   </div>
 </div>
 
 <footer>
   <div class="footer-logo">City <span>Archivist</span></div>
-  <span class="footer-copy">© 2026 City Archivist — Pacha Ibiza</span>
-  <a class="footer-back" href="index.html#nightclubs">← All Clubs</a>
+  <span class="footer-copy" data-i18n="footer.copy">© 2026 City Archivist — UNVRS</span>
+  <a class="footer-back" href="index.html#nightclubs" data-i18n="nav.allClubs">← All Clubs</a>
 </footer>
 
 <script src="lang.js" defer></script>
