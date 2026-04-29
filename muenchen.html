@@ -550,10 +550,10 @@ footer {
 <nav>
   <a class="nav-logo" href="index.html">City <span>Archivist</span></a>
   <ul class="nav-links">
-    <li><a href="#spots">Hidden Spots</a></li>
-    <li><a href="#reads">Reads</a></li>
-    <li><a href="#hotels">Hotels</a></li>
-    <li><a href="#nightclubs">Nightclubs</a></li>
+    <li><a href="#spots" data-i18n="nav.spots">Hidden Spots</a></li>
+    <li><a href="#reads" data-i18n="nav.reads">Reads</a></li>
+    <li><a href="#hotels" data-i18n="nav.hotels">Hotels</a></li>
+    <li><a href="#nightclubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
   </ul>
   <div style="display:flex; align-items:center; gap:2rem;">
     <a class="nav-back" href="index.html" data-i18n="nav.allCities">All Cities</a>
@@ -568,26 +568,25 @@ footer {
   <div class="city-hero-left">
     <div class="city-eyebrow">Germany · Bavaria · City Guide</div>
     <h1 class="city-h1"><em>Munich</em></h1>
-    <p class="city-tagline">Munich — Where Bavarian tradition meets modern elegance.</p>
+    <p class="city-tagline">Bavaria's calm, monumental capital — beer halls, Bauhaus modernism and a quietly cosmopolitan side that rewards the patient.</p>
     <div class="city-meta">
       <div class="city-meta-item">
-        <div class="city-meta-num">00</div>
+        <div class="city-meta-num">06</div>
         <div class="city-meta-label">Hidden Spots</div>
       </div>
       <div class="city-meta-item">
-        <div class="city-meta-num">00</div>
+        <div class="city-meta-num">04</div>
         <div class="city-meta-label">Hotels</div>
       </div>
       <div class="city-meta-item">
-        <div class="city-meta-num">00</div>
+        <div class="city-meta-num">04</div>
         <div class="city-meta-label">Clubs</div>
       </div>
     </div>
   </div>
   <div class="city-hero-right">
-    <div class="city-hero-img">
-      <div class="ph-frame">◎</div>
-      <span class="ph-label">München Hero Bild</span>
+    <div class="city-hero-img" style="background:none;">
+      <img src="muenchen_bild.png" alt="München" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;">
     </div>
   </div>
 </section>
@@ -597,110 +596,115 @@ footer {
 <section id="spots">
   <div class="sec-header">
     <div>
-      <div class="sec-eyebrow">Hidden Spots</div>
+      <div class="sec-eyebrow" data-i18n="city.spots.eyebrow">Hidden Spots</div>
       <h2 class="sec-h">Secret<br><em>Munich</em></h2>
     </div>
     <p class="sec-desc">Discover Munich beyond the tourist trail — hidden cafés, secret corners, local favorites, and unforgettable spots waiting to be explored.</p>
   </div>
 
   <div class="spots-filter">
-    <button class="filter-btn active">All</button>
-    <button class="filter-btn">Cafés</button>
-    <button class="filter-btn">Bars</button>
-    <button class="filter-btn">Parks</button>
-    <button class="filter-btn">Culture</button>
-    <button class="filter-btn">Shopping</button>
-    <button class="filter-btn">Foodspots</button>
+    <button class="filter-btn active" data-filter="all" data-i18n="spots.filter.all">All</button>
+    <button class="filter-btn" data-filter="cafes" data-i18n="spots.filter.cafes">Cafés</button>
+    <button class="filter-btn" data-filter="bars" data-i18n="spots.filter.bars">Bars</button>
+    <button class="filter-btn" data-filter="parks" data-i18n="spots.filter.parks">Parks</button>
+    <button class="filter-btn" data-filter="culture" data-i18n="spots.filter.culture">Culture</button>
+    <button class="filter-btn" data-filter="shopping" data-i18n="spots.filter.shopping">Shopping</button>
+    <button class="filter-btn" data-filter="foodspots" data-i18n="spots.filter.foodspots">Foodspots</button>
   </div>
 
   <div class="spots-grid">
-    <div class="spot-card">
+    <div class="spot-card" data-cat="cafes">
       <div class="spot-img a">
-        <span class="spot-cat">Café</span>
+        <span class="spot-cat">Cafés</span>
         <div class="ph-frame">◎</div>
-        <span class="ph-label">Bild</span>
+        <span class="ph-label">Aroma Kaffeebar</span>
       </div>
       <div class="spot-body">
-        <div class="spot-title">Test Test Test Test</div>
-        <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
-        <div class="spot-footer">
-          <span class="spot-location">Maxvorstadt</span>
-          <a class="spot-read">Mehr lesen</a>
-        </div>
-      </div>
-    </div>
-    <div class="spot-card">
-      <div class="spot-img b">
-        <span class="spot-cat">Bar</span>
-        <div class="ph-frame">◎</div>
-        <span class="ph-label">Bild</span>
-      </div>
-      <div class="spot-body">
-        <div class="spot-title">Test Test Test Test</div>
-        <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
+        <div class="spot-title">Aroma Kaffeebar</div>
+        <p class="spot-desc">One of the first proper specialty coffee bars in Munich — single origin pours, a small plate menu, and the Glockenbach crowd flowing through from morning to early evening.</p>
         <div class="spot-footer">
           <span class="spot-location">Glockenbachviertel</span>
-          <a class="spot-read">Mehr lesen</a>
+          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
-    <div class="spot-card">
-      <div class="spot-img c">
-        <span class="spot-cat">Park</span>
+
+    <div class="spot-card" data-cat="bars">
+      <div class="spot-img b">
+        <span class="spot-cat">Bars</span>
         <div class="ph-frame">◎</div>
-        <span class="ph-label">Bild</span>
+        <span class="ph-label">Goldene Bar</span>
       </div>
       <div class="spot-body">
-        <div class="spot-title">Test Test Test Test</div>
-        <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
+        <div class="spot-title">Goldene Bar</div>
+        <p class="spot-desc">Inside the Haus der Kunst — a 1937 saloon plated in 23-karat gold leaf, a terrace facing the Englischer Garten, and one of the better cocktail menus in town.</p>
         <div class="spot-footer">
-          <span class="spot-location">Schwabing</span>
-          <a class="spot-read">Mehr lesen</a>
+          <span class="spot-location">Lehel</span>
+          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
-    <div class="spot-card">
-      <div class="spot-img d">
-        <span class="spot-cat">Kultur</span>
+
+    <div class="spot-card" data-cat="parks">
+      <div class="spot-img c">
+        <span class="spot-cat">Parks</span>
         <div class="ph-frame">◎</div>
-        <span class="ph-label">Bild</span>
+        <span class="ph-label">Eisbachwelle</span>
       </div>
       <div class="spot-body">
-        <div class="spot-title">Test Test Test Test</div>
-        <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
+        <div class="spot-title">Eisbach Surfing</div>
+        <p class="spot-desc">A standing river wave at the southern edge of the Englischer Garten — surfed year-round by Munich locals in wetsuits, watched by everyone else from the bridge.</p>
+        <div class="spot-footer">
+          <span class="spot-location">Englischer Garten</span>
+          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="spot-card" data-cat="culture">
+      <div class="spot-img d">
+        <span class="spot-cat">Culture</span>
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">Museum Brandhorst</span>
+      </div>
+      <div class="spot-body">
+        <div class="spot-title">Museum Brandhorst</div>
+        <p class="spot-desc">Sauerbruch Hutton's striped facade, 36,000 ceramic rods, and the most rigorous post-1960 collection in southern Germany — Twombly, Warhol, Polke, on permanent view.</p>
+        <div class="spot-footer">
+          <span class="spot-location">Maxvorstadt</span>
+          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="spot-card" data-cat="foodspots">
+      <div class="spot-img e">
+        <span class="spot-cat">Foodspots</span>
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">Café Frischhut</span>
+      </div>
+      <div class="spot-body">
+        <div class="spot-title">Café Frischhut — Schmalznudel</div>
+        <p class="spot-desc">A two-room kitchen at the Viktualienmarkt that has been frying the same four pastries since 1973. Order an Auszogne and a Filterkaffee, sit at a stranger's table.</p>
         <div class="spot-footer">
           <span class="spot-location">Altstadt</span>
-          <a class="spot-read">Mehr lesen</a>
+          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
-    <div class="spot-card">
-      <div class="spot-img e">
-        <span class="spot-cat">Essen</span>
-        <div class="ph-frame">◎</div>
-        <span class="ph-label">Bild</span>
-      </div>
-      <div class="spot-body">
-        <div class="spot-title">Test Test Test Test</div>
-        <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
-        <div class="spot-footer">
-          <span class="spot-location">Haidhausen</span>
-          <a class="spot-read">Mehr lesen</a>
-        </div>
-      </div>
-    </div>
-    <div class="spot-card">
+
+    <div class="spot-card" data-cat="shopping">
       <div class="spot-img f">
         <span class="spot-cat">Shopping</span>
         <div class="ph-frame">◎</div>
-        <span class="ph-label">Bild</span>
+        <span class="ph-label">Fünf Höfe</span>
       </div>
       <div class="spot-body">
-        <div class="spot-title">Test Test Test Test</div>
-        <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
+        <div class="spot-title">Fünf Höfe</div>
+        <p class="spot-desc">Herzog & de Meuron's quiet masterpiece in the old centre — five connected courtyards with bronze passageways, hanging gardens and shops you'll want to walk slowly past.</p>
         <div class="spot-footer">
-          <span class="spot-location">Neuhausen</span>
-          <a class="spot-read">Mehr lesen</a>
+          <span class="spot-location">Altstadt</span>
+          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
@@ -714,27 +718,27 @@ footer {
 <section id="reads">
   <div class="sec-header" style="background:var(--linen);">
     <div>
-      <div class="sec-eyebrow">Reads</div>
+      <div class="sec-eyebrow" data-i18n="city.reads.eyebrow">Reads</div>
       <h2 class="sec-h">about<br><em>Munich</em></h2>
     </div>
-    <p class="sec-desc">Munich is Bavaria’s vibrant capital, known for historic charm, Oktoberfest, green spaces, and a perfect blend of tradition and modern life.</p>
+    <p class="sec-desc">Munich rewards a slow reading. These are the pieces that explain the city's quiet confidence — its architecture, its food, the hours that come after midnight.</p>
   </div>
 
   <div class="featured-article" style="background:var(--linen);">
     <div class="feat-img">
-      <div class="feat-badge">Featured Read</div>
+      <div class="feat-badge" data-i18n="feat.featured">Featured Read</div>
       <div class="ph-frame">◎</div>
       <span class="ph-label">Bild</span>
     </div>
     <div class="feat-body" style="background:var(--linen);">
       <div class="feat-meta">
-        <span class="feat-tag">City History</span>
+        <span class="feat-tag">Neighbourhoods</span>
         <div class="feat-dot"></div>
-        <span class="feat-date">May, 2026</span>
+        <span class="feat-date">April, 2026</span>
       </div>
-      <div class="feat-title">Test test test test test test test test test test.</div>
-      <p class="feat-excerpt">Test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test.</p>
-      <a class="feat-cta">Weiterlesen</a>
+      <div class="feat-title">A neighbourhood-by-neighbourhood guide to Munich.</div>
+      <p class="feat-excerpt">Maxvorstadt for art, Glockenbachviertel for nightlife, Schwabing for the long Sunday, Lehel for understated old money, Haidhausen for the perfect breakfast. A practical, opinionated walk across the city in eight stops.</p>
+      <a class="feat-cta" data-i18n="feat.readmore">Read more</a>
     </div>
   </div>
 
@@ -742,27 +746,27 @@ footer {
     <div class="article-row">
       <div class="art-img a">◎</div>
       <div>
-        <div class="art-tag">Architektur · Test Test 2025</div>
-        <div class="art-title">Test test test test test test test test test</div>
-        <p class="art-excerpt">Test test test test test test test test test test test test test test test.</p>
+        <div class="art-tag">Architecture · 2026</div>
+        <div class="art-title">Munich's quiet modernism</div>
+        <p class="art-excerpt">From Frei Otto's Olympic roof to Herzog & de Meuron's Allianz Arena — how postwar Munich quietly built the most consistently good architecture in Germany.</p>
       </div>
       <div class="art-arrow">→</div>
     </div>
     <div class="article-row">
       <div class="art-img b">◎</div>
       <div>
-        <div class="art-tag">Kulinarik · Test Test 2025</div>
-        <div class="art-title">Test test test test test test test test test</div>
-        <p class="art-excerpt">Test test test test test test test test test test test test test test test.</p>
+        <div class="art-tag">Cuisine · 2026</div>
+        <div class="art-title">Bavarian beyond the Hofbräuhaus</div>
+        <p class="art-excerpt">Schweinshaxe is only the beginning. A guide to the new Bavarian — Tantris, Mural, Werneckhof — and to the small kitchens that never made the headlines.</p>
       </div>
       <div class="art-arrow">→</div>
     </div>
     <div class="article-row">
       <div class="art-img c">◎</div>
       <div>
-        <div class="art-tag">Nightlife · Test Test 2025</div>
-        <div class="art-title">Test test test test test test test test test</div>
-        <p class="art-excerpt">Test test test test test test test test test test test test test test test.</p>
+        <div class="art-tag">Nightlife · 2026</div>
+        <div class="art-title">Munich after dark — the small map</div>
+        <p class="art-excerpt">Blitz, Harry Klein, Rote Sonne, Bahnwärter Thiel. A short list of where to actually listen, with a honest take on what each room sounds like.</p>
       </div>
       <div class="art-arrow">→</div>
     </div>
@@ -773,69 +777,69 @@ footer {
 <section id="hotels">
   <div class="sec-header">
     <div>
-      <div class="sec-eyebrow">Hotels</div>
+      <div class="sec-eyebrow" data-i18n="city.hotels.eyebrow">Hotels</div>
       <h2 class="sec-h">Where to<br><em>Stay</em></h2>
     </div>
-    <p class="sec-desc">Test test test test test test test test test test test test test test test test test test.</p>
+    <p class="sec-desc">Four addresses that capture different sides of Munich — the grand dame, the classical maximalist, the Asian-luxury jewel-box and the modern outsider with the best garden view in town.</p>
   </div>
   <div class="hotels-grid">
     <div class="hotel-card">
-      <div class="hotel-img a"><div class="ph-frame">◎</div><span class="ph-label">Bild</span></div>
+      <div class="hotel-img a"><div class="ph-frame">◎</div><span class="ph-label">Bayerischer Hof</span></div>
       <div class="hotel-body">
         <div>
           <div class="hotel-stars">★★★★★</div>
-          <div class="hotel-name">Test Test Test Hotel</div>
-          <div class="hotel-area">Maxvorstadt · München</div>
-          <p class="hotel-desc">Test test test test test test test test test test test test test test test.</p>
+          <div class="hotel-name">Bayerischer Hof</div>
+          <div class="hotel-area">Promenadeplatz · München</div>
+          <p class="hotel-desc">Munich's grand dame since 1841 — Falk family ownership across five generations, a rooftop Blue Spa with city views, the Night Club bar and a Volkstheater to itself.</p>
         </div>
         <div class="hotel-footer">
-          <div class="hotel-price"><span class="price-from">ab</span><span class="price-val">€000</span><span class="price-night">/ Nacht</span></div>
-          <a class="hotel-link">Entdecken</a>
+          <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">€450</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
+          <a class="hotel-link" data-i18n="hotel.discover">Discover</a>
         </div>
       </div>
     </div>
     <div class="hotel-card">
-      <div class="hotel-img b"><div class="ph-frame">◎</div><span class="ph-label">Bild</span></div>
+      <div class="hotel-img b"><div class="ph-frame">◎</div><span class="ph-label">Vier Jahreszeiten</span></div>
       <div class="hotel-body">
         <div>
           <div class="hotel-stars">★★★★★</div>
-          <div class="hotel-name">Test Test Test Hotel</div>
-          <div class="hotel-area">Schwabing · München</div>
-          <p class="hotel-desc">Test test test test test test test test test test test test test test test.</p>
+          <div class="hotel-name">Vier Jahreszeiten Kempinski</div>
+          <div class="hotel-area">Maximilianstraße · München</div>
+          <p class="hotel-desc">Munich's classical address since 1858 — French neo-Renaissance facade on the Maximilianstraße, the Schwarzreiter restaurant, and a top-floor pool with rooftops to the Alps.</p>
         </div>
         <div class="hotel-footer">
-          <div class="hotel-price"><span class="price-from">ab</span><span class="price-val">€000</span><span class="price-night">/ Nacht</span></div>
-          <a class="hotel-link">Entdecken</a>
+          <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">€500</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
+          <a class="hotel-link" data-i18n="hotel.discover">Discover</a>
         </div>
       </div>
     </div>
     <div class="hotel-card">
-      <div class="hotel-img c"><div class="ph-frame">◎</div><span class="ph-label">Bild</span></div>
+      <div class="hotel-img c"><div class="ph-frame">◎</div><span class="ph-label">Mandarin Oriental</span></div>
       <div class="hotel-body">
         <div>
-          <div class="hotel-stars">★★★★</div>
-          <div class="hotel-name">Test Test Test Hotel</div>
+          <div class="hotel-stars">★★★★★</div>
+          <div class="hotel-name">Mandarin Oriental Munich</div>
           <div class="hotel-area">Altstadt · München</div>
-          <p class="hotel-desc">Test test test test test test test test test test test test test test test.</p>
+          <p class="hotel-desc">A 73-room jewel box behind a baroque facade two minutes from the Marienplatz. The rooftop pool stops conversation — old Munich, quietly polished by Asian luxury.</p>
         </div>
         <div class="hotel-footer">
-          <div class="hotel-price"><span class="price-from">ab</span><span class="price-val">€000</span><span class="price-night">/ Nacht</span></div>
-          <a class="hotel-link">Entdecken</a>
+          <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">€700</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
+          <a class="hotel-link" data-i18n="hotel.discover">Discover</a>
         </div>
       </div>
     </div>
     <div class="hotel-card">
-      <div class="hotel-img d"><div class="ph-frame">◎</div><span class="ph-label">Bild</span></div>
+      <div class="hotel-img d"><div class="ph-frame">◎</div><span class="ph-label">Rocco Forte Charles</span></div>
       <div class="hotel-body">
         <div>
-          <div class="hotel-stars">★★★★</div>
-          <div class="hotel-name">Test Test Test Hotel</div>
-          <div class="hotel-area">Bogenhausen · München</div>
-          <p class="hotel-desc">Test test test test test test test test test test test test test test test.</p>
+          <div class="hotel-stars">★★★★★</div>
+          <div class="hotel-name">Rocco Forte The Charles Hotel</div>
+          <div class="hotel-area">Lenbachplatz · München</div>
+          <p class="hotel-desc">Olga Polizzi's interior, looking onto the Alter Botanischer Garten — newer money, more relaxed energy than the Bayerischer Hof, and the city's best hotel garden view.</p>
         </div>
         <div class="hotel-footer">
-          <div class="hotel-price"><span class="price-from">ab</span><span class="price-val">€000</span><span class="price-night">/ Nacht</span></div>
-          <a class="hotel-link">Entdecken</a>
+          <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">€380</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
+          <a class="hotel-link" data-i18n="hotel.discover">Discover</a>
         </div>
       </div>
     </div>
@@ -849,35 +853,35 @@ footer {
 <section id="nightclubs">
   <div class="sec-header">
     <div>
-      <div class="sec-eyebrow">Nightclubs</div>
+      <div class="sec-eyebrow" data-i18n="city.nightclubs.eyebrow">Nightclubs</div>
       <h2 class="sec-h">After<br><em>Dark</em></h2>
     </div>
-    <p class="sec-desc">Test test test test test test test test test test test test test test test test test.</p>
+    <p class="sec-desc">Munich's nightlife is small and serious — a few rooms with very strong taste, very strong door, and one of the better techno scenes in southern Germany.</p>
   </div>
   <div class="clubs-list">
     <div class="club-row">
       <div class="club-num">01</div>
-      <div><div class="club-name">Test Test Test</div><div class="club-genre">Techno · Haidhausen</div></div>
-      <p class="club-desc">Test test test test test test test test test test test test.</p>
-      <div class="club-tag">Test Tag</div>
+      <div><div class="club-name">Blitz Club</div><div class="club-genre">Techno · House · Sound-First</div></div>
+      <p class="club-desc">Inside the Museumsinsel since 2017 — one of Europe's best Funktion-One installations, no cameras at the door, vegan kitchen and a yoga studio by day. Munich's serious room.</p>
+      <div class="club-tag">Museumsinsel</div>
     </div>
     <div class="club-row">
       <div class="club-num">02</div>
-      <div><div class="club-name">Test Test Test</div><div class="club-genre">House · Glockenbachviertel</div></div>
-      <p class="club-desc">Test test test test test test test test test test test test.</p>
-      <div class="club-tag">Test Tag</div>
+      <div><div class="club-name">Harry Klein</div><div class="club-genre">Techno · Electronic</div></div>
+      <p class="club-desc">Munich's longest-running techno spot — a basement on the Sonnenstraße, audiovisual residencies and a deliberate booking policy on female and queer line-ups.</p>
+      <div class="club-tag">Sonnenstraße</div>
     </div>
     <div class="club-row">
       <div class="club-num">03</div>
-      <div><div class="club-name">Test Test Test</div><div class="club-genre">Electronic · Schwabing</div></div>
-      <p class="club-desc">Test test test test test test test test test test test test.</p>
-      <div class="club-tag">Test Tag</div>
+      <div><div class="club-name">Rote Sonne</div><div class="club-genre">Electronic · Disco · Indie</div></div>
+      <p class="club-desc">Off-kilter programming in a small two-room space at Maximiliansplatz — disco edits, post-punk, leftfield techno. The art-school side of Munich's nightlife.</p>
+      <div class="club-tag">Maximiliansplatz</div>
     </div>
     <div class="club-row">
       <div class="club-num">04</div>
-      <div><div class="club-name">Test Test Test</div><div class="club-genre">Jazz · Maxvorstadt</div></div>
-      <p class="club-desc">Test test test test test test test test test test test test.</p>
-      <div class="club-tag">Test Tag</div>
+      <div><div class="club-name">Bahnwärter Thiel</div><div class="club-genre">Open-Air · Container · Underground</div></div>
+      <p class="club-desc">A container city built around a former tram on the Schlachthof — a sprawling open-air venue with art installations, electronic line-ups and Munich's most unfiltered crowd.</p>
+      <div class="club-tag">Sendling</div>
     </div>
   </div>
 </section>
@@ -907,6 +911,11 @@ footer {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      const filter = btn.getAttribute('data-filter') || 'all';
+      document.querySelectorAll('.spot-card').forEach(card => {
+        const cat = card.getAttribute('data-cat');
+        card.style.display = (filter === 'all' || cat === filter) ? '' : 'none';
+      });
     });
   });
   const tabs = document.querySelectorAll('.tab-link');

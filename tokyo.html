@@ -550,10 +550,10 @@ footer {
 <nav>
   <a class="nav-logo" href="index.html">City <span>Archivist</span></a>
   <ul class="nav-links">
-    <li><a href="#spots">Hidden Spots</a></li>
-    <li><a href="#reads">Reads</a></li>
-    <li><a href="#hotels">Hotels</a></li>
-    <li><a href="#nightclubs">Nightclubs</a></li>
+    <li><a href="#spots" data-i18n="nav.spots">Hidden Spots</a></li>
+    <li><a href="#reads" data-i18n="nav.reads">Reads</a></li>
+    <li><a href="#hotels" data-i18n="nav.hotels">Hotels</a></li>
+    <li><a href="#nightclubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
   </ul>
   <div style="display:flex; align-items:center; gap:2rem;">
     <a class="nav-back" href="index.html" data-i18n="nav.allCities">All Cities</a>
@@ -596,20 +596,20 @@ footer {
 <section id="spots">
   <div class="sec-header">
     <div>
-      <div class="sec-eyebrow">Hidden Spots</div>
+      <div class="sec-eyebrow" data-i18n="city.spots.eyebrow">Hidden Spots</div>
       <h2 class="sec-h">Secret<br><em>Tokyo</em></h2>
     </div>
     <p class="sec-desc">Discover Tokyo beyond the tourist trail — hidden cafés, secret corners, local favourites and unforgettable spots waiting to be explored.</p>
   </div>
 
   <div class="spots-filter">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="cafes">Cafés</button>
-    <button class="filter-btn" data-filter="bars">Bars</button>
-    <button class="filter-btn" data-filter="parks">Parks</button>
-    <button class="filter-btn" data-filter="culture">Culture</button>
-    <button class="filter-btn" data-filter="shopping">Shopping</button>
-    <button class="filter-btn" data-filter="foodspots">Foodspots</button>
+    <button class="filter-btn active" data-filter="all" data-i18n="spots.filter.all">All</button>
+    <button class="filter-btn" data-filter="cafes" data-i18n="spots.filter.cafes">Cafés</button>
+    <button class="filter-btn" data-filter="bars" data-i18n="spots.filter.bars">Bars</button>
+    <button class="filter-btn" data-filter="parks" data-i18n="spots.filter.parks">Parks</button>
+    <button class="filter-btn" data-filter="culture" data-i18n="spots.filter.culture">Culture</button>
+    <button class="filter-btn" data-filter="shopping" data-i18n="spots.filter.shopping">Shopping</button>
+    <button class="filter-btn" data-filter="foodspots" data-i18n="spots.filter.foodspots">Foodspots</button>
   </div>
 
   <div class="spots-grid">
@@ -624,7 +624,7 @@ footer {
         <p class="spot-desc">Six narrow alleys in the heart of Shinjuku, lined with over 200 tiny postwar bars — most fit fewer than ten guests. Smoky, theatrical, deeply local.</p>
         <div class="spot-footer">
           <span class="spot-location">Shinjuku</span>
-          <a class="spot-read">Read more</a>
+          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
@@ -640,7 +640,7 @@ footer {
         <p class="spot-desc">A 170-metre shōtengai street in old-town Tokyo, untouched by war and bubble economy alike. Crafts, sweets, ramen and stray cats — a slower city, still here.</p>
         <div class="spot-footer">
           <span class="spot-location">Yanaka</span>
-          <a class="spot-read">Read more</a>
+          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
@@ -656,7 +656,7 @@ footer {
         <p class="spot-desc">Klein Dytham's three pavilions of perforated white concrete — Tsutaya's flagship bookstore, paired with Anjin lounge and a quietly perfect garden.</p>
         <div class="spot-footer">
           <span class="spot-location">Daikanyama</span>
-          <a class="spot-read">Read more</a>
+          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
@@ -672,7 +672,7 @@ footer {
         <p class="spot-desc">Behind Kengo Kuma's bamboo-screened museum lies one of Tokyo's most refined private gardens — moss, stone lanterns, tea houses, almost no one else.</p>
         <div class="spot-footer">
           <span class="spot-location">Aoyama</span>
-          <a class="spot-read">Read more</a>
+          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
@@ -688,7 +688,7 @@ footer {
         <p class="spot-desc">Norwegian coffee in a 1960s Tokyo storefront — Aeropress and Hario by day, low-lit cocktails by night, and a backstreet Tomigaya crowd all day.</p>
         <div class="spot-footer">
           <span class="spot-location">Tomigaya</span>
-          <a class="spot-read">Read more</a>
+          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
@@ -704,7 +704,7 @@ footer {
         <p class="spot-desc">A modern wagashi parlour and tea salon in Ginza, designed by Shinichiro Ogata. Seasonal sweets, single-origin teas — half ritual, half quiet luxury.</p>
         <div class="spot-footer">
           <span class="spot-location">Ginza</span>
-          <a class="spot-read">Read more</a>
+          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
@@ -718,7 +718,7 @@ footer {
 <section id="reads">
   <div class="sec-header" style="background:var(--linen);">
     <div>
-      <div class="sec-eyebrow">Reads</div>
+      <div class="sec-eyebrow" data-i18n="city.reads.eyebrow">Reads</div>
       <h2 class="sec-h">about<br><em>Tokyo</em></h2>
     </div>
     <p class="sec-desc">Tokyo is not one city but a federation of neighbourhoods — each with its own pace, its own rules and its own definition of cool. These are the pieces that help decode it.</p>
@@ -726,7 +726,7 @@ footer {
 
   <div class="featured-article" style="background:var(--linen);">
     <div class="feat-img">
-      <div class="feat-badge">Featured Read</div>
+      <div class="feat-badge" data-i18n="feat.featured">Featured Read</div>
       <div class="ph-frame">◎</div>
       <span class="ph-label">Bild</span>
     </div>
@@ -738,7 +738,7 @@ footer {
       </div>
       <div class="feat-title">A neighbourhood-by-neighbourhood guide to Tokyo.</div>
       <p class="feat-excerpt">Shibuya for energy, Daikanyama for design, Yanaka for old Tokyo, Toranomon for new ambition, Tomigaya for breakfast. A practical, opinionated walk through the city in nine stops — where to eat, where to slow down and where to disappear into the crowd.</p>
-      <a class="feat-cta">Read more</a>
+      <a class="feat-cta" data-i18n="feat.readmore">Read more</a>
     </div>
   </div>
 
@@ -777,7 +777,7 @@ footer {
 <section id="hotels">
   <div class="sec-header">
     <div>
-      <div class="sec-eyebrow">Hotels</div>
+      <div class="sec-eyebrow" data-i18n="city.hotels.eyebrow">Hotels</div>
       <h2 class="sec-h">Where to<br><em>Stay</em></h2>
     </div>
     <p class="sec-desc">Four houses that capture the Tokyo we love — from the city in the sky to the ryokan on the imperial moat. Every one of them stands for a different idea of what a Tokyo hotel can be.</p>
@@ -793,8 +793,8 @@ footer {
           <p class="hotel-desc">Aman's first urban resort. The top six floors of the Otemachi Tower — a 30-metre lobby in stone, washi and water, with one of the great city views from the 33rd-floor onsen.</p>
         </div>
         <div class="hotel-footer">
-          <div class="hotel-price"><span class="price-from">from</span><span class="price-val">¥250k</span><span class="price-night">/ night</span></div>
-          <a class="hotel-link">Discover</a>
+          <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">¥250k</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
+          <a class="hotel-link" data-i18n="hotel.discover">Discover</a>
         </div>
       </div>
     </div>
@@ -808,8 +808,8 @@ footer {
           <p class="hotel-desc">Aman's playful younger sister, opened in 2024 inside Heatherwick's Azabudai Hills — eight restaurants, a 4,000 sqm wellness floor and a much more sociable spirit.</p>
         </div>
         <div class="hotel-footer">
-          <div class="hotel-price"><span class="price-from">from</span><span class="price-val">¥190k</span><span class="price-night">/ night</span></div>
-          <a class="hotel-link">Discover</a>
+          <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">¥190k</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
+          <a class="hotel-link" data-i18n="hotel.discover">Discover</a>
         </div>
       </div>
     </div>
@@ -823,8 +823,8 @@ footer {
           <p class="hotel-desc">The Lost in Translation hotel. Kenzo Tange's Shinjuku tower from 1994 reopened in 2024 fully restored — New York Bar, library, the city laid out fifty floors below.</p>
         </div>
         <div class="hotel-footer">
-          <div class="hotel-price"><span class="price-from">from</span><span class="price-val">¥120k</span><span class="price-night">/ night</span></div>
-          <a class="hotel-link">Discover</a>
+          <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">¥120k</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
+          <a class="hotel-link" data-i18n="hotel.discover">Discover</a>
         </div>
       </div>
     </div>
@@ -838,8 +838,8 @@ footer {
           <p class="hotel-desc">A vertical ryokan in the financial district — kimono-clad staff, tatami floors, a rooftop onsen open to the sky. Tradition rebuilt as a 17-storey tower.</p>
         </div>
         <div class="hotel-footer">
-          <div class="hotel-price"><span class="price-from">from</span><span class="price-val">¥110k</span><span class="price-night">/ night</span></div>
-          <a class="hotel-link">Discover</a>
+          <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">¥110k</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
+          <a class="hotel-link" data-i18n="hotel.discover">Discover</a>
         </div>
       </div>
     </div>
@@ -853,7 +853,7 @@ footer {
 <section id="nightclubs">
   <div class="sec-header">
     <div>
-      <div class="sec-eyebrow">Nightclubs</div>
+      <div class="sec-eyebrow" data-i18n="city.nightclubs.eyebrow">Nightclubs</div>
       <h2 class="sec-h">After<br><em>Dark</em></h2>
     </div>
     <p class="sec-desc">Tokyo's club culture is small, serious and unusually tasteful — house, techno, and a deep underground that prizes sound over spectacle.</p>

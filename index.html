@@ -480,41 +480,111 @@ nav {
 #nightclubs .sec-eyebrow::before { background: var(--gold-dim); }
 #nightclubs .sec-h { color: var(--parchment); }
 #nightclubs .sec-desc { color: rgba(248,245,239,0.42); }
-.clubs-list { padding: 0 4rem 8rem; }
-.club-row {
-  display: grid;
-  grid-template-columns: 70px 1fr 260px 130px;
-  gap: 2.5rem; align-items: center;
-  padding: 2rem 1rem;
-  border-bottom: 1px solid rgba(255,255,255,0.07);
-  cursor: pointer; transition: background 0.2s;
+/* ── CLUB CARDS GRID ── */
+.clubs-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: rgba(255,255,255,0.06);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  margin: 0 4rem 8rem;
+}
+.club-card {
+  background: var(--ink);
+  display: flex; flex-direction: column;
   text-decoration: none; color: inherit;
+  cursor: pointer;
+  transition: background 0.3s;
+  position: relative;
+  overflow: hidden;
 }
-.club-row:hover { background: rgba(255,255,255,0.03); }
-.club-num {
-  font-family: var(--serif); font-style: italic;
-  font-size: 1.05rem; color: rgba(200,191,176,0.3);
+.club-card:hover { background: #221e18; }
+.club-card-img {
+  position: relative; overflow: hidden;
+  aspect-ratio: 16/10;
+  background: linear-gradient(150deg, #2a2620 0%, #1a1814 60%, #0e0c08 100%);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 12px;
 }
-.club-name {
+.club-card-img img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  transition: transform 0.7s ease, filter 0.5s;
+  filter: brightness(0.78) saturate(0.95);
+}
+.club-card:hover .club-card-img img {
+  transform: scale(1.04);
+  filter: brightness(1) saturate(1);
+}
+.club-card-img .ph-frame {
+  position: relative; z-index: 1;
+  border-color: rgba(200,191,176,0.3);
+  color: rgba(200,191,176,0.45);
+}
+.club-card-img .ph-label {
+  position: relative; z-index: 1;
+  color: rgba(200,191,176,0.4);
+}
+.club-card-num {
+  position: absolute; top: 1.2rem; left: 1.5rem;
   font-family: var(--serif);
-  font-size: 1.35rem; font-weight: 300;
-  color: var(--parchment); margin-bottom: 0.15rem;
+  font-size: 1rem; font-weight: 400;
+  color: rgba(248,245,239,0.6);
+  z-index: 2;
+  letter-spacing: 0.04em;
 }
-.club-genre {
-  font-size: 9.5px; letter-spacing: 0.2em;
-  text-transform: uppercase; color: rgba(200,191,176,0.4);
+.club-card-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 55%);
+  z-index: 1;
 }
-.club-desc {
-  font-size: 12px; color: rgba(248,245,239,0.35);
-  font-weight: 300; line-height: 1.7;
+.club-card-loc {
+  position: absolute; bottom: 1.2rem; left: 1.5rem;
+  font-size: 9px; letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(248,245,239,0.85);
+  z-index: 2;
 }
-.club-tag {
-  font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
-  border: 1px solid rgba(184,153,90,0.28); color: var(--gold-dim);
-  padding: 6px 14px; text-align: center; justify-self: end;
-  transition: border-color 0.25s;
+
+.club-card-body {
+  padding: 1.8rem 1.8rem 2rem;
+  display: flex; flex-direction: column;
+  flex: 1;
 }
-.club-row:hover .club-tag { border-color: rgba(184,153,90,0.6); }
+.club-card-name {
+  font-family: var(--serif);
+  font-size: 1.45rem; font-weight: 300;
+  color: var(--parchment);
+  margin-bottom: 0.4rem;
+  line-height: 1.2;
+  transition: color 0.25s;
+}
+.club-card:hover .club-card-name { color: var(--gold-dim); }
+.club-card-genre {
+  font-size: 9px; letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-dim); opacity: 0.65;
+  margin-bottom: 1rem;
+}
+.club-card-desc {
+  font-size: 12.5px; font-weight: 300;
+  color: rgba(248,245,239,0.45);
+  line-height: 1.85;
+  margin-bottom: 1.3rem;
+  flex: 1;
+}
+.club-card-cta {
+  font-size: 9.5px; letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  display: inline-flex; align-items: center; gap: 10px;
+  transition: gap 0.25s, color 0.25s;
+  align-self: flex-start;
+}
+.club-card-cta::after { content: '→'; }
+.club-card:hover .club-card-cta {
+  gap: 16px; color: var(--gold);
+}
 
 /* ── ABOUT ── */
 #about {
@@ -675,6 +745,10 @@ footer {
 }
 .soc:hover { color: var(--gold-dim); border-color: rgba(184,153,90,0.4); }
 
+@media (max-width: 1024px) {
+  .clubs-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
 /* ── MOBILE ── */
 @media (max-width: 768px) {
   nav { padding: 0 1.5rem; }
@@ -705,10 +779,8 @@ footer {
   .dest-soon-item { border-right: none; border-bottom: 1px solid var(--sand); padding: 1.5rem 1.8rem; }
   .dest-soon-item:last-child { border-bottom: none; }
 
-  .clubs-list { padding: 0 1.8rem 4rem; }
-  .club-row { grid-template-columns: 40px 1fr; gap: 1rem; padding: 1.5rem 0; }
-  .club-desc { display: none; }
-  .club-tag { display: none; }
+  .clubs-grid { grid-template-columns: 1fr; margin: 0 1.8rem 4rem; }
+  .club-card-img { aspect-ratio: 16/9; }
 
   #about { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 1.8rem; }
   .about-imgs { display: none; }
@@ -865,36 +937,84 @@ footer {
     </div>
     <p class="sec-desc" data-i18n="clubs.desc">Explore the world’s top nightclubs for unmatched beats and unforgettable nights.</p>
   </div>
-  <div class="clubs-list">
-    <a href="hi-ibiza.html" class="club-row">
-      <div class="club-num">01</div>
-      <div><div class="club-name" data-i18n="clubs.hi.name">Hï Ibiza</div><div class="club-genre" data-i18n="clubs.hi.genre">Ibiza, Spain · Techno · House · EDM</div></div>
-      <p class="club-desc" data-i18n="clubs.hi.desc">Voted the world's №1 club multiple times — futuristic design, two main rooms, and the most in-demand DJs of the decade.</p>
-      <div class="club-tag" data-i18n="dest.explore">Explore →</div>
+  <div class="clubs-grid">
+    <a href="hi-ibiza.html" class="club-card">
+      <div class="club-card-img">
+        <img src="hiibiza1.png" alt="Hï Ibiza">
+        <div class="club-card-overlay"></div>
+        <span class="club-card-num">01</span>
+        <span class="club-card-loc">Ibiza · Spain</span>
+      </div>
+      <div class="club-card-body">
+        <div class="club-card-name" data-i18n="clubs.hi.name">Hï Ibiza</div>
+        <div class="club-card-genre">Techno · House · EDM</div>
+        <p class="club-card-desc" data-i18n="clubs.hi.desc">Voted №1 club in the world multiple times — futuristic design, two main rooms and the most in-demand DJs of the decade.</p>
+        <span class="club-card-cta" data-i18n="dest.explore">Explore</span>
+      </div>
     </a>
-    <a href="echostage.html" class="club-row">
-      <div class="club-num">02</div>
-      <div><div class="club-name" data-i18n="clubs.echo.name">Echostage</div><div class="club-genre" data-i18n="clubs.echo.genre">Washington D.C., USA · House · Trance · Bass</div></div>
-      <p class="club-desc" data-i18n="clubs.echo.desc">North America's largest concert venue dedicated to electronic music — vast warehouse space, immersive light shows, headline residencies.</p>
-      <div class="club-tag" data-i18n="dest.explore">Explore →</div>
+
+    <a href="echostage.html" class="club-card">
+      <div class="club-card-img">
+        <img src="echostage1.png" alt="Echostage">
+        <div class="club-card-overlay"></div>
+        <span class="club-card-num">02</span>
+        <span class="club-card-loc">Washington · USA</span>
+      </div>
+      <div class="club-card-body">
+        <div class="club-card-name" data-i18n="clubs.echo.name">Echostage</div>
+        <div class="club-card-genre">House · Trance · Bass</div>
+        <p class="club-card-desc" data-i18n="clubs.echo.desc">North America's largest concert venue dedicated to electronic music — vast warehouse space, immersive light shows, headline residencies.</p>
+        <span class="club-card-cta" data-i18n="dest.explore">Explore</span>
+      </div>
     </a>
-    <a href="berghain.html" class="club-row">
-      <div class="club-num">03</div>
-      <div><div class="club-name" data-i18n="clubs.berg.name">Berghain</div><div class="club-genre" data-i18n="clubs.berg.genre">Berlin, Germany · Techno · Industrial</div></div>
-      <p class="club-desc" data-i18n="clubs.berg.desc">A former power plant turned temple of techno. Famous for its uncompromising door, marathon sets and a sound system that defines the genre.</p>
-      <div class="club-tag" data-i18n="dest.explore">Explore →</div>
+
+    <a href="berghain.html" class="club-card">
+      <div class="club-card-img">
+        <img src="berghain.png" alt="Berghain">
+        <div class="club-card-overlay"></div>
+        <span class="club-card-num">03</span>
+        <span class="club-card-loc">Berlin · Germany</span>
+      </div>
+      <div class="club-card-body">
+        <div class="club-card-name" data-i18n="clubs.berg.name">Berghain</div>
+        <div class="club-card-genre">Techno · Industrial</div>
+        <p class="club-card-desc" data-i18n="clubs.berg.desc">A former power plant turned temple of techno. Famous for its uncompromising door, marathon sets and a sound system that defines the genre.</p>
+        <span class="club-card-cta" data-i18n="dest.explore">Explore</span>
+      </div>
     </a>
-    <a href="fabric.html" class="club-row">
-      <div class="club-num">04</div>
-      <div><div class="club-name" data-i18n="clubs.fab.name">Fabric</div><div class="club-genre" data-i18n="clubs.fab.genre">London, UK · House · Techno · Drum & Bass</div></div>
-      <p class="club-desc" data-i18n="clubs.fab.desc">Three rooms beneath Smithfield Market and a bodysonic dancefloor that moves with the bass — a London institution for over two decades.</p>
-      <div class="club-tag" data-i18n="dest.explore">Explore →</div>
+
+    <a href="fabric.html" class="club-card">
+      <div class="club-card-img">
+        <!-- <img src="fabric.png" alt="Fabric"> -->
+        <div class="club-card-overlay"></div>
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">Fabric</span>
+        <span class="club-card-num">04</span>
+        <span class="club-card-loc">London · UK</span>
+      </div>
+      <div class="club-card-body">
+        <div class="club-card-name" data-i18n="clubs.fab.name">Fabric</div>
+        <div class="club-card-genre">House · Techno · Drum &amp; Bass</div>
+        <p class="club-card-desc" data-i18n="clubs.fab.desc">Three rooms beneath Smithfield Market and a bodysonic dancefloor that moves with the bass — a London institution for over two decades.</p>
+        <span class="club-card-cta" data-i18n="dest.explore">Explore</span>
+      </div>
     </a>
-    <a href="pacha.html" class="club-row">
-      <div class="club-num">05</div>
-      <div><div class="club-name" data-i18n="clubs.pacha.name">Pacha</div><div class="club-genre" data-i18n="clubs.pacha.genre">Ibiza, Spain · House · Disco · Open Format</div></div>
-      <p class="club-desc" data-i18n="clubs.pacha.desc">The cherry-logo legend. Open since 1973, Pacha turned Ibiza into the global capital of nightlife — glamour, history and endless summers.</p>
-      <div class="club-tag" data-i18n="dest.explore">Explore →</div>
+
+    <a href="pacha.html" class="club-card">
+      <div class="club-card-img">
+        <!-- <img src="pacha.png" alt="Pacha"> -->
+        <div class="club-card-overlay"></div>
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">Pacha</span>
+        <span class="club-card-num">05</span>
+        <span class="club-card-loc">Ibiza · Spain</span>
+      </div>
+      <div class="club-card-body">
+        <div class="club-card-name" data-i18n="clubs.pacha.name">Pacha</div>
+        <div class="club-card-genre">House · Disco · Open Format</div>
+        <p class="club-card-desc" data-i18n="clubs.pacha.desc">The cherry-logo legend. Open since 1973, Pacha turned Ibiza into the global capital of nightlife — glamour, history and endless summers.</p>
+        <span class="club-card-cta" data-i18n="dest.explore">Explore</span>
+      </div>
     </a>
   </div>
 </section>

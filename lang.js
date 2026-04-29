@@ -15,6 +15,25 @@ const TRANSLATIONS = {
     'nav.allClubs': 'All Clubs',
     'nav.allCities': 'All Cities',
     'nav.language': 'Language',
+    'nav.spots': 'Hidden Spots',
+    'nav.reads': 'Reads',
+    'city.spots.eyebrow': 'Hidden Spots',
+    'city.reads.eyebrow': 'Reads',
+    'city.hotels.eyebrow': 'Hotels',
+    'city.nightclubs.eyebrow': 'Nightclubs',
+    'spots.filter.all': 'All',
+    'spots.filter.cafes': 'Cafés',
+    'spots.filter.bars': 'Bars',
+    'spots.filter.parks': 'Parks',
+    'spots.filter.culture': 'Culture',
+    'spots.filter.shopping': 'Shopping',
+    'spots.filter.foodspots': 'Foodspots',
+    'spot.readmore': 'Read more',
+    'feat.readmore': 'Read more',
+    'feat.featured': 'Featured Read',
+    'hotel.from': 'from',
+    'hotel.night': '/ night',
+    'hotel.discover': 'Discover',
 
     'hero.eyebrow': 'The Urban Archive',
     'hero.h1': 'Discover<br>the <em>Hidden</em><br>City',
@@ -153,6 +172,25 @@ const TRANSLATIONS = {
     'nav.allClubs': 'Alle Clubs',
     'nav.allCities': 'Alle Städte',
     'nav.language': 'Sprache',
+    'nav.spots': 'Versteckte Orte',
+    'nav.reads': 'Lesestoff',
+    'city.spots.eyebrow': 'Versteckte Orte',
+    'city.reads.eyebrow': 'Lesestoff',
+    'city.hotels.eyebrow': 'Hotels',
+    'city.nightclubs.eyebrow': 'Nachtclubs',
+    'spots.filter.all': 'Alle',
+    'spots.filter.cafes': 'Cafés',
+    'spots.filter.bars': 'Bars',
+    'spots.filter.parks': 'Parks',
+    'spots.filter.culture': 'Kultur',
+    'spots.filter.shopping': 'Shopping',
+    'spots.filter.foodspots': 'Foodspots',
+    'spot.readmore': 'Mehr lesen',
+    'feat.readmore': 'Mehr lesen',
+    'feat.featured': 'Empfohlener Beitrag',
+    'hotel.from': 'ab',
+    'hotel.night': '/ Nacht',
+    'hotel.discover': 'Entdecken',
 
     'hero.eyebrow': 'Das städtische Archiv',
     'hero.h1': 'Entdecke<br>die <em>verborgene</em><br>Stadt',
@@ -291,6 +329,25 @@ const TRANSLATIONS = {
     'nav.allClubs': '所有夜店',
     'nav.allCities': '所有城市',
     'nav.language': '语言',
+    'nav.spots': '隐秘之地',
+    'nav.reads': '阅读',
+    'city.spots.eyebrow': '隐秘之地',
+    'city.reads.eyebrow': '阅读',
+    'city.hotels.eyebrow': '酒店',
+    'city.nightclubs.eyebrow': '夜店',
+    'spots.filter.all': '全部',
+    'spots.filter.cafes': '咖啡馆',
+    'spots.filter.bars': '酒吧',
+    'spots.filter.parks': '公园',
+    'spots.filter.culture': '文化',
+    'spots.filter.shopping': '购物',
+    'spots.filter.foodspots': '美食',
+    'spot.readmore': '阅读更多',
+    'feat.readmore': '阅读更多',
+    'feat.featured': '精选文章',
+    'hotel.from': '起价',
+    'hotel.night': '/ 晚',
+    'hotel.discover': '查看',
 
     'hero.eyebrow': '城市档案',
     'hero.h1': '探索<br><em>隐藏的</em><br>城市',
@@ -485,10 +542,9 @@ function injectPopupStyles() {
       background: transparent; border: none; cursor: pointer;
       padding: 4px 0;
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 1rem; font-weight: 300;
-      font-style: italic;
-      letter-spacing: 0.04em;
-      color: inherit; opacity: 0.7;
+      font-size: 1rem; font-weight: 400;
+      letter-spacing: 0.06em;
+      color: inherit; opacity: 0.75;
       transition: opacity 0.3s;
       position: relative;
     }
@@ -524,32 +580,31 @@ function injectPopupStyles() {
     }
     .ca-modal-mark {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-style: italic; font-size: 1rem;
-      color: rgba(212,188,138,0.65);
-      margin-bottom: 1.2rem;
+      font-size: 1rem;
+      color: rgba(212,188,138,0.55);
+      margin-bottom: 1.6rem;
       letter-spacing: 0.04em;
     }
     .ca-modal-eyebrow {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-style: italic; font-weight: 300;
-      font-size: 0.95rem;
-      letter-spacing: 0.18em;
-      color: rgba(248,245,239,0.42);
-      margin-bottom: 0.6rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 9px; font-weight: 300;
+      letter-spacing: 0.36em; text-transform: uppercase;
+      color: rgba(248,245,239,0.4);
+      margin-bottom: 1rem;
     }
     .ca-modal-title {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 2.2rem; font-weight: 300;
+      font-size: 2rem; font-weight: 300;
       line-height: 1.25; color: rgba(248,245,239,0.95);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.6rem;
       letter-spacing: 0.01em;
     }
-    .ca-modal-title em { font-style: italic; color: rgba(212,188,138,0.95); }
+    .ca-modal-title em { font-style: normal; color: rgba(212,188,138,0.92); }
     .ca-modal-sub {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-style: italic;
-      font-size: 1rem; font-weight: 300;
-      color: rgba(248,245,239,0.45);
+      font-family: 'Jost', sans-serif;
+      font-size: 11px; font-weight: 300;
+      letter-spacing: 0.08em;
+      color: rgba(248,245,239,0.38);
       margin-bottom: 3.5rem;
     }
     .ca-modal-close {
@@ -567,42 +622,47 @@ function injectPopupStyles() {
     /* ── Language list (no boxes, just type) ── */
     .ca-lang-list {
       list-style: none; padding: 0; margin: 0;
-      display: flex; flex-direction: column; gap: 2.2rem;
+      display: flex; flex-direction: column; gap: 1.8rem;
     }
     .ca-lang-list button {
       background: transparent; border: none; cursor: pointer;
       width: 100%; padding: 0;
-      display: flex; flex-direction: column; align-items: center; gap: 0.35rem;
+      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
       color: inherit;
+      position: relative;
     }
     .ca-lang-list .native {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 2.2rem; font-weight: 300;
-      line-height: 1; color: rgba(248,245,239,0.92);
-      transition: color 0.3s, font-style 0.3s, letter-spacing 0.4s;
-    }
-    .ca-lang-list .english {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-style: italic;
-      font-size: 0.95rem; font-weight: 300;
-      letter-spacing: 0.06em;
-      color: rgba(248,245,239,0.38);
+      font-size: 2rem; font-weight: 300;
+      line-height: 1; color: rgba(248,245,239,0.9);
       transition: color 0.3s;
     }
-    .ca-lang-list button:hover .native {
-      color: rgba(212,188,138,1);
-      font-style: italic;
-      letter-spacing: 0.03em;
+    .ca-lang-list .english {
+      font-family: 'Jost', sans-serif;
+      font-size: 9.5px; font-weight: 300;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: rgba(248,245,239,0.35);
+      transition: color 0.3s;
     }
-    .ca-lang-list button:hover .english {
-      color: rgba(248,245,239,0.7);
+    /* subtle gold underline on hover/active — no italic */
+    .ca-lang-list button::after {
+      content: ''; position: absolute;
+      bottom: -10px; left: 50%;
+      width: 0; height: 1px;
+      background: rgba(212,188,138,0.7);
+      transition: width 0.35s, left 0.35s;
     }
+    .ca-lang-list button:hover::after,
+    .ca-lang-list button.active::after {
+      width: 60px; left: calc(50% - 30px);
+    }
+    .ca-lang-list button:hover .native,
     .ca-lang-list button.active .native {
-      font-style: italic;
       color: rgba(212,188,138,1);
     }
+    .ca-lang-list button:hover .english,
     .ca-lang-list button.active .english {
-      color: rgba(212,188,138,0.7);
+      color: rgba(248,245,239,0.65);
     }
 
     @media (max-width: 480px) {

@@ -500,10 +500,10 @@ footer {
 <nav>
   <a class="nav-logo" href="index.html">City <span>Archivist</span></a>
   <ul class="nav-links">
-    <li><a href="#spots">Hidden Spots</a></li>
-    <li><a href="#reads">Reads</a></li>
-    <li><a href="#hotels">Hotels</a></li>
-    <li><a href="#nightclubs">Nightclubs</a></li>
+    <li><a href="#spots" data-i18n="nav.spots">Hidden Spots</a></li>
+    <li><a href="#reads" data-i18n="nav.reads">Reads</a></li>
+    <li><a href="#hotels" data-i18n="nav.hotels">Hotels</a></li>
+    <li><a href="#nightclubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
   </ul>
   <div style="display:flex; align-items:center; gap:2rem;">
     <a class="nav-back" href="index.html" data-i18n="nav.allCities">All Cities</a>
@@ -554,7 +554,7 @@ footer {
 <section id="spots">
   <div class="sec-header">
     <div>
-      <div class="sec-eyebrow">Hidden Spots</div>
+      <div class="sec-eyebrow" data-i18n="city.spots.eyebrow">Hidden Spots</div>
       <h2 class="sec-h">Secret<br><em>Shanghai</em></h2>
     </div>
     <p class="sec-desc">Test test test test test test test test test test test test test test test test test test test test test.</p>
@@ -562,11 +562,11 @@ footer {
 
   <div class="spots-filter">
     <button class="filter-btn active">Alle</button>
-    <button class="filter-btn">Cafés</button>
-    <button class="filter-btn">Bars</button>
-    <button class="filter-btn">Parks</button>
+    <button class="filter-btn" data-filter="cafes" data-i18n="spots.filter.cafes">Cafés</button>
+    <button class="filter-btn" data-filter="bars" data-i18n="spots.filter.bars">Bars</button>
+    <button class="filter-btn" data-filter="parks" data-i18n="spots.filter.parks">Parks</button>
     <button class="filter-btn">Kultur</button>
-    <button class="filter-btn">Shopping</button>
+    <button class="filter-btn" data-filter="shopping" data-i18n="spots.filter.shopping">Shopping</button>
     <button class="filter-btn">Essen</button>
   </div>
 
@@ -582,7 +582,7 @@ footer {
         <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
         <div class="spot-footer">
           <span class="spot-location">The Bund</span>
-          <a class="spot-read">Mehr lesen</a>
+          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
@@ -597,7 +597,7 @@ footer {
         <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
         <div class="spot-footer">
           <span class="spot-location">Lujiazui</span>
-          <a class="spot-read">Mehr lesen</a>
+          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
@@ -612,7 +612,7 @@ footer {
         <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
         <div class="spot-footer">
           <span class="spot-location">French Concession</span>
-          <a class="spot-read">Mehr lesen</a>
+          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
@@ -627,7 +627,7 @@ footer {
         <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
         <div class="spot-footer">
           <span class="spot-location">Jing'an</span>
-          <a class="spot-read">Mehr lesen</a>
+          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
@@ -642,7 +642,7 @@ footer {
         <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
         <div class="spot-footer">
           <span class="spot-location">Xintiandi</span>
-          <a class="spot-read">Mehr lesen</a>
+          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
@@ -657,7 +657,7 @@ footer {
         <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
         <div class="spot-footer">
           <span class="spot-location">Hongqiao</span>
-          <a class="spot-read">Mehr lesen</a>
+          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
@@ -671,7 +671,7 @@ footer {
 <section id="reads">
   <div class="sec-header" style="background:var(--linen);">
     <div>
-      <div class="sec-eyebrow">Reads</div>
+      <div class="sec-eyebrow" data-i18n="city.reads.eyebrow">Reads</div>
       <h2 class="sec-h">Über<br><em>Shanghai</em></h2>
     </div>
     <p class="sec-desc">Test test test test test test test test test test test test test test test test test test.</p>
@@ -679,7 +679,7 @@ footer {
 
   <div class="featured-article" style="background:var(--linen);">
     <div class="feat-img">
-      <div class="feat-badge">Featured Read</div>
+      <div class="feat-badge" data-i18n="feat.featured">Featured Read</div>
       <div class="ph-frame">◎</div>
       <span class="ph-label">Bild</span>
     </div>
@@ -691,7 +691,7 @@ footer {
       </div>
       <div class="feat-title">Test test test test test test test test test test.</div>
       <p class="feat-excerpt">Test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test.</p>
-      <a class="feat-cta">Weiterlesen</a>
+      <a class="feat-cta" data-i18n="feat.readmore">Read more</a>
     </div>
   </div>
 
@@ -730,7 +730,7 @@ footer {
 <section id="hotels">
   <div class="sec-header">
     <div>
-      <div class="sec-eyebrow">Hotels</div>
+      <div class="sec-eyebrow" data-i18n="city.hotels.eyebrow">Hotels</div>
       <h2 class="sec-h">Where to<br><em>Stay</em></h2>
     </div>
     <p class="sec-desc">Test test test test test test test test test test test test test test test test test test.</p>
@@ -746,8 +746,8 @@ footer {
           <p class="hotel-desc">Test test test test test test test test test test test test test test test.</p>
         </div>
         <div class="hotel-footer">
-          <div class="hotel-price"><span class="price-from">ab</span><span class="price-val">€000</span><span class="price-night">/ Nacht</span></div>
-          <a class="hotel-link">Entdecken</a>
+          <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">€000</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
+          <a class="hotel-link" data-i18n="hotel.discover">Discover</a>
         </div>
       </div>
     </div>
@@ -761,8 +761,8 @@ footer {
           <p class="hotel-desc">Test test test test test test test test test test test test test test test.</p>
         </div>
         <div class="hotel-footer">
-          <div class="hotel-price"><span class="price-from">ab</span><span class="price-val">€000</span><span class="price-night">/ Nacht</span></div>
-          <a class="hotel-link">Entdecken</a>
+          <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">€000</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
+          <a class="hotel-link" data-i18n="hotel.discover">Discover</a>
         </div>
       </div>
     </div>
@@ -776,8 +776,8 @@ footer {
           <p class="hotel-desc">Test test test test test test test test test test test test test test test.</p>
         </div>
         <div class="hotel-footer">
-          <div class="hotel-price"><span class="price-from">ab</span><span class="price-val">€000</span><span class="price-night">/ Nacht</span></div>
-          <a class="hotel-link">Entdecken</a>
+          <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">€000</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
+          <a class="hotel-link" data-i18n="hotel.discover">Discover</a>
         </div>
       </div>
     </div>
@@ -791,8 +791,8 @@ footer {
           <p class="hotel-desc">Test test test test test test test test test test test test test test test.</p>
         </div>
         <div class="hotel-footer">
-          <div class="hotel-price"><span class="price-from">ab</span><span class="price-val">€000</span><span class="price-night">/ Nacht</span></div>
-          <a class="hotel-link">Entdecken</a>
+          <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">€000</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
+          <a class="hotel-link" data-i18n="hotel.discover">Discover</a>
         </div>
       </div>
     </div>
@@ -806,7 +806,7 @@ footer {
 <section id="nightclubs">
   <div class="sec-header">
     <div>
-      <div class="sec-eyebrow">Nightclubs</div>
+      <div class="sec-eyebrow" data-i18n="city.nightclubs.eyebrow">Nightclubs</div>
       <h2 class="sec-h">After<br><em>Dark</em></h2>
     </div>
     <p class="sec-desc">Test test test test test test test test test test test test test test test test test.</p>
