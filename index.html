@@ -760,9 +760,24 @@ footer {
   .nav-links { display: none; }
   .nav-search { display: none; }
 
-  .hero { grid-template-columns: 1fr; height: auto; min-height: 100svh; }
-  .hero-right { display: none; }
-  .hero-left { padding: 6rem 1.8rem 4rem; }
+  .hero {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 100svh;
+  }
+  .hero-left {
+    min-height: 58svh;
+    padding: 6rem 1.8rem 4rem;
+    order: 2;
+  }
+  .hero-right {
+    display: block;
+    order: 1;
+    min-height: 42svh;
+    margin-top: 70px;
+  }
+  .hero-img-fill { position: absolute; inset: 0; }
+  .scroll-hint { display: none; }
   .hero-eyebrow { left: 1.8rem; top: 2rem; }
   .hero-h1 { font-size: clamp(3rem, 12vw, 4.5rem); }
   .hero-sub { max-width: 100%; }
@@ -837,15 +852,16 @@ footer {
     <p class="hero-sub" data-i18n="hero.sub">Go beyond the familiar. Discover what others miss.</p>
     <a href="#destinations" class="hero-cta" data-i18n="hero.cta">Explore Now</a>
   </div>
-<div class="hero-right">
-  <div class="hero-img-fill">
-    <img src="cityarchivistlogo.png" alt="City Archivist" 
+  <div class="hero-right">
+    <div class="hero-img-fill">
+      <div class="ph-frame">◎</div>
+      <span class="ph-label">place holdr</span>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-bar"></div>
+      <span data-i18n="hero.scroll">Scroll</span>
+    </div>
   </div>
-  <div class="scroll-hint">
-    <div class="scroll-bar"></div>
-    <span data-i18n="hero.scroll"></span>
-  </div>
-</div>
 </section>
 
 <!-- DIVIDER -->
