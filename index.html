@@ -760,24 +760,9 @@ footer {
   .nav-links { display: none; }
   .nav-search { display: none; }
 
-  .hero {
-    grid-template-columns: 1fr;
-    height: auto;
-    min-height: 100svh;
-  }
-  .hero-left {
-    min-height: 58svh;
-    padding: 6rem 1.8rem 4rem;
-    order: 2;
-  }
-  .hero-right {
-    display: block;
-    order: 1;
-    min-height: 42svh;
-    margin-top: 70px;
-  }
-  .hero-img-fill { position: absolute; inset: 0; }
-  .scroll-hint { display: none; }
+  .hero { grid-template-columns: 1fr; height: auto; min-height: 100svh; }
+  .hero-right { display: none; }
+  .hero-left { padding: 6rem 1.8rem 4rem; }
   .hero-eyebrow { left: 1.8rem; top: 2rem; }
   .hero-h1 { font-size: clamp(3rem, 12vw, 4.5rem); }
   .hero-sub { max-width: 100%; }
