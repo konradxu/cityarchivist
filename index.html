@@ -656,8 +656,10 @@ nav {
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 8rem; align-items: center;
 }
-.about-imgs { position: relative; }
+.about-imgs { position: relative; width: 100%; }
 .about-img-main {
+  display: block;
+  width: 100%;
   aspect-ratio: 3/4;
   background: var(--sand);
   position: relative; overflow: hidden;
