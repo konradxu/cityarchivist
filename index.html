@@ -327,6 +327,30 @@ nav {
   opacity: 0; transition: opacity 0.3s;
 }
 .dest-panel:hover .dest-explore-btn { opacity: 1; }
+/* Read-more button (under destinations grid) */
+.dest-readmore {
+  text-align: center;
+  padding: 3.5rem 4rem 4.5rem;
+  background: var(--white);
+  border-bottom: 1px solid var(--sand);
+}
+.dest-more-btn {
+  background: transparent;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 10px; font-weight: 300;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  padding: 14px 30px;
+  display: inline-flex; align-items: center; gap: 14px;
+  transition: background 0.25s, color 0.25s, gap 0.3s;
+}
+.dest-more-btn::after { content: '→'; }
+.dest-more-btn:hover {
+  background: var(--ink); color: var(--parchment); gap: 22px;
+}
+
 .dest-soon-row {
   display: grid; grid-template-columns: repeat(3, 1fr);
   border-bottom: 1px solid var(--sand);
@@ -761,8 +785,9 @@ footer {
   .nav-search { display: none; }
 
   .hero { grid-template-columns: 1fr; height: auto; min-height: 100svh; }
-  .hero-right { display: none; }
-  .hero-left { padding: 6rem 1.8rem 4rem; }
+  .hero-right { display: block; min-height: 55vh; order: -1; }
+  .scroll-hint { display: none; }
+  .hero-left { padding: 4rem 1.8rem 4rem; }
   .hero-eyebrow { left: 1.8rem; top: 2rem; }
   .hero-h1 { font-size: clamp(3rem, 12vw, 4.5rem); }
   .hero-sub { max-width: 100%; }
@@ -838,9 +863,8 @@ footer {
     <a href="#destinations" class="hero-cta" data-i18n="hero.cta">Explore Now</a>
   </div>
   <div class="hero-right">
-    <div class="hero-img-fill">
-      <div class="ph-frame">◎</div>
-      <span class="ph-label">place holdr</span>
+    <div class="hero-img-fill" style="background:none;">
+      <img src="cityarchivistlogo.png" alt="City Archivist" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;">
     </div>
     <div class="scroll-hint">
       <div class="scroll-bar"></div>
@@ -918,6 +942,10 @@ footer {
       </div>
       <div class="dest-explore-btn" data-i18n="dest.explore">Explore →</div>
     </a>
+  </div>
+
+  <div class="dest-readmore">
+    <button type="button" class="dest-more-btn" data-coming-soon data-i18n="dest.readmore">More cities</button>
   </div>
 </section>
 

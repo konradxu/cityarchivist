@@ -70,6 +70,9 @@ const TRANSLATIONS = {
     'dest.tokyo.sub': 'Where neon and ritual coexist — a city of small streets and immense scale.',
     'dest.explore': 'Explore →',
     'dest.soon': 'Coming Soon',
+    'dest.readmore': 'More cities',
+    'dest.comingsoon.title': 'Coming <em>Soon</em>',
+    'dest.comingsoon.sub': 'More cities arriving in the archive',
 
     'hotelsFeature.eyebrow': 'Hotels',
     'hotelsFeature.title': 'Top Hotel Chains on the <em>Globe</em>',
@@ -236,6 +239,9 @@ const TRANSLATIONS = {
     'dest.tokyo.sub': 'Wo Neon und Ritual nebeneinander bestehen — eine Stadt der kleinen Gassen und der riesigen Maßstäbe.',
     'dest.explore': 'Entdecken →',
     'dest.soon': 'Bald verfügbar',
+    'dest.readmore': 'Weitere Städte',
+    'dest.comingsoon.title': 'Bald <em>verfügbar</em>',
+    'dest.comingsoon.sub': 'Weitere Städte folgen bald im Archiv',
 
     'hotelsFeature.eyebrow': 'Hotels',
     'hotelsFeature.title': 'Top Hotelketten der <em>Welt</em>',
@@ -402,6 +408,9 @@ const TRANSLATIONS = {
     'dest.tokyo.sub': '霓虹与仪式并存的城市 — 小巷与宏大尺度交织。',
     'dest.explore': '探索 →',
     'dest.soon': '即将推出',
+    'dest.readmore': '更多城市',
+    'dest.comingsoon.title': '即将<em>推出</em>',
+    'dest.comingsoon.sub': '更多城市即将加入档案',
 
     'hotelsFeature.eyebrow': '酒店',
     'hotelsFeature.title': '全球顶级<em>酒店集团</em>',
@@ -692,10 +701,36 @@ function injectPopupStyles() {
       color: rgba(248,245,239,0.65);
     }
 
+    /* ── Coming Soon list (same modal frame) ── */
+    .ca-coming-list {
+      list-style: none; padding: 0; margin: 0;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.6rem 2.5rem;
+      text-align: left;
+    }
+    .ca-coming-list li {
+      display: flex; flex-direction: column; gap: 0.3rem;
+      padding-bottom: 0.9rem;
+      border-bottom: 1px solid rgba(248,245,239,0.08);
+    }
+    .ca-coming-list .name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.35rem; font-weight: 300;
+      color: rgba(248,245,239,0.85);
+      line-height: 1;
+    }
+    .ca-coming-list .country {
+      font-family: 'Jost', sans-serif;
+      font-size: 8.5px; letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(212,188,138,0.55);
+    }
+
     @media (max-width: 480px) {
       .ca-modal-title { font-size: 1.7rem; }
       .ca-lang-list .native { font-size: 1.85rem; }
       .ca-modal-close { top: -2.5rem; }
+      .ca-coming-list { grid-template-columns: 1fr; gap: 1.2rem; }
     }
   `;
   document.head.appendChild(style);
@@ -784,6 +819,55 @@ function closeLangModal() {
 function escClose(e) { if (e.key === 'Escape') closeLangModal(); }
 
 /* ============================================================
+   Coming Soon modal (more cities on the destinations section)
+   ============================================================ */
+const COMING_SOON_CITIES = [
+  { name: 'Paris',     country: 'France' },
+  { name: 'New York',  country: 'USA' },
+  { name: 'Rome',      country: 'Italy' },
+  { name: 'Milan',     country: 'Italy' },
+  { name: 'Barcelona', country: 'Spain' },
+  { name: 'Dubai',     country: 'UAE' },
+  { name: 'Singapore', country: 'Singapore' },
+  { name: 'Hong Kong', country: 'China' },
+];
+
+function showComingSoonModal() {
+  injectPopupStyles();
+  if (document.getElementById('ca-coming')) return;
+  const lang = getCurrentLang() || 'en';
+  const dict = TRANSLATIONS[lang] || TRANSLATIONS.en;
+
+  const overlay = document.createElement('div');
+  overlay.id = 'ca-coming';
+  overlay.className = 'ca-modal';
+  overlay.innerHTML = `
+    <div class="ca-modal-card" role="dialog" aria-modal="true" aria-label="Coming soon">
+      <button class="ca-modal-close" aria-label="Close" data-close-modal>×</button>
+      <div class="ca-modal-mark">✦</div>
+      <h2 class="ca-modal-title">${dict['dest.comingsoon.title']}</h2>
+      <p class="ca-modal-sub">${dict['dest.comingsoon.sub']}</p>
+      <ul class="ca-coming-list">
+        ${COMING_SOON_CITIES.map(c => `<li><span class="name">${c.name}</span><span class="country">${c.country}</span></li>`).join('')}
+      </ul>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay || e.target.hasAttribute('data-close-modal')) closeComingSoonModal();
+  });
+  document.addEventListener('keydown', escCloseComing);
+}
+
+function closeComingSoonModal() {
+  const el = document.getElementById('ca-coming');
+  if (el) el.remove();
+  document.removeEventListener('keydown', escCloseComing);
+}
+function escCloseComing(e) { if (e.key === 'Escape') closeComingSoonModal(); }
+
+/* ============================================================
    Newsletter
    ----------------------------------------------------------------
    How submissions are handled, in priority order:
@@ -858,6 +942,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // Wire any language-trigger buttons
   document.querySelectorAll('[data-lang-trigger]').forEach(btn => {
     btn.addEventListener('click', showLangModal);
+  });
+
+  // Wire any "more cities" / Coming Soon triggers
+  document.querySelectorAll('[data-coming-soon]').forEach(btn => {
+    btn.addEventListener('click', showComingSoonModal);
   });
 
   bindNewsletter();
