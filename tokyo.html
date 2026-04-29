@@ -568,26 +568,25 @@ footer {
   <div class="city-hero-left">
     <div class="city-eyebrow">Japan · Kantō · City Guide</div>
     <h1 class="city-h1"><em>Tokyo</em></h1>
-    <p class="city-tagline">Tokyo — Discover the city beyond its skyline.</p>
+    <p class="city-tagline">Where centuries-old shrines sit beside neon canyons — a city of small streets, sharp design and unmatched depth.</p>
     <div class="city-meta">
       <div class="city-meta-item">
-        <div class="city-meta-num">00</div>
+        <div class="city-meta-num">06</div>
         <div class="city-meta-label">Hidden Spots</div>
       </div>
       <div class="city-meta-item">
-        <div class="city-meta-num">00</div>
+        <div class="city-meta-num">04</div>
         <div class="city-meta-label">Hotels</div>
       </div>
       <div class="city-meta-item">
-        <div class="city-meta-num">00</div>
+        <div class="city-meta-num">04</div>
         <div class="city-meta-label">Clubs</div>
       </div>
     </div>
   </div>
   <div class="city-hero-right">
-    <div class="city-hero-img">
-      <div class="ph-frame">◎</div>
-      <span class="ph-label">Tokyo Hero Bild</span>
+    <div class="city-hero-img" style="background:none;">
+      <img src="tokyo.png" alt="Tokyo" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;">
     </div>
   </div>
 </section>
@@ -604,103 +603,108 @@ footer {
   </div>
 
   <div class="spots-filter">
-    <button class="filter-btn active">All</button>
-    <button class="filter-btn">Cafés</button>
-    <button class="filter-btn">Bars</button>
-    <button class="filter-btn">Parks</button>
-    <button class="filter-btn">Culture</button>
-    <button class="filter-btn">Shopping</button>
-    <button class="filter-btn">Foodspots</button>
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="cafes">Cafés</button>
+    <button class="filter-btn" data-filter="bars">Bars</button>
+    <button class="filter-btn" data-filter="parks">Parks</button>
+    <button class="filter-btn" data-filter="culture">Culture</button>
+    <button class="filter-btn" data-filter="shopping">Shopping</button>
+    <button class="filter-btn" data-filter="foodspots">Foodspots</button>
   </div>
 
   <div class="spots-grid">
-    <div class="spot-card">
+    <div class="spot-card" data-cat="bars">
       <div class="spot-img a">
-        <span class="spot-cat">Café</span>
+        <span class="spot-cat">Bars</span>
         <div class="ph-frame">◎</div>
-        <span class="ph-label">Bild</span>
+        <span class="ph-label">Golden Gai</span>
       </div>
       <div class="spot-body">
-        <div class="spot-title">Test Test Test Test</div>
-        <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
+        <div class="spot-title">Golden Gai</div>
+        <p class="spot-desc">Six narrow alleys in the heart of Shinjuku, lined with over 200 tiny postwar bars — most fit fewer than ten guests. Smoky, theatrical, deeply local.</p>
         <div class="spot-footer">
-          <span class="spot-location">Neighborhood</span>
-          <a class="spot-read">Mehr lesen</a>
+          <span class="spot-location">Shinjuku</span>
+          <a class="spot-read">Read more</a>
         </div>
       </div>
     </div>
-    <div class="spot-card">
+
+    <div class="spot-card" data-cat="shopping">
       <div class="spot-img b">
-        <span class="spot-cat">Bar</span>
-        <div class="ph-frame">◎</div>
-        <span class="ph-label">Bild</span>
-      </div>
-      <div class="spot-body">
-        <div class="spot-title">Test Test Test Test</div>
-        <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
-        <div class="spot-footer">
-          <span class="spot-location">Neighborhood</span>
-          <a class="spot-read">Mehr lesen</a>
-        </div>
-      </div>
-    </div>
-    <div class="spot-card">
-      <div class="spot-img c">
-        <span class="spot-cat">Park</span>
-        <div class="ph-frame">◎</div>
-        <span class="ph-label">Bild</span>
-      </div>
-      <div class="spot-body">
-        <div class="spot-title">Test Test Test Test</div>
-        <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
-        <div class="spot-footer">
-          <span class="spot-location">Neighborhood</span>
-          <a class="spot-read">Mehr lesen</a>
-        </div>
-      </div>
-    </div>
-    <div class="spot-card">
-      <div class="spot-img d">
-        <span class="spot-cat">Kultur</span>
-        <div class="ph-frame">◎</div>
-        <span class="ph-label">Bild</span>
-      </div>
-      <div class="spot-body">
-        <div class="spot-title">Test Test Test Test</div>
-        <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
-        <div class="spot-footer">
-          <span class="spot-location">Neighborhood</span>
-          <a class="spot-read">Mehr lesen</a>
-        </div>
-      </div>
-    </div>
-    <div class="spot-card">
-      <div class="spot-img e">
-        <span class="spot-cat">Essen</span>
-        <div class="ph-frame">◎</div>
-        <span class="ph-label">Bild</span>
-      </div>
-      <div class="spot-body">
-        <div class="spot-title">Test Test Test Test</div>
-        <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
-        <div class="spot-footer">
-          <span class="spot-location">Neighborhood</span>
-          <a class="spot-read">Mehr lesen</a>
-        </div>
-      </div>
-    </div>
-    <div class="spot-card">
-      <div class="spot-img f">
         <span class="spot-cat">Shopping</span>
         <div class="ph-frame">◎</div>
-        <span class="ph-label">Bild</span>
+        <span class="ph-label">Yanaka Ginza</span>
       </div>
       <div class="spot-body">
-        <div class="spot-title">Test Test Test Test</div>
-        <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
+        <div class="spot-title">Yanaka Ginza</div>
+        <p class="spot-desc">A 170-metre shōtengai street in old-town Tokyo, untouched by war and bubble economy alike. Crafts, sweets, ramen and stray cats — a slower city, still here.</p>
         <div class="spot-footer">
-          <span class="spot-location">Neighborhood</span>
-          <a class="spot-read">Mehr lesen</a>
+          <span class="spot-location">Yanaka</span>
+          <a class="spot-read">Read more</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="spot-card" data-cat="culture">
+      <div class="spot-img c">
+        <span class="spot-cat">Culture</span>
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">Daikanyama T-Site</span>
+      </div>
+      <div class="spot-body">
+        <div class="spot-title">Daikanyama T-Site</div>
+        <p class="spot-desc">Klein Dytham's three pavilions of perforated white concrete — Tsutaya's flagship bookstore, paired with Anjin lounge and a quietly perfect garden.</p>
+        <div class="spot-footer">
+          <span class="spot-location">Daikanyama</span>
+          <a class="spot-read">Read more</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="spot-card" data-cat="parks">
+      <div class="spot-img d">
+        <span class="spot-cat">Parks</span>
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">Nezu Museum</span>
+      </div>
+      <div class="spot-body">
+        <div class="spot-title">Nezu Museum Garden</div>
+        <p class="spot-desc">Behind Kengo Kuma's bamboo-screened museum lies one of Tokyo's most refined private gardens — moss, stone lanterns, tea houses, almost no one else.</p>
+        <div class="spot-footer">
+          <span class="spot-location">Aoyama</span>
+          <a class="spot-read">Read more</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="spot-card" data-cat="cafes">
+      <div class="spot-img e">
+        <span class="spot-cat">Cafés</span>
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">Fuglen Tokyo</span>
+      </div>
+      <div class="spot-body">
+        <div class="spot-title">Fuglen Tokyo</div>
+        <p class="spot-desc">Norwegian coffee in a 1960s Tokyo storefront — Aeropress and Hario by day, low-lit cocktails by night, and a backstreet Tomigaya crowd all day.</p>
+        <div class="spot-footer">
+          <span class="spot-location">Tomigaya</span>
+          <a class="spot-read">Read more</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="spot-card" data-cat="foodspots">
+      <div class="spot-img f">
+        <span class="spot-cat">Foodspots</span>
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">Higashiya Ginza</span>
+      </div>
+      <div class="spot-body">
+        <div class="spot-title">Higashiya Ginza</div>
+        <p class="spot-desc">A modern wagashi parlour and tea salon in Ginza, designed by Shinichiro Ogata. Seasonal sweets, single-origin teas — half ritual, half quiet luxury.</p>
+        <div class="spot-footer">
+          <span class="spot-location">Ginza</span>
+          <a class="spot-read">Read more</a>
         </div>
       </div>
     </div>
@@ -717,7 +721,7 @@ footer {
       <div class="sec-eyebrow">Reads</div>
       <h2 class="sec-h">about<br><em>Tokyo</em></h2>
     </div>
-    <p class="sec-desc">Tokyo — placeholder description. Edit this paragraph with the city's defining character: history, food, nightlife, architecture.</p>
+    <p class="sec-desc">Tokyo is not one city but a federation of neighbourhoods — each with its own pace, its own rules and its own definition of cool. These are the pieces that help decode it.</p>
   </div>
 
   <div class="featured-article" style="background:var(--linen);">
@@ -728,13 +732,13 @@ footer {
     </div>
     <div class="feat-body" style="background:var(--linen);">
       <div class="feat-meta">
-        <span class="feat-tag">City History</span>
+        <span class="feat-tag">Neighbourhoods</span>
         <div class="feat-dot"></div>
-        <span class="feat-date">May, 2026</span>
+        <span class="feat-date">April, 2026</span>
       </div>
-      <div class="feat-title">Test test test test test test test test test test.</div>
-      <p class="feat-excerpt">Test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test.</p>
-      <a class="feat-cta">Weiterlesen</a>
+      <div class="feat-title">A neighbourhood-by-neighbourhood guide to Tokyo.</div>
+      <p class="feat-excerpt">Shibuya for energy, Daikanyama for design, Yanaka for old Tokyo, Toranomon for new ambition, Tomigaya for breakfast. A practical, opinionated walk through the city in nine stops — where to eat, where to slow down and where to disappear into the crowd.</p>
+      <a class="feat-cta">Read more</a>
     </div>
   </div>
 
@@ -742,27 +746,27 @@ footer {
     <div class="article-row">
       <div class="art-img a">◎</div>
       <div>
-        <div class="art-tag">Architektur · Test Test 2025</div>
-        <div class="art-title">Test test test test test test test test test</div>
-        <p class="art-excerpt">Test test test test test test test test test test test test test test test.</p>
+        <div class="art-tag">Architecture · 2026</div>
+        <div class="art-title">Tadao Ando's quiet revolution in concrete</div>
+        <p class="art-excerpt">From the chapel of light to the new Aoyama project — how one architect taught Tokyo to listen.</p>
       </div>
       <div class="art-arrow">→</div>
     </div>
     <div class="article-row">
       <div class="art-img b">◎</div>
       <div>
-        <div class="art-tag">Kulinarik · Test Test 2025</div>
-        <div class="art-title">Test test test test test test test test test</div>
-        <p class="art-excerpt">Test test test test test test test test test test test test test test test.</p>
+        <div class="art-tag">Cuisine · 2026</div>
+        <div class="art-title">An izakaya is not a restaurant</div>
+        <p class="art-excerpt">A field guide to Tokyo's drinking-and-eating houses — what to order, how long to stay, and why the best ones never need a sign.</p>
       </div>
       <div class="art-arrow">→</div>
     </div>
     <div class="article-row">
       <div class="art-img c">◎</div>
       <div>
-        <div class="art-tag">Nightlife · Test Test 2025</div>
-        <div class="art-title">Test test test test test test test test test</div>
-        <p class="art-excerpt">Test test test test test test test test test test test test test test test.</p>
+        <div class="art-tag">Nightlife · 2026</div>
+        <div class="art-title">Tokyo techno: where to actually listen</div>
+        <p class="art-excerpt">Beyond the headline rooms — Vent, Contact, Mitsuki — a longer take on the city's most uncompromising sound systems and the people behind them.</p>
       </div>
       <div class="art-arrow">→</div>
     </div>
@@ -776,66 +780,66 @@ footer {
       <div class="sec-eyebrow">Hotels</div>
       <h2 class="sec-h">Where to<br><em>Stay</em></h2>
     </div>
-    <p class="sec-desc">Test test test test test test test test test test test test test test test test test test.</p>
+    <p class="sec-desc">Four houses that capture the Tokyo we love — from the city in the sky to the ryokan on the imperial moat. Every one of them stands for a different idea of what a Tokyo hotel can be.</p>
   </div>
   <div class="hotels-grid">
     <div class="hotel-card">
-      <div class="hotel-img a"><div class="ph-frame">◎</div><span class="ph-label">Bild</span></div>
+      <div class="hotel-img a"><div class="ph-frame">◎</div><span class="ph-label">Aman Tokyo</span></div>
       <div class="hotel-body">
         <div>
           <div class="hotel-stars">★★★★★</div>
-          <div class="hotel-name">Test Test Test Hotel</div>
-          <div class="hotel-area">Neighborhood · München</div>
-          <p class="hotel-desc">Test test test test test test test test test test test test test test test.</p>
+          <div class="hotel-name">Aman Tokyo</div>
+          <div class="hotel-area">Otemachi · Tokyo</div>
+          <p class="hotel-desc">Aman's first urban resort. The top six floors of the Otemachi Tower — a 30-metre lobby in stone, washi and water, with one of the great city views from the 33rd-floor onsen.</p>
         </div>
         <div class="hotel-footer">
-          <div class="hotel-price"><span class="price-from">ab</span><span class="price-val">€000</span><span class="price-night">/ Nacht</span></div>
-          <a class="hotel-link">Entdecken</a>
+          <div class="hotel-price"><span class="price-from">from</span><span class="price-val">¥250k</span><span class="price-night">/ night</span></div>
+          <a class="hotel-link">Discover</a>
         </div>
       </div>
     </div>
     <div class="hotel-card">
-      <div class="hotel-img b"><div class="ph-frame">◎</div><span class="ph-label">Bild</span></div>
+      <div class="hotel-img b"><div class="ph-frame">◎</div><span class="ph-label">Janu Tokyo</span></div>
       <div class="hotel-body">
         <div>
           <div class="hotel-stars">★★★★★</div>
-          <div class="hotel-name">Test Test Test Hotel</div>
-          <div class="hotel-area">Neighborhood · München</div>
-          <p class="hotel-desc">Test test test test test test test test test test test test test test test.</p>
+          <div class="hotel-name">Janu Tokyo</div>
+          <div class="hotel-area">Azabudai Hills · Tokyo</div>
+          <p class="hotel-desc">Aman's playful younger sister, opened in 2024 inside Heatherwick's Azabudai Hills — eight restaurants, a 4,000 sqm wellness floor and a much more sociable spirit.</p>
         </div>
         <div class="hotel-footer">
-          <div class="hotel-price"><span class="price-from">ab</span><span class="price-val">€000</span><span class="price-night">/ Nacht</span></div>
-          <a class="hotel-link">Entdecken</a>
+          <div class="hotel-price"><span class="price-from">from</span><span class="price-val">¥190k</span><span class="price-night">/ night</span></div>
+          <a class="hotel-link">Discover</a>
         </div>
       </div>
     </div>
     <div class="hotel-card">
-      <div class="hotel-img c"><div class="ph-frame">◎</div><span class="ph-label">Bild</span></div>
+      <div class="hotel-img c"><div class="ph-frame">◎</div><span class="ph-label">Park Hyatt Tokyo</span></div>
       <div class="hotel-body">
         <div>
-          <div class="hotel-stars">★★★★</div>
-          <div class="hotel-name">Test Test Test Hotel</div>
-          <div class="hotel-area">Neighborhood · München</div>
-          <p class="hotel-desc">Test test test test test test test test test test test test test test test.</p>
+          <div class="hotel-stars">★★★★★</div>
+          <div class="hotel-name">Park Hyatt Tokyo</div>
+          <div class="hotel-area">Shinjuku · Tokyo</div>
+          <p class="hotel-desc">The Lost in Translation hotel. Kenzo Tange's Shinjuku tower from 1994 reopened in 2024 fully restored — New York Bar, library, the city laid out fifty floors below.</p>
         </div>
         <div class="hotel-footer">
-          <div class="hotel-price"><span class="price-from">ab</span><span class="price-val">€000</span><span class="price-night">/ Nacht</span></div>
-          <a class="hotel-link">Entdecken</a>
+          <div class="hotel-price"><span class="price-from">from</span><span class="price-val">¥120k</span><span class="price-night">/ night</span></div>
+          <a class="hotel-link">Discover</a>
         </div>
       </div>
     </div>
     <div class="hotel-card">
-      <div class="hotel-img d"><div class="ph-frame">◎</div><span class="ph-label">Bild</span></div>
+      <div class="hotel-img d"><div class="ph-frame">◎</div><span class="ph-label">Hoshinoya Tokyo</span></div>
       <div class="hotel-body">
         <div>
-          <div class="hotel-stars">★★★★</div>
-          <div class="hotel-name">Test Test Test Hotel</div>
-          <div class="hotel-area">Neighborhood · München</div>
-          <p class="hotel-desc">Test test test test test test test test test test test test test test test.</p>
+          <div class="hotel-stars">★★★★★</div>
+          <div class="hotel-name">Hoshinoya Tokyo</div>
+          <div class="hotel-area">Otemachi · Tokyo</div>
+          <p class="hotel-desc">A vertical ryokan in the financial district — kimono-clad staff, tatami floors, a rooftop onsen open to the sky. Tradition rebuilt as a 17-storey tower.</p>
         </div>
         <div class="hotel-footer">
-          <div class="hotel-price"><span class="price-from">ab</span><span class="price-val">€000</span><span class="price-night">/ Nacht</span></div>
-          <a class="hotel-link">Entdecken</a>
+          <div class="hotel-price"><span class="price-from">from</span><span class="price-val">¥110k</span><span class="price-night">/ night</span></div>
+          <a class="hotel-link">Discover</a>
         </div>
       </div>
     </div>
@@ -852,32 +856,32 @@ footer {
       <div class="sec-eyebrow">Nightclubs</div>
       <h2 class="sec-h">After<br><em>Dark</em></h2>
     </div>
-    <p class="sec-desc">Test test test test test test test test test test test test test test test test test.</p>
+    <p class="sec-desc">Tokyo's club culture is small, serious and unusually tasteful — house, techno, and a deep underground that prizes sound over spectacle.</p>
   </div>
   <div class="clubs-list">
     <div class="club-row">
       <div class="club-num">01</div>
-      <div><div class="club-name">Test Test Test</div><div class="club-genre">Techno · Neighborhood</div></div>
-      <p class="club-desc">Test test test test test test test test test test test test.</p>
-      <div class="club-tag">Test Tag</div>
+      <div><div class="club-name">Womb</div><div class="club-genre">Techno · House · Drum & Bass</div></div>
+      <p class="club-desc">Four floors deep in Maruyamachō — a giant mirror ball, a Funktion-One stack, and a residency book that reads like a history of late-90s Tokyo techno.</p>
+      <div class="club-tag">Shibuya</div>
     </div>
     <div class="club-row">
       <div class="club-num">02</div>
-      <div><div class="club-name">Test Test Test</div><div class="club-genre">House · Neighborhood</div></div>
-      <p class="club-desc">Test test test test test test test test test test test test.</p>
-      <div class="club-tag">Test Tag</div>
+      <div><div class="club-name">Vent Omotesando</div><div class="club-genre">Underground House · Techno</div></div>
+      <p class="club-desc">Hidden under Aoyama in a glass-and-concrete bunker by Studio Anettai. No cameras, no photos — just one of the cleanest soundsystems in Asia.</p>
+      <div class="club-tag">Aoyama</div>
     </div>
     <div class="club-row">
       <div class="club-num">03</div>
-      <div><div class="club-name">Test Test Test</div><div class="club-genre">Electronic · Neighborhood</div></div>
-      <p class="club-desc">Test test test test test test test test test test test test.</p>
-      <div class="club-tag">Test Tag</div>
+      <div><div class="club-name">Contact</div><div class="club-genre">House · Techno · Members</div></div>
+      <p class="club-desc">A members-and-friends room in a basement parking lot. Two floors, intimate scale, and a programme that rotates between Tokyo locals and travelling heavyweights.</p>
+      <div class="club-tag">Shibuya</div>
     </div>
     <div class="club-row">
       <div class="club-num">04</div>
-      <div><div class="club-name">Test Test Test</div><div class="club-genre">Jazz · Neighborhood</div></div>
-      <p class="club-desc">Test test test test test test test test test test test test.</p>
-      <div class="club-tag">Test Tag</div>
+      <div><div class="club-name">Sound Museum Vision</div><div class="club-genre">EDM · Hip-Hop · Bass</div></div>
+      <p class="club-desc">Tokyo's biggest club — five rooms, a cinema-grade sound system and a party crowd that runs until first trains. The popular, loud counterweight to Vent's discipline.</p>
+      <div class="club-tag">Shibuya</div>
     </div>
   </div>
 </section>
@@ -907,6 +911,11 @@ footer {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      const filter = btn.getAttribute('data-filter') || 'all';
+      document.querySelectorAll('.spot-card').forEach(card => {
+        const cat = card.getAttribute('data-cat');
+        card.style.display = (filter === 'all' || cat === filter) ? '' : 'none';
+      });
     });
   });
   const tabs = document.querySelectorAll('.tab-link');

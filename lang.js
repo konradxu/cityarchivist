@@ -181,6 +181,12 @@ const TRANSLATIONS = {
     'dest.shanghai.tag': 'China · Ostasien',
     'dest.shanghai.city': 'Shanghai',
     'dest.shanghai.sub': 'Chinas größte Stadt — geprägt von Skyline, Kultur und endloser Energie.',
+    'dest.london.tag': 'Großbritannien · England',
+    'dest.london.city': 'London',
+    'dest.london.sub': 'Eine Hauptstadt der Schichten — königlicher Pomp, Underground-Sound und stille Ecken dazwischen.',
+    'dest.tokyo.tag': 'Japan · Kantō',
+    'dest.tokyo.city': 'Tokio',
+    'dest.tokyo.sub': 'Wo Neon und Ritual nebeneinander bestehen — eine Stadt der kleinen Gassen und der riesigen Maßstäbe.',
     'dest.explore': 'Entdecken →',
     'dest.soon': 'Bald verfügbar',
 
@@ -313,6 +319,12 @@ const TRANSLATIONS = {
     'dest.shanghai.tag': '中国 · 东亚',
     'dest.shanghai.city': '上海',
     'dest.shanghai.sub': '中国最大的城市 — 由天际线、文化与不停歇的活力定义。',
+    'dest.london.tag': '英国 · 英格兰',
+    'dest.london.city': '伦敦',
+    'dest.london.sub': '层次丰富的首都 — 王室典礼、地下乐声,以及之间的安静角落。',
+    'dest.tokyo.tag': '日本 · 关东',
+    'dest.tokyo.city': '东京',
+    'dest.tokyo.sub': '霓虹与仪式并存的城市 — 小巷与宏大尺度交织。',
     'dest.explore': '探索 →',
     'dest.soon': '即将推出',
 
@@ -686,11 +698,29 @@ function escClose(e) { if (e.key === 'Escape') closeLangModal(); }
 
 /* ============================================================
    Newsletter
+   ----------------------------------------------------------------
+   How submissions are handled, in priority order:
+   1. If <form> has data-endpoint="https://..." (e.g. Formspree),
+      POST to that URL. This is what actually delivers the data
+      to YOU, the site owner.
+   2. Always also write to localStorage as a local backup so
+      nothing is lost if the network fails.
    ============================================================ */
+async function postToEndpoint(endpoint, payload) {
+  try {
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    return res.ok;
+  } catch (_) { return false; }
+}
+
 function bindNewsletter() {
   const form = document.getElementById('newsletter-form');
   if (!form) return;
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const lang = getCurrentLang() || 'en';
     const dict = TRANSLATIONS[lang];
@@ -705,9 +735,17 @@ function bindNewsletter() {
     if (!name) { msgEl.textContent = dict['news.errorName'];  msgEl.dataset.state = 'error'; return; }
     if (!ok)   { msgEl.textContent = dict['news.errorEmail']; msgEl.dataset.state = 'error'; return; }
 
+    const payload = { name, email, lang, ts: new Date().toISOString() };
+
+    // Local backup
     const list = JSON.parse(localStorage.getItem(NEWSLETTER_KEY) || '[]');
-    list.push({ name, email, lang, ts: new Date().toISOString() });
+    list.push(payload);
     localStorage.setItem(NEWSLETTER_KEY, JSON.stringify(list));
+
+    // Remote endpoint (Formspree etc.) if configured
+    const endpoint = form.getAttribute('data-endpoint');
+    const valid = endpoint && /^https?:\/\//.test(endpoint) && !/PLACEHOLDER/i.test(endpoint);
+    if (valid) await postToEndpoint(endpoint, payload);
 
     msgEl.textContent = dict['news.success'];
     msgEl.dataset.state = 'ok';

@@ -555,7 +555,12 @@ footer {
     <li><a href="#hotels">Hotels</a></li>
     <li><a href="#nightclubs">Nightclubs</a></li>
   </ul>
-  <a class="nav-back" href="index.html">All Cities</a>
+  <div style="display:flex; align-items:center; gap:2rem;">
+    <a class="nav-back" href="index.html" data-i18n="nav.allCities">All Cities</a>
+    <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
+      <span data-lang-current>EN</span>
+    </button>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -917,5 +922,6 @@ footer {
     });
   });
 </script>
+<script src="lang.js" defer></script>
 </body>
 </html>

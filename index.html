@@ -408,128 +408,71 @@ nav {
   display: grid; grid-template-columns: 1fr 1fr;
   border-top: 1px solid var(--sand);
   border-bottom: 1px solid var(--sand);
-  min-height: 580px;
+  min-height: 380px;
   text-decoration: none; color: inherit;
-  background: var(--ink);
+  background: var(--linen);
   position: relative;
-  overflow: hidden;
-  transition: background 0.4s;
+  transition: background 0.3s;
 }
-.hotels-feature::before {
-  content: '';
-  position: absolute; top: 0; left: 0;
-  width: 0; height: 2px;
-  background: var(--gold);
-  transition: width 0.7s ease;
-  z-index: 5;
-}
-.hotels-feature:hover::before { width: 100%; }
+.hotels-feature:hover { background: var(--parchment); }
 .hotels-feature-img {
   position: relative; overflow: hidden;
-  background: linear-gradient(150deg, var(--ink-mid) 0%, var(--ink) 50%, #1a1814 100%);
+  background: linear-gradient(150deg, var(--sand) 0%, var(--stone) 100%);
   display: flex; align-items: center; justify-content: center;
   flex-direction: column; gap: 14px;
 }
 .hotels-feature-img img {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover; object-position: center;
-  transition: transform 0.9s ease, filter 0.5s;
-  filter: brightness(0.85);
+  transition: transform 0.7s ease;
 }
-.hotels-feature:hover .hotels-feature-img img {
-  transform: scale(1.05);
-  filter: brightness(1);
-}
-.hotels-feature-img .ph-frame { color: rgba(200,191,176,0.4); border-color: rgba(200,191,176,0.3); }
-.hotels-feature-img .ph-label { color: rgba(200,191,176,0.4); }
+.hotels-feature:hover .hotels-feature-img img { transform: scale(1.03); }
 
 .hotels-feature-body {
-  padding: 5rem 5rem;
+  padding: 4rem 4.5rem;
   display: flex; flex-direction: column; justify-content: center;
-  background: var(--ink);
-  transition: background 0.4s;
-  position: relative;
-}
-.hotels-feature:hover .hotels-feature-body {
-  background: #221e18;
+  border-left: 1px solid var(--sand);
 }
 .hotels-feature-eyebrow {
   font-size: 9px; font-weight: 300;
-  letter-spacing: 0.34em; text-transform: uppercase;
-  color: var(--gold-dim); margin-bottom: 1.5rem;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--warm-gray); margin-bottom: 1.2rem;
   display: flex; align-items: center; gap: 12px;
 }
 .hotels-feature-eyebrow::before {
   content: ''; width: 20px; height: 1px;
-  background: var(--gold-dim); display: inline-block;
-  transition: width 0.4s;
+  background: var(--stone); display: inline-block;
 }
-.hotels-feature:hover .hotels-feature-eyebrow::before { width: 36px; }
-
 .hotels-feature-title {
   font-family: var(--serif);
-  font-size: clamp(2.5rem, 4vw, 3.8rem);
-  font-weight: 300; line-height: 1.1;
-  color: var(--parchment); margin-bottom: 1.8rem;
-  transition: transform 0.5s ease;
+  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+  font-weight: 300; line-height: 1.25;
+  color: var(--ink); margin-bottom: 1.2rem;
 }
-.hotels-feature-title em { font-style: italic; color: var(--gold); }
-.hotels-feature:hover .hotels-feature-title { transform: translateX(6px); }
+/* keep accent without italic — just a subtle gold tint */
+.hotels-feature-title em { font-style: normal; color: var(--gold); }
 
 .hotels-feature-text {
-  font-size: 13.5px; font-weight: 300;
-  color: rgba(248,245,239,0.6); line-height: 2;
-  max-width: 460px; margin-bottom: 2.8rem;
+  font-size: 12.5px; font-weight: 300;
+  color: var(--ink-light); line-height: 1.9;
+  max-width: 440px; margin-bottom: 2rem;
 }
 
-/* CTA button — explicit click affordance */
+/* CTA — restrained, button-style, no italic */
 .hotels-feature-cta {
-  display: inline-flex; align-items: center; gap: 14px;
+  display: inline-flex; align-items: center; gap: 12px;
   font-family: var(--sans);
-  font-size: 11px; font-weight: 400;
+  font-size: 10px; font-weight: 300;
   letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--ink-deep, var(--ink));
-  background: var(--gold);
-  padding: 18px 32px;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  padding: 12px 24px;
   align-self: flex-start;
-  border: 1px solid var(--gold);
-  transition: background 0.3s, color 0.3s, gap 0.3s, padding-right 0.3s;
+  transition: background 0.25s, color 0.25s, gap 0.3s;
 }
-.hotels-feature-cta::after {
-  content: '↗'; font-size: 16px;
-  transition: transform 0.4s;
-}
+.hotels-feature-cta::after { content: '→'; }
 .hotels-feature:hover .hotels-feature-cta {
-  background: transparent;
-  color: var(--gold);
-  gap: 22px;
-  padding-right: 40px;
-}
-.hotels-feature:hover .hotels-feature-cta::after {
-  transform: translate(2px, -2px);
-}
-
-/* Subtle "click" hint — small label that pulses gently */
-.hotels-feature-hint {
-  position: absolute; top: 2rem; right: 2.5rem; z-index: 3;
-  font-family: var(--serif); font-style: italic;
-  font-size: 0.95rem; font-weight: 300;
-  color: rgba(248,245,239,0.45);
-  letter-spacing: 0.04em;
-  display: flex; align-items: center; gap: 10px;
-  transition: color 0.3s, gap 0.3s;
-}
-.hotels-feature-hint::before {
-  content: ''; width: 30px; height: 1px;
-  background: var(--gold-dim); opacity: 0.5;
-  transition: width 0.4s, opacity 0.3s;
-}
-.hotels-feature:hover .hotels-feature-hint {
-  color: var(--gold-dim);
-  gap: 16px;
-}
-.hotels-feature:hover .hotels-feature-hint::before {
-  width: 50px; opacity: 0.9;
+  background: var(--ink); color: var(--parchment); gap: 18px;
 }
 #nightclubs { background: var(--ink); }
 #nightclubs .sec-header { border-bottom-color: rgba(255,255,255,0.08); }
@@ -871,10 +814,8 @@ footer {
       <div class="dest-explore-btn" data-i18n="dest.explore">Explore →</div>
     </a>
     <a href="london.html" class="dest-panel">
-      <div class="dest-bg dest-bg-london" style="background:linear-gradient(150deg, var(--linen) 0%, var(--stone) 50%, var(--ink-mid, #4a4540) 100%);">
-        <!-- <img src="london.png" alt="London" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;"> -->
-        <div class="ph-frame" style="position:relative;z-index:1;">◎</div>
-        <span class="ph-label" style="position:relative;z-index:1;">London Bild</span>
+      <div class="dest-bg" style="background:none;">
+        <img src="london.png" alt="London" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;">
       </div>
       <div class="dest-overlay">
         <div class="dest-tag" data-i18n="dest.london.tag">United Kingdom · England</div>
@@ -884,10 +825,8 @@ footer {
       <div class="dest-explore-btn" data-i18n="dest.explore">Explore →</div>
     </a>
     <a href="tokyo.html" class="dest-panel">
-      <div class="dest-bg dest-bg-tokyo" style="background:linear-gradient(150deg, var(--parchment) 0%, var(--sand) 40%, var(--warm-gray) 100%);">
-        <!-- <img src="tokyo.png" alt="Tokyo" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;"> -->
-        <div class="ph-frame" style="position:relative;z-index:1;">◎</div>
-        <span class="ph-label" style="position:relative;z-index:1;">Tokyo Bild</span>
+      <div class="dest-bg" style="background:none;">
+        <img src="tokyo.png" alt="Tokyo" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;">
       </div>
       <div class="dest-overlay">
         <div class="dest-tag" data-i18n="dest.tokyo.tag">Japan · Kantō</div>
@@ -905,7 +844,6 @@ footer {
 <!-- HOTELS FEATURE -->
 <section id="hotels" class="hotels-teaser">
   <a href="hotels.html" class="hotels-feature">
-    <span class="hotels-feature-hint">Click to explore</span>
     <div class="hotels-feature-img">
       <div class="ph-frame">◎</div>
       <span class="ph-label">Hotels Hero Bild</span>
@@ -913,7 +851,7 @@ footer {
     <div class="hotels-feature-body">
       <div class="hotels-feature-eyebrow" data-i18n="hotelsFeature.eyebrow">Hotels</div>
       <h2 class="hotels-feature-title" data-i18n="hotelsFeature.title">Top Hotel Chains on the <em>Globe</em></h2>
-      <p class="hotels-feature-text" data-i18n="hotelsFeature.text">From legendary heritage houses to remote sanctuaries — a curated selection of the names that define what luxury hospitality means today. Each chain stands for a different philosophy: design, place, wellness, or pure grandeur.</p>
+      <p class="hotels-feature-text" data-i18n="hotelsFeature.text">From legendary heritage houses to remote sanctuaries — a curated selection of the names that define what luxury hospitality means today.</p>
       <span class="hotels-feature-cta" data-i18n="hotelsFeature.cta">Discover the Chains</span>
     </div>
   </a>
@@ -995,7 +933,7 @@ footer {
   </div>
   <div class="cta-right">
     <p data-i18n="news.p">Get new destinations, hotel features and city guides — straight to your inbox.</p>
-    <form id="newsletter-form" class="cta-form" novalidate>
+    <form id="newsletter-form" class="cta-form" data-endpoint="https://formspree.io/f/myklrnro" novalidate>
       <input class="cta-input" type="text" name="name" autocomplete="name" required data-i18n-placeholder="news.namePlaceholder" placeholder="Your name">
       <input class="cta-input" type="email" name="email" autocomplete="email" required data-i18n-placeholder="news.emailPlaceholder" placeholder="your@email.com">
       <button type="submit" class="cta-btn" data-i18n="news.button">Subscribe</button>
