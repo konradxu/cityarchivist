@@ -3,6 +3,20 @@
    Languages: en (English), de (Deutsch), zh (中文)
    ============================================================ */
 
+/* ════════════════════════════════════════════════════════════
+   ✏️  EDIT YOUR DETAILS HERE
+   These values are used on the Imprint / Contact page.
+   Change them once, they update in all three languages.
+   ════════════════════════════════════════════════════════════ */
+const SITE_INFO = {
+  name:       'Konrad Xu',
+  street:     'Musterstraße 1',           // street + number
+  postalCity: '12345 Berlin',             // postal code + city
+  email:      'kontakt@cityarchivist.com',
+};
+/* ════════════════════════════════════════════════════════════ */
+
+
 const TRANSLATIONS = {
   en: {
     'nav.home': 'Home',
@@ -177,7 +191,7 @@ const TRANSLATIONS = {
     'legal.title': 'Imprint',
     'legal.contact.label': 'Contact',
     'legal.contact.h': 'How to reach us',
-    'legal.contact.address': 'Konrad Xu<br>, Marlene Reitmaier (Co-Founder)<br>Germany',
+    'legal.contact.country': 'Germany',
     'legal.contact.email.label': 'Email',
     'legal.responsible.label': 'Responsibility · § 5 TMG',
     'legal.responsible.h': 'Responsible for content',
@@ -379,7 +393,7 @@ const TRANSLATIONS = {
     'legal.title': 'Impressum',
     'legal.contact.label': 'Kontakt',
     'legal.contact.h': 'So erreichst du uns',
-    'legal.contact.address': 'Konrad Xu<br>[Straße und Hausnummer]<br>[PLZ Ort]<br>Deutschland',
+    'legal.contact.country': 'Deutschland',
     'legal.contact.email.label': 'E-Mail',
     'legal.responsible.label': 'Angaben gemäß § 5 TMG',
     'legal.responsible.h': 'Verantwortlich für den Inhalt',
@@ -581,7 +595,7 @@ const TRANSLATIONS = {
     'legal.title': '法律声明',
     'legal.contact.label': '联系',
     'legal.contact.h': '联系方式',
-    'legal.contact.address': 'Konrad Xu<br>[街道及门牌号]<br>[邮编 城市]<br>德国',
+    'legal.contact.country': '德国',
     'legal.contact.email.label': '电子邮件',
     'legal.responsible.label': '《电信媒体法》第 5 条',
     'legal.responsible.h': '内容负责人',
@@ -660,6 +674,25 @@ function applyLang(lang) {
   // Update the lang-trigger label(s)
   document.querySelectorAll('[data-lang-current]').forEach(el => {
     el.textContent = LANG_LABELS[lang]?.code || 'EN';
+  });
+
+  // ── Fill SITE_INFO into any [data-info] elements ──
+  // Re-run on every language change so the country line updates too.
+  const country = dict['legal.contact.country'] || '';
+  const fullAddress =
+    `${SITE_INFO.name}<br>${SITE_INFO.street}<br>${SITE_INFO.postalCity}<br>${country}`;
+
+  document.querySelectorAll('[data-info="address"]').forEach(el => {
+    el.innerHTML = fullAddress;
+  });
+  document.querySelectorAll('[data-info="email"]').forEach(el => {
+    el.textContent = SITE_INFO.email;
+  });
+  document.querySelectorAll('[data-info="email-link"]').forEach(el => {
+    el.setAttribute('href', 'mailto:' + SITE_INFO.email);
+  });
+  document.querySelectorAll('[data-info="name"]').forEach(el => {
+    el.textContent = SITE_INFO.name;
   });
 }
 
