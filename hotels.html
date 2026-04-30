@@ -229,20 +229,25 @@ footer {
   nav { padding: 0 1.5rem; }
   .page-hero { padding: 5rem 1.8rem 3rem; min-height: 260px; }
   .page-eyebrow { left: 1.8rem; top: 2rem; }
-  .chain-row { grid-template-columns: 1fr; gap: 1.5rem; padding: 2.2rem 1.8rem; }
-  .chain-num { font-size: 0.9rem; padding-top: 0; }
-  .chain-img { aspect-ratio: 16/10; }
-  .chain-cta { justify-content: flex-start; }
+  .chain-row { grid-template-columns: 40px 1fr; gap: 1rem; padding: 1.8rem 1.8rem; }
+  .chain-identity, .chain-origin { display: none; }
+  .chain-cta { opacity: 1; }
   .bottom-note { grid-template-columns: 1fr; gap: 1rem; padding: 3rem 1.8rem; }
   footer { flex-direction: column; gap: 1.5rem; padding: 2.5rem 1.8rem; text-align: center; }
 }
 </style>
 </head>
 <body>
-  
-  <div class="page-eyebrow" data-i18n="hotelsPage.eyebrow">The Hotel Archive</div>
-  <h1 class="page-h1" data-i18n="hotelsPage.h1">Top Hotel Chains<br>on the <em>Globe</em></h1>
-  <p class="page-sub" data-i18n="hotelsPage.sub">Six names that define modern luxury hospitality.</p>
+
+<nav id="top-nav">
+  <div class="nav-logo">City <span>Archivist</span></div>
+  <a class="nav-back" href="index.html">Back to Home</a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-eyebrow">The Hotel Archive</div>
+  <h1 class="page-h1">Top Hotel Chains<br>on the <em>Globe</em></h1>
+  <p class="page-sub">Six names that define modern luxury hospitality.</p>
 </div>
 
 <div class="chains-list">
