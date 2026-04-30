@@ -763,19 +763,25 @@ function injectPopupStyles() {
       to   { transform: translateX(0); }
     }
     .ca-menu-close {
-      position: absolute; top: 0.9rem; right: 0.9rem;
+      position: absolute; top: 1rem; right: 1rem;
       z-index: 10;
-      background: transparent; border: none;
-      width: 48px; height: 48px;
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 2rem; line-height: 1;
-      color: rgba(248,245,239,0.7);
+      background: transparent;
+      border: 1px solid rgba(248,245,239,0.25);
+      width: 52px; height: 52px;
+      font-family: 'Jost', sans-serif;
+      font-size: 1.6rem; font-weight: 200; line-height: 1;
+      color: rgba(248,245,239,0.95);
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      transition: color 0.25s, transform 0.4s;
+      transition: border-color 0.25s, color 0.25s, background 0.25s, transform 0.4s;
       -webkit-tap-highlight-color: transparent;
     }
-    .ca-menu-close:hover, .ca-menu-close:active { color: rgba(212,188,138,1); transform: rotate(90deg); }
+    .ca-menu-close:hover, .ca-menu-close:active {
+      color: rgba(212,188,138,1);
+      border-color: rgba(212,188,138,0.7);
+      background: rgba(212,188,138,0.08);
+      transform: rotate(90deg);
+    }
 
     .ca-menu-mark {
       font-family: 'Cormorant Garamond', Georgia, serif;
@@ -836,28 +842,12 @@ function injectPopupStyles() {
     }
     .ca-menu-sub a:hover { color: rgba(212,188,138,1); padding-left: 1.6rem; }
 
-    .ca-menu-langs {
-      margin-top: 2.5rem;
-      padding-top: 1.8rem;
-      border-top: 1px solid rgba(248,245,239,0.1);
-      display: flex; gap: 1.5rem;
-      justify-content: center;
-    }
-    .ca-menu-langs button {
-      background: transparent; border: none; cursor: pointer;
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 1rem; font-weight: 300;
-      color: rgba(248,245,239,0.45);
-      padding: 4px 0;
-      transition: color 0.25s;
-    }
-    .ca-menu-langs button:hover { color: rgba(248,245,239,0.9); }
-    .ca-menu-langs button.active { color: rgba(212,188,138,1); }
+    .ca-menu-item > span { pointer-events: none; }
 
     .ca-menu-backdrop {
       position: fixed; inset: 0;
-      background: rgba(18,16,12,0.4);
-      backdrop-filter: blur(2px);
+      background: rgba(12,10,8,0.78);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
       z-index: 1099;
       animation: caFadeIn 0.4s ease;
     }
@@ -1044,11 +1034,9 @@ function showMenu() {
   const clubItems = MENU_NIGHTCLUBS.map(c => `<li><a href="${c.href}">${c.name}</a></li>`).join('');
 
   panel.innerHTML = `
-    <button class="ca-menu-close" aria-label="Close" data-close-menu>×</button>
+    <button class="ca-menu-close" aria-label="Close" data-close-menu>✕</button>
     <div class="ca-menu-mark">✦</div>
     <nav class="ca-menu-nav">
-      <a class="ca-menu-item" href="index.html">${dict['nav.home']}</a>
-
       <button class="ca-menu-item ca-menu-toggle" type="button" data-group="dest">
         <span>${dict['nav.destinations']}</span>
         <span class="ca-menu-chevron">↓</span>
@@ -1073,9 +1061,7 @@ function showMenu() {
 
   // Toggle sub-lists with explicit display fallback
   panel.querySelectorAll('[data-group]').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
+    btn.addEventListener('click', () => {
       const g = btn.getAttribute('data-group');
       const sub = panel.querySelector(`[data-sub="${g}"]`);
       if (!sub) return;
@@ -1084,6 +1070,11 @@ function showMenu() {
       sub.classList.toggle('open', willOpen);
       sub.style.display = willOpen ? 'block' : 'none';
     });
+  });
+  // Auto-close menu when any link is clicked (so anchor scrolling works
+  // and body overflow gets reset before the navigation happens).
+  panel.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => { closeMenu(); });
   });
   panel.querySelectorAll('[data-close-menu]').forEach(btn => btn.addEventListener('click', closeMenu));
   backdrop.addEventListener('click', closeMenu);
