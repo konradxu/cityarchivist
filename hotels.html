@@ -242,12 +242,16 @@ footer {
 
 <nav id="top-nav">
   <a class="nav-logo" href="index.html">City <span>Archivist</span></a>
-  <div style="display:flex; align-items:center; gap:2rem;">
-    <a class="nav-back" href="index.html" data-i18n="nav.back">Back to Home</a>
-    <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
-      <span data-lang-current>EN</span>
-    </button>
-  </div>
+  <ul class="nav-links">
+    <li><a href="index.html#home" data-i18n="nav.home">Home</a></li>
+    <li><a href="index.html#destinations" data-i18n="nav.destinations">Destinations</a></li>
+    <li><a href="hotels.html" data-i18n="nav.hotels">Hotels</a></li>
+    <li><a href="index.html#nightclubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
+    <li><a href="index.html#about" data-i18n="nav.about">About Us</a></li>
+  </ul>
+  <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
+    <span data-lang-current>EN</span>
+  </button>
 </nav>
 
 <div class="page-hero">
@@ -274,8 +278,7 @@ footer {
   <a href="https://www.fourseasons.com" target="_blank" class="chain-row">
     <div class="chain-num">02</div>
     <div class="chain-img b">
-      <div class="ph-frame">◎</div>
-      <span class="ph-label">Four Seasons Bild</span>
+      <img src="fourseasons.png" alt="Four Seasons">
     </div>
     <div class="chain-body">
       <div class="chain-name">Four Seasons</div>
@@ -289,8 +292,7 @@ footer {
   <a href="https://www.sixsenses.com" target="_blank" class="chain-row">
     <div class="chain-num">03</div>
     <div class="chain-img c">
-      <div class="ph-frame">◎</div>
-      <span class="ph-label">Six Senses Bild</span>
+      <img src="sixsenses.png" alt="Six Senses">
     </div>
     <div class="chain-body">
       <div class="chain-name">Six Senses</div>
@@ -304,8 +306,7 @@ footer {
   <a href="https://www.marriott.com/en-us/hotel-brands/st-regis-hotels-and-resorts.mi" target="_blank" class="chain-row">
     <div class="chain-num">04</div>
     <div class="chain-img d">
-      <div class="ph-frame">◎</div>
-      <span class="ph-label">St. Regis Bild</span>
+      <img src="stregis.png" alt="The St. Regis">
     </div>
     <div class="chain-body">
       <div class="chain-name">The St. Regis</div>
@@ -319,8 +320,7 @@ footer {
   <a href="https://www.rosewoodhotels.com" target="_blank" class="chain-row">
     <div class="chain-num">05</div>
     <div class="chain-img e">
-      <div class="ph-frame">◎</div>
-      <span class="ph-label">Rosewood Bild</span>
+      <img src="rosewood.png" alt="Rosewood">
     </div>
     <div class="chain-body">
       <div class="chain-name">Rosewood</div>
@@ -334,8 +334,7 @@ footer {
   <a href="https://www.belmond.com" target="_blank" class="chain-row">
     <div class="chain-num">06</div>
     <div class="chain-img f">
-      <div class="ph-frame">◎</div>
-      <span class="ph-label">Belmond Bild</span>
+      <img src="belmond.png" alt="Belmond">
     </div>
     <div class="chain-body">
       <div class="chain-name">Belmond</div>
@@ -360,7 +359,7 @@ footer {
   <a class="footer-back" href="index.html" data-i18n="nav.back">← Back to Home</a>
 </footer>
 
-<script src="lang.js" defer></script>
+<script src="lang.js?v=7" defer></script>
 <script>
   window.addEventListener('scroll', () => {
     const nav = document.getElementById('top-nav');
