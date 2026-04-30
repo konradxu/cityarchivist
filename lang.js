@@ -177,7 +177,7 @@ const TRANSLATIONS = {
     'legal.title': 'Imprint',
     'legal.contact.label': 'Contact',
     'legal.contact.h': 'How to reach us',
-    'legal.contact.address': 'Konrad Xu<br>[Street and number]<br>[Postal code, City]<br>Germany',
+    'legal.contact.address': 'Konrad Xu<br><br>Germany',
     'legal.contact.email.label': 'Email',
     'legal.responsible.label': 'Responsibility · § 5 TMG',
     'legal.responsible.h': 'Responsible for content',
