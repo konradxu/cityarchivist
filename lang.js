@@ -795,51 +795,32 @@ function injectPopupStyles() {
       gap: 0;
       flex: 1;
     }
-    .ca-menu-item, summary.ca-menu-item {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 1rem;
+    .ca-menu-section {
+      display: block;
+      font-family: 'Jost', sans-serif;
+      font-size: 9px; font-weight: 300;
+      letter-spacing: 0.34em; text-transform: uppercase;
+      color: rgba(212,188,138,0.6);
+      padding: 1.6rem 0 0.4rem;
+    }
+    .ca-menu-section:first-child { padding-top: 0; }
+    .ca-menu-item {
+      display: block;
       width: 100%;
       background: transparent; border: none; cursor: pointer;
       text-align: left;
-      padding: 1.1rem 0;
+      padding: 0.85rem 0;
       border-bottom: 1px solid rgba(248,245,239,0.07);
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 1.65rem; font-weight: 300;
-      line-height: 1; color: rgba(248,245,239,0.92);
+      font-size: 1.5rem; font-weight: 300;
+      line-height: 1.2; color: rgba(248,245,239,0.92);
       text-decoration: none;
       transition: color 0.25s, padding-left 0.25s;
-      list-style: none;
     }
-    summary.ca-menu-item::-webkit-details-marker,
-    summary.ca-menu-item::marker { display: none; content: ''; }
     .ca-menu-item:hover { color: rgba(212,188,138,1); padding-left: 6px; }
-    .ca-menu-chevron {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 1.1rem;
-      color: rgba(212,188,138,0.55);
-      transition: transform 0.35s ease;
+    .ca-menu-item.solo {
+      font-size: 1.65rem; padding: 1.1rem 0;
     }
-    details.ca-menu-group[open] .ca-menu-chevron { transform: rotate(180deg); }
-
-    .ca-menu-sub {
-      list-style: none; padding: 0; margin: 0;
-      animation: caSubFade 0.3s ease;
-    }
-    @keyframes caSubFade {
-      from { opacity: 0; transform: translateY(-4px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .ca-menu-sub li { border-bottom: 1px solid rgba(248,245,239,0.05); }
-    .ca-menu-sub a {
-      display: block;
-      padding: 0.85rem 0 0.85rem 1.2rem;
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 1.05rem; font-weight: 300;
-      color: rgba(248,245,239,0.6);
-      text-decoration: none;
-      transition: color 0.25s, padding-left 0.25s;
-    }
-    .ca-menu-sub a:hover { color: rgba(212,188,138,1); padding-left: 1.6rem; }
 
     .ca-menu-item > span { pointer-events: none; }
 
@@ -1029,31 +1010,23 @@ function showMenu() {
   panel.setAttribute('aria-modal', 'true');
   panel.setAttribute('aria-label', 'Site menu');
 
-  const destItems = MENU_DESTINATIONS.map(d => `<li><a href="${d.href}">${d.name}</a></li>`).join('');
-  const clubItems = MENU_NIGHTCLUBS.map(c => `<li><a href="${c.href}">${c.name}</a></li>`).join('');
+  const destLinks = MENU_DESTINATIONS.map(d => `<a class="ca-menu-item" href="${d.href}">${d.name}</a>`).join('');
+  const clubLinks = MENU_NIGHTCLUBS.map(c => `<a class="ca-menu-item" href="${c.href}">${c.name}</a>`).join('');
 
   panel.innerHTML = `
     <button class="ca-menu-close" aria-label="Close" data-close-menu>✕</button>
     <div class="ca-menu-mark">✦</div>
     <nav class="ca-menu-nav">
-      <details class="ca-menu-group">
-        <summary class="ca-menu-item">
-          <span>${dict['nav.destinations']}</span>
-          <span class="ca-menu-chevron">↓</span>
-        </summary>
-        <ul class="ca-menu-sub">${destItems}</ul>
-      </details>
+      <div class="ca-menu-section">${dict['nav.destinations']}</div>
+      ${destLinks}
 
-      <a class="ca-menu-item" href="hotels.html">${dict['nav.hotels']}</a>
+      <div class="ca-menu-section">${dict['nav.hotels']}</div>
+      <a class="ca-menu-item" href="hotels.html">${dict['hotelsFeature.eyebrow'] || 'Top Hotel Chains'}</a>
 
-      <details class="ca-menu-group">
-        <summary class="ca-menu-item">
-          <span>${dict['nav.nightclubs']}</span>
-          <span class="ca-menu-chevron">↓</span>
-        </summary>
-        <ul class="ca-menu-sub">${clubItems}</ul>
-      </details>
+      <div class="ca-menu-section">${dict['nav.nightclubs']}</div>
+      ${clubLinks}
 
+      <div class="ca-menu-section">${dict['nav.about']}</div>
       <a class="ca-menu-item" href="index.html#about">${dict['nav.about']}</a>
     </nav>
   `;
