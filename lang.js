@@ -726,11 +726,140 @@ function injectPopupStyles() {
       color: rgba(212,188,138,0.55);
     }
 
+    /* ── Hamburger trigger (3 lines) ── */
+    .ca-menu-trigger {
+      background: transparent; border: none; cursor: pointer;
+      width: 30px; height: 24px;
+      padding: 0;
+      display: flex; flex-direction: column; justify-content: space-between;
+      color: inherit;
+      transition: opacity 0.2s;
+    }
+    .ca-menu-trigger:hover { opacity: 0.65; }
+    .ca-menu-trigger span {
+      display: block;
+      width: 100%; height: 1px;
+      background: currentColor;
+      transition: transform 0.35s ease, opacity 0.25s, width 0.3s;
+    }
+    .ca-menu-trigger:hover span:nth-child(2) { width: 70%; margin-left: auto; }
+
+    /* ── Menu panel (slides in from right) ── */
+    .ca-menu-panel {
+      position: fixed; top: 0; right: 0;
+      width: 400px; max-width: 100vw;
+      height: 100vh; height: 100dvh;
+      background: rgba(18,16,12,0.97);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      z-index: 1100;
+      padding: 5rem 3rem 3rem;
+      display: flex; flex-direction: column;
+      overflow-y: auto;
+      animation: caMenuIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      color: rgba(248,245,239,0.9);
+    }
+    @keyframes caMenuIn {
+      from { transform: translateX(100%); }
+      to   { transform: translateX(0); }
+    }
+    .ca-menu-close {
+      position: absolute; top: 1.4rem; right: 1.6rem;
+      background: transparent; border: none;
+      width: 36px; height: 36px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.7rem; line-height: 1;
+      color: rgba(248,245,239,0.5);
+      cursor: pointer;
+      transition: color 0.25s, transform 0.4s;
+    }
+    .ca-menu-close:hover { color: rgba(212,188,138,1); transform: rotate(90deg); }
+
+    .ca-menu-mark {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1rem; color: rgba(212,188,138,0.55);
+      margin-bottom: 2.4rem;
+      letter-spacing: 0.04em;
+    }
+
+    .ca-menu-nav {
+      display: flex; flex-direction: column;
+      gap: 0;
+      flex: 1;
+    }
+    .ca-menu-item {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem;
+      width: 100%;
+      background: transparent; border: none; cursor: pointer;
+      text-align: left;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid rgba(248,245,239,0.07);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.65rem; font-weight: 300;
+      line-height: 1; color: rgba(248,245,239,0.92);
+      text-decoration: none;
+      transition: color 0.25s, padding-left 0.25s;
+    }
+    .ca-menu-item:hover { color: rgba(212,188,138,1); padding-left: 6px; }
+    .ca-menu-chevron {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.1rem;
+      color: rgba(212,188,138,0.55);
+      transition: transform 0.35s ease;
+    }
+    .ca-menu-toggle.open .ca-menu-chevron { transform: rotate(180deg); }
+
+    .ca-menu-sub {
+      list-style: none; padding: 0; margin: 0;
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.45s ease;
+    }
+    .ca-menu-sub.open { max-height: 500px; }
+    .ca-menu-sub li { border-bottom: 1px solid rgba(248,245,239,0.05); }
+    .ca-menu-sub a {
+      display: block;
+      padding: 0.85rem 0 0.85rem 1.2rem;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.05rem; font-weight: 300;
+      color: rgba(248,245,239,0.6);
+      text-decoration: none;
+      transition: color 0.25s, padding-left 0.25s;
+    }
+    .ca-menu-sub a:hover { color: rgba(212,188,138,1); padding-left: 1.6rem; }
+
+    .ca-menu-langs {
+      margin-top: 2.5rem;
+      padding-top: 1.8rem;
+      border-top: 1px solid rgba(248,245,239,0.1);
+      display: flex; gap: 1.5rem;
+      justify-content: center;
+    }
+    .ca-menu-langs button {
+      background: transparent; border: none; cursor: pointer;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1rem; font-weight: 300;
+      color: rgba(248,245,239,0.45);
+      padding: 4px 0;
+      transition: color 0.25s;
+    }
+    .ca-menu-langs button:hover { color: rgba(248,245,239,0.9); }
+    .ca-menu-langs button.active { color: rgba(212,188,138,1); }
+
+    .ca-menu-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(18,16,12,0.4);
+      backdrop-filter: blur(2px);
+      z-index: 1099;
+      animation: caFadeIn 0.4s ease;
+    }
+
     @media (max-width: 480px) {
       .ca-modal-title { font-size: 1.7rem; }
       .ca-lang-list .native { font-size: 1.85rem; }
       .ca-modal-close { top: -2.5rem; }
       .ca-coming-list { grid-template-columns: 1fr; gap: 1.2rem; }
+      .ca-menu-panel { padding: 5rem 2rem 2rem; }
+      .ca-menu-item { font-size: 1.45rem; padding: 1rem 0; }
     }
   `;
   document.head.appendChild(style);
@@ -868,6 +997,109 @@ function closeComingSoonModal() {
 function escCloseComing(e) { if (e.key === 'Escape') closeComingSoonModal(); }
 
 /* ============================================================
+   Hamburger menu (slide-out from right)
+   ============================================================ */
+const MENU_DESTINATIONS = [
+  { name: 'Munich',   href: 'muenchen.html' },
+  { name: 'Shanghai', href: 'shanghai.html' },
+  { name: 'London',   href: 'london.html' },
+  { name: 'Tokyo',    href: 'tokyo.html' },
+];
+const MENU_NIGHTCLUBS = [
+  { name: 'Hï Ibiza',  href: 'hi-ibiza.html' },
+  { name: 'Echostage', href: 'echostage.html' },
+  { name: 'Berghain',  href: 'berghain.html' },
+  { name: 'Fabric',    href: 'fabric.html' },
+  { name: 'Pacha',     href: 'pacha.html' },
+  { name: 'UNVRS',     href: 'unvrs.html' },
+];
+
+function showMenu() {
+  injectPopupStyles();
+  if (document.getElementById('ca-menu')) return;
+  const lang = getCurrentLang() || 'en';
+  const dict = TRANSLATIONS[lang] || TRANSLATIONS.en;
+
+  const backdrop = document.createElement('div');
+  backdrop.id = 'ca-menu-backdrop';
+  backdrop.className = 'ca-menu-backdrop';
+
+  const panel = document.createElement('aside');
+  panel.id = 'ca-menu';
+  panel.className = 'ca-menu-panel';
+  panel.setAttribute('role', 'dialog');
+  panel.setAttribute('aria-modal', 'true');
+  panel.setAttribute('aria-label', 'Site menu');
+
+  const destItems = MENU_DESTINATIONS.map(d => `<li><a href="${d.href}">${d.name}</a></li>`).join('');
+  const clubItems = MENU_NIGHTCLUBS.map(c => `<li><a href="${c.href}">${c.name}</a></li>`).join('');
+
+  panel.innerHTML = `
+    <button class="ca-menu-close" aria-label="Close" data-close-menu>×</button>
+    <div class="ca-menu-mark">✦</div>
+    <nav class="ca-menu-nav">
+      <a class="ca-menu-item" href="index.html">${dict['nav.home']}</a>
+
+      <button class="ca-menu-item ca-menu-toggle" type="button" data-group="dest">
+        <span>${dict['nav.destinations']}</span>
+        <span class="ca-menu-chevron">↓</span>
+      </button>
+      <ul class="ca-menu-sub" data-sub="dest">${destItems}</ul>
+
+      <a class="ca-menu-item" href="hotels.html">${dict['nav.hotels']}</a>
+
+      <button class="ca-menu-item ca-menu-toggle" type="button" data-group="clubs">
+        <span>${dict['nav.nightclubs']}</span>
+        <span class="ca-menu-chevron">↓</span>
+      </button>
+      <ul class="ca-menu-sub" data-sub="clubs">${clubItems}</ul>
+
+      <a class="ca-menu-item" href="index.html#about">${dict['nav.about']}</a>
+    </nav>
+
+    <div class="ca-menu-langs">
+      <button data-lang-pick="de" class="${lang==='de'?'active':''}">Deutsch</button>
+      <button data-lang-pick="en" class="${lang==='en'?'active':''}">English</button>
+      <button data-lang-pick="zh" class="${lang==='zh'?'active':''}">中文</button>
+    </div>
+  `;
+
+  document.body.appendChild(backdrop);
+  document.body.appendChild(panel);
+  document.body.style.overflow = 'hidden';
+
+  panel.querySelectorAll('[data-group]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const g = btn.getAttribute('data-group');
+      const sub = panel.querySelector(`[data-sub="${g}"]`);
+      btn.classList.toggle('open');
+      sub.classList.toggle('open');
+    });
+  });
+  panel.querySelectorAll('[data-lang-pick]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setLang(btn.getAttribute('data-lang-pick'));
+      // Re-render the menu so labels update without close
+      closeMenu();
+      showMenu();
+    });
+  });
+  panel.querySelectorAll('[data-close-menu]').forEach(btn => btn.addEventListener('click', closeMenu));
+  backdrop.addEventListener('click', closeMenu);
+  document.addEventListener('keydown', escCloseMenu);
+}
+
+function closeMenu() {
+  const el = document.getElementById('ca-menu');
+  const bd = document.getElementById('ca-menu-backdrop');
+  if (el) el.remove();
+  if (bd) bd.remove();
+  document.body.style.overflow = '';
+  document.removeEventListener('keydown', escCloseMenu);
+}
+function escCloseMenu(e) { if (e.key === 'Escape') closeMenu(); }
+
+/* ============================================================
    Newsletter
    ----------------------------------------------------------------
    How submissions are handled, in priority order:
@@ -947,6 +1179,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // Wire any "more cities" / Coming Soon triggers
   document.querySelectorAll('[data-coming-soon]').forEach(btn => {
     btn.addEventListener('click', showComingSoonModal);
+  });
+
+  // Wire hamburger menu trigger(s)
+  document.querySelectorAll('[data-menu-trigger]').forEach(btn => {
+    btn.addEventListener('click', showMenu);
   });
 
   bindNewsletter();
