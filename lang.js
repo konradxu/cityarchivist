@@ -811,10 +811,16 @@ function injectPopupStyles() {
 
     .ca-menu-sub {
       list-style: none; padding: 0; margin: 0;
-      max-height: 0; overflow: hidden;
-      transition: max-height 0.45s ease;
+      display: none;
     }
-    .ca-menu-sub.open { max-height: 500px; }
+    .ca-menu-sub.open {
+      display: block;
+      animation: caSubFade 0.3s ease;
+    }
+    @keyframes caSubFade {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
     .ca-menu-sub li { border-bottom: 1px solid rgba(248,245,239,0.05); }
     .ca-menu-sub a {
       display: block;
