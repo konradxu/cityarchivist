@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Impressum — City Archivist</title>
+<title>Imprint — City Archivist</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -39,6 +39,16 @@ nav {
   color: var(--ink);
 }
 .nav-logo span { color: var(--gold); }
+.nav-back {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 10px; font-weight: 300;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--ink-light);
+  transition: color 0.2s, gap 0.25s;
+}
+.nav-back::before { content: '←'; font-size: 14px; }
+.nav-back:hover { color: var(--ink); gap: 14px; }
+.nav-actions { display: flex; align-items: center; gap: 1.8rem; }
 
 .page-hero {
   padding-top: 70px;
@@ -46,7 +56,7 @@ nav {
   background: var(--linen);
   display: flex; flex-direction: column;
   justify-content: flex-end;
-  padding-left: 4rem; padding-right: 4rem; padding-bottom: 4rem;
+  padding: 4rem 4rem 4rem;
   position: relative;
   border-bottom: 1px solid var(--sand);
 }
@@ -68,37 +78,82 @@ nav {
 }
 .page-h1 em { font-style: italic; color: var(--gold); }
 
+/* ── Sticky in-page tabs (Contact / Imprint / Privacy) ── */
+.legal-tabs {
+  position: sticky; top: 70px; z-index: 100;
+  background: var(--white);
+  border-bottom: 1px solid var(--sand);
+  display: flex; gap: 0;
+  padding: 0 4rem;
+  overflow-x: auto;
+}
+.legal-tab {
+  font-size: 10px; font-weight: 300;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--ink-light);
+  padding: 1.1rem 1.6rem;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap; transition: all 0.25s;
+}
+.legal-tab:hover, .legal-tab.active {
+  color: var(--ink); border-bottom-color: var(--gold);
+}
+
 .imprint-wrap {
-  max-width: 760px;
+  max-width: 820px;
   margin: 0 auto;
   padding: 6rem 4rem 8rem;
-  display: flex; flex-direction: column; gap: 3rem;
 }
-.imprint-block { }
-.imprint-block h2 {
+.legal-section {
+  padding-top: 4rem; padding-bottom: 4rem;
+  border-bottom: 1px solid var(--sand);
+}
+.legal-section:last-child { border-bottom: none; }
+.legal-section:first-child { padding-top: 1rem; }
+.legal-section h2 {
   font-family: var(--serif);
-  font-size: 1.5rem; font-weight: 300;
+  font-size: clamp(1.7rem, 2.6vw, 2.2rem);
+  font-weight: 300; line-height: 1.2;
   color: var(--ink);
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
-.imprint-block h2 em { font-style: italic; color: var(--gold); }
-.imprint-block p, .imprint-block address {
+.legal-section h2 em { font-style: italic; color: var(--gold); }
+.legal-section h3 {
+  font-family: var(--serif);
+  font-size: 1.2rem; font-weight: 400;
+  color: var(--ink);
+  margin-top: 1.8rem;
+  margin-bottom: 0.6rem;
+}
+.legal-section p, .legal-section address {
   font-style: normal;
   font-size: 13.5px; font-weight: 300;
   color: var(--ink-light);
   line-height: 1.95;
 }
-.imprint-block p + p { margin-top: 0.8rem; }
-.imprint-divider {
-  height: 1px; background: var(--sand);
-  margin: 1rem 0;
+.legal-section p + p { margin-top: 0.9rem; }
+.legal-section strong {
+  color: var(--ink); font-weight: 400;
 }
-.imprint-label {
+.legal-label {
   font-size: 9px; letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--warm-gray);
-  margin-bottom: 0.4rem;
+  margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 12px;
 }
+.legal-label::before {
+  content: ''; width: 18px; height: 1px;
+  background: var(--stone);
+}
+.legal-section a {
+  color: var(--gold);
+  text-decoration: underline;
+  text-decoration-color: rgba(184,153,90,0.4);
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.2s;
+}
+.legal-section a:hover { text-decoration-color: var(--gold); }
 
 footer {
   background: #1e1c18;
@@ -130,7 +185,11 @@ footer {
   nav { padding: 0 1.5rem; }
   .page-hero { padding: 5rem 1.8rem 3rem; min-height: 200px; }
   .page-eyebrow { left: 1.8rem; top: 2rem; }
-  .imprint-wrap { padding: 4rem 1.8rem 5rem; gap: 2.2rem; }
+  .legal-tabs { padding: 0 1.5rem; }
+  .legal-tab { padding: 1rem 1.1rem; font-size: 9px; letter-spacing: 0.2em; }
+  .imprint-wrap { padding: 3rem 1.8rem 5rem; }
+  .legal-section { padding: 2.5rem 0; }
+  .legal-section h2 { font-size: 1.5rem; margin-bottom: 1.4rem; }
   footer { flex-direction: column; gap: 1.5rem; padding: 2.5rem 1.8rem; text-align: center; }
 }
 </style>
@@ -140,72 +199,101 @@ footer {
 <nav id="top-nav">
   <a class="nav-logo" href="index.html">City <span>Archivist</span></a>
   <ul class="nav-links">
+    <li><a href="index.html#home" data-i18n="nav.home">Home</a></li>
+    <li><a href="index.html#destinations" data-i18n="nav.destinations">Destinations</a></li>
+    <li><a href="hotels.html" data-i18n="nav.hotels">Hotels</a></li>
+    <li><a href="index.html#nightclubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
+    <li><a href="index.html#about" data-i18n="nav.about">About Us</a></li>
   </ul>
-  <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
-    <span data-lang-current>EN</span>
-  </button>
+  <div class="nav-actions">
+    <a class="nav-back" href="index.html" data-i18n="nav.back">Back to Home</a>
+    <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
+      <span data-lang-current>EN</span>
+    </button>
+  </div>
 </nav>
 
 <div class="page-hero">
-  <div class="page-eyebrow">Legal Notice</div>
-  <h1 class="page-h1"><em>Impressum</em></h1>
+  <div class="page-eyebrow" data-i18n="legal.eyebrow">Legal Notice</div>
+  <h1 class="page-h1"><em data-i18n="legal.title">Imprint</em></h1>
+</div>
+
+<div class="legal-tabs">
+  <a class="legal-tab" href="#kontakt"   data-i18n="legal.contact.label">Contact</a>
+  <a class="legal-tab" href="#imprint"   data-i18n="legal.title">Imprint</a>
+  <a class="legal-tab" href="#datenschutz" data-i18n="legal.privacy.label">Privacy</a>
 </div>
 
 <div class="imprint-wrap">
 
-  <div class="imprint-block">
-    <div class="imprint-label">Angaben gemäß § 5 TMG</div>
-    <h2>Verantwortlich für den Inhalt</h2>
-    <address>
-      Konrad Xu<br>
-      Deutschland
-    </address>
-  </div>
+  <!-- ── KONTAKT ── -->
+  <section class="legal-section" id="kontakt">
+    <div class="legal-label" data-i18n="legal.contact.label">Contact</div>
+    <h2 data-i18n="legal.contact.h">How to reach us</h2>
+    <h3 data-i18n="legal.contact.email.label">Email</h3>
+    <p><a href="mailto:kontakt@cityarchivist.com">kontakt@cityarchivist.com</a></p>
+    <h3>Address</h3>
+    <address data-i18n="legal.contact.address">Konrad Xu<br>[Street and number]<br>[Postal code, City]<br>Germany</address>
+  </section>
 
-  <div class="imprint-divider"></div>
+  <!-- ── IMPRESSUM ── -->
+  <section class="legal-section" id="imprint">
+    <div class="legal-label" data-i18n="legal.responsible.label">Responsibility · § 5 TMG</div>
+    <h2 data-i18n="legal.responsible.h">Responsible for content</h2>
+    <p data-i18n="legal.responsible.p">Konrad Xu, address as listed above.</p>
 
-  <div class="imprint-block">
-    <div class="imprint-label">Kontakt</div>
-    <h2>Kontaktaufnahme</h2>
-    <p>E-Mail: <a href="mailto:kontakt@cityarchivist.com" style="color:var(--gold); text-decoration:underline;">kontakt@cityarchivist.com</a></p>
-  </div>
+    <h3 data-i18n="legal.editorial.h">Responsible for journalistic-editorial content</h3>
+    <p data-i18n="legal.editorial.p">Konrad Xu, address as listed above.</p>
 
-  <div class="imprint-divider"></div>
+    <h3 data-i18n="legal.liability.h">Disclaimer</h3>
+    <p data-i18n="legal.liability.content"><strong>Liability for content.</strong> The contents of these pages have been compiled with the greatest care.</p>
+    <p data-i18n="legal.liability.links"><strong>Liability for links.</strong> Our offer contains links to external websites of third parties.</p>
 
-  <div class="imprint-block">
-    <div class="imprint-label">§ 55 Abs. 2 RStV</div>
-    <h2>Verantwortlich für journalistisch-redaktionelle Inhalte</h2>
-    <p>Konrad Xu, Anschrift wie oben.</p>
-  </div>
+    <h3 data-i18n="legal.copyright.h">Image rights & content</h3>
+    <p data-i18n="legal.copyright.p1">Content created by the site operator on these pages is subject to German copyright law.</p>
+    <p data-i18n="legal.copyright.p2">Insofar as the content on this site was not created by the operator, third-party copyrights are respected.</p>
+  </section>
 
-  <div class="imprint-divider"></div>
+  <!-- ── DATENSCHUTZ ── -->
+  <section class="legal-section" id="datenschutz">
+    <div class="legal-label" data-i18n="legal.privacy.label">Privacy</div>
+    <h2 data-i18n="legal.privacy.h">Privacy Policy</h2>
+    <p data-i18n="legal.privacy.intro">We process personal data only to the extent necessary to provide this website and the features you request.</p>
 
-  <div class="imprint-block">
-    <div class="imprint-label">Haftung</div>
-    <h2>Haftungsausschluss</h2>
-    <p><strong style="color:var(--ink); font-weight:400;">Haftung für Inhalte.</strong>
-       Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.</p>
-    <p><strong style="color:var(--ink); font-weight:400;">Haftung für Links.</strong>
-       Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.</p>
-  </div>
+    <h3 data-i18n="legal.privacy.hosting.h">Hosting</h3>
+    <p data-i18n="legal.privacy.hosting.p">This site is served via GitHub Pages.</p>
 
-  <div class="imprint-divider"></div>
+    <h3 data-i18n="legal.privacy.cookies.h">Cookies & local storage</h3>
+    <p data-i18n="legal.privacy.cookies.p">This site stores only a small set of local items in your browser.</p>
 
-  <div class="imprint-block">
-    <div class="imprint-label">Urheberrecht</div>
-    <h2>Bildrechte und Inhalte</h2>
-    <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet.</p>
-    <p>Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet.</p>
-  </div>
+    <h3 data-i18n="legal.privacy.newsletter.h">Newsletter</h3>
+    <p data-i18n="legal.privacy.newsletter.p">When you sign up for the newsletter, your name and email are processed via Formspree.</p>
+
+    <h3 data-i18n="legal.privacy.rights.h">Your rights</h3>
+    <p data-i18n="legal.privacy.rights.p">You have the right at any time to request access, correction or deletion of your data.</p>
+  </section>
 
 </div>
 
 <footer>
   <div class="footer-logo">City <span>Archivist</span></div>
-  <span class="footer-copy">© 2026 City Archivist</span>
-  <a class="footer-back" href="index.html">← Back to Home</a>
+  <span class="footer-copy" data-i18n="footer.copy">© 2026 City Archivist</span>
+  <a class="footer-back" href="index.html" data-i18n="nav.back">← Back to Home</a>
 </footer>
 
-<script src="lang.js?v=8" defer></script>
+<script src="lang.js?v=9" defer></script>
+<script>
+  // Highlight active tab while scrolling
+  const tabs = document.querySelectorAll('.legal-tab');
+  const sections = ['kontakt', 'imprint', 'datenschutz'];
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 200) current = id;
+    });
+    tabs.forEach(t => t.classList.toggle('active', t.getAttribute('href') === '#' + current));
+  });
+</script>
 </body>
 </html>
