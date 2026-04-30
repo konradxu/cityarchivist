@@ -9,7 +9,7 @@
    Change them once, they update in all three languages.
    ════════════════════════════════════════════════════════════ */
 const SITE_INFO = {
-  name:       'Konrad Xu, Marlene Reitmaier, Felicitas Bauer',
+  name:       'Konrad Xu, Marlene Reitmaier, Felicitas Bauer, Vicktoria Seestaller',
   street:     '',           // street + number
   postalCity: '',             // postal code + city
   email:      'kontakt@cityarchivist.com',
