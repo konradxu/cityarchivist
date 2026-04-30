@@ -572,6 +572,32 @@ function injectPopupStyles() {
   const style = document.createElement('style');
   style.id = 'ca-popup-styles';
   style.textContent = `
+    /* ── Nav links (tabs) — injected globally so every page renders them ── */
+    nav .nav-links {
+      display: flex; gap: 3rem;
+      list-style: none; padding: 0; margin: 0;
+    }
+    nav .nav-links a {
+      font-size: 10px; font-weight: 300;
+      letter-spacing: 0.24em; text-transform: uppercase;
+      color: inherit; opacity: 0.65;
+      text-decoration: none;
+      position: relative;
+      transition: opacity 0.25s;
+    }
+    nav .nav-links a:hover { opacity: 1; }
+    nav .nav-links a::after {
+      content: ''; position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: currentColor; opacity: 0.5;
+      transition: width 0.3s;
+    }
+    nav .nav-links a:hover::after { width: 100%; }
+    @media (max-width: 768px) {
+      nav .nav-links { display: none; }
+    }
+
     /* ── Nav language trigger ── */
     .ca-lang-trigger {
       display: inline-flex; align-items: baseline; gap: 8px;
