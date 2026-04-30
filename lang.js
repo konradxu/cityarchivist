@@ -795,7 +795,7 @@ function injectPopupStyles() {
       gap: 0;
       flex: 1;
     }
-    .ca-menu-item {
+    .ca-menu-item, summary.ca-menu-item {
       display: flex; align-items: center; justify-content: space-between;
       gap: 1rem;
       width: 100%;
@@ -808,7 +808,10 @@ function injectPopupStyles() {
       line-height: 1; color: rgba(248,245,239,0.92);
       text-decoration: none;
       transition: color 0.25s, padding-left 0.25s;
+      list-style: none;
     }
+    summary.ca-menu-item::-webkit-details-marker,
+    summary.ca-menu-item::marker { display: none; content: ''; }
     .ca-menu-item:hover { color: rgba(212,188,138,1); padding-left: 6px; }
     .ca-menu-chevron {
       font-family: 'Cormorant Garamond', Georgia, serif;
@@ -816,14 +819,10 @@ function injectPopupStyles() {
       color: rgba(212,188,138,0.55);
       transition: transform 0.35s ease;
     }
-    .ca-menu-toggle.open .ca-menu-chevron { transform: rotate(180deg); }
+    details.ca-menu-group[open] .ca-menu-chevron { transform: rotate(180deg); }
 
     .ca-menu-sub {
       list-style: none; padding: 0; margin: 0;
-      display: none;
-    }
-    .ca-menu-sub.open {
-      display: block;
       animation: caSubFade 0.3s ease;
     }
     @keyframes caSubFade {
@@ -1037,19 +1036,23 @@ function showMenu() {
     <button class="ca-menu-close" aria-label="Close" data-close-menu>✕</button>
     <div class="ca-menu-mark">✦</div>
     <nav class="ca-menu-nav">
-      <button class="ca-menu-item ca-menu-toggle" type="button" data-group="dest">
-        <span>${dict['nav.destinations']}</span>
-        <span class="ca-menu-chevron">↓</span>
-      </button>
-      <ul class="ca-menu-sub" data-sub="dest" style="display:none;">${destItems}</ul>
+      <details class="ca-menu-group">
+        <summary class="ca-menu-item">
+          <span>${dict['nav.destinations']}</span>
+          <span class="ca-menu-chevron">↓</span>
+        </summary>
+        <ul class="ca-menu-sub">${destItems}</ul>
+      </details>
 
       <a class="ca-menu-item" href="hotels.html">${dict['nav.hotels']}</a>
 
-      <button class="ca-menu-item ca-menu-toggle" type="button" data-group="clubs">
-        <span>${dict['nav.nightclubs']}</span>
-        <span class="ca-menu-chevron">↓</span>
-      </button>
-      <ul class="ca-menu-sub" data-sub="clubs" style="display:none;">${clubItems}</ul>
+      <details class="ca-menu-group">
+        <summary class="ca-menu-item">
+          <span>${dict['nav.nightclubs']}</span>
+          <span class="ca-menu-chevron">↓</span>
+        </summary>
+        <ul class="ca-menu-sub">${clubItems}</ul>
+      </details>
 
       <a class="ca-menu-item" href="index.html#about">${dict['nav.about']}</a>
     </nav>
@@ -1059,20 +1062,11 @@ function showMenu() {
   document.body.appendChild(panel);
   document.body.style.overflow = 'hidden';
 
-  // Toggle sub-lists with explicit display fallback
-  panel.querySelectorAll('[data-group]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const g = btn.getAttribute('data-group');
-      const sub = panel.querySelector(`[data-sub="${g}"]`);
-      if (!sub) return;
-      const willOpen = !btn.classList.contains('open');
-      btn.classList.toggle('open', willOpen);
-      sub.classList.toggle('open', willOpen);
-      sub.style.display = willOpen ? 'block' : 'none';
-    });
-  });
-  // Auto-close menu when any link is clicked (so anchor scrolling works
-  // and body overflow gets reset before the navigation happens).
+  // Hide the page nav while menu is open (avoids the white strip behind)
+  const pageNav = document.querySelector('nav#top-nav') || document.querySelector('nav');
+  if (pageNav) pageNav.style.visibility = 'hidden';
+
+  // Auto-close menu on any link click — fixes anchor-scroll + ensures body overflow gets reset.
   panel.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', () => { closeMenu(); });
   });
@@ -1087,6 +1081,8 @@ function closeMenu() {
   if (el) el.remove();
   if (bd) bd.remove();
   document.body.style.overflow = '';
+  const pageNav = document.querySelector('nav#top-nav') || document.querySelector('nav');
+  if (pageNav) pageNav.style.visibility = '';
   document.removeEventListener('keydown', escCloseMenu);
 }
 function escCloseMenu(e) { if (e.key === 'Escape') closeMenu(); }
