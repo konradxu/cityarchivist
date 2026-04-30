@@ -763,16 +763,19 @@ function injectPopupStyles() {
       to   { transform: translateX(0); }
     }
     .ca-menu-close {
-      position: absolute; top: 1.4rem; right: 1.6rem;
+      position: absolute; top: 0.9rem; right: 0.9rem;
+      z-index: 10;
       background: transparent; border: none;
-      width: 36px; height: 36px;
+      width: 48px; height: 48px;
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 1.7rem; line-height: 1;
-      color: rgba(248,245,239,0.5);
+      font-size: 2rem; line-height: 1;
+      color: rgba(248,245,239,0.7);
       cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
       transition: color 0.25s, transform 0.4s;
+      -webkit-tap-highlight-color: transparent;
     }
-    .ca-menu-close:hover { color: rgba(212,188,138,1); transform: rotate(90deg); }
+    .ca-menu-close:hover, .ca-menu-close:active { color: rgba(212,188,138,1); transform: rotate(90deg); }
 
     .ca-menu-mark {
       font-family: 'Cormorant Garamond', Georgia, serif;
@@ -864,7 +867,7 @@ function injectPopupStyles() {
       .ca-lang-list .native { font-size: 1.85rem; }
       .ca-modal-close { top: -2.5rem; }
       .ca-coming-list { grid-template-columns: 1fr; gap: 1.2rem; }
-      .ca-menu-panel { padding: 5rem 2rem 2rem; }
+      .ca-menu-panel { width: 88vw; padding: 5rem 2rem 2rem; }
       .ca-menu-item { font-size: 1.45rem; padding: 1rem 0; }
     }
   `;
@@ -1050,7 +1053,7 @@ function showMenu() {
         <span>${dict['nav.destinations']}</span>
         <span class="ca-menu-chevron">↓</span>
       </button>
-      <ul class="ca-menu-sub" data-sub="dest">${destItems}</ul>
+      <ul class="ca-menu-sub" data-sub="dest" style="display:none;">${destItems}</ul>
 
       <a class="ca-menu-item" href="hotels.html">${dict['nav.hotels']}</a>
 
@@ -1058,36 +1061,28 @@ function showMenu() {
         <span>${dict['nav.nightclubs']}</span>
         <span class="ca-menu-chevron">↓</span>
       </button>
-      <ul class="ca-menu-sub" data-sub="clubs">${clubItems}</ul>
+      <ul class="ca-menu-sub" data-sub="clubs" style="display:none;">${clubItems}</ul>
 
       <a class="ca-menu-item" href="index.html#about">${dict['nav.about']}</a>
     </nav>
-
-    <div class="ca-menu-langs">
-      <button data-lang-pick="de" class="${lang==='de'?'active':''}">Deutsch</button>
-      <button data-lang-pick="en" class="${lang==='en'?'active':''}">English</button>
-      <button data-lang-pick="zh" class="${lang==='zh'?'active':''}">中文</button>
-    </div>
   `;
 
   document.body.appendChild(backdrop);
   document.body.appendChild(panel);
   document.body.style.overflow = 'hidden';
 
+  // Toggle sub-lists with explicit display fallback
   panel.querySelectorAll('[data-group]').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       const g = btn.getAttribute('data-group');
       const sub = panel.querySelector(`[data-sub="${g}"]`);
-      btn.classList.toggle('open');
-      sub.classList.toggle('open');
-    });
-  });
-  panel.querySelectorAll('[data-lang-pick]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      setLang(btn.getAttribute('data-lang-pick'));
-      // Re-render the menu so labels update without close
-      closeMenu();
-      showMenu();
+      if (!sub) return;
+      const willOpen = !btn.classList.contains('open');
+      btn.classList.toggle('open', willOpen);
+      sub.classList.toggle('open', willOpen);
+      sub.style.display = willOpen ? 'block' : 'none';
     });
   });
   panel.querySelectorAll('[data-close-menu]').forEach(btn => btn.addEventListener('click', closeMenu));
