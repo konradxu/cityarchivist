@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotels — City Archivist</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --white:     #fdfcf9;
+  --parchment: #f8f5ef;
+  --linen:     #f2ede4;
+  --sand:      #e4ddd1;
+  --stone:     #c8bfb0;
+  --warm-gray: #9c9488;
+  --ink-light: #7a756e;
+  --ink:       #2a2620;
+  --gold:      #b8995a;
+  --gold-dim:  #d4bc8a;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans:  'Jost', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--white);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  height: 70px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 4rem;
+  background: rgba(253,252,249,0.96);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--sand);
+  transition: background 0.3s;
+}
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.1rem; font-weight: 400;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink);
+}
+.nav-logo span { color: var(--gold); }
+.nav-back {
+  font-size: 10px; font-weight: 300;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink-light);
+  display: flex; align-items: center; gap: 10px;
+  transition: color 0.2s; cursor: pointer;
+}
+.nav-back::before { content: '←'; font-size: 13px; }
+.nav-back:hover { color: var(--ink); }
+
+/* ── HERO ── */
+.page-hero {
+  padding-top: 70px;
+  height: 52vh; min-height: 320px;
+  background: var(--linen);
+  display: flex; flex-direction: column;
+  justify-content: flex-end;
+  padding-left: 4rem; padding-right: 4rem; padding-bottom: 5rem;
+  position: relative;
+  border-bottom: 1px solid var(--sand);
+}
+.page-eyebrow {
+  position: absolute; top: 4rem; left: 4rem;
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 0.34em; text-transform: uppercase;
+  color: var(--warm-gray);
+  display: flex; align-items: center; gap: 14px;
+}
+.page-eyebrow::before {
+  content: ''; width: 22px; height: 1px;
+  background: var(--stone); display: inline-block;
+}
+.page-h1 {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 6vw, 6rem);
+  font-weight: 300; line-height: 1.05; color: var(--ink);
+}
+.page-h1 em { font-style: italic; color: var(--gold); }
+.page-sub {
+  font-size: 12px; font-weight: 300;
+  color: var(--ink-light); margin-top: 1.2rem;
+  letter-spacing: 0.04em;
+}
+
+/* ── CHAIN LIST ── */
+.chains-list { border-bottom: 1px solid var(--sand); }
+
+.chain-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr 1fr 120px;
+  align-items: center;
+  gap: 2rem;
+  padding: 2.6rem 4rem;
+  border-bottom: 1px solid var(--sand);
+  transition: background 0.2s;
+  text-decoration: none; color: inherit;
+  cursor: pointer;
+}
+.chain-row:last-child { border-bottom: none; }
+.chain-row:hover { background: var(--parchment); }
+
+.chain-num {
+  font-family: var(--serif); font-style: italic;
+  font-size: 1rem; color: var(--stone);
+}
+.chain-name {
+  font-family: var(--serif);
+  font-size: 1.8rem; font-weight: 300;
+  color: var(--ink); line-height: 1;
+}
+.chain-identity {
+  font-size: 10px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--warm-gray);
+}
+.chain-origin {
+  font-size: 12px; color: var(--ink-light); font-weight: 300;
+}
+.chain-cta {
+  font-size: 9px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--gold);
+  display: flex; align-items: center; gap: 8px;
+  justify-content: flex-end;
+  opacity: 0; transition: opacity 0.25s;
+}
+.chain-row:hover .chain-cta { opacity: 1; }
+.chain-cta::after { content: '→'; }
+
+/* ── NOTE ── */
+.bottom-note {
+  padding: 5rem 4rem;
+  display: grid; grid-template-columns: 220px 1fr;
+  gap: 6rem; align-items: start;
+}
+.note-label {
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--warm-gray); padding-top: 0.4rem;
+}
+.note-body p {
+  font-size: 13px; color: var(--ink-light);
+  font-weight: 300; line-height: 1.95; max-width: 580px;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: #1e1c18;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 3.5rem 4rem 2.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-logo {
+  font-family: var(--serif);
+  font-size: 1rem; font-weight: 400;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--parchment);
+}
+.footer-logo span { color: var(--gold); }
+.footer-copy { font-size: 10.5px; color: rgba(248,245,239,0.2); letter-spacing: 0.08em; }
+.footer-back {
+  font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(248,245,239,0.35);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 7px 18px; transition: all 0.2s;
+  display: flex; align-items: center; gap: 8px;
+}
+.footer-back:hover { color: var(--gold-dim); border-color: rgba(184,153,90,0.4); }
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  nav { padding: 0 1.5rem; }
+  .page-hero { padding: 5rem 1.8rem 3rem; min-height: 260px; }
+  .page-eyebrow { left: 1.8rem; top: 2rem; }
+  .chain-row { grid-template-columns: 40px 1fr; gap: 1rem; padding: 1.8rem 1.8rem; }
+  .chain-identity, .chain-origin { display: none; }
+  .chain-cta { opacity: 1; }
+  .bottom-note { grid-template-columns: 1fr; gap: 1rem; padding: 3rem 1.8rem; }
+  footer { flex-direction: column; gap: 1.5rem; padding: 2.5rem 1.8rem; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav id="top-nav">
+  <div class="nav-logo">City <span>Archivist</span></div>
+  <a class="nav-back" href="index.html">Back to Home</a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-eyebrow">The Hotel Archive</div>
+  <h1 class="page-h1">Top Hotel Chains<br>on the <em>Globe</em></h1>
+  <p class="page-sub">Six names that define modern luxury hospitality.</p>
+</div>
+
+<div class="chains-list">
+  <a href="https://www.aman.com" target="_blank" class="chain-row">
+    <div class="chain-num">01</div>
+    <div class="chain-name">Aman</div>
+    <div class="chain-identity">Ultra-Luxury · Remote</div>
+    <div class="chain-origin">Founded 1988 · Phuket, Thailand</div>
+    <div class="chain-cta">Visit</div>
+  </a>
+  <a href="https://www.fourseasons.com" target="_blank" class="chain-row">
+    <div class="chain-num">02</div>
+    <div class="chain-name">Four Seasons</div>
+    <div class="chain-identity">Luxury · Global Scale</div>
+    <div class="chain-origin">Founded 1960 · Toronto, Canada</div>
+    <div class="chain-cta">Visit</div>
+  </a>
+  <a href="https://www.sixsenses.com" target="_blank" class="chain-row">
+    <div class="chain-num">03</div>
+    <div class="chain-name">Six Senses</div>
+    <div class="chain-identity">Wellness · Sustainability</div>
+    <div class="chain-origin">Founded 1995 · Maldives</div>
+    <div class="chain-cta">Visit</div>
+  </a>
+  <a href="https://www.marriott.com/en-us/hotel-brands/st-regis-hotels-and-resorts.mi" target="_blank" class="chain-row">
+    <div class="chain-num">04</div>
+    <div class="chain-name">The St. Regis</div>
+    <div class="chain-identity">Grand Luxury · Heritage</div>
+    <div class="chain-origin">Founded 1904 · New York, USA</div>
+    <div class="chain-cta">Visit</div>
+  </a>
+  <a href="https://www.rosewoodhotels.com" target="_blank" class="chain-row">
+    <div class="chain-num">05</div>
+    <div class="chain-name">Rosewood</div>
+    <div class="chain-identity">Sense of Place · Culture</div>
+    <div class="chain-origin">Founded 1979 · Dallas, USA</div>
+    <div class="chain-cta">Visit</div>
+  </a>
+  <a href="https://www.belmond.com" target="_blank" class="chain-row">
+    <div class="chain-num">06</div>
+    <div class="chain-name">Belmond</div>
+    <div class="chain-identity">Iconic Journeys · Rail & Sea</div>
+    <div class="chain-origin">Founded 1976 · Orient-Express</div>
+    <div class="chain-cta">Visit</div>
+  </a>
+</div>
+
+<div class="bottom-note">
+  <div class="note-label">A Note</div>
+  <div class="note-body">
+    <p>This list is a starting point, not a ranking. Each of these groups represents a different philosophy of hospitality — and the best one is simply the one that speaks to how you like to travel.</p>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">City <span>Archivist</span></div>
+  <span class="footer-copy">© 2026 City Archivist</span>
+  <a class="footer-back" href="index.html">← Back to Home</a>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('top-nav');
+    nav.style.background = window.scrollY > 40
+      ? 'rgba(253,252,249,0.99)'
+      : 'rgba(253,252,249,0.96)';
+  });
+</script>
+</body>
+</html>
