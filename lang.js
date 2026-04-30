@@ -1152,10 +1152,5 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', showComingSoonModal);
   });
 
-  // Wire hamburger menu trigger(s)
-  document.querySelectorAll('[data-menu-trigger]').forEach(btn => {
-    btn.addEventListener('click', showMenu);
-  });
-
   bindNewsletter();
 });
