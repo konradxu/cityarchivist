@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impressum — City Archivist</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --white:#fdfcf9; --parchment:#f8f5ef; --linen:#f2ede4; --sand:#e4ddd1;
+  --stone:#c8bfb0; --warm-gray:#9c9488; --ink-light:#7a756e;
+  --ink:#2a2620; --gold:#b8995a; --gold-dim:#d4bc8a;
+  --serif:'Cormorant Garamond', Georgia, serif;
+  --sans:'Jost', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--white); color: var(--ink);
+  font-size: 14px; font-weight: 300; line-height: 1.8;
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  height: 70px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 4rem;
+  background: rgba(253,252,249,0.96);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--sand);
+}
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.1rem; font-weight: 400;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink);
+}
+.nav-logo span { color: var(--gold); }
+
+.page-hero {
+  padding-top: 70px;
+  height: 38vh; min-height: 240px;
+  background: var(--linen);
+  display: flex; flex-direction: column;
+  justify-content: flex-end;
+  padding-left: 4rem; padding-right: 4rem; padding-bottom: 4rem;
+  position: relative;
+  border-bottom: 1px solid var(--sand);
+}
+.page-eyebrow {
+  position: absolute; top: 4rem; left: 4rem;
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 0.34em; text-transform: uppercase;
+  color: var(--warm-gray);
+  display: flex; align-items: center; gap: 14px;
+}
+.page-eyebrow::before {
+  content: ''; width: 22px; height: 1px;
+  background: var(--stone); display: inline-block;
+}
+.page-h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.6rem, 5vw, 4.5rem);
+  font-weight: 300; line-height: 1.1; color: var(--ink);
+}
+.page-h1 em { font-style: italic; color: var(--gold); }
+
+.imprint-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 6rem 4rem 8rem;
+  display: flex; flex-direction: column; gap: 3rem;
+}
+.imprint-block { }
+.imprint-block h2 {
+  font-family: var(--serif);
+  font-size: 1.5rem; font-weight: 300;
+  color: var(--ink);
+  margin-bottom: 1rem;
+}
+.imprint-block h2 em { font-style: italic; color: var(--gold); }
+.imprint-block p, .imprint-block address {
+  font-style: normal;
+  font-size: 13.5px; font-weight: 300;
+  color: var(--ink-light);
+  line-height: 1.95;
+}
+.imprint-block p + p { margin-top: 0.8rem; }
+.imprint-divider {
+  height: 1px; background: var(--sand);
+  margin: 1rem 0;
+}
+.imprint-label {
+  font-size: 9px; letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--warm-gray);
+  margin-bottom: 0.4rem;
+}
+
+footer {
+  background: #1e1c18;
+  padding: 3rem 4rem;
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.footer-logo {
+  font-family: var(--serif); font-size: 1rem; font-weight: 400;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--parchment);
+}
+.footer-logo span { color: var(--gold); }
+.footer-copy {
+  font-size: 10.5px; color: rgba(248,245,239,0.25);
+  letter-spacing: 0.08em;
+}
+.footer-back {
+  font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(248,245,239,0.4);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 7px 18px;
+  display: flex; align-items: center; gap: 8px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.footer-back:hover { color: var(--gold-dim); border-color: rgba(184,153,90,0.4); }
+
+@media (max-width: 768px) {
+  nav { padding: 0 1.5rem; }
+  .page-hero { padding: 5rem 1.8rem 3rem; min-height: 200px; }
+  .page-eyebrow { left: 1.8rem; top: 2rem; }
+  .imprint-wrap { padding: 4rem 1.8rem 5rem; gap: 2.2rem; }
+  footer { flex-direction: column; gap: 1.5rem; padding: 2.5rem 1.8rem; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav id="top-nav">
+  <a class="nav-logo" href="index.html">City <span>Archivist</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#home" data-i18n="nav.home">Home</a></li>
+    <li><a href="index.html#destinations" data-i18n="nav.destinations">Destinations</a></li>
+    <li><a href="hotels.html" data-i18n="nav.hotels">Hotels</a></li>
+    <li><a href="index.html#nightclubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
+    <li><a href="index.html#about" data-i18n="nav.about">About Us</a></li>
+  </ul>
+  <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
+    <span data-lang-current>EN</span>
+  </button>
+</nav>
+
+<div class="page-hero">
+  <div class="page-eyebrow">Legal Notice</div>
+  <h1 class="page-h1"><em>Impressum</em></h1>
+</div>
+
+<div class="imprint-wrap">
+
+  <div class="imprint-block">
+    <div class="imprint-label">Angaben gemäß § 5 TMG</div>
+    <h2>Verantwortlich für den Inhalt</h2>
+    <address>
+      Konrad Xu<br>
+      [Straße und Hausnummer]<br>
+      [PLZ Ort]<br>
+      Deutschland
+    </address>
+  </div>
+
+  <div class="imprint-divider"></div>
+
+  <div class="imprint-block">
+    <div class="imprint-label">Kontakt</div>
+    <h2>Kontaktaufnahme</h2>
+    <p>E-Mail: <a href="mailto:kontakt@cityarchivist.com" style="color:var(--gold); text-decoration:underline;">kontakt@cityarchivist.com</a></p>
+  </div>
+
+  <div class="imprint-divider"></div>
+
+  <div class="imprint-block">
+    <div class="imprint-label">§ 55 Abs. 2 RStV</div>
+    <h2>Verantwortlich für journalistisch-redaktionelle Inhalte</h2>
+    <p>Konrad Xu, Anschrift wie oben.</p>
+  </div>
+
+  <div class="imprint-divider"></div>
+
+  <div class="imprint-block">
+    <div class="imprint-label">Haftung</div>
+    <h2>Haftungsausschluss</h2>
+    <p><strong style="color:var(--ink); font-weight:400;">Haftung für Inhalte.</strong>
+       Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.</p>
+    <p><strong style="color:var(--ink); font-weight:400;">Haftung für Links.</strong>
+       Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.</p>
+  </div>
+
+  <div class="imprint-divider"></div>
+
+  <div class="imprint-block">
+    <div class="imprint-label">Urheberrecht</div>
+    <h2>Bildrechte und Inhalte</h2>
+    <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet.</p>
+    <p>Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet.</p>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-logo">City <span>Archivist</span></div>
+  <span class="footer-copy">© 2026 City Archivist</span>
+  <a class="footer-back" href="index.html">← Back to Home</a>
+</footer>
+
+<script src="lang.js?v=8" defer></script>
+</body>
+</html>
