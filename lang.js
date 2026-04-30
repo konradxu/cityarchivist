@@ -749,12 +749,14 @@ function injectPopupStyles() {
       position: fixed; top: 0; right: 0;
       width: 400px; max-width: 100vw;
       height: 100vh; height: 100dvh;
-      background: rgba(18,16,12,0.97);
+      background: rgba(18,16,12,0.98);
       backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      z-index: 1100;
-      padding: 5rem 3rem 3rem;
-      display: flex; flex-direction: column;
+      z-index: 99999;
+      padding: 6rem 3rem 3rem;
+      display: block;
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
       animation: caMenuIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
       color: rgba(248,245,239,0.9);
     }
@@ -798,12 +800,14 @@ function injectPopupStyles() {
     .ca-menu-section {
       display: block;
       font-family: 'Jost', sans-serif;
-      font-size: 9px; font-weight: 300;
-      letter-spacing: 0.34em; text-transform: uppercase;
-      color: rgba(212,188,138,0.6);
-      padding: 1.6rem 0 0.4rem;
+      font-size: 11px; font-weight: 400;
+      letter-spacing: 0.32em; text-transform: uppercase;
+      color: rgba(212,188,138,0.95);
+      padding: 1.8rem 0 0.6rem;
+      border-bottom: 1px solid rgba(212,188,138,0.18);
+      margin-bottom: 0.3rem;
     }
-    .ca-menu-section:first-child { padding-top: 0; }
+    .ca-menu-section:first-of-type { padding-top: 0.4rem; }
     .ca-menu-item {
       display: block;
       width: 100%;
@@ -826,9 +830,9 @@ function injectPopupStyles() {
 
     .ca-menu-backdrop {
       position: fixed; inset: 0;
-      background: rgba(12,10,8,0.78);
+      background: rgba(12,10,8,0.85);
       backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-      z-index: 1099;
+      z-index: 99998;
       animation: caFadeIn 0.4s ease;
     }
 
@@ -1036,8 +1040,11 @@ function showMenu() {
   document.body.style.overflow = 'hidden';
 
   // Hide the page nav while menu is open (avoids the white strip behind)
-  const pageNav = document.querySelector('nav#top-nav') || document.querySelector('nav');
-  if (pageNav) pageNav.style.visibility = 'hidden';
+  const pageNav = document.querySelector('nav#top-nav') || document.querySelector('body > nav');
+  if (pageNav) {
+    pageNav.style.visibility = 'hidden';
+    pageNav.style.display = 'none';
+  }
 
   // Auto-close menu on any link click — fixes anchor-scroll + ensures body overflow gets reset.
   panel.querySelectorAll('a').forEach(a => {
@@ -1054,8 +1061,11 @@ function closeMenu() {
   if (el) el.remove();
   if (bd) bd.remove();
   document.body.style.overflow = '';
-  const pageNav = document.querySelector('nav#top-nav') || document.querySelector('nav');
-  if (pageNav) pageNav.style.visibility = '';
+  const pageNav = document.querySelector('nav#top-nav') || document.querySelector('body > nav');
+  if (pageNav) {
+    pageNav.style.visibility = '';
+    pageNav.style.display = '';
+  }
   document.removeEventListener('keydown', escCloseMenu);
 }
 function escCloseMenu(e) { if (e.key === 'Escape') closeMenu(); }
