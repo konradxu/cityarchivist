@@ -9,9 +9,9 @@
    Change them once, they update in all three languages.
    ════════════════════════════════════════════════════════════ */
 const SITE_INFO = {
-  name:       'Konrad Xu',
-  street:     'Musterstraße 1',           // street + number
-  postalCity: '12345 Berlin',             // postal code + city
+  name:       'Konrad Xu, Marlene Reitmaier (Co-Founder)',
+  street:     '',           // street + number
+  postalCity: '',             // postal code + city
   email:      'kontakt@cityarchivist.com',
 };
 /* ════════════════════════════════════════════════════════════ */
