@@ -9,9 +9,9 @@
    Change them once, they update in all three languages.
    ════════════════════════════════════════════════════════════ */
 const SITE_INFO = {
-  name:       'Konrad Xu, Marlene Reitmaier, Felicitas Bauer, Victoria Seestaller',
-  street:     '',           // street + number
-  postalCity: '',             // postal code + city
+  name:       'Konrad Xu',
+  street:     'Musterstraße 1',           // street + number
+  postalCity: '12345 Berlin',             // postal code + city
   email:      'kontakt@cityarchivist.com',
 };
 /* ════════════════════════════════════════════════════════════ */
@@ -181,6 +181,21 @@ const TRANSLATIONS = {
     'club.meta.weekend': 'Weekend',
     'club.meta.rooms': 'Rooms',
     'club.meta.years': 'Years',
+
+    /* ── Seven Wonders ── */
+    'wonders.eyebrow': 'Seven Wonders',
+    'wonders.h2': 'Seven Wonders<br>of the <em>World</em>',
+    'wonders.desc': 'The new seven wonders, voted by millions worldwide. From Petra to Machu Picchu — the icons that define our shared imagination.',
+    'wonders.cta': 'Explore the Seven',
+    'wonders.page.eyebrow': 'The New Seven Wonders',
+    'wonders.page.h1': 'Seven Wonders<br>of the <em>World</em>',
+    'wonders.page.sub': 'A journey across continents and centuries — the seven monuments that humanity voted as its greatest legacy.',
+    'wonders.story.label': 'History',
+    'wonders.location.label': 'Location',
+    'wonders.visit.label': 'Plan a Visit',
+    'wonders.meta.built': 'Built',
+    'wonders.meta.country': 'Country',
+    'wonders.meta.height': 'Height',
 
     'welcome.greeting': 'Welcome to City Archivist',
     'welcome.sub': 'Choose your language to begin.',
@@ -384,6 +399,21 @@ const TRANSLATIONS = {
     'club.meta.rooms': 'Räume',
     'club.meta.years': 'Jahre',
 
+    /* ── Sieben Weltwunder ── */
+    'wonders.eyebrow': 'Sieben Weltwunder',
+    'wonders.h2': 'Die sieben<br>Welt<em>wunder</em>',
+    'wonders.desc': 'Die neuen sieben Weltwunder, gewählt von Millionen weltweit. Von Petra bis Machu Picchu — die Ikonen, die unsere gemeinsame Vorstellungskraft prägen.',
+    'wonders.cta': 'Die sieben entdecken',
+    'wonders.page.eyebrow': 'Die neuen sieben Weltwunder',
+    'wonders.page.h1': 'Die sieben<br><em>Weltwunder</em>',
+    'wonders.page.sub': 'Eine Reise durch Kontinente und Jahrhunderte — die sieben Monumente, die die Menschheit zu ihrem größten Vermächtnis gewählt hat.',
+    'wonders.story.label': 'Geschichte',
+    'wonders.location.label': 'Lage',
+    'wonders.visit.label': 'Besuch planen',
+    'wonders.meta.built': 'Erbaut',
+    'wonders.meta.country': 'Land',
+    'wonders.meta.height': 'Höhe',
+
     'welcome.greeting': 'Willkommen bei City Archivist',
     'welcome.sub': 'Wähle deine Sprache, um zu beginnen.',
     'welcome.continue': 'Fortfahren',
@@ -585,6 +615,21 @@ const TRANSLATIONS = {
     'club.meta.weekend': '周末',
     'club.meta.rooms': '房间',
     'club.meta.years': '年',
+
+    /* ── 世界七大奇迹 ── */
+    'wonders.eyebrow': '世界七大奇迹',
+    'wonders.h2': '世界<br><em>七大奇迹</em>',
+    'wonders.desc': '由全球数百万人投票选出的新七大奇迹。从佩特拉到马丘比丘 — 定义我们共同想象力的标志。',
+    'wonders.cta': '探索七大奇迹',
+    'wonders.page.eyebrow': '新世界七大奇迹',
+    'wonders.page.h1': '世界<br><em>七大奇迹</em>',
+    'wonders.page.sub': '跨越大陆与世纪的旅程 — 人类投票选出的七座最伟大的遗产。',
+    'wonders.story.label': '历史',
+    'wonders.location.label': '位置',
+    'wonders.visit.label': '计划访问',
+    'wonders.meta.built': '建造',
+    'wonders.meta.country': '国家',
+    'wonders.meta.height': '高度',
 
     'welcome.greeting': '欢迎来到 City Archivist',
     'welcome.sub': '请选择你的语言开始浏览。',

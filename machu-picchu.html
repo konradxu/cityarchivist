@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Machu Picchu — City Archivist</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --white:#fdfcf9; --parchment:#f8f5ef; --linen:#f2ede4; --sand:#e4ddd1;
+  --stone:#c8bfb0; --warm-gray:#9c9488; --ink-light:#7a756e;
+  --ink:#2a2620; --ink-deep:#1a1814; --ink-night:#0e0c08;
+  --gold:#b8995a; --gold-dim:#d4bc8a;
+  --serif:'Cormorant Garamond', Georgia, serif;
+  --sans:'Jost', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--ink-night);
+  color: var(--parchment);
+  font-size: 14px; font-weight: 300; line-height: 1.8;
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; cursor: pointer; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  height: 70px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 4rem;
+  background: rgba(14,12,8,0.78);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.nav-logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--parchment); }
+.nav-logo span { color: var(--gold); }
+.nav-back { display:inline-flex; align-items:center; gap:10px; font-size:10px; font-weight:300; letter-spacing:0.24em; text-transform:uppercase; color:rgba(248,245,239,0.55); transition: color .25s, gap .25s; }
+.nav-back::before { content: '←'; font-size: 14px; }
+.nav-back:hover { color: var(--gold-dim); gap:14px; }
+.nav-actions { display:flex; align-items:center; gap:1.8rem; }
+
+.wonder-hero {
+  padding-top: 70px;
+  min-height: 92vh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding-left: 4rem; padding-right: 4rem; padding-bottom: 6rem;
+  position: relative; overflow: hidden;
+  background:
+    radial-gradient(ellipse at 30% 30%, rgba(184,153,90,0.18), transparent 60%),
+    radial-gradient(ellipse at 80% 70%, rgba(212,188,138,0.10), transparent 50%),
+    linear-gradient(180deg, #0e0c08 0%, #1a1814 50%, #2a2620 100%);
+}
+.wonder-eyebrow {
+  position: absolute; top: 6rem; left: 4rem;
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 0.34em; text-transform: uppercase;
+  color: rgba(212,188,138,0.85);
+  display: flex; align-items: center; gap: 14px;
+}
+.wonder-eyebrow::before { content:''; width:22px; height:1px; background: var(--gold-dim); }
+.wonder-h1 {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  font-weight: 300; line-height: 1.05; color: var(--parchment);
+  margin-bottom: 1.6rem;
+}
+.wonder-h1 em { font-style: italic; color: var(--gold); }
+.wonder-tagline {
+  font-size: 14px; font-weight: 300; line-height: 1.95;
+  color: rgba(248,245,239,0.6); max-width: 520px;
+  margin-bottom: 3rem;
+}
+.wonder-meta { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+.wonder-meta-item { border-top: 1px solid rgba(255,255,255,0.12); padding-top: 1rem; min-width: 110px; }
+.wonder-meta-num { font-family: var(--serif); font-size: 1.5rem; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 0.3rem; }
+.wonder-meta-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(248,245,239,0.45); }
+
+section.block { padding: 7rem 4rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.sec-eyebrow { font-size: 9px; font-weight: 300; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 1.5rem; display:flex; align-items:center; gap:12px; }
+.sec-eyebrow::before { content:''; width: 20px; height: 1px; background: var(--gold-dim); }
+.sec-h { font-family: var(--serif); font-size: clamp(2rem, 3vw, 3rem); font-weight: 300; line-height: 1.18; color: var(--parchment); margin-bottom: 2.5rem; }
+.sec-h em { font-style: italic; color: var(--gold); }
+
+.loc-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 5rem; align-items: start; }
+.loc-info-row { display:flex; flex-direction:column; gap:1.6rem; }
+.loc-item { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1rem; }
+.loc-label { font-size: 9px; letter-spacing: 0.26em; text-transform: uppercase; color: rgba(248,245,239,0.4); margin-bottom: 0.4rem; }
+.loc-value { font-family: var(--serif); font-size: 1.15rem; font-weight: 300; color: var(--parchment); line-height: 1.4; }
+.loc-map {
+  aspect-ratio: 16/9; max-height: 360px;
+  background: linear-gradient(140deg, #2a2620, #1a1814);
+  border: 1px solid rgba(255,255,255,0.06);
+  position: relative; overflow: hidden;
+}
+
+.text-grid { display: grid; grid-template-columns: 220px 1fr; gap: 6rem; align-items: start; }
+.text-label { font-size: 9px; font-weight: 300; letter-spacing: 0.32em; text-transform: uppercase; color: rgba(248,245,239,0.4); padding-top: 0.4rem; }
+.text-body p { font-size: 14px; color: rgba(248,245,239,0.65); font-weight: 300; line-height: 2; max-width: 720px; margin-bottom: 1.4rem; }
+.text-body p em { font-style: italic; color: var(--gold-dim); }
+
+.visit-block {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: center;
+  background: var(--ink-deep);
+  padding: 7rem 4rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.visit-h { font-family: var(--serif); font-size: clamp(1.8rem, 2.8vw, 2.6rem); font-weight: 300; line-height: 1.25; color: var(--parchment); }
+.visit-h em { font-style: italic; color: var(--gold); }
+.visit-right p { font-size: 13px; color: rgba(248,245,239,0.55); font-weight: 300; line-height: 1.95; margin-bottom: 2rem; max-width: 480px; }
+.visit-cta {
+  display: inline-flex; align-items: center; gap: 14px;
+  background: var(--gold); color: var(--ink-deep);
+  font-size: 10px; font-weight: 400;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  padding: 16px 30px;
+  transition: background 0.25s, gap 0.3s;
+}
+.visit-cta:hover { background: var(--gold-dim); gap: 22px; }
+.visit-cta::after { content: '↗'; font-size: 14px; }
+
+footer { background: #0a0805; padding: 3rem 4rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); }
+.footer-logo { font-family: var(--serif); font-size: 1rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--parchment); }
+.footer-logo span { color: var(--gold); }
+.footer-copy { font-size: 10.5px; color: rgba(248,245,239,0.3); letter-spacing: 0.08em; }
+.footer-back { font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(248,245,239,0.5); border: 1px solid rgba(255,255,255,0.12); padding: 7px 18px; display:flex; align-items:center; gap:8px; transition: color .2s, border-color .2s; }
+.footer-back:hover { color: var(--gold-dim); border-color: rgba(184,153,90,0.4); }
+
+@media (max-width: 768px) {
+  nav { padding: 0 1.5rem; }
+  .wonder-hero { padding: 5rem 1.8rem 4rem; min-height: 80vh; }
+  .wonder-eyebrow { left: 1.8rem; top: 5rem; }
+  .wonder-h1 { font-size: clamp(2.6rem, 12vw, 4.5rem); }
+  .wonder-meta { gap: 1.2rem; }
+  section.block { padding: 4rem 1.8rem; }
+  .loc-grid, .text-grid, .visit-block { grid-template-columns: 1fr; gap: 2.5rem; padding: 4rem 1.8rem; }
+  .loc-map { aspect-ratio: auto; height: 200px; }
+  footer { flex-direction: column; gap: 1.5rem; padding: 2.5rem 1.8rem; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav id="top-nav">
+  <a class="nav-logo" href="index.html">City <span>Archivist</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#home" data-i18n="nav.home">Home</a></li>
+    <li><a href="index.html#destinations" data-i18n="nav.destinations">Destinations</a></li>
+    <li><a href="hotels.html" data-i18n="nav.hotels">Hotels</a></li>
+    <li><a href="index.html#nightclubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
+    <li><a href="index.html#about" data-i18n="nav.about">About Us</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a class="nav-back" href="wonders.html">All Wonders</a>
+    <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
+      <span data-lang-current>EN</span>
+    </button>
+  </div>
+</nav>
+
+<section class="wonder-hero">
+  <div class="wonder-eyebrow">Peru · Cusco Region · Wonder of the World</div>
+  <h1 class="wonder-h1">Machu <em>Picchu</em></h1>
+  <p class="wonder-tagline">An Inca royal estate above the clouds — built without mortar, abandoned for centuries, untouched by Spain.</p>
+  <div class="wonder-meta">
+    <div class="wonder-meta-item"><div class="wonder-meta-num">1450</div><div class="wonder-meta-label">Built</div></div>
+    <div class="wonder-meta-item"><div class="wonder-meta-num">2,430 m</div><div class="wonder-meta-label">Altitude</div></div>
+    <div class="wonder-meta-item"><div class="wonder-meta-num">UNESCO 1983</div><div class="wonder-meta-label">Heritage</div></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="loc-grid">
+    <div>
+      <div class="sec-eyebrow" data-i18n="wonders.location.label">Location</div>
+      <h2 class="sec-h">Find <em>the Wonder</em></h2>
+      <div class="loc-info-row">
+        <div class="loc-item">
+          <div class="loc-label" data-i18n="club.location.address">Address</div>
+          <div class="loc-value">Santuario Histórico de Machu Picchu<br>Aguas Calientes<br>Cusco Region, Peru</div>
+        </div>
+      </div>
+    </div>
+    <div class="loc-map">
+      <iframe src="https://maps.google.com/maps?q=Machu%20Picchu%20Cusco%20Peru&t=&z=14&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0; position:absolute; inset:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Machu Picchu on Google Maps"></iframe>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="text-grid">
+    <div class="text-label" data-i18n="wonders.story.label">History</div>
+    <div class="text-body">
+      <h2 class="sec-h">Lost city in the <em>clouds</em></h2>
+      <p>Built in the mid-15th century by the Inca emperor Pachacuti as a royal estate, Machu Picchu sits 2,430 metres above sea level on a saddle between two Andean peaks. Its terraced fields, temples and houses were constructed entirely from precisely-cut stone — fitted so tightly that no mortar was used.</p>
+      <p>Abandoned a century later during the Spanish conquest and never discovered by the colonists, the city was reintroduced to the world by Hiram Bingham in 1911. Today it is the most visited archaeological site in <em>South America</em>.</p>
+    </div>
+  </div>
+</section>
+
+<div class="visit-block">
+  <div>
+    <div class="sec-eyebrow" data-i18n="wonders.visit.label">Plan a Visit</div>
+    <h2 class="visit-h">Visit <em>Machu Picchu</em></h2>
+  </div>
+  <div class="visit-right">
+    <p>Entry tickets must be reserved in advance through the Peruvian Ministry of Culture. Trains run daily from Cusco and Ollantaytambo to Aguas Calientes; the four-day Inca Trail is the alternative.</p>
+    <a href="https://www.machupicchu.gob.pe" target="_blank" rel="noopener" class="visit-cta">Visit machupicchu.gob.pe</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">City <span>Archivist</span></div>
+  <span class="footer-copy" data-i18n="footer.copy">© 2026 City Archivist — Machu Picchu</span>
+  <a class="footer-back" href="wonders.html">← All Wonders</a>
+</footer>
+
+<script src="lang.js?v=11" defer></script>
+</body>
+</html>

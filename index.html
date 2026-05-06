@@ -649,6 +649,117 @@ nav {
   gap: 16px; color: var(--gold);
 }
 
+/* ── WONDERS FEATURE STRIP ── */
+.wonders-feature {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--sand);
+  border-bottom: 1px solid var(--sand);
+  min-height: 540px;
+  text-decoration: none; color: inherit;
+  background: linear-gradient(135deg, #1a1814 0%, #2a2620 50%, #3a342d 100%);
+  position: relative; overflow: hidden;
+  transition: filter 0.4s;
+}
+.wonders-feature::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(184,153,90,0.18), transparent 60%),
+    radial-gradient(ellipse at 80% 30%, rgba(212,188,138,0.12), transparent 50%);
+  pointer-events: none;
+}
+.wonders-feature:hover { filter: brightness(1.08); }
+.wonders-feature-art {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  padding: 4rem 2rem;
+  perspective: 1200px;
+}
+.wonders-mosaic {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  width: 100%; max-width: 460px;
+  aspect-ratio: 1;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.wonders-feature:hover .wonders-mosaic {
+  transform: rotateX(8deg) rotateY(-12deg) translateZ(20px);
+}
+.wonders-tile {
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-style: italic;
+  font-size: 0.8rem; color: rgba(212,188,138,0.55);
+  letter-spacing: 0.05em;
+  border: 1px solid rgba(212,188,138,0.15);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+.wonders-tile:nth-child(1) { background: linear-gradient(150deg, #6b5b3a, #3a342d); }
+.wonders-tile:nth-child(2) { background: linear-gradient(150deg, #a89070, #4a4540); }
+.wonders-tile:nth-child(3) { background: linear-gradient(150deg, #5a4a35, #2a2620); }
+.wonders-tile:nth-child(4) { background: linear-gradient(150deg, #8a7050, #3a342d); }
+.wonders-tile:nth-child(5) {
+  background: linear-gradient(150deg, var(--gold), var(--gold-dim));
+  color: var(--ink); font-style: normal;
+  font-size: 1.5rem; font-weight: 300;
+  letter-spacing: 0.04em;
+}
+.wonders-tile:nth-child(6) { background: linear-gradient(150deg, #6b5b3a, #2a2620); }
+.wonders-tile:nth-child(7) { background: linear-gradient(150deg, #4a4540, #1a1814); }
+.wonders-tile:nth-child(8) { background: linear-gradient(150deg, #8a7050, #4a4540); }
+.wonders-tile:nth-child(9) { background: linear-gradient(150deg, #6b5b3a, #3a342d); }
+
+.wonders-feature-body {
+  padding: 5rem 5rem;
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; z-index: 2;
+}
+.wonders-feature-eyebrow {
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 0.34em; text-transform: uppercase;
+  color: var(--gold-dim); margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: 12px;
+}
+.wonders-feature-eyebrow::before {
+  content: ''; width: 20px; height: 1px;
+  background: var(--gold-dim); display: inline-block;
+}
+.wonders-feature-h {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  font-weight: 300; line-height: 1.1;
+  color: var(--parchment); margin-bottom: 1.8rem;
+}
+.wonders-feature-h em { font-style: italic; color: var(--gold); }
+.wonders-feature-text {
+  font-size: 13.5px; font-weight: 300;
+  color: rgba(248,245,239,0.6); line-height: 2;
+  max-width: 460px; margin-bottom: 2.6rem;
+}
+.wonders-feature-cta {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-family: var(--sans);
+  font-size: 11px; font-weight: 400;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--ink);
+  background: var(--gold);
+  padding: 18px 32px;
+  align-self: flex-start;
+  border: 1px solid var(--gold);
+  transition: background 0.3s, color 0.3s, gap 0.3s;
+}
+.wonders-feature-cta::after { content: '↗'; font-size: 16px; }
+.wonders-feature:hover .wonders-feature-cta {
+  background: transparent; color: var(--gold);
+  gap: 22px;
+}
+@media (max-width: 768px) {
+  .wonders-feature { grid-template-columns: 1fr; min-height: auto; }
+  .wonders-feature-art { padding: 3rem 1.8rem; }
+  .wonders-feature-body { padding: 3rem 1.8rem 4rem; }
+}
+
 /* ── ABOUT ── */
 #about {
   background: var(--linen);
@@ -1118,6 +1229,31 @@ footer {
   </div>
 </section>
 
+<!-- WONDERS FEATURE -->
+<section id="wonders" aria-label="Seven Wonders">
+  <a href="wonders.html" class="wonders-feature">
+    <div class="wonders-feature-art" aria-hidden="true">
+      <div class="wonders-mosaic">
+        <div class="wonders-tile">Petra</div>
+        <div class="wonders-tile">Christ</div>
+        <div class="wonders-tile">Wall</div>
+        <div class="wonders-tile">Taj</div>
+        <div class="wonders-tile">VII</div>
+        <div class="wonders-tile">Machu</div>
+        <div class="wonders-tile">Roma</div>
+        <div class="wonders-tile">Itzá</div>
+        <div class="wonders-tile">★</div>
+      </div>
+    </div>
+    <div class="wonders-feature-body">
+      <div class="wonders-feature-eyebrow" data-i18n="wonders.eyebrow">Seven Wonders</div>
+      <h2 class="wonders-feature-h" data-i18n="wonders.h2">Seven Wonders<br>of the <em>World</em></h2>
+      <p class="wonders-feature-text" data-i18n="wonders.desc">The new seven wonders, voted by millions worldwide.</p>
+      <span class="wonders-feature-cta" data-i18n="wonders.cta">Explore the Seven</span>
+    </div>
+  </a>
+</section>
+
 <!-- DIVIDER dark -->
 <div class="divider" style="background:var(--ink); margin:0;">
   <div class="divider-line" style="background:rgba(255,255,255,0.08);"></div>
@@ -1203,7 +1339,7 @@ footer {
   </div>
 </footer>
 
-<script src="lang.js?v=9" defer></script>
+<script src="lang.js?v=11" defer></script>
 <script>
   window.addEventListener('scroll', () => {
     const nav = document.getElementById('top-nav');

@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seven Wonders — City Archivist</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --white:#fdfcf9; --parchment:#f8f5ef; --linen:#f2ede4; --sand:#e4ddd1;
+  --stone:#c8bfb0; --warm-gray:#9c9488; --ink-light:#7a756e;
+  --ink:#2a2620; --ink-deep:#1a1814; --ink-night:#0e0c08;
+  --gold:#b8995a; --gold-dim:#d4bc8a;
+  --serif:'Cormorant Garamond', Georgia, serif;
+  --sans:'Jost', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--ink-night);
+  color: var(--parchment);
+  font-size: 14px; font-weight: 300; line-height: 1.8;
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; cursor: pointer; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  height: 70px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 4rem;
+  background: rgba(14,12,8,0.78);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.nav-logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--parchment); }
+.nav-logo span { color: var(--gold); }
+.nav-back {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 10px; font-weight: 300;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: rgba(248,245,239,0.55); transition: color .25s, gap .25s;
+}
+.nav-back::before { content: '←'; font-size: 14px; }
+.nav-back:hover { color: var(--gold-dim); gap: 14px; }
+.nav-actions { display: flex; align-items: center; gap: 1.8rem; }
+
+/* ── HERO ── */
+.wonders-hero {
+  padding-top: 70px;
+  min-height: 70vh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding-left: 4rem; padding-right: 4rem; padding-bottom: 5rem;
+  position: relative;
+  background:
+    radial-gradient(ellipse at 30% 30%, rgba(184,153,90,0.14), transparent 60%),
+    radial-gradient(ellipse at 70% 80%, rgba(212,188,138,0.08), transparent 50%),
+    linear-gradient(180deg, #0e0c08 0%, #1a1814 60%, #2a2620 100%);
+  overflow: hidden;
+}
+.hero-stars {
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1px 1px at 65% 70%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1px 1px at 80% 20%, rgba(212,188,138,0.6), transparent),
+    radial-gradient(1px 1px at 35% 80%, rgba(255,255,255,0.3), transparent),
+    radial-gradient(1.5px 1.5px at 50% 50%, rgba(212,188,138,0.4), transparent),
+    radial-gradient(1px 1px at 90% 60%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1px 1px at 10% 60%, rgba(255,255,255,0.4), transparent);
+  opacity: 0.7;
+  pointer-events: none;
+}
+.page-eyebrow {
+  position: absolute; top: 6rem; left: 4rem;
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 0.34em; text-transform: uppercase;
+  color: var(--gold-dim);
+  display: flex; align-items: center; gap: 14px;
+}
+.page-eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--gold-dim); }
+.page-h1 {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 300; line-height: 1.05; color: var(--parchment);
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+.page-h1 em { font-style: italic; color: var(--gold); }
+.page-sub {
+  font-size: 14px; font-weight: 300;
+  color: rgba(248,245,239,0.55);
+  max-width: 540px; line-height: 1.95;
+  position: relative;
+}
+
+/* ── 3D STAGE ── */
+.wonders-stage {
+  padding: 6rem 4rem 10rem;
+  perspective: 1800px;
+  position: relative;
+}
+.wonders-stage-eyebrow {
+  font-family: var(--serif); font-style: italic;
+  text-align: center; color: rgba(212,188,138,0.6);
+  font-size: 1rem; margin-bottom: 0.6rem;
+}
+.wonders-stage-title {
+  font-family: var(--serif);
+  text-align: center;
+  font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+  color: var(--parchment); margin-bottom: 5rem;
+  font-weight: 300;
+}
+.wonders-stage-title em { font-style: italic; color: var(--gold); }
+
+.wonders-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(320px, auto);
+  gap: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  transform-style: preserve-3d;
+}
+/* Asymmetric layout: 1 wide hero + 6 standard */
+.wonder-card.featured {
+  grid-column: span 2; grid-row: span 2;
+}
+.wonder-card.tall {
+  grid-row: span 2;
+}
+
+.wonder-card {
+  position: relative;
+  text-decoration: none; color: inherit;
+  cursor: pointer;
+  background: linear-gradient(150deg, #2a2620, #1a1814);
+  border: 1px solid rgba(212,188,138,0.12);
+  overflow: hidden;
+  display: block;
+  transform-style: preserve-3d;
+  transform: perspective(1500px) rotateX(0) rotateY(0) translateZ(0);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.5s, border-color 0.4s;
+  box-shadow:
+    0 4px 14px rgba(0,0,0,0.4),
+    inset 0 0 0 1px rgba(255,255,255,0.02);
+  will-change: transform;
+}
+.wonder-card:hover {
+  border-color: rgba(212,188,138,0.4);
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.6),
+    0 0 0 1px rgba(212,188,138,0.25),
+    inset 0 0 0 1px rgba(255,255,255,0.04);
+}
+
+.wonder-card-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(150deg, #4a4540 0%, #2a2620 60%, #1a1814 100%);
+  transition: transform 0.7s ease;
+  transform: translateZ(-30px) scale(1.05);
+}
+.wonder-card:hover .wonder-card-bg { transform: translateZ(-30px) scale(1.1); }
+.wonder-card-bg::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(212,188,138,0.18), transparent 60%);
+  opacity: 0; transition: opacity 0.5s;
+}
+.wonder-card:hover .wonder-card-bg::before { opacity: 1; }
+
+.wonder-card-shine {
+  position: absolute; inset: 0;
+  background: linear-gradient(105deg,
+    transparent 30%,
+    rgba(255,255,255,0.08) 45%,
+    rgba(255,255,255,0.18) 50%,
+    rgba(255,255,255,0.08) 55%,
+    transparent 70%);
+  transform: translateX(-110%) translateZ(2px);
+  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+.wonder-card:hover .wonder-card-shine { transform: translateX(110%) translateZ(2px); }
+
+.wonder-card-content {
+  position: absolute; inset: 0;
+  padding: 2.4rem 2rem;
+  display: flex; flex-direction: column; justify-content: space-between;
+  transform: translateZ(40px);
+}
+.wonder-card.featured .wonder-card-content { padding: 3rem 2.6rem; }
+
+.wonder-num {
+  font-family: var(--serif); font-style: italic;
+  font-size: 0.95rem; color: rgba(212,188,138,0.7);
+  letter-spacing: 0.04em;
+}
+.wonder-card.featured .wonder-num { font-size: 1.1rem; }
+
+.wonder-card-meta { display: flex; flex-direction: column; gap: 0.6rem; }
+.wonder-name {
+  font-family: var(--serif);
+  font-size: 1.7rem; font-weight: 300;
+  line-height: 1.1; color: var(--parchment);
+  transition: color 0.3s;
+}
+.wonder-card.featured .wonder-name {
+  font-size: clamp(2.2rem, 3.5vw, 3.4rem);
+  margin-bottom: 0.4rem;
+}
+.wonder-card:hover .wonder-name { color: var(--gold-dim); }
+.wonder-country {
+  font-size: 9.5px; letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(248,245,239,0.55);
+}
+.wonder-quote {
+  font-family: var(--serif); font-style: italic;
+  font-size: 0.95rem;
+  color: rgba(212,188,138,0.5);
+  margin-top: 0.8rem;
+  letter-spacing: 0.02em;
+  display: none;
+}
+.wonder-card.featured .wonder-quote { display: block; }
+
+.wonder-arrow {
+  position: absolute; bottom: 2.4rem; right: 2rem;
+  font-size: 18px; color: var(--gold-dim);
+  opacity: 0;
+  transform: translateX(-8px) translateZ(50px);
+  transition: opacity 0.3s, transform 0.4s;
+}
+.wonder-card:hover .wonder-arrow {
+  opacity: 1; transform: translateX(0) translateZ(50px);
+}
+
+/* footer */
+footer {
+  background: #0a0805;
+  padding: 3.5rem 4rem;
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.footer-logo {
+  font-family: var(--serif); font-size: 1rem; font-weight: 400;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--parchment);
+}
+.footer-logo span { color: var(--gold); }
+.footer-copy {
+  font-size: 10.5px; color: rgba(248,245,239,0.3);
+  letter-spacing: 0.08em;
+}
+.footer-back {
+  font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(248,245,239,0.5);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 7px 18px;
+  display: flex; align-items: center; gap: 8px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.footer-back:hover { color: var(--gold-dim); border-color: rgba(184,153,90,0.4); }
+
+@media (max-width: 1024px) {
+  .wonders-grid { grid-template-columns: repeat(2, 1fr); }
+  .wonder-card.featured { grid-column: span 2; grid-row: span 1; }
+  .wonder-card.tall { grid-row: span 1; }
+}
+@media (max-width: 640px) {
+  nav { padding: 0 1.5rem; }
+  .wonders-hero { padding: 5rem 1.8rem 4rem; min-height: 60vh; }
+  .page-eyebrow { left: 1.8rem; top: 5rem; }
+  .wonders-stage { padding: 4rem 1.8rem 6rem; }
+  .wonders-grid { grid-template-columns: 1fr; }
+  .wonder-card.featured { grid-column: span 1; }
+  footer { flex-direction: column; gap: 1.5rem; padding: 2.5rem 1.8rem; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav id="top-nav">
+  <a class="nav-logo" href="index.html">City <span>Archivist</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#home" data-i18n="nav.home">Home</a></li>
+    <li><a href="index.html#destinations" data-i18n="nav.destinations">Destinations</a></li>
+    <li><a href="hotels.html" data-i18n="nav.hotels">Hotels</a></li>
+    <li><a href="index.html#nightclubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
+    <li><a href="index.html#about" data-i18n="nav.about">About Us</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a class="nav-back" href="index.html" data-i18n="nav.back">Back to Home</a>
+    <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
+      <span data-lang-current>EN</span>
+    </button>
+  </div>
+</nav>
+
+<section class="wonders-hero">
+  <div class="hero-stars" aria-hidden="true"></div>
+  <div class="page-eyebrow" data-i18n="wonders.page.eyebrow">The New Seven Wonders</div>
+  <h1 class="page-h1" data-i18n="wonders.page.h1">Seven Wonders<br>of the <em>World</em></h1>
+  <p class="page-sub" data-i18n="wonders.page.sub">A journey across continents and centuries — the seven monuments that humanity voted as its greatest legacy.</p>
+</section>
+
+<section class="wonders-stage">
+  <div class="wonders-stage-eyebrow">✦</div>
+  <div class="wonders-stage-title">From Petra to Machu Picchu — <em>seven monuments</em>, one journey</div>
+
+  <div class="wonders-grid" id="wonders-grid">
+
+    <a href="petra.html" class="wonder-card featured tilt">
+      <div class="wonder-card-bg" style="background:linear-gradient(150deg, #d4a373 0%, #a47551 50%, #5c3d24 100%);"></div>
+      <div class="wonder-card-shine"></div>
+      <div class="wonder-card-content">
+        <span class="wonder-num">01</span>
+        <div class="wonder-card-meta">
+          <div class="wonder-name">Petra</div>
+          <div class="wonder-country">Jordan · Ma'an</div>
+          <div class="wonder-quote">"The rose-red city, half as old as time."</div>
+        </div>
+        <span class="wonder-arrow">↗</span>
+      </div>
+    </a>
+
+    <a href="christ-redeemer.html" class="wonder-card tilt">
+      <div class="wonder-card-bg" style="background:linear-gradient(150deg, #6b8e9c 0%, #3a4f5c 60%, #1e2a35 100%);"></div>
+      <div class="wonder-card-shine"></div>
+      <div class="wonder-card-content">
+        <span class="wonder-num">02</span>
+        <div class="wonder-card-meta">
+          <div class="wonder-name">Christ the Redeemer</div>
+          <div class="wonder-country">Brazil · Rio</div>
+        </div>
+        <span class="wonder-arrow">↗</span>
+      </div>
+    </a>
+
+    <a href="great-wall.html" class="wonder-card tilt">
+      <div class="wonder-card-bg" style="background:linear-gradient(150deg, #8a7a5c 0%, #5a4a35 60%, #2a2018 100%);"></div>
+      <div class="wonder-card-shine"></div>
+      <div class="wonder-card-content">
+        <span class="wonder-num">03</span>
+        <div class="wonder-card-meta">
+          <div class="wonder-name">Great Wall</div>
+          <div class="wonder-country">China · Beijing</div>
+        </div>
+        <span class="wonder-arrow">↗</span>
+      </div>
+    </a>
+
+    <a href="machu-picchu.html" class="wonder-card tall tilt">
+      <div class="wonder-card-bg" style="background:linear-gradient(180deg, #5e8264 0%, #3a5a44 50%, #1e3528 100%);"></div>
+      <div class="wonder-card-shine"></div>
+      <div class="wonder-card-content">
+        <span class="wonder-num">04</span>
+        <div class="wonder-card-meta">
+          <div class="wonder-name">Machu Picchu</div>
+          <div class="wonder-country">Peru · Cusco</div>
+        </div>
+        <span class="wonder-arrow">↗</span>
+      </div>
+    </a>
+
+    <a href="colosseum.html" class="wonder-card tilt">
+      <div class="wonder-card-bg" style="background:linear-gradient(150deg, #9c7a4a 0%, #6b4a28 60%, #3a2a18 100%);"></div>
+      <div class="wonder-card-shine"></div>
+      <div class="wonder-card-content">
+        <span class="wonder-num">05</span>
+        <div class="wonder-card-meta">
+          <div class="wonder-name">Colosseum</div>
+          <div class="wonder-country">Italy · Rome</div>
+        </div>
+        <span class="wonder-arrow">↗</span>
+      </div>
+    </a>
+
+    <a href="chichen-itza.html" class="wonder-card tilt">
+      <div class="wonder-card-bg" style="background:linear-gradient(150deg, #7a6045 0%, #4a3a28 60%, #2a2018 100%);"></div>
+      <div class="wonder-card-shine"></div>
+      <div class="wonder-card-content">
+        <span class="wonder-num">06</span>
+        <div class="wonder-card-meta">
+          <div class="wonder-name">Chichén Itzá</div>
+          <div class="wonder-country">Mexico · Yucatán</div>
+        </div>
+        <span class="wonder-arrow">↗</span>
+      </div>
+    </a>
+
+    <a href="taj-mahal.html" class="wonder-card tilt">
+      <div class="wonder-card-bg" style="background:linear-gradient(150deg, #f0e4d0 0%, #c8b89c 50%, #6b5a45 100%);"></div>
+      <div class="wonder-card-shine"></div>
+      <div class="wonder-card-content">
+        <span class="wonder-num">07</span>
+        <div class="wonder-card-meta">
+          <div class="wonder-name" style="color:#1a1814;">Taj Mahal</div>
+          <div class="wonder-country" style="color:rgba(26,24,20,0.6);">India · Agra</div>
+        </div>
+        <span class="wonder-arrow" style="color:#1a1814;">↗</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">City <span>Archivist</span></div>
+  <span class="footer-copy" data-i18n="footer.copy">© 2026 City Archivist</span>
+  <a class="footer-back" href="index.html" data-i18n="nav.back">← Back to Home</a>
+</footer>
+
+<script src="lang.js?v=11" defer></script>
+<script>
+  // Mouse-tracked 3D tilt for each .tilt card
+  document.querySelectorAll('.tilt').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+      const rotY = (x - 0.5) * 14;   // tilt left/right
+      const rotX = (0.5 - y) * 14;   // tilt up/down
+      card.style.transform =
+        `perspective(1500px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(0) scale(1.02)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1500px) rotateX(0) rotateY(0) translateZ(0) scale(1)';
+    });
+  });
+</script>
+</body>
+</html>
