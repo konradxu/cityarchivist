@@ -416,21 +416,25 @@ footer {
 
 <script src="lang.js?v=11" defer></script>
 <script>
-  // Mouse-tracked 3D tilt for each .tilt card
-  document.querySelectorAll('.tilt').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width;
-      const y = (e.clientY - rect.top) / rect.height;
-      const rotY = (x - 0.5) * 14;   // tilt left/right
-      const rotX = (0.5 - y) * 14;   // tilt up/down
-      card.style.transform =
-        `perspective(1500px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(0) scale(1.02)`;
+  // Only enable mouse-tracked 3D tilt on devices that actually have a mouse.
+  // On phones / tablets the cards stay still — no stuck transforms after a tap.
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (canHover) {
+    document.querySelectorAll('.tilt').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width;
+        const y = (e.clientY - rect.top) / rect.height;
+        const rotY = (x - 0.5) * 14;
+        const rotX = (0.5 - y) * 14;
+        card.style.transform =
+          `perspective(1500px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(0) scale(1.02)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1500px) rotateX(0) rotateY(0) translateZ(0) scale(1)';
+      });
     });
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = 'perspective(1500px) rotateX(0) rotateY(0) translateZ(0) scale(1)';
-    });
-  });
+  }
 </script>
 </body>
 </html>
