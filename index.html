@@ -1002,6 +1002,7 @@ footer {
   <ul class="nav-links">
     <li><a href="#home" data-i18n="nav.home">Home</a></li>
     <li><a href="#destinations" data-i18n="nav.destinations">Destinations</a></li>
+    <li><a href="wonders.html" data-i18n="nav.wonders">Wonders</a></li>
     <li><a href="hotels.html" data-i18n="nav.hotels">Hotels</a></li>
     <li><a href="#nightclubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
     <li><a href="#about" data-i18n="nav.about">About Us</a></li>
@@ -1105,6 +1106,34 @@ footer {
     <div class="dest-coming-title" data-i18n="dest.comingsoon.title">Coming <em>Soon</em></div>
     <p class="dest-coming-sub" data-i18n="dest.comingsoon.sub">More cities arriving in the archive</p>
   </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="divider"><div class="divider-line"></div><div class="divider-mark">✦</div><div class="divider-line"></div></div>
+
+<!-- WONDERS FEATURE -->
+<section id="wonders" aria-label="Seven Wonders">
+  <a href="wonders.html" class="wonders-feature">
+    <div class="wonders-feature-art" aria-hidden="true">
+      <div class="wonders-mosaic">
+        <div class="wonders-tile">Petra</div>
+        <div class="wonders-tile">Christ</div>
+        <div class="wonders-tile">Wall</div>
+        <div class="wonders-tile">Taj</div>
+        <div class="wonders-tile">VII</div>
+        <div class="wonders-tile">Machu</div>
+        <div class="wonders-tile">Roma</div>
+        <div class="wonders-tile">Itzá</div>
+        <div class="wonders-tile">★</div>
+      </div>
+    </div>
+    <div class="wonders-feature-body">
+      <div class="wonders-feature-eyebrow" data-i18n="wonders.eyebrow">Seven Wonders</div>
+      <h2 class="wonders-feature-h" data-i18n="wonders.h2">Seven Wonders<br>of the <em>World</em></h2>
+      <p class="wonders-feature-text" data-i18n="wonders.desc">The new seven wonders, voted by millions worldwide.</p>
+      <span class="wonders-feature-cta" data-i18n="wonders.cta">Explore the Seven</span>
+    </div>
+  </a>
 </section>
 
 <!-- DIVIDER -->
@@ -1229,31 +1258,6 @@ footer {
   </div>
 </section>
 
-<!-- WONDERS FEATURE -->
-<section id="wonders" aria-label="Seven Wonders">
-  <a href="wonders.html" class="wonders-feature">
-    <div class="wonders-feature-art" aria-hidden="true">
-      <div class="wonders-mosaic">
-        <div class="wonders-tile">Petra</div>
-        <div class="wonders-tile">Christ</div>
-        <div class="wonders-tile">Wall</div>
-        <div class="wonders-tile">Taj</div>
-        <div class="wonders-tile">VII</div>
-        <div class="wonders-tile">Machu</div>
-        <div class="wonders-tile">Roma</div>
-        <div class="wonders-tile">Itzá</div>
-        <div class="wonders-tile">★</div>
-      </div>
-    </div>
-    <div class="wonders-feature-body">
-      <div class="wonders-feature-eyebrow" data-i18n="wonders.eyebrow">Seven Wonders</div>
-      <h2 class="wonders-feature-h" data-i18n="wonders.h2">Seven Wonders<br>of the <em>World</em></h2>
-      <p class="wonders-feature-text" data-i18n="wonders.desc">The new seven wonders, voted by millions worldwide.</p>
-      <span class="wonders-feature-cta" data-i18n="wonders.cta">Explore the Seven</span>
-    </div>
-  </a>
-</section>
-
 <!-- DIVIDER dark -->
 <div class="divider" style="background:var(--ink); margin:0;">
   <div class="divider-line" style="background:rgba(255,255,255,0.08);"></div>
@@ -1339,7 +1343,7 @@ footer {
   </div>
 </footer>
 
-<script src="lang.js?v=11" defer></script>
+<script src="lang.js?v=12" defer></script>
 <script>
   window.addEventListener('scroll', () => {
     const nav = document.getElementById('top-nav');

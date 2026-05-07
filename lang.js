@@ -21,6 +21,7 @@ const TRANSLATIONS = {
   en: {
     'nav.home': 'Home',
     'nav.destinations': 'Destinations',
+    'nav.wonders': 'Wonders',
     'nav.hotels': 'Hotels',
     'nav.nightclubs': 'Nightclubs',
     'nav.about': 'About Us',
@@ -238,6 +239,7 @@ const TRANSLATIONS = {
   de: {
     'nav.home': 'Start',
     'nav.destinations': 'Reiseziele',
+    'nav.wonders': 'Weltwunder',
     'nav.hotels': 'Hotels',
     'nav.nightclubs': 'Nachtclubs',
     'nav.about': 'Über uns',
@@ -455,6 +457,7 @@ const TRANSLATIONS = {
   zh: {
     'nav.home': '首页',
     'nav.destinations': '目的地',
+    'nav.wonders': '七大奇迹',
     'nav.hotels': '酒店',
     'nav.nightclubs': '夜店',
     'nav.about': '关于我们',
