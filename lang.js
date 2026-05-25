@@ -10,8 +10,8 @@
    ════════════════════════════════════════════════════════════ */
 const SITE_INFO = {
   name:       'Konrad Xu',
-  street:     'Musterstraße 1',           // street + number
-  postalCity: '12345 Berlin',             // postal code + city
+  street:     '',           // street + number
+  postalCity: '',             // postal code + city
   email:      'kontakt@cityarchivist.com',
 };
 /* ════════════════════════════════════════════════════════════ */
