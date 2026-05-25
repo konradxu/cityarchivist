@@ -10,8 +10,6 @@
    ════════════════════════════════════════════════════════════ */
 const SITE_INFO = {
   name:       'Konrad Xu',
-  street:     '',           // street + number
-  postalCity: '',             // postal code + city
   email:      'kontakt@cityarchivist.com',
 };
 /* ════════════════════════════════════════════════════════════ */
