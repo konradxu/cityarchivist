@@ -155,10 +155,12 @@ nav {
 
 /* ── HOME INTRO ── */
 .home-intro {
-  padding: 9rem 4rem;
+  padding: 5rem 4.5rem;
   display: grid; grid-template-columns: 220px 1fr;
   gap: 6rem; align-items: start;
   background: var(--white);
+  max-width: 1180px;
+  margin: 5rem auto;
 }
 .intro-label {
   font-size: 9px; font-weight: 300;
@@ -833,9 +835,11 @@ nav {
 /* ── CTA STRIP ── */
 .cta-strip {
   background: var(--ink);
-  padding: 7rem 4rem;
+  padding: 5rem 4.5rem;
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 6rem; align-items: center;
+  max-width: 1180px;
+  margin: 5rem auto;
 }
 .cta-eyebrow {
   font-size: 9px; font-weight: 300;
@@ -948,7 +952,7 @@ footer {
   .hero-h1 { font-size: clamp(3rem, 12vw, 4.5rem); }
   .hero-sub { max-width: 100%; }
 
-  .home-intro { grid-template-columns: 1fr; gap: 1.5rem; padding: 4rem 1.8rem; }
+  .home-intro { grid-template-columns: 1fr; gap: 1.5rem; padding: 3rem 1.8rem; margin: 2rem 1.2rem; }
 
   .nav-overview { padding: 0 1.8rem 4rem; }
   .ov-grid { grid-template-columns: 1fr 1fr; }
@@ -973,7 +977,7 @@ footer {
   .about-img-accent { bottom: -1.4rem; right: -1.4rem; width: 42%; border-width: 4px; }
   .about-values { grid-template-columns: 1fr; }
 
-  .cta-strip { grid-template-columns: 1fr; gap: 2rem; padding: 4rem 1.8rem; }
+  .cta-strip { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.8rem; margin: 2rem 1.2rem; }
   .cta-form { grid-template-columns: 1fr; }
   .cta-input { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
   .cta-input:last-of-type { border-bottom: none; }
@@ -1031,7 +1035,7 @@ footer {
 <div class="divider"><div class="divider-line"></div><div class="divider-mark">✦</div><div class="divider-line"></div></div>
 
 <!-- HOME INTRO TEXT -->
-<div class="home-intro">
+<div class="home-intro card-3d">
   <div class="intro-label" data-i18n="intro.label">The Archive</div>
   <div class="intro-body">
     <h2 data-i18n="intro.h2">A collection of <em>hidden places.</em> </h2>
@@ -1286,7 +1290,7 @@ footer {
 <div class="divider"><div class="divider-line"></div><div class="divider-mark">✦</div><div class="divider-line"></div></div>
 
 <!-- NEWSLETTER -->
-<div class="cta-strip">
+<div class="cta-strip card-3d dark">
   <div>
     <div class="cta-eyebrow" data-i18n="news.eyebrow">Newsletter</div>
     <h2 class="cta-h" data-i18n="news.h">Stay in <em>the Archive.</em></h2>
@@ -1343,7 +1347,7 @@ footer {
   </div>
 </footer>
 
-<script src="lang.js?v=12" defer></script>
+<script src="lang.js?v=14" defer></script>
 <script>
   window.addEventListener('scroll', () => {
     const nav = document.getElementById('top-nav');

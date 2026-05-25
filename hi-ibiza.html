@@ -287,14 +287,19 @@ footer {
 </head>
 <body>
 
-<nav>
+<nav id="top-nav">
   <a class="nav-logo" href="index.html">City <span>Archivist</span></a>
-  <div style="display:flex; align-items:center; gap:2rem;">
-    <a class="nav-back" href="index.html#nightclubs" data-i18n="nav.allClubs">All Clubs</a>
-    <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
-      <span data-lang-current>EN</span>
-    </button>
-  </div>
+  <ul class="nav-links">
+    <li><a href="index.html#home" data-i18n="nav.home">Home</a></li>
+    <li><a href="index.html#destinations" data-i18n="nav.destinations">Destinations</a></li>
+    <li><a href="wonders.html" data-i18n="nav.wonders">Wonders</a></li>
+    <li><a href="hotels.html" data-i18n="nav.hotels">Hotels</a></li>
+    <li><a href="index.html#nightclubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
+    <li><a href="index.html#about" data-i18n="nav.about">About Us</a></li>
+  </ul>
+  <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
+    <span data-lang-current>EN</span>
+  </button>
 </nav>
 
 <!-- HERO -->
@@ -302,7 +307,7 @@ footer {
   <div class="club-hero-left">
     <div class="club-eyebrow">Spain · Ibiza · Nightclub</div>
     <h1 class="club-h1">Hï <em>Ibiza</em></h1>
-    <p class="club-tagline">A futuristic temple of sound on the White Isle — voted №1 Club in the World multiple times since opening in 2017.</p>
+    <p class="club-tagline" data-i18n="club.hi.tagline">tagline</p>
     <div class="club-meta">
       <div class="club-meta-item">
         <div class="club-meta-num">2017</div>
@@ -330,7 +335,7 @@ footer {
   <div class="loc-grid">
     <div>
       <div class="sec-eyebrow" data-i18n="club.location.eyebrow">Location</div>
-      <h2 class="sec-h">Find <em>the Club</em></h2>
+      <h2 class="sec-h" data-i18n="club.hi.find.h">Find</h2>
       <div class="loc-info-row">
         <div class="loc-item">
           <div class="loc-label" data-i18n="club.location.address">Address</div>
@@ -357,9 +362,9 @@ footer {
   <div class="text-grid">
     <div class="text-label" data-i18n="club.story.label">The Story</div>
     <div class="text-body">
-      <h2 class="sec-h">A <em>new era</em> of Ibiza</h2>
-      <p>Hï Ibiza opened in May 2017 on the site of the legendary Space Ibiza, marking the beginning of a new chapter for the island that gave the world modern club culture. Backed by The Night League and Ushuaïa Entertainment, the venue was designed from the ground up as a <em>state-of-the-art experience</em> — futuristic visuals, custom-built sound systems and a layout engineered for the world's most demanding artists.</p>
-      <p>Within a single season, Hï climbed to the top of DJ Mag's "Top 100 Clubs" list, a ranking it has held repeatedly since. Residencies from artists like Black Coffee, FISHER and David Guetta have made it a global pilgrimage site for electronic music — and a defining stage of the modern Ibiza summer.</p>
+      <h2 class="sec-h" data-i18n="club.hi.story.h">story h</h2>
+      <p data-i18n="club.hi.story.p1">story p1</p>
+      <p data-i18n="club.hi.story.p2">story p2</p>
     </div>
   </div>
 </section>
@@ -369,8 +374,8 @@ footer {
   <div class="text-grid">
     <div class="text-label" data-i18n="club.music.label">Music &amp; Vibe</div>
     <div class="text-body">
-      <h2 class="sec-h">Sound of <em>Hï</em></h2>
-      <p>Two main rooms — the Theatre and the Club — run parallel programs every night, anchored by world-class residencies. The atmosphere is high-energy, theatrical and visually overwhelming, with a polished crowd that travels from across the globe.</p>
+      <h2 class="sec-h" data-i18n="club.hi.music.h">music h</h2>
+      <p data-i18n="club.hi.music.p">music p</p>
       <div class="tag-row">
         <span class="tag">Tech House</span>
         <span class="tag">Techno</span>
@@ -386,10 +391,10 @@ footer {
 <div class="visit-block">
   <div>
     <div class="sec-eyebrow" data-i18n="club.visit.eyebrow">Visit</div>
-    <h2 class="visit-h">Tickets, residencies<br>& <em>line-ups</em>.</h2>
+    <h2 class="visit-h" data-i18n="club.hi.visit.h">visit h</h2>
   </div>
   <div class="visit-right">
-    <p>All tickets, the full season calendar and table reservations are handled directly via the official Hï Ibiza website.</p>
+    <p data-i18n="club.hi.visit.p">visit p</p>
     <a href="https://hiibiza.com" target="_blank" rel="noopener" class="visit-cta">Visit hiibiza.com</a>
   </div>
 </div>
@@ -400,6 +405,6 @@ footer {
   <a class="footer-back" href="index.html#nightclubs">← All Clubs</a>
 </footer>
 
-<script src="lang.js" defer></script>
+<script src="lang.js?v=14" defer></script>
 </body>
 </html>

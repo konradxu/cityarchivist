@@ -183,6 +183,67 @@ const TRANSLATIONS = {
     'club.meta.rooms': 'Rooms',
     'club.meta.years': 'Years',
 
+    /* ── Club detail page bodies ── */
+    'club.hi.tagline': 'A futuristic temple of sound on the White Isle — voted №1 Club in the World multiple times since opening in 2017.',
+    'club.hi.find.h': 'Find <em>the Club</em>',
+    'club.hi.story.h': 'A new era of <em>Ibiza</em>',
+    'club.hi.story.p1': 'Hï Ibiza opened in May 2017 on the site of the legendary Space Ibiza, marking the beginning of a new chapter for the island that gave the world modern club culture. Backed by The Night League and Ushuaïa Entertainment, the venue was designed from the ground up as a <em>state-of-the-art experience</em> — futuristic visuals, custom-built sound systems and a layout engineered for the world\'s most demanding artists.',
+    'club.hi.story.p2': 'Within a single season, Hï climbed to the top of DJ Mag\'s "Top 100 Clubs" list, a ranking it has held repeatedly since. Residencies from artists like Black Coffee, FISHER and David Guetta have made it a global pilgrimage site for electronic music — and a defining stage of the modern Ibiza summer.',
+    'club.hi.music.h': 'Sound of <em>Hï</em>',
+    'club.hi.music.p': 'Two main rooms — the Theatre and the Club — run parallel programs every night, anchored by world-class residencies. The atmosphere is high-energy, theatrical and visually overwhelming, with a polished crowd that travels from across the globe.',
+    'club.hi.visit.h': 'Tickets, residencies<br>& <em>line-ups</em>.',
+    'club.hi.visit.p': 'All tickets, the full season calendar and table reservations are handled directly via the official Hï Ibiza website.',
+
+    'club.echo.tagline': 'North America\'s premier electronic music venue — a 30,000-square-foot warehouse purpose-built for the biggest names in dance music.',
+    'club.echo.find.h': 'Find <em>the Venue</em>',
+    'club.echo.story.h': 'A capital for <em>club culture</em>',
+    'club.echo.story.p1': 'Echostage opened in 2012 in Washington D.C.\'s Northeast warehouse district, founded by Club Glow with a mission rare in the United States: to create a venue <em>built around electronic music</em>, not retrofitted from a concert hall or repurposed from a generic nightclub. From day one it was designed for sound, scale and sightlines — a single, clear room with a massive stage and an open dancefloor.',
+    'club.echo.story.p2': 'The result has been a steady run as one of the world\'s most-respected club venues, repeatedly placed in DJ Mag\'s "Top 100 Clubs" — and frequently ranked the №1 club in North America. Headliners from Tiësto and Calvin Harris to Eric Prydz and Charlotte de Witte have made it a regular tour stop, and its production values have set the standard for U.S. nightlife.',
+    'club.echo.music.h': 'Sound of <em>Echostage</em>',
+    'club.echo.music.p': 'Programming runs the full electronic spectrum — from peak-time house and trance to bass, dubstep and hard techno — with an LED wall and rig that turn each show into a full audiovisual production. The crowd is energetic, dance-focused and dressed for the floor rather than for show.',
+    'club.echo.visit.h': 'Calendar, tickets<br>& <em>VIP tables</em>.',
+    'club.echo.visit.p': 'Find the full event calendar, presale access and table reservations on the official Echostage website.',
+
+    'club.berg.tagline': 'A former East-Berlin power plant turned global temple of techno — uncompromising, monumental, and shrouded in legend.',
+    'club.berg.find.h': 'Find <em>the Bunker</em>',
+    'club.berg.story.h': 'A <em>cathedral</em> of techno',
+    'club.berg.story.p1': 'Berghain opened in 2004 inside a disused heat-and-power plant in former East Berlin, founded by Norbert Thormann and Michael Teufele as the successor to their legendary gay club Ostgut. The cavernous concrete halls, 18-metre ceilings and a custom Funktion-One soundsystem made it instantly unique — and quickly turned it into <em>the global home of techno</em>.',
+    'club.berg.story.p2': 'The club\'s ethos is uncompromising: no phones, no photos, no rush. Sets stretch for hours, the weekend Klubnacht runs unbroken from Saturday into Monday morning, and the famously selective door — overseen by Sven Marquardt — has become part of the mythology. Above the main floor sits Panorama Bar, a brighter, house-leaning room with its own cult following.',
+    'club.berg.music.h': 'Sound of <em>Berghain</em>',
+    'club.berg.music.p': 'The main floor is hard, hypnotic and bass-heavy techno from residents like Marcel Dettmann, Ben Klock and Anastasia Kristensen. Panorama Bar leans into deeper house and disco. Expect long, narrative DJ sets, an open and queer-friendly crowd, and a rule of thumb that "the night really starts in the morning."',
+    'club.berg.visit.h': 'Klubnacht, concerts<br>& <em>events</em>.',
+    'club.berg.visit.p': 'The current program, ticket sales and information about Halle am Berghain and Säule are published on the official site.',
+
+    'club.fab.tagline': 'Three rooms beneath Smithfield Market and a vibrating bodysonic dancefloor — the institution that put London at the heart of underground dance music.',
+    'club.fab.find.h': 'Find <em>the Club</em>',
+    'club.fab.story.h': 'London\'s <em>underground</em> home',
+    'club.fab.story.p1': 'Fabric opened in October 1999 in the cold-storage cellars beneath the old Smithfield meat market — a labyrinth of bare brick and concrete that immediately felt unlike any other London venue. Founders Keith Reilly and Cameron Leslie wanted a club where the music came first, and built three connected rooms around it, including the now-famous Room One with its <em>bodysonic dancefloor</em> — 450 bass transducers wired into the floor itself, so the room literally moves with the bass.',
+    'club.fab.story.p2': 'The club\'s two long-running mix series — Fabric (house, techno) and FABRICLIVE (drum & bass, broken beat, breakbeat) — became required listening for an entire generation. After a brief, high-profile closure in 2016, a campaign backed by the city, the Mayor\'s Office and global artists brought it back; today Fabric continues to be one of the most respected underground clubs in the world.',
+    'club.fab.music.h': 'Sound of <em>Fabric</em>',
+    'club.fab.music.p': 'Room One is house and techno; Room Two leans deeper, dub and minimal; Room Three is the spiritual home of UK drum & bass and bass music. Expect a serious, music-first crowd, marathon sets from international residents like Craig Richards and Terry Francis, and a soundsystem tuned to feel as much as it is heard.',
+    'club.fab.visit.h': 'Line-ups, mixes<br>& <em>tickets</em>.',
+    'club.fab.visit.p': 'The full event calendar, advance ticket sales and the long-running fabric / FABRICLIVE mix series live on the official website.',
+
+    'club.pacha.tagline': 'The cherry-logo legend — the club that turned Ibiza into the world\'s nightlife capital, dancing under the same roof since 1973.',
+    'club.pacha.find.h': 'Find <em>the Cherry</em>',
+    'club.pacha.story.h': 'Where it <em>all began</em>',
+    'club.pacha.story.p1': 'Pacha was founded in 1967 in Sitges by Ricardo Urgell and opened its now-iconic Ibiza Town location in 1973 — long before "Ibiza" became shorthand for global club culture. The whitewashed Mediterranean villa, the open-air courtyards, the famous twin cherries: Pacha didn\'t just host a scene, <em>it created one</em>, becoming the bridge between 1970s European disco and the rise of house music in the late \'80s.',
+    'club.pacha.story.p2': 'Five decades on, the brand stretches across hotels, restaurants and clubs around the world, but the original Ibiza venue remains the heart of it all. After a major renovation in 2022, Pacha reopened with a redesigned main room, refreshed terraces and a renewed focus on its core idea: glamour, music and community under one Balearic roof.',
+    'club.pacha.music.h': 'Sound of <em>Pacha</em>',
+    'club.pacha.music.p': 'Pacha is open-format by tradition — house, disco and contemporary club music, with long-running residencies and headline parties like Solomun +1, Pure Pacha and Insane. The crowd is a mix of locals, residents and international travellers, dressed for the night and there to dance until sunrise.',
+    'club.pacha.visit.h': 'Calendar, tables<br>& <em>residencies</em>.',
+    'club.pacha.visit.p': 'Tickets, seasonal residencies and table reservations are managed via the official Pacha Ibiza website.',
+
+    'club.unvrs.tagline': 'The biggest club in the world — opened summer 2025 on the Privilege site, with two main rooms, a 360° outdoor amphitheatre and a sound stage built for a new era of Ibiza.',
+    'club.unvrs.find.h': 'Find <em>the Universe</em>',
+    'club.unvrs.story.h': 'A new <em>universe</em>',
+    'club.unvrs.story.p1': 'UNVRS opened in May 2025 on the legendary site of Privilege Ibiza — for two decades the largest nightclub in the world, and the venue that hosted Manumission\'s most uninhibited years. After a complete teardown by The Night League, it was rebuilt from the ground up as <em>UNVRS</em>: a multi-room, fully-engineered venue designed by the same team behind Hï Ibiza and Ushuaïa.',
+    'club.unvrs.story.p2': 'The architecture pairs an indoor main room with the world\'s first 360° open-air club stage — a circular amphitheatre under the Ibiza sky, programmed independently of the indoor floor. Add a redesigned terrace, a private pool club and a backstage built for arena-scale residencies, and UNVRS arrives as the most ambitious club opening of its decade.',
+    'club.unvrs.music.h': 'Sound of <em>UNVRS</em>',
+    'club.unvrs.music.p': 'Programming runs the full electronic spectrum — peak-time house, melodic and main-stage techno, big-room EDM and Afro House — anchored by exclusive residencies from headliners that previously called Ushuaïa and Hï home. Production is on a different scale: a wraparound LED ceiling, a custom soundsystem and visuals designed for the indoor and outdoor stages to play in conversation.',
+    'club.unvrs.visit.h': 'Tickets, residencies<br>& <em>line-ups</em>.',
+    'club.unvrs.visit.p': 'Tickets, the full season calendar and table reservations are handled directly through the official UNVRS website.',
+
     /* ── Seven Wonders ── */
     'wonders.eyebrow': 'Seven Wonders',
     'wonders.h2': 'Seven Wonders<br>of the <em>World</em>',
@@ -400,6 +461,67 @@ const TRANSLATIONS = {
     'club.meta.weekend': 'Wochenende',
     'club.meta.rooms': 'Räume',
     'club.meta.years': 'Jahre',
+
+    /* ── Club detail page bodies ── */
+    'club.hi.tagline': 'Ein futuristischer Klangtempel auf der weißen Insel — seit der Eröffnung 2017 mehrfach zum №1-Club der Welt gewählt.',
+    'club.hi.find.h': 'Den <em>Club finden</em>',
+    'club.hi.story.h': 'Eine neue Ära von <em>Ibiza</em>',
+    'club.hi.story.p1': 'Hï Ibiza eröffnete im Mai 2017 am Standort des legendären Space Ibiza und markierte damit den Beginn eines neuen Kapitels für die Insel, die der Welt die moderne Clubkultur schenkte. Hinter The Night League und Ushuaïa Entertainment entwickelt, wurde der Club von Grund auf als <em>State-of-the-Art-Erlebnis</em> konzipiert — futuristische Visuals, maßgeschneiderte Soundsysteme und ein Layout, entworfen für die anspruchsvollsten Künstler der Welt.',
+    'club.hi.story.p2': 'Schon in der ersten Saison schnellte Hï an die Spitze von DJ Mags „Top 100 Clubs" — eine Position, die der Club seitdem regelmäßig hält. Residencies von Black Coffee, FISHER und David Guetta haben ihn zum globalen Pilgerort für elektronische Musik gemacht — und zur prägenden Bühne des modernen Ibiza-Sommers.',
+    'club.hi.music.h': 'Sound von <em>Hï</em>',
+    'club.hi.music.p': 'Zwei Hauptbereiche — das Theatre und der Club — laufen jede Nacht parallel, angeführt von erstklassigen Residencies. Die Atmosphäre ist hochenergetisch, theatralisch und visuell überwältigend, mit einer eleganten Crowd, die aus aller Welt anreist.',
+    'club.hi.visit.h': 'Tickets, Residencies<br>& <em>Line-ups</em>.',
+    'club.hi.visit.p': 'Tickets, der komplette Saisonkalender und Tischreservierungen werden direkt über die offizielle Hï-Ibiza-Website abgewickelt.',
+
+    'club.echo.tagline': 'Die führende Venue Nordamerikas für elektronische Musik — eine 30.000 Quadratfuß große Halle, eigens für die größten Namen der Dance-Music gebaut.',
+    'club.echo.find.h': 'Die <em>Venue finden</em>',
+    'club.echo.story.h': 'Eine Hauptstadt für <em>Clubkultur</em>',
+    'club.echo.story.p1': 'Echostage eröffnete 2012 im Lagerhausviertel im Nordosten von Washington D.C., gegründet von Club Glow mit einem in den USA seltenen Anspruch: einen Ort zu schaffen, der <em>für elektronische Musik konzipiert</em> ist — nicht aus einer Konzerthalle umgewidmet oder als gewöhnlicher Nachtclub angepasst. Von Anfang an war alles auf Sound, Größe und Sichtlinien ausgelegt — ein klarer Raum mit riesiger Bühne und offener Tanzfläche.',
+    'club.echo.story.p2': 'Das Ergebnis: eine konstante Position unter den renommiertesten Clubs der Welt, mehrfach in DJ Mags „Top 100 Clubs" — und häufig als №1 Nordamerikas geführt. Headliner von Tiësto und Calvin Harris bis Eric Prydz und Charlotte de Witte machen Echostage zur regelmäßigen Tourstation, und die Produktionsqualität setzt den Maßstab für US-Nightlife.',
+    'club.echo.music.h': 'Sound von <em>Echostage</em>',
+    'club.echo.music.p': 'Das Programm deckt das gesamte elektronische Spektrum ab — von Peak-Time House und Trance bis Bass, Dubstep und Hard Techno — mit einer LED-Wand und einem Setup, das jede Show zur audiovisuellen Inszenierung macht. Die Crowd ist energiegeladen, tanzfokussiert und gekleidet für den Floor statt für die Galerie.',
+    'club.echo.visit.h': 'Kalender, Tickets<br>& <em>VIP-Tische</em>.',
+    'club.echo.visit.p': 'Den vollständigen Eventkalender, Presale-Zugang und Tischreservierungen findest du auf der offiziellen Echostage-Website.',
+
+    'club.berg.tagline': 'Ein ehemaliges Heizkraftwerk Ost-Berlins, heute weltweiter Tempel des Techno — kompromisslos, monumental und von Mythen umrankt.',
+    'club.berg.find.h': 'Den <em>Bunker finden</em>',
+    'club.berg.story.h': 'Eine <em>Kathedrale</em> des Techno',
+    'club.berg.story.p1': 'Berghain eröffnete 2004 in einem stillgelegten Heizkraftwerk im ehemaligen Ost-Berlin, gegründet von Norbert Thormann und Michael Teufele als Nachfolger ihres legendären Schwulenclubs Ostgut. Die kavernösen Betonhallen, 18 Meter hohe Decken und ein maßgefertigtes Funktion-One-Soundsystem machten ihn sofort einzigartig — und schnell zur <em>globalen Heimat des Techno</em>.',
+    'club.berg.story.p2': 'Das Ethos des Clubs ist kompromisslos: keine Handys, keine Fotos, keine Eile. Sets dauern stundenlang, die Wochenend-Klubnacht zieht sich ohne Unterbruch von Samstag bis Montagmorgen, und die berühmt-strenge Tür unter Sven Marquardt ist Teil des Mythos. Über dem Hauptfloor liegt die Panorama Bar, ein hellerer, house-lastiger Raum mit eigener Kultanhängerschaft.',
+    'club.berg.music.h': 'Sound von <em>Berghain</em>',
+    'club.berg.music.p': 'Der Hauptfloor ist harter, hypnotischer und basslastiger Techno von Residents wie Marcel Dettmann, Ben Klock und Anastasia Kristensen. Die Panorama Bar geht in Richtung Deep House und Disco. Erwarte lange, erzählerische DJ-Sets, eine offene und queer-freundliche Crowd und die Faustregel: „Die Nacht beginnt erst am Morgen."',
+    'club.berg.visit.h': 'Klubnacht, Konzerte<br>& <em>Events</em>.',
+    'club.berg.visit.p': 'Das aktuelle Programm, Ticketverkäufe sowie Informationen zu Halle am Berghain und Säule findest du auf der offiziellen Seite.',
+
+    'club.fab.tagline': 'Drei Räume unter dem Smithfield Market und ein vibrierender Bodysonic-Floor — die Institution, die London ins Zentrum der Underground-Dance-Music gestellt hat.',
+    'club.fab.find.h': 'Den <em>Club finden</em>',
+    'club.fab.story.h': 'Londons <em>Underground</em>-Zuhause',
+    'club.fab.story.p1': 'Fabric eröffnete im Oktober 1999 in den Kühlkellern unter dem alten Smithfield-Fleischmarkt — ein Labyrinth aus blankem Backstein und Beton, das sich sofort von allen anderen Locations Londons unterschied. Die Gründer Keith Reilly und Cameron Leslie wollten einen Club, in dem die Musik an erster Stelle steht, und bauten drei verbundene Räume rund herum, darunter den nun berühmten Room One mit seinem <em>Bodysonic-Dancefloor</em> — 450 Bass-Transducer im Boden, sodass der Raum wörtlich mit dem Bass mitvibriert.',
+    'club.fab.story.p2': 'Die beiden langjährigen Mix-Reihen — Fabric (House, Techno) und FABRICLIVE (Drum & Bass, Broken Beat, Breakbeat) — waren Pflichthören für eine ganze Generation. Nach kurzer, viel beachteter Schließung 2016 brachte eine Kampagne von Stadt, Bürgermeisteramt und internationalen Künstlern den Club zurück; heute ist Fabric weiterhin einer der renommiertesten Underground-Clubs der Welt.',
+    'club.fab.music.h': 'Sound von <em>Fabric</em>',
+    'club.fab.music.p': 'Room One ist House und Techno; Room Two geht tiefer, Dub und Minimal; Room Three ist die spirituelle Heimat von UK Drum & Bass und Bass-Music. Erwarte eine ernsthafte, musikorientierte Crowd, Marathon-Sets internationaler Residents wie Craig Richards und Terry Francis, und ein Soundsystem, das man fühlt mehr als hört.',
+    'club.fab.visit.h': 'Line-ups, Mixes<br>& <em>Tickets</em>.',
+    'club.fab.visit.p': 'Den vollständigen Eventkalender, Vorverkauf und die langjährigen fabric- / FABRICLIVE-Mix-Reihen findest du auf der offiziellen Website.',
+
+    'club.pacha.tagline': 'Die Legende mit dem Kirschen-Logo — der Club, der Ibiza zur Welthauptstadt des Nachtlebens machte, seit 1973 unter demselben Dach.',
+    'club.pacha.find.h': 'Die <em>Kirsche finden</em>',
+    'club.pacha.story.h': 'Wo <em>alles begann</em>',
+    'club.pacha.story.p1': 'Pacha wurde 1967 in Sitges von Ricardo Urgell gegründet und eröffnete 1973 seinen heute ikonischen Standort in Ibiza-Stadt — lange bevor „Ibiza" Synonym für globale Clubkultur wurde. Die weiß getünchte mediterrane Villa, die Open-Air-Höfe, die berühmten Zwillingskirschen: Pacha hat nicht nur eine Szene beherbergt, <em>er hat sie erschaffen</em>, als Brücke zwischen der europäischen Disco der 1970er und dem Aufstieg von House Ende der 80er.',
+    'club.pacha.story.p2': 'Fünf Jahrzehnte später erstreckt sich die Marke über Hotels, Restaurants und Clubs weltweit, aber der originale Standort auf Ibiza bleibt das Herzstück. Nach einer großen Renovierung 2022 öffnete Pacha mit umgestaltetem Hauptraum, erfrischten Terrassen und neuer Konzentration auf die Kernidee: Glamour, Musik und Community unter einem balearischen Dach.',
+    'club.pacha.music.h': 'Sound von <em>Pacha</em>',
+    'club.pacha.music.p': 'Pacha ist von Tradition her Open-Format — House, Disco und zeitgenössische Clubmusik, mit langjährigen Residencies und Headliner-Parties wie Solomun +1, Pure Pacha und Insane. Die Crowd mischt Locals, Residents und internationale Reisende, gekleidet für die Nacht und bereit, bis zum Sonnenaufgang zu tanzen.',
+    'club.pacha.visit.h': 'Kalender, Tische<br>& <em>Residencies</em>.',
+    'club.pacha.visit.p': 'Tickets, Saison-Residencies und Tischreservierungen werden über die offizielle Pacha-Ibiza-Website verwaltet.',
+
+    'club.unvrs.tagline': 'Der größte Club der Welt — eröffnet im Sommer 2025 auf dem Privilege-Gelände, mit zwei Hauptbereichen, einem 360°-Open-Air-Amphitheater und einer Bühne, die eine neue Ära für Ibiza einläutet.',
+    'club.unvrs.find.h': 'Das <em>Universum finden</em>',
+    'club.unvrs.story.h': 'Ein neues <em>Universum</em>',
+    'club.unvrs.story.p1': 'UNVRS eröffnete im Mai 2025 am legendären Standort von Privilege Ibiza — zwei Jahrzehnte lang der größte Nachtclub der Welt und Schauplatz der hemmungslosesten Jahre von Manumission. Nach kompletter Entkernung durch The Night League wurde der Ort von Grund auf als <em>UNVRS</em> neu errichtet: eine Mehrraum-Venue mit komplett durchgeplantem Engineering, entworfen vom selben Team hinter Hï Ibiza und Ushuaïa.',
+    'club.unvrs.story.p2': 'Die Architektur kombiniert einen Indoor-Hauptraum mit der weltweit ersten 360°-Open-Air-Clubbühne — ein kreisförmiges Amphitheater unter dem Himmel Ibizas, programmatisch unabhängig vom Indoor-Floor. Dazu eine neu gestaltete Terrasse, ein privater Pool-Club und ein Backstage für arena-große Residencies — UNVRS ist das ehrgeizigste Club-Opening seines Jahrzehnts.',
+    'club.unvrs.music.h': 'Sound von <em>UNVRS</em>',
+    'club.unvrs.music.p': 'Das Programm deckt das gesamte elektronische Spektrum ab — Peak-Time House, melodischer und Main-Stage-Techno, großflächiger EDM und Afro House — getragen von exklusiven Residencies der Headliner, die zuvor Ushuaïa und Hï ihr Zuhause nannten. Die Produktion spielt in einer eigenen Liga: eine umlaufende LED-Decke, ein maßgefertigtes Soundsystem und Visuals, die Indoor- und Outdoor-Bühne in einen Dialog setzen.',
+    'club.unvrs.visit.h': 'Tickets, Residencies<br>& <em>Line-ups</em>.',
+    'club.unvrs.visit.p': 'Tickets, der vollständige Saisonkalender und Tischreservierungen werden direkt über die offizielle UNVRS-Website abgewickelt.',
 
     /* ── Sieben Weltwunder ── */
     'wonders.eyebrow': 'Sieben Weltwunder',
@@ -619,6 +741,67 @@ const TRANSLATIONS = {
     'club.meta.rooms': '房间',
     'club.meta.years': '年',
 
+    /* ── Club detail page bodies ── */
+    'club.hi.tagline': '伊比萨白色岛屿上的未来派音响殿堂 — 自 2017 年开业以来,多次被评为全球第一夜店。',
+    'club.hi.find.h': '找到 <em>这家俱乐部</em>',
+    'club.hi.story.h': '伊比萨的<em>新纪元</em>',
+    'club.hi.story.p1': 'Hï Ibiza 于 2017 年 5 月在传奇的 Space Ibiza 旧址开业,为这座向世界输出现代俱乐部文化的岛屿翻开了新篇章。由 The Night League 和 Ushuaïa Entertainment 支持,这座场所从零开始被打造为<em>顶尖体验</em> — 未来派视觉、定制音响系统,以及为世界上最挑剔的艺术家而设计的空间布局。',
+    'club.hi.story.p2': '仅在第一个赛季,Hï 就跃居 DJ Mag "全球百大俱乐部" 榜首,并多次蝉联。Black Coffee、FISHER 和 David Guetta 等艺术家的驻场表演,使其成为电子音乐的全球朝圣之地 — 现代伊比萨夏季的标志性舞台。',
+    'club.hi.music.h': '<em>Hï</em> 之声',
+    'club.hi.music.p': '两个主舞池 — Theatre 和 Club — 每晚平行运行,由世界顶级驻场艺人坐镇。氛围充满活力、戏剧性与视觉震撼,客群衣着精致,来自全球各地。',
+    'club.hi.visit.h': '门票、驻场<br>与 <em>阵容</em>。',
+    'club.hi.visit.p': '所有门票、完整赛季日程与餐桌预订,均通过 Hï Ibiza 官方网站办理。',
+
+    'club.echo.tagline': '北美顶级电子音乐场地 — 一座 30,000 平方英尺的仓库,专为舞曲音乐界的顶级巨星而建。',
+    'club.echo.find.h': '找到 <em>这家场地</em>',
+    'club.echo.story.h': '俱乐部文化的<em>首都</em>',
+    'club.echo.story.p1': 'Echostage 于 2012 年在华盛顿特区东北部的仓库区开业,由 Club Glow 创立,带着一份在美国少见的使命:打造一个<em>围绕电子音乐建造</em>的场所,而非由音乐厅改造或由普通夜店改装。从第一天起,它就是为音响、规模与视线设计的 — 一个清晰的单一空间,巨大的舞台和开放的舞池。',
+    'club.echo.story.p2': '结果是它持续位列全球最受尊敬的俱乐部之一,多次出现在 DJ Mag "全球百大" 名单中,并经常被评为北美第一。从 Tiësto、Calvin Harris 到 Eric Prydz、Charlotte de Witte 等顶级艺人,都将其列为常规巡演站,其制作水准为美国夜生活树立了标杆。',
+    'club.echo.music.h': '<em>Echostage</em> 之声',
+    'club.echo.music.p': '节目覆盖整个电子频谱 — 从高峰时段 House 与 Trance 到 Bass、Dubstep 与硬核 Techno — LED 墙与全套灯光设备将每场演出变成完整的视听演出。客群充满活力,以跳舞为核心,衣着为舞池而非为秀。',
+    'club.echo.visit.h': '日程、门票<br>与 <em>VIP 餐桌</em>。',
+    'club.echo.visit.p': '完整活动日程、提前购票及餐桌预订请见 Echostage 官方网站。',
+
+    'club.berg.tagline': '前东柏林发电厂改造成的全球 Techno 殿堂 — 不妥协、宏伟,神话萦绕。',
+    'club.berg.find.h': '找到 <em>这座地堡</em>',
+    'club.berg.story.h': 'Techno 的<em>大教堂</em>',
+    'club.berg.story.p1': 'Berghain 于 2004 年在前东柏林一座废弃的供热发电厂中开业,由 Norbert Thormann 和 Michael Teufele 创办,作为其传奇同志俱乐部 Ostgut 的继任者。空旷的混凝土大厅、18 米高的天花板和定制的 Funktion-One 音响系统让它立刻独树一帜 — 并迅速成为<em>全球 Techno 之家</em>。',
+    'club.berg.story.p2': '俱乐部的精神不妥协:不允许手机、不允许拍照、不催促。表演持续数小时,周末 Klubnacht 从周六不间断延续至周一清晨,由 Sven Marquardt 监督的著名严苛大门已是神话的一部分。主舞池之上是 Panorama Bar — 更明亮、偏 House 的房间,有自己的狂热追随者。',
+    'club.berg.music.h': '<em>Berghain</em> 之声',
+    'club.berg.music.p': '主舞池是来自 Marcel Dettmann、Ben Klock 和 Anastasia Kristensen 等驻场 DJ 的硬核、催眠且重低音的 Techno。Panorama Bar 偏向 Deep House 与 Disco。期待长篇叙事 DJ Set、开放且 queer 友好的客群,以及一条不成文的规则:"夜晚真正开始于早晨。"',
+    'club.berg.visit.h': 'Klubnacht、演唱会<br>与 <em>活动</em>。',
+    'club.berg.visit.p': '当前节目、门票销售以及 Halle am Berghain 和 Säule 的资讯,均在官方网站发布。',
+
+    'club.fab.tagline': 'Smithfield 市场之下的三个房间,加上震动的 Bodysonic 舞池 — 让伦敦成为地下舞曲音乐核心的传奇机构。',
+    'club.fab.find.h': '找到 <em>这家俱乐部</em>',
+    'club.fab.story.h': '伦敦的<em>地下</em>之家',
+    'club.fab.story.p1': 'Fabric 于 1999 年 10 月在旧 Smithfield 肉类市场地下的冷藏库中开业 — 由裸砖与混凝土组成的迷宫,从一开始就与伦敦任何其他场所都不同。创办人 Keith Reilly 和 Cameron Leslie 想要一个以音乐为先的俱乐部,围绕它建造了三个相连的房间,包括现今著名的 Room One 与其<em>Bodysonic 舞池</em> — 450 个低音换能器嵌入地板,房间真正与低音一同震动。',
+    'club.fab.story.p2': '俱乐部的两个长期 Mix 系列 — Fabric(House、Techno)与 FABRICLIVE(Drum & Bass、Broken Beat、Breakbeat) — 成为整整一代人的必听清单。2016 年短暂、高调地关闭后,在伦敦市、市长办公室与全球艺术家支持下重新开张;如今 Fabric 仍是全球最受尊敬的地下俱乐部之一。',
+    'club.fab.music.h': '<em>Fabric</em> 之声',
+    'club.fab.music.p': 'Room One 是 House 与 Techno;Room Two 偏深沉、Dub 与 Minimal;Room Three 是英国 Drum & Bass 与 Bass Music 的精神之家。期待认真、以音乐为先的客群,Craig Richards 和 Terry Francis 等国际驻场艺人的马拉松级演出,以及一套调校成"以感受为先"的音响系统。',
+    'club.fab.visit.h': '阵容、Mix<br>与 <em>门票</em>。',
+    'club.fab.visit.p': '完整活动日程、预售门票以及长期运行的 fabric / FABRICLIVE Mix 系列均在官方网站。',
+
+    'club.pacha.tagline': '樱桃标志的传奇 — 让伊比萨成为世界夜生活之都的俱乐部,自 1973 年起在同一屋檐下舞动。',
+    'club.pacha.find.h': '找到 <em>这颗樱桃</em>',
+    'club.pacha.story.h': '<em>一切</em>开始的地方',
+    'club.pacha.story.p1': 'Pacha 于 1967 年由 Ricardo Urgell 在锡切斯创办,并于 1973 年开设了如今标志性的伊比萨城选址 — 远在"伊比萨"成为全球俱乐部文化代名词之前。粉刷洁白的地中海别墅、露天庭院、著名的双樱桃:Pacha 不只是承载场景,<em>它创造了一个场景</em>,成为 1970 年代欧洲 Disco 与 1980 年代末 House 兴起之间的桥梁。',
+    'club.pacha.story.p2': '五十年过去了,品牌延展至全球的酒店、餐厅与俱乐部,但伊比萨原址仍是核心。经过 2022 年的大规模翻新,Pacha 重新开业,重塑主舞池、刷新露台,重新聚焦其核心理念:在一个巴利阿里屋檐下的魅力、音乐与社群。',
+    'club.pacha.music.h': '<em>Pacha</em> 之声',
+    'club.pacha.music.p': 'Pacha 传统上是 Open-Format — House、Disco 与当代俱乐部音乐,长期驻场和如 Solomun +1、Pure Pacha、Insane 等头牌派对。客群混合本地人、驻场居民与国际旅客,衣着精致,准备跳到日出。',
+    'club.pacha.visit.h': '日程、餐桌<br>与 <em>驻场</em>。',
+    'club.pacha.visit.p': '门票、季度驻场与餐桌预订通过 Pacha Ibiza 官方网站管理。',
+
+    'club.unvrs.tagline': '世界上最大的俱乐部 — 2025 年夏天在 Privilege 旧址开业,拥有两个主厅、360° 露天圆形剧场和为伊比萨新时代建造的音乐舞台。',
+    'club.unvrs.find.h': '找到 <em>这个宇宙</em>',
+    'club.unvrs.story.h': '一个新的<em>宇宙</em>',
+    'club.unvrs.story.p1': 'UNVRS 于 2025 年 5 月在传奇的 Privilege Ibiza 旧址开业 — 这里曾在二十年里是世界最大的夜店,也是 Manumission 最无拘无束岁月的发生地。在 The Night League 完成完全拆除后,该场所被从零重建为 <em>UNVRS</em>:一个多厅、全工程化的场所,由打造 Hï Ibiza 和 Ushuaïa 的同一团队设计。',
+    'club.unvrs.story.p2': '建筑结构将室内主厅与全球首个 360° 露天俱乐部舞台结合 — 在伊比萨天空下的圆形剧场,独立于室内舞池编排。再加上重新设计的露台、私人泳池俱乐部和适合体育馆级驻场的后台,UNVRS 成为本十年最雄心勃勃的俱乐部开张。',
+    'club.unvrs.music.h': '<em>UNVRS</em> 之声',
+    'club.unvrs.music.p': '节目覆盖整个电子频谱 — 高峰时段 House、旋律与主舞台 Techno、大舞台 EDM 与 Afro House — 由之前在 Ushuaïa 和 Hï 落户的头牌驻场艺人独家加持。制作规模在另一个层级:环绕 LED 天花板、定制音响系统,以及为室内与室外舞台对话设计的视觉。',
+    'club.unvrs.visit.h': '门票、驻场<br>与 <em>阵容</em>。',
+    'club.unvrs.visit.p': '门票、完整赛季日程和餐桌预订均通过 UNVRS 官方网站直接办理。',
+
     /* ── 世界七大奇迹 ── */
     'wonders.eyebrow': '世界七大奇迹',
     'wonders.h2': '世界<br><em>七大奇迹</em>',
@@ -752,6 +935,51 @@ function injectPopupStyles() {
   const style = document.createElement('style');
   style.id = 'ca-popup-styles';
   style.textContent = `
+    /* ── 3D card highlight — apply class="card-3d" (light) or .card-3d.dark ── */
+    .card-3d {
+      position: relative;
+      background: #fdfcf9;
+      border: 1px solid rgba(184,153,90,0.08);
+      border-radius: 4px;
+      box-shadow:
+        0 1px 3px rgba(0,0,0,0.04),
+        0 10px 28px rgba(58,52,45,0.07);
+      transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.55s ease,
+                  border-color 0.4s ease;
+      will-change: transform;
+    }
+    .card-3d:hover {
+      transform: translateY(-6px);
+      border-color: rgba(184,153,90,0.28);
+      box-shadow:
+        0 4px 12px rgba(0,0,0,0.05),
+        0 28px 64px rgba(58,52,45,0.14);
+    }
+    .card-3d:active {
+      transform: translateY(-1px);
+      transition-duration: 0.15s;
+    }
+    .card-3d.dark {
+      background: #2a2620;
+      border-color: rgba(212,188,138,0.10);
+      box-shadow:
+        0 1px 3px rgba(0,0,0,0.45),
+        0 14px 36px rgba(0,0,0,0.45);
+    }
+    .card-3d.dark:hover {
+      border-color: rgba(212,188,138,0.32);
+      box-shadow:
+        0 4px 12px rgba(0,0,0,0.55),
+        0 30px 66px rgba(0,0,0,0.6);
+    }
+    /* Touch devices: skip hover lift, just gentle press */
+    @media (hover: none) {
+      .card-3d:hover { transform: none; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 10px 28px rgba(58,52,45,0.07); }
+      .card-3d.dark:hover { box-shadow: 0 1px 3px rgba(0,0,0,0.45), 0 14px 36px rgba(0,0,0,0.45); }
+      .card-3d:active { transform: scale(0.99); }
+    }
+
     /* ── Nav links (tabs) — injected globally so every page renders them ── */
     nav .nav-links {
       display: flex; gap: 3rem;

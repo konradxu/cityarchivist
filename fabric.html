@@ -105,21 +105,26 @@ footer { background: #161410; padding: 3.5rem 4rem 2.5rem; display: flex; justif
 </head>
 <body>
 
-<nav>
+<nav id="top-nav">
   <a class="nav-logo" href="index.html">City <span>Archivist</span></a>
-  <div style="display:flex; align-items:center; gap:2rem;">
-    <a class="nav-back" href="index.html#nightclubs" data-i18n="nav.allClubs">All Clubs</a>
-    <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
-      <span data-lang-current>EN</span>
-    </button>
-  </div>
+  <ul class="nav-links">
+    <li><a href="index.html#home" data-i18n="nav.home">Home</a></li>
+    <li><a href="index.html#destinations" data-i18n="nav.destinations">Destinations</a></li>
+    <li><a href="wonders.html" data-i18n="nav.wonders">Wonders</a></li>
+    <li><a href="hotels.html" data-i18n="nav.hotels">Hotels</a></li>
+    <li><a href="index.html#nightclubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
+    <li><a href="index.html#about" data-i18n="nav.about">About Us</a></li>
+  </ul>
+  <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
+    <span data-lang-current>EN</span>
+  </button>
 </nav>
 
 <section class="club-hero">
   <div class="club-hero-left">
     <div class="club-eyebrow">UK · London · Nightclub</div>
     <h1 class="club-h1"><em>Fabric</em></h1>
-    <p class="club-tagline">Three rooms beneath Smithfield Market and a vibrating bodysonic dancefloor — the institution that put London at the heart of underground dance music.</p>
+    <p class="club-tagline" data-i18n="club.fab.tagline">tagline</p>
     <div class="club-meta">
       <div class="club-meta-item">
         <div class="club-meta-num">1999</div>
@@ -146,7 +151,7 @@ footer { background: #161410; padding: 3.5rem 4rem 2.5rem; display: flex; justif
   <div class="loc-grid">
     <div>
       <div class="sec-eyebrow" data-i18n="club.location.eyebrow">Location</div>
-      <h2 class="sec-h">Find <em>the Club</em></h2>
+      <h2 class="sec-h" data-i18n="club.fab.find.h">Find</h2>
       <div class="loc-info-row">
         <div class="loc-item">
           <div class="loc-label" data-i18n="club.location.address">Address</div>
@@ -172,9 +177,9 @@ footer { background: #161410; padding: 3.5rem 4rem 2.5rem; display: flex; justif
   <div class="text-grid">
     <div class="text-label" data-i18n="club.story.label">The Story</div>
     <div class="text-body">
-      <h2 class="sec-h">London's <em>underground</em> home</h2>
-      <p>Fabric opened in October 1999 in the cold-storage cellars beneath the old Smithfield meat market — a labyrinth of bare brick and concrete that immediately felt unlike any other London venue. Founders Keith Reilly and Cameron Leslie wanted a club where the music came first, and built three connected rooms around it, including the now-famous Room One with its <em>bodysonic dancefloor</em> — 450 bass transducers wired into the floor itself, so the room literally moves with the bass.</p>
-      <p>The club's two long-running mix series — Fabric (house, techno) and FABRICLIVE (drum & bass, broken beat, breakbeat) — became required listening for an entire generation. After a brief, high-profile closure in 2016, a campaign backed by the city, the Mayor's Office and global artists brought it back; today Fabric continues to be one of the most respected underground clubs in the world.</p>
+      <h2 class="sec-h" data-i18n="club.fab.story.h">story h</h2>
+      <p data-i18n="club.fab.story.p1">story p1</p>
+      <p data-i18n="club.fab.story.p2">story p2</p>
     </div>
   </div>
 </section>
@@ -183,8 +188,8 @@ footer { background: #161410; padding: 3.5rem 4rem 2.5rem; display: flex; justif
   <div class="text-grid">
     <div class="text-label" data-i18n="club.music.label">Music &amp; Vibe</div>
     <div class="text-body">
-      <h2 class="sec-h">Sound of <em>Fabric</em></h2>
-      <p>Room One is house and techno; Room Two leans deeper, dub and minimal; Room Three is the spiritual home of UK drum & bass and bass music. Expect a serious, music-first crowd, marathon sets from international residents like Craig Richards and Terry Francis, and a soundsystem tuned to feel as much as it is heard.</p>
+      <h2 class="sec-h" data-i18n="club.fab.music.h">music h</h2>
+      <p data-i18n="club.fab.music.p">music p</p>
       <div class="tag-row">
         <span class="tag">House</span>
         <span class="tag">Techno</span>
@@ -199,10 +204,10 @@ footer { background: #161410; padding: 3.5rem 4rem 2.5rem; display: flex; justif
 <div class="visit-block">
   <div>
     <div class="sec-eyebrow" data-i18n="club.visit.eyebrow">Visit</div>
-    <h2 class="visit-h">Line-ups, mixes<br>& <em>tickets</em>.</h2>
+    <h2 class="visit-h" data-i18n="club.fab.visit.h">visit h</h2>
   </div>
   <div class="visit-right">
-    <p>The full event calendar, advance ticket sales and the long-running fabric / FABRICLIVE mix series live on the official website.</p>
+    <p data-i18n="club.fab.visit.p">visit p</p>
     <a href="https://www.fabriclondon.com" target="_blank" rel="noopener" class="visit-cta">Visit fabriclondon.com</a>
   </div>
 </div>
@@ -213,6 +218,6 @@ footer { background: #161410; padding: 3.5rem 4rem 2.5rem; display: flex; justif
   <a class="footer-back" href="index.html#nightclubs">← All Clubs</a>
 </footer>
 
-<script src="lang.js" defer></script>
+<script src="lang.js?v=14" defer></script>
 </body>
 </html>

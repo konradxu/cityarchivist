@@ -105,21 +105,26 @@ footer { background: #161410; padding: 3.5rem 4rem 2.5rem; display: flex; justif
 </head>
 <body>
 
-<nav>
+<nav id="top-nav">
   <a class="nav-logo" href="index.html">City <span>Archivist</span></a>
-  <div style="display:flex; align-items:center; gap:2rem;">
-    <a class="nav-back" href="index.html#nightclubs" data-i18n="nav.allClubs">All Clubs</a>
-    <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
-      <span data-lang-current>EN</span>
-    </button>
-  </div>
+  <ul class="nav-links">
+    <li><a href="index.html#home" data-i18n="nav.home">Home</a></li>
+    <li><a href="index.html#destinations" data-i18n="nav.destinations">Destinations</a></li>
+    <li><a href="wonders.html" data-i18n="nav.wonders">Wonders</a></li>
+    <li><a href="hotels.html" data-i18n="nav.hotels">Hotels</a></li>
+    <li><a href="index.html#nightclubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
+    <li><a href="index.html#about" data-i18n="nav.about">About Us</a></li>
+  </ul>
+  <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
+    <span data-lang-current>EN</span>
+  </button>
 </nav>
 
 <section class="club-hero">
   <div class="club-hero-left">
     <div class="club-eyebrow">Spain · Ibiza · Nightclub</div>
     <h1 class="club-h1"><em>UNVRS</em></h1>
-    <p class="club-tagline">The biggest club in the world — opened summer 2025 on the Privilege site, with two main rooms, a 360° outdoor amphitheatre and a sound stage built for a new era of Ibiza.</p>
+    <p class="club-tagline" data-i18n="club.unvrs.tagline">tagline</p>
     <div class="club-meta">
       <div class="club-meta-item">
         <div class="club-meta-num">2025</div>
@@ -146,7 +151,7 @@ footer { background: #161410; padding: 3.5rem 4rem 2.5rem; display: flex; justif
   <div class="loc-grid">
     <div>
       <div class="sec-eyebrow" data-i18n="club.location.eyebrow">Location</div>
-      <h2 class="sec-h">Find <em>the Universe</em></h2>
+      <h2 class="sec-h" data-i18n="club.unvrs.find.h">Find</h2>
       <div class="loc-info-row">
         <div class="loc-item">
           <div class="loc-label" data-i18n="club.location.address">Address</div>
@@ -172,9 +177,9 @@ footer { background: #161410; padding: 3.5rem 4rem 2.5rem; display: flex; justif
   <div class="text-grid">
     <div class="text-label" data-i18n="club.story.label">The Story</div>
     <div class="text-body">
-      <h2 class="sec-h">A new <em>universe</em></h2>
-      <p>UNVRS opened in May 2025 on the legendary site of Privilege Ibiza — for two decades the largest nightclub in the world, and the venue that hosted Manumission's most uninhibited years. After a complete teardown by The Night League, it was rebuilt from the ground up as <em>UNVRS</em>: a multi-room, fully-engineered venue designed by the same team behind Hï Ibiza and Ushuaïa.</p>
-      <p>The architecture pairs an indoor main room with the world's first 360° open-air club stage — a circular amphitheatre under the Ibiza sky, programmed independently of the indoor floor. Add a redesigned terrace, a private pool club and a backstage built for arena-scale residencies, and UNVRS arrives as the most ambitious club opening of its decade.</p>
+      <h2 class="sec-h" data-i18n="club.unvrs.story.h">story h</h2>
+      <p data-i18n="club.unvrs.story.p1">story p1</p>
+      <p data-i18n="club.unvrs.story.p2">story p2</p>
     </div>
   </div>
 </section>
@@ -183,8 +188,8 @@ footer { background: #161410; padding: 3.5rem 4rem 2.5rem; display: flex; justif
   <div class="text-grid">
     <div class="text-label" data-i18n="club.music.label">Music & Vibe</div>
     <div class="text-body">
-      <h2 class="sec-h">Sound of <em>UNVRS</em></h2>
-      <p>Programming runs the full electronic spectrum — peak-time house, melodic and main-stage techno, big-room EDM and Afro House — anchored by exclusive residencies from headliners that previously called Ushuaïa and Hï home. Production is on a different scale: a wraparound LED ceiling, a custom soundsystem and visuals designed for the indoor and outdoor stages to play in conversation.</p>
+      <h2 class="sec-h" data-i18n="club.unvrs.music.h">music h</h2>
+      <p data-i18n="club.unvrs.music.p">music p</p>
       <div class="tag-row">
         <span class="tag">Tech House</span>
         <span class="tag">Techno</span>
@@ -199,10 +204,10 @@ footer { background: #161410; padding: 3.5rem 4rem 2.5rem; display: flex; justif
 <div class="visit-block">
   <div>
     <div class="sec-eyebrow" data-i18n="club.visit.eyebrow">Visit</div>
-    <h2 class="visit-h">Tickets, residencies<br>& <em>line-ups</em>.</h2>
+    <h2 class="visit-h" data-i18n="club.unvrs.visit.h">visit h</h2>
   </div>
   <div class="visit-right">
-    <p>Tickets, the full season calendar and table reservations are handled directly through the official UNVRS website.</p>
+    <p data-i18n="club.unvrs.visit.p">visit p</p>
     <a href="https://unvrs.com" target="_blank" rel="noopener" class="visit-cta">Visit unvrs.com</a>
   </div>
 </div>
@@ -213,6 +218,6 @@ footer { background: #161410; padding: 3.5rem 4rem 2.5rem; display: flex; justif
   <a class="footer-back" href="index.html#nightclubs" data-i18n="nav.allClubs">← All Clubs</a>
 </footer>
 
-<script src="lang.js" defer></script>
+<script src="lang.js?v=14" defer></script>
 </body>
 </html>

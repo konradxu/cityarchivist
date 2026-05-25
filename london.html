@@ -493,6 +493,169 @@ footer {
 }
 .soc:hover { color: var(--gold-dim); border-color: rgba(184,153,90,0.4); }
 
+/* ── BAARIA FEATURE ── */
+#baaria {
+  background: #1c1814;
+  color: var(--parchment);
+  padding: 7rem 4rem 8rem;
+  position: relative;
+  overflow: hidden;
+}
+#baaria::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(184,153,90,0.10), transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(212,188,138,0.06), transparent 55%);
+  pointer-events: none;
+}
+.baaria-inner {
+  max-width: 1280px; margin: 0 auto;
+  position: relative;
+}
+.baaria-eyebrow {
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 0.34em; text-transform: uppercase;
+  color: var(--gold-dim);
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 1.5rem;
+}
+.baaria-eyebrow::before {
+  content: ''; width: 22px; height: 1px; background: var(--gold-dim);
+}
+.baaria-title {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 4.4vw, 4rem);
+  font-weight: 300; line-height: 1.1;
+  color: var(--parchment);
+  margin-bottom: 1rem;
+}
+.baaria-title em { font-style: italic; color: var(--gold); }
+.baaria-sub {
+  font-family: var(--serif); font-style: italic;
+  font-size: 1.2rem; color: var(--gold-dim);
+  margin-bottom: 2rem;
+}
+.baaria-desc {
+  font-size: 14px; color: rgba(248,245,239,0.6);
+  font-weight: 300; line-height: 2;
+  max-width: 620px;
+  margin-bottom: 4rem;
+}
+
+/* Gallery (4 column varying-height grid) */
+.baaria-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 5rem;
+}
+.baaria-gallery a {
+  display: block;
+  background: #2a2620;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 1;
+  border: 1px solid rgba(212,188,138,0.08);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s;
+}
+.baaria-gallery a:nth-child(3n+1) { grid-row: span 2; aspect-ratio: 0.5; }
+.baaria-gallery a img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  display: block;
+  transition: transform 0.7s ease, filter 0.4s;
+  filter: brightness(0.92);
+}
+.baaria-gallery a:hover {
+  transform: translateY(-4px);
+  border-color: rgba(212,188,138,0.32);
+}
+.baaria-gallery a:hover img {
+  transform: scale(1.06);
+  filter: brightness(1.05);
+}
+
+/* Reservation form */
+.baaria-reserve {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(212,188,138,0.18);
+  padding: 3.5rem 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 3rem;
+  align-items: start;
+}
+.baaria-reserve-intro h3 {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+  font-weight: 300; line-height: 1.25;
+  color: var(--parchment);
+  margin-bottom: 0.8rem;
+}
+.baaria-reserve-intro h3 em { font-style: italic; color: var(--gold); }
+.baaria-reserve-intro p {
+  font-size: 12.5px; color: rgba(248,245,239,0.55);
+  font-weight: 300; line-height: 1.85;
+  max-width: 360px;
+}
+.baaria-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem 1.4rem;
+}
+.baaria-form .full { grid-column: span 2; }
+.baaria-form label {
+  display: block;
+  font-size: 9px; letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(212,188,138,0.6);
+  margin-bottom: 0.5rem;
+}
+.baaria-form input,
+.baaria-form select {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(248,245,239,0.18);
+  padding: 0.6rem 0;
+  font-family: var(--sans);
+  font-size: 13.5px;
+  color: var(--parchment);
+  letter-spacing: 0.04em;
+  outline: none;
+  transition: border-color 0.25s;
+}
+.baaria-form input:focus,
+.baaria-form select:focus { border-bottom-color: var(--gold); }
+.baaria-form input::placeholder { color: rgba(248,245,239,0.25); }
+.baaria-form select option { background: #1c1814; color: var(--parchment); }
+.baaria-submit {
+  grid-column: span 2;
+  background: var(--gold);
+  border: none;
+  padding: 14px 24px;
+  font-family: var(--sans);
+  font-size: 10px; font-weight: 400;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: #1c1814;
+  cursor: pointer;
+  transition: background 0.25s, letter-spacing 0.3s;
+  margin-top: 1rem;
+  justify-self: start;
+  padding: 14px 32px;
+}
+.baaria-submit:hover { background: var(--gold-dim); letter-spacing: 0.34em; }
+.baaria-msg {
+  grid-column: span 2;
+  font-size: 11.5px; letter-spacing: 0.05em;
+  min-height: 1.2em;
+  color: rgba(248,245,239,0.55);
+  margin-top: 0.4rem;
+}
+.baaria-msg[data-state="ok"]    { color: var(--gold-dim); }
+.baaria-msg[data-state="error"] { color: #d97a6c; }
+
 /* ── MOBILE ── */
 @media (max-width: 768px) {
   nav { padding: 0 1.5rem; gap: 0; }
@@ -529,6 +692,16 @@ footer {
   .hotel-img { min-height: 180px; }
   .hotel-body { border-left: none; border-top: 1px solid var(--sand); }
 
+  /* Baaria mobile */
+  #baaria { padding: 4rem 1.8rem 5rem; }
+  .baaria-gallery { grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 3rem; }
+  .baaria-gallery a:nth-child(3n+1) { grid-row: auto; aspect-ratio: 1; }
+  .baaria-reserve { grid-template-columns: 1fr; gap: 2rem; padding: 2.5rem 1.6rem; }
+  .baaria-form { grid-template-columns: 1fr; }
+  .baaria-form .full,
+  .baaria-form .baaria-submit,
+  .baaria-msg { grid-column: span 1; }
+
   .clubs-list { padding: 0 1.8rem 4rem; }
   .club-row { grid-template-columns: 40px 1fr; gap: 1rem; padding: 1.5rem 0; }
   .club-desc { display: none; }
@@ -547,20 +720,19 @@ footer {
 <body>
 
 <!-- NAV -->
-<nav>
+<nav id="top-nav">
   <a class="nav-logo" href="index.html">City <span>Archivist</span></a>
   <ul class="nav-links">
-    <li><a href="#spots" data-i18n="nav.spots">Hidden Spots</a></li>
-    <li><a href="#reads" data-i18n="nav.reads">Reads</a></li>
-    <li><a href="#hotels" data-i18n="nav.hotels">Hotels</a></li>
-    <li><a href="#nightclubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
+    <li><a href="index.html#home" data-i18n="nav.home">Home</a></li>
+    <li><a href="index.html#destinations" data-i18n="nav.destinations">Destinations</a></li>
+    <li><a href="wonders.html" data-i18n="nav.wonders">Wonders</a></li>
+    <li><a href="hotels.html" data-i18n="nav.hotels">Hotels</a></li>
+    <li><a href="index.html#nightclubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
+    <li><a href="index.html#about" data-i18n="nav.about">About Us</a></li>
   </ul>
-  <div style="display:flex; align-items:center; gap:2rem;">
-    <a class="nav-back" href="index.html" data-i18n="nav.allCities">All Cities</a>
-    <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
-      <span data-lang-current>EN</span>
-    </button>
-  </div>
+  <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
+    <span data-lang-current>EN</span>
+  </button>
 </nav>
 
 <!-- HERO -->
@@ -769,6 +941,74 @@ footer {
   </div>
 </section>
 
+<!-- DIVIDER -->
+<div class="divider"><div class="divider-line"></div><div class="divider-mark">✦</div><div class="divider-line"></div></div>
+
+<!-- BAARIA — Featured Bar -->
+<section id="baaria">
+  <div class="baaria-inner">
+    <div class="baaria-eyebrow">Featured Bar</div>
+    <h2 class="baaria-title"><em>Baaria</em></h2>
+    <p class="baaria-sub">Italian Café · Wine &amp; Cocktail Bar</p>
+    <p class="baaria-desc">A little corner of Italy in the heart of London — espresso and pastries by day, wine and signature cocktails by night. Warm, intimate and unmistakably Italian, Baaria has become the go-to spot for those who know where the city quietly drinks.</p>
+
+    <div class="baaria-gallery">
+      <a href="baaria1.jpg" target="_blank" rel="noopener"><img src="baaria1.jpg" alt="Baaria interior 1" loading="lazy"></a>
+      <a href="baaria2.jpg" target="_blank" rel="noopener"><img src="baaria2.jpg" alt="Baaria interior 2" loading="lazy"></a>
+      <a href="baaria3.jpg" target="_blank" rel="noopener"><img src="baaria3.jpg" alt="Baaria interior 3" loading="lazy"></a>
+      <a href="baaria4.jpg" target="_blank" rel="noopener"><img src="baaria4.jpg" alt="Baaria interior 4" loading="lazy"></a>
+      <a href="baaria5.jpg" target="_blank" rel="noopener"><img src="baaria5.jpg" alt="Baaria interior 5" loading="lazy"></a>
+      <a href="baaria6.jpg" target="_blank" rel="noopener"><img src="baaria6.jpg" alt="Baaria interior 6" loading="lazy"></a>
+      <a href="baaria7.jpg" target="_blank" rel="noopener"><img src="baaria7.jpg" alt="Baaria interior 7" loading="lazy"></a>
+      <a href="baaria8.jpg" target="_blank" rel="noopener"><img src="baaria8.jpg" alt="Baaria interior 8" loading="lazy"></a>
+    </div>
+
+    <div class="baaria-reserve">
+      <div class="baaria-reserve-intro">
+        <h3>Reserve a <em>table</em></h3>
+        <p>Tell us who's coming, when, and what the occasion is — we'll get back to you with confirmation.</p>
+      </div>
+
+      <form id="baaria-form" class="baaria-form" data-endpoint="https://formspree.io/f/myklrnro" novalidate>
+        <input type="hidden" name="_subject" value="Baaria reservation request">
+        <input type="hidden" name="venue" value="Baaria — London">
+
+        <div>
+          <label for="b-name">Your name</label>
+          <input id="b-name" type="text" name="name" autocomplete="name" required placeholder="Full name">
+        </div>
+        <div>
+          <label for="b-people">Guests</label>
+          <input id="b-people" type="number" name="guests" min="1" max="20" required placeholder="2">
+        </div>
+        <div class="full">
+          <label for="b-when">Date &amp; time</label>
+          <input id="b-when" type="datetime-local" name="datetime" required>
+        </div>
+        <div class="full">
+          <label for="b-occasion">Occasion</label>
+          <select id="b-occasion" name="occasion" required>
+            <option value="" selected disabled>Choose an occasion</option>
+            <option value="casual">Casual dinner / drinks</option>
+            <option value="date">Date night</option>
+            <option value="birthday">Birthday</option>
+            <option value="anniversary">Anniversary</option>
+            <option value="business">Business</option>
+            <option value="celebration">Celebration</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="full">
+          <label for="b-email">Email <span style="text-transform:none; letter-spacing:0; color:rgba(248,245,239,0.35);">(so we can confirm)</span></label>
+          <input id="b-email" type="email" name="email" autocomplete="email" required placeholder="your@email.com">
+        </div>
+        <button class="baaria-submit" type="submit">Request reservation</button>
+        <div id="baaria-msg" class="baaria-msg"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
 <!-- HOTELS -->
 <section id="hotels">
   <div class="sec-header">
@@ -921,7 +1161,60 @@ footer {
       t.classList.toggle('active', t.getAttribute('href') === '#' + current);
     });
   });
+
+  /* ── Baaria reservation form ── */
+  (function() {
+    const form = document.getElementById('baaria-form');
+    if (!form) return;
+    const msg  = document.getElementById('baaria-msg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.textContent = '';
+      msg.removeAttribute('data-state');
+
+      const data = {
+        name:     form.name.value.trim(),
+        guests:   form.guests.value,
+        datetime: form.datetime.value,
+        occasion: form.occasion.value,
+        email:    form.email.value.trim(),
+        _subject: form._subject.value,
+        venue:    form.venue.value,
+      };
+
+      if (!data.name)     { msg.textContent = 'Please enter your name.';            msg.dataset.state = 'error'; return; }
+      if (!data.guests)   { msg.textContent = 'How many guests?';                    msg.dataset.state = 'error'; return; }
+      if (!data.datetime) { msg.textContent = 'Please pick a date and time.';        msg.dataset.state = 'error'; return; }
+      if (!data.occasion) { msg.textContent = 'Please choose an occasion.';          msg.dataset.state = 'error'; return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+        msg.textContent = 'Please enter a valid email address.'; msg.dataset.state = 'error'; return;
+      }
+
+      msg.textContent = 'Sending request…';
+
+      const endpoint = form.getAttribute('data-endpoint');
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        if (res.ok) {
+          msg.textContent = 'Thank you — we will confirm by email shortly.';
+          msg.dataset.state = 'ok';
+          form.reset();
+        } else {
+          msg.textContent = 'Could not send right now. Please try again or email us directly.';
+          msg.dataset.state = 'error';
+        }
+      } catch (_) {
+        msg.textContent = 'Network error — please try again.';
+        msg.dataset.state = 'error';
+      }
+    });
+  })();
 </script>
-<script src="lang.js" defer></script>
+<script src="lang.js?v=14" defer></script>
 </body>
 </html>

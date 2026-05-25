@@ -227,12 +227,12 @@ footer {
 /* ── MOBILE ── */
 @media (max-width: 768px) {
   nav { padding: 0 1.5rem; }
-  .mobile-wrapper { padding: 0 2rem; }
-  .page-hero { padding: 4rem 1rem 2.5rem; min-height: auto; max-width: 500px; margin: 0 auto; box-sizing: border-box; }
-  .page-eyebrow { position: static; margin-bottom: 1rem; }
-  .chain-row { grid-template-columns: 1fr; gap: 1rem; padding: 1.5rem 1rem; max-width: 500px; margin: 1rem auto; border-radius: 16px; box-sizing: border-box;}
-  .chain-identity, .chain-origin { display: none; }
-  .chain-cta { opacity: 1; }
+  .page-hero { padding: 5rem 1.8rem 3rem; min-height: 260px; }
+  .page-eyebrow { left: 1.8rem; top: 2rem; }
+  .chain-row { grid-template-columns: 1fr; gap: 1.5rem; padding: 2.2rem 1.8rem; }
+  .chain-num { font-size: 0.9rem; padding-top: 0; }
+  .chain-img { aspect-ratio: 16/10; }
+  .chain-cta { justify-content: flex-start; }
   .bottom-note { grid-template-columns: 1fr; gap: 1rem; padding: 3rem 1.8rem; }
   footer { flex-direction: column; gap: 1.5rem; padding: 2.5rem 1.8rem; text-align: center; }
 }
@@ -241,17 +241,24 @@ footer {
 <body>
 
 <nav id="top-nav">
-  <div class="nav-logo">City <span>Archivist</span></div>
-      <a class="nav-back" href="index.html">Back to home</a>
-    <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
-      <span data-lang-current>EN</span>
-    </button>
+  <a class="nav-logo" href="index.html">City <span>Archivist</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#home" data-i18n="nav.home">Home</a></li>
+    <li><a href="index.html#destinations" data-i18n="nav.destinations">Destinations</a></li>
+    <li><a href="wonders.html" data-i18n="nav.wonders">Wonders</a></li>
+    <li><a href="hotels.html" data-i18n="nav.hotels">Hotels</a></li>
+    <li><a href="index.html#nightclubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
+    <li><a href="index.html#about" data-i18n="nav.about">About Us</a></li>
+  </ul>
+  <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
+    <span data-lang-current>EN</span>
+  </button>
 </nav>
 
 <div class="page-hero">
-  <div class="page-eyebrow">The Hotel Archive</div>
-  <h1 class="page-h1">Top Hotel Chains<br>on the <em>Globe</em></h1>
-  <p class="page-sub">Six names that define modern luxury hospitality.</p>
+  <div class="page-eyebrow" data-i18n="hotelsPage.eyebrow">The Hotel Archive</div>
+  <h1 class="page-h1" data-i18n="hotelsPage.h1">Top Hotel Chains<br>on the <em>Globe</em></h1>
+  <p class="page-sub" data-i18n="hotelsPage.sub">Six names that define modern luxury hospitality.</p>
 </div>
 
 <div class="chains-list">
@@ -353,7 +360,7 @@ footer {
   <a class="footer-back" href="index.html" data-i18n="nav.back">← Back to Home</a>
 </footer>
 
-<script src="lang.js?v=7" defer></script>
+<script src="lang.js?v=14" defer></script>
 <script>
   window.addEventListener('scroll', () => {
     const nav = document.getElementById('top-nav');
