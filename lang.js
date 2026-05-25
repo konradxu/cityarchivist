@@ -268,12 +268,13 @@ const TRANSLATIONS = {
     'legal.contact.h': 'How to reach us',
     'legal.contact.country': 'Germany',
     'legal.contact.email.label': 'Email',
+    'legal.contact.note': 'For press, partnerships or legal matters, please reach out by email. A postal address can be provided on written request.',
     'legal.responsible.label': 'Responsibility · § 5 TMG',
     'legal.responsible.h': 'Responsible for content',
-    'legal.responsible.p': 'Konrad Xu, address as listed above.',
+    'legal.responsible.p': 'Konrad Xu. Postal address available on written request.',
     'legal.editorial.label': '§ 55 Abs. 2 RStV',
     'legal.editorial.h': 'Responsible for journalistic-editorial content',
-    'legal.editorial.p': 'Konrad Xu, address as listed above.',
+    'legal.editorial.p': 'Konrad Xu. Contact via email above.',
     'legal.liability.label': 'Liability',
     'legal.liability.h': 'Disclaimer',
     'legal.liability.content': '<strong>Liability for content.</strong> The contents of these pages have been compiled with the greatest care. We cannot, however, accept any liability for the accuracy, completeness or timeliness of the content. As a service provider, we are responsible for our own content under the general laws (§ 7 (1) TMG). Under §§ 8 to 10 TMG, however, we are not obligated to monitor transmitted or stored third-party information.',
@@ -547,12 +548,13 @@ const TRANSLATIONS = {
     'legal.contact.h': 'So erreichst du uns',
     'legal.contact.country': 'Deutschland',
     'legal.contact.email.label': 'E-Mail',
+    'legal.contact.note': 'Für Anfragen aus Presse, Partnerschaften oder rechtlichen Themen bitte per E-Mail melden. Eine ladungsfähige Anschrift wird auf schriftliche Anfrage zur Verfügung gestellt.',
     'legal.responsible.label': 'Angaben gemäß § 5 TMG',
     'legal.responsible.h': 'Verantwortlich für den Inhalt',
-    'legal.responsible.p': 'Konrad Xu, Anschrift wie oben.',
+    'legal.responsible.p': 'Konrad Xu. Ladungsfähige Anschrift auf schriftliche Anfrage.',
     'legal.editorial.label': '§ 55 Abs. 2 RStV',
     'legal.editorial.h': 'Verantwortlich für journalistisch-redaktionelle Inhalte',
-    'legal.editorial.p': 'Konrad Xu, Anschrift wie oben.',
+    'legal.editorial.p': 'Konrad Xu. Kontakt über die E-Mail-Adresse oben.',
     'legal.liability.label': 'Haftung',
     'legal.liability.h': 'Haftungsausschluss',
     'legal.liability.content': '<strong>Haftung für Inhalte.</strong> Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen.',
@@ -826,12 +828,13 @@ const TRANSLATIONS = {
     'legal.contact.h': '联系方式',
     'legal.contact.country': '德国',
     'legal.contact.email.label': '电子邮件',
+    'legal.contact.note': '媒体、合作或法律事务请通过电子邮件联系。书面请求可提供邮政地址。',
     'legal.responsible.label': '《电信媒体法》第 5 条',
     'legal.responsible.h': '内容负责人',
-    'legal.responsible.p': 'Konrad Xu,地址同上。',
+    'legal.responsible.p': 'Konrad Xu。书面请求可提供邮政地址。',
     'legal.editorial.label': '《广播电视国家协议》第 55 条第 2 款',
     'legal.editorial.h': '编辑内容负责人',
-    'legal.editorial.p': 'Konrad Xu,地址同上。',
+    'legal.editorial.p': 'Konrad Xu。请通过上述电子邮件联系。',
     'legal.liability.label': '责任',
     'legal.liability.h': '免责声明',
     'legal.liability.content': '<strong>内容责任。</strong>我们以最大的谨慎编制了本网站的内容。但我们不能对内容的准确性、完整性和时效性承担任何责任。作为服务提供商,根据《电信媒体法》第 7 条第 1 款,我们对本网站的自有内容依照一般法律负责。但根据《电信媒体法》第 8 至 10 条,作为服务提供商,我们没有义务监控传输或存储的第三方信息。',
@@ -906,14 +909,6 @@ function applyLang(lang) {
   });
 
   // ── Fill SITE_INFO into any [data-info] elements ──
-  // Re-run on every language change so the country line updates too.
-  const country = dict['legal.contact.country'] || '';
-  const fullAddress =
-    `${SITE_INFO.name}<br>${SITE_INFO.street}<br>${SITE_INFO.postalCity}<br>${country}`;
-
-  document.querySelectorAll('[data-info="address"]').forEach(el => {
-    el.innerHTML = fullAddress;
-  });
   document.querySelectorAll('[data-info="email"]').forEach(el => {
     el.textContent = SITE_INFO.email;
   });
