@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="City Archivist">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400&amp;display=swap');
+    </style>
+  </defs>
+  <!-- Beige background -->
+  <rect width="400" height="400" fill="#e9ddc7"/>
+  <!-- Double-line circle border -->
+  <circle cx="200" cy="200" r="170" fill="none" stroke="#a89070" stroke-width="1.6"/>
+  <circle cx="200" cy="200" r="162" fill="none" stroke="#a89070" stroke-width="1.6"/>
+  <!-- CITY text -->
+  <text x="200" y="195"
+        text-anchor="middle"
+        font-family="'Cormorant Garamond', Georgia, serif"
+        font-size="40"
+        font-weight="400"
+        letter-spacing="6"
+        fill="#8a7556">CITY</text>
+  <!-- ARCHIVIST text -->
+  <text x="200" y="248"
+        text-anchor="middle"
+        font-family="'Cormorant Garamond', Georgia, serif"
+        font-size="40"
+        font-weight="400"
+        letter-spacing="6"
+        fill="#8a7556">ARCHIVIST</text>
+  <!-- Accent line under text -->
+  <line x1="182" y1="276" x2="218" y2="276" stroke="#a89070" stroke-width="1.6"/>
+</svg>

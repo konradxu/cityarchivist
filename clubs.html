@@ -267,16 +267,21 @@ nav .nav-links a:hover::after { width: 100%; }
   display: inline-flex; align-items: center; gap: 8px;
 }
 .ca-lang-trigger:hover { color: var(--gold-dim); border-color: rgba(184,153,90,0.4); }
-</style>
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+.nav-logo img {
+  height: 46px; width: auto;
+  display: block;
+}
+@media (max-width: 768px) {
+  .nav-logo img { height: 38px; }
+}
+</style><link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 </head>
 <body>
 
 <nav id="top-nav">
-  <a class="nav-logo" href="/">City <span>Archivist</span></a>
+  <a class="nav-logo" href="/"><img src="/logo-nav.svg" alt="City Archivist"></a>
   <ul class="nav-links">
     <li><a href="/#home" data-i18n="nav.home">Home</a></li>
     <li><a href="/#destinations" data-i18n="nav.destinations">Destinations</a></li>
