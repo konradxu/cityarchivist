@@ -2,6 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<!-- Security headers -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://formspree.io; script-src 'self' 'unsafe-inline'; frame-src https://www.google.com https://maps.google.com; form-action https://formspree.io 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=()">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Seven Wonders — City Archivist</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
@@ -161,6 +166,7 @@ nav {
   background: linear-gradient(150deg, #4a4540 0%, #2a2620 60%, #1a1814 100%);
   transition: transform 0.7s ease;
   transform: translateZ(-30px) scale(1.05);
+  pointer-events: none;
 }
 .wonder-card:hover .wonder-card-bg { transform: translateZ(-30px) scale(1.1); }
 .wonder-card-bg::before {
@@ -190,6 +196,7 @@ nav {
   padding: 2.4rem 2rem;
   display: flex; flex-direction: column; justify-content: space-between;
   transform: translateZ(40px);
+  pointer-events: none;
 }
 .wonder-card.featured .wonder-card-content { padding: 3rem 2.6rem; }
 
@@ -454,27 +461,54 @@ nav .nav-links a:hover::after { width: 100%; }
   <a class="footer-back" href="/" data-i18n="nav.back">← Back to Home</a>
 </footer>
 
-<script src="lang.js?v=23" defer></script>
+<script src="lang.js?v=24" defer></script>
 <script>
-  // Only enable mouse-tracked 3D tilt on devices that actually have a mouse.
-  // On phones / tablets the cards stay still — no stuck transforms after a tap.
-  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  if (canHover) {
+  /* ── 3D-tilt for wonder cards ──
+     Fixes:
+     1. requestAnimationFrame throttling — mousemove fires 100+/sec, we only
+        actually move the card once per frame. Smoother + no jank.
+     2. Lock transform during mousedown → mouseup so the click target doesn't
+        shift mid-click (which is why clicks sometimes needed 2-3 tries before).
+     3. Skip on touch devices (hover-capable check). */
+  (function () {
+    const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (!canHover) return;
+
     document.querySelectorAll('.tilt').forEach(card => {
+      let frame = null;
+      let isPressed = false;
+      let lastX = 0, lastY = 0;
+
+      function applyTilt() {
+        frame = null;
+        if (isPressed) return; // hold transform stable while clicking
+        card.style.transform =
+          `perspective(1500px) rotateX(${lastY}deg) rotateY(${lastX}deg) translateZ(0) scale(1.02)`;
+      }
+
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
         const x = (e.clientX - rect.left) / rect.width;
         const y = (e.clientY - rect.top) / rect.height;
-        const rotY = (x - 0.5) * 14;
-        const rotX = (0.5 - y) * 14;
-        card.style.transform =
-          `perspective(1500px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(0) scale(1.02)`;
+        lastX = (x - 0.5) * 14;
+        lastY = (0.5 - y) * 14;
+        if (frame === null) frame = requestAnimationFrame(applyTilt);
       });
+
       card.addEventListener('mouseleave', () => {
+        if (frame) { cancelAnimationFrame(frame); frame = null; }
+        isPressed = false;
         card.style.transform = 'perspective(1500px) rotateX(0) rotateY(0) translateZ(0) scale(1)';
       });
+
+      /* Lock the card flat while the mouse is pressed → click registers cleanly */
+      card.addEventListener('mousedown', () => {
+        isPressed = true;
+        card.style.transform = 'perspective(1500px) rotateX(0) rotateY(0) translateZ(0) scale(1.01)';
+      });
+      card.addEventListener('mouseup', () => { isPressed = false; });
     });
-  }
+  })();
 </script>
 </body>
 </html>
