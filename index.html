@@ -539,13 +539,96 @@ nav {
 .hotels-feature:hover .hotels-feature-cta {
   background: var(--ink); color: var(--parchment); gap: 18px;
 }
-#nightclubs { background: var(--ink); padding-bottom: 2.5rem; }
-#nightclubs .sec-header { padding-bottom: 1.6rem; }
-#nightclubs .sec-header { border-bottom-color: rgba(255,255,255,0.08); }
-#nightclubs .sec-eyebrow { color: var(--gold-dim); }
-#nightclubs .sec-eyebrow::before { background: var(--gold-dim); }
-#nightclubs .sec-h { color: var(--parchment); }
-#nightclubs .sec-desc { color: rgba(248,245,239,0.42); }
+/* ── CLUBS FEATURE STRIP ── */
+.clubs-feature {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--sand);
+  border-bottom: 1px solid var(--sand);
+  min-height: 460px;
+  text-decoration: none; color: inherit;
+  background: linear-gradient(135deg, #1a1814 0%, #2a2620 50%, #3a342d 100%);
+  position: relative; overflow: hidden;
+  transition: filter 0.4s;
+}
+.clubs-feature::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 80% 50%, rgba(184,153,90,0.18), transparent 60%),
+    radial-gradient(ellipse at 20% 30%, rgba(212,188,138,0.10), transparent 50%);
+  pointer-events: none;
+}
+.clubs-feature:hover { filter: brightness(1.08); }
+.clubs-feature-art {
+  position: relative;
+  padding: 3rem 2rem;
+  display: flex; align-items: center; justify-content: center;
+  order: 2;
+}
+.clubs-mosaic {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 6px;
+  width: 100%; max-width: 460px;
+  aspect-ratio: 3/2;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.clubs-feature:hover .clubs-mosaic { transform: scale(1.02); }
+.clubs-mosaic-tile {
+  position: relative; overflow: hidden;
+  background-size: cover; background-position: center;
+  border: 1px solid rgba(212,188,138,0.15);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+.clubs-mosaic-tile::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(160deg, rgba(0,0,0,0.05), rgba(0,0,0,0.35));
+}
+.clubs-feature-body {
+  padding: 5rem 5rem;
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; z-index: 2;
+  order: 1;
+}
+.clubs-feature-eyebrow {
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 0.34em; text-transform: uppercase;
+  color: var(--gold-dim); margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: 12px;
+}
+.clubs-feature-eyebrow::before {
+  content: ''; width: 20px; height: 1px;
+  background: var(--gold-dim); display: inline-block;
+}
+.clubs-feature-h {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  font-weight: 300; line-height: 1.1;
+  color: var(--parchment); margin-bottom: 1.8rem;
+}
+.clubs-feature-h em { font-style: italic; color: var(--gold); }
+.clubs-feature-text {
+  font-size: 13.5px; font-weight: 300;
+  color: rgba(248,245,239,0.6); line-height: 2;
+  max-width: 460px; margin-bottom: 2.6rem;
+}
+.clubs-feature-cta {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-family: var(--sans);
+  font-size: 11px; font-weight: 400;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--ink);
+  background: var(--gold);
+  padding: 18px 32px;
+  align-self: flex-start;
+  border: 1px solid var(--gold);
+  transition: background 0.3s, color 0.3s, gap 0.3s;
+}
+.clubs-feature-cta::after { content: '↗'; font-size: 16px; }
+.clubs-feature:hover .clubs-feature-cta {
+  background: transparent; color: var(--gold);
+  gap: 22px;
+}
 /* ── CLUB CARDS GRID ── */
 .clubs-grid {
   display: grid; grid-template-columns: repeat(3, 1fr);
@@ -696,18 +779,11 @@ nav {
 }
 .wonders-tile:nth-child(1) { background: linear-gradient(150deg, #6b5b3a, #3a342d); }
 .wonders-tile:nth-child(2) { background: linear-gradient(150deg, #a89070, #4a4540); }
-.wonders-tile:nth-child(3) {
+.wonders-tile:nth-child(3),
+.wonders-tile-img {
   background: url('great-wall1.jpg') center/cover no-repeat;
-  color: rgba(248,245,239,0.95);
-  text-shadow: 0 1px 6px rgba(0,0,0,0.55);
+  font-size: 0;
 }
-.wonders-tile:nth-child(3)::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(160deg, rgba(0,0,0,0.10), rgba(0,0,0,0.45));
-  z-index: 0;
-}
-.wonders-tile:nth-child(3) > * { position: relative; z-index: 1; }
 .wonders-tile:nth-child(4) { background: linear-gradient(150deg, #8a7050, #3a342d); }
 .wonders-tile:nth-child(5) {
   background: linear-gradient(150deg, var(--gold), var(--gold-dim));
@@ -975,12 +1051,10 @@ footer {
   .dest-soon-item { border-right: none; border-bottom: 1px solid var(--sand); padding: 1.5rem 1.8rem; }
   .dest-soon-item:last-child { border-bottom: none; }
 
-  .clubs-grid { grid-template-columns: 1fr 1fr; margin: 0 1.2rem; gap: 1px; }
-  .club-card-img { aspect-ratio: 16/10; }
-  .club-card-body { padding: 0.75rem 0.9rem 0.85rem; }
-  .club-card-name { font-size: 0.95rem; }
-  .club-card-num { top: 0.7rem; left: 0.9rem; font-size: 0.8rem; }
-  .club-card-loc { bottom: 0.7rem; left: 0.9rem; font-size: 8px; letter-spacing: 0.2em; }
+  .clubs-feature { grid-template-columns: 1fr; min-height: auto; }
+  .clubs-feature-art { padding: 3rem 1.8rem; order: 1; }
+  .clubs-feature-body { padding: 3rem 1.8rem 4rem; order: 2; }
+  .clubs-mosaic { max-width: 100%; }
 
   #about { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 1.8rem; }
   .about-imgs { display: block; max-width: 360px; margin: 0 auto 2rem; }
@@ -1018,7 +1092,7 @@ footer {
     <li><a href="#destinations" data-i18n="nav.destinations">Destinations</a></li>
     <li><a href="wonders.html" data-i18n="nav.wonders">Wonders</a></li>
     <li><a href="hotels.html" data-i18n="nav.hotels">Hotels</a></li>
-    <li><a href="#nightclubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
+    <li><a href="clubs.html" data-i18n="nav.nightclubs">Nightclubs</a></li>
     <li><a href="#about" data-i18n="nav.about">About Us</a></li>
   </ul>
   <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
@@ -1132,7 +1206,7 @@ footer {
       <div class="wonders-mosaic">
         <div class="wonders-tile">Petra</div>
         <div class="wonders-tile">Christ</div>
-        <div class="wonders-tile"><span>Wall</span></div>
+        <div class="wonders-tile wonders-tile-img"></div>
         <div class="wonders-tile">Taj</div>
         <div class="wonders-tile">VII</div>
         <div class="wonders-tile">Machu</div>
@@ -1172,104 +1246,24 @@ footer {
 <div class="divider"><div class="divider-line"></div><div class="divider-mark">✦</div><div class="divider-line"></div></div>
 
 <section id="nightclubs">
-  <div class="sec-header">
-    <div>
-      <div class="sec-eyebrow" data-i18n="clubs.eyebrow">Best Nightclubs on the Globe</div>
-      <h2 class="sec-h" data-i18n="clubs.h2">After<br><em>Dark</em></h2>
+  <a href="clubs.html" class="clubs-feature">
+    <div class="clubs-feature-body">
+      <div class="clubs-feature-eyebrow" data-i18n="clubs.eyebrow">Best Nightclubs on the Globe</div>
+      <h2 class="clubs-feature-h" data-i18n="clubs.h2">After<br><em>Dark</em></h2>
+      <p class="clubs-feature-text" data-i18n="clubs.desc">Explore the world's top nightclubs for unmatched beats and unforgettable nights.</p>
+      <span class="clubs-feature-cta" data-i18n="clubs.cta">Explore the Clubs</span>
     </div>
-    <p class="sec-desc" data-i18n="clubs.desc">Explore the world’s top nightclubs for unmatched beats and unforgettable nights.</p>
-  </div>
-  <div class="clubs-grid">
-    <a href="hi-ibiza.html" class="club-card">
-      <div class="club-card-img">
-        <img src="hiibiza1.png" alt="Hï Ibiza">
-        <div class="club-card-overlay"></div>
-        <span class="club-card-num">01</span>
-        <span class="club-card-loc">Ibiza · Spain</span>
+    <div class="clubs-feature-art" aria-hidden="true">
+      <div class="clubs-mosaic">
+        <div class="clubs-mosaic-tile" style="background-image:url('hiibiza1.png');"></div>
+        <div class="clubs-mosaic-tile" style="background-image:url('echostage1.png');"></div>
+        <div class="clubs-mosaic-tile" style="background-image:url('berghain.png');"></div>
+        <div class="clubs-mosaic-tile" style="background-image:url('fabric.png');"></div>
+        <div class="clubs-mosaic-tile" style="background-image:url('pacha.png');"></div>
+        <div class="clubs-mosaic-tile" style="background-image:url('unvrs.png');"></div>
       </div>
-      <div class="club-card-body">
-        <div class="club-card-name" data-i18n="clubs.hi.name">Hï Ibiza</div>
-        <div class="club-card-genre">Techno · House · EDM</div>
-        <p class="club-card-desc" data-i18n="clubs.hi.desc">Voted №1 club in the world multiple times — futuristic design, two main rooms and the most in-demand DJs of the decade.</p>
-        <span class="club-card-cta" data-i18n="dest.explore">Explore</span>
-      </div>
-    </a>
-
-    <a href="echostage.html" class="club-card">
-      <div class="club-card-img">
-        <img src="echostage1.png" alt="Echostage">
-        <div class="club-card-overlay"></div>
-        <span class="club-card-num">02</span>
-        <span class="club-card-loc">Washington · USA</span>
-      </div>
-      <div class="club-card-body">
-        <div class="club-card-name" data-i18n="clubs.echo.name">Echostage</div>
-        <div class="club-card-genre">House · Trance · Bass</div>
-        <p class="club-card-desc" data-i18n="clubs.echo.desc">North America's largest concert venue dedicated to electronic music — vast warehouse space, immersive light shows, headline residencies.</p>
-        <span class="club-card-cta" data-i18n="dest.explore">Explore</span>
-      </div>
-    </a>
-
-    <a href="berghain.html" class="club-card">
-      <div class="club-card-img">
-        <img src="berghain.png" alt="Berghain">
-        <div class="club-card-overlay"></div>
-        <span class="club-card-num">03</span>
-        <span class="club-card-loc">Berlin · Germany</span>
-      </div>
-      <div class="club-card-body">
-        <div class="club-card-name" data-i18n="clubs.berg.name">Berghain</div>
-        <div class="club-card-genre">Techno · Industrial</div>
-        <p class="club-card-desc" data-i18n="clubs.berg.desc">A former power plant turned temple of techno. Famous for its uncompromising door, marathon sets and a sound system that defines the genre.</p>
-        <span class="club-card-cta" data-i18n="dest.explore">Explore</span>
-      </div>
-    </a>
-
-    <a href="fabric.html" class="club-card">
-      <div class="club-card-img">
-        <img src="fabric.png" alt="Fabric">
-        <div class="club-card-overlay"></div>
-        <span class="club-card-num">04</span>
-        <span class="club-card-loc">London · UK</span>
-      </div>
-      <div class="club-card-body">
-        <div class="club-card-name" data-i18n="clubs.fab.name">Fabric</div>
-        <div class="club-card-genre">House · Techno · Drum &amp; Bass</div>
-        <p class="club-card-desc" data-i18n="clubs.fab.desc">Three rooms beneath Smithfield Market and a bodysonic dancefloor that moves with the bass — a London institution for over two decades.</p>
-        <span class="club-card-cta" data-i18n="dest.explore">Explore</span>
-      </div>
-    </a>
-
-    <a href="pacha.html" class="club-card">
-      <div class="club-card-img">
-        <img src="pacha.png" alt="Pacha">
-        <div class="club-card-overlay"></div>
-        <span class="club-card-num">05</span>
-        <span class="club-card-loc">Ibiza · Spain</span>
-      </div>
-      <div class="club-card-body">
-        <div class="club-card-name" data-i18n="clubs.pacha.name">Pacha</div>
-        <div class="club-card-genre">House · Disco · Open Format</div>
-        <p class="club-card-desc" data-i18n="clubs.pacha.desc">The cherry-logo legend. Open since 1973, Pacha turned Ibiza into the global capital of nightlife — glamour, history and endless summers.</p>
-        <span class="club-card-cta" data-i18n="dest.explore">Explore</span>
-      </div>
-    </a>
-
-    <a href="unvrs.html" class="club-card">
-      <div class="club-card-img">
-        <img src="unvrs.png" alt="UNVRS">
-        <div class="club-card-overlay"></div>
-        <span class="club-card-num">06</span>
-        <span class="club-card-loc">Ibiza · Spain</span>
-      </div>
-      <div class="club-card-body">
-        <div class="club-card-name" data-i18n="clubs.unvrs.name">UNVRS</div>
-        <div class="club-card-genre">Techno · House · EDM</div>
-        <p class="club-card-desc" data-i18n="clubs.unvrs.desc">Opened summer 2025 on the legendary Privilege site — a multi-room mega-venue with the world's first 360° open-air club stage and the most ambitious production on the island.</p>
-        <span class="club-card-cta" data-i18n="dest.explore">Explore</span>
-      </div>
-    </a>
-  </div>
+    </div>
+  </a>
 </section>
 
 <!-- DIVIDER dark -->
@@ -1336,7 +1330,7 @@ footer {
         <li><a href="#home" data-i18n="nav.home">Home</a></li>
         <li><a href="#destinations" data-i18n="nav.destinations">Destinations</a></li>
         <li><a href="hotels.html" data-i18n="nav.hotels">Hotels</a></li>
-        <li><a href="#nightclubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
+        <li><a href="clubs.html" data-i18n="nav.nightclubs">Nightclubs</a></li>
         <li><a href="#about" data-i18n="nav.about">About Us</a></li>
       </ul>
     </div>
@@ -1357,7 +1351,7 @@ footer {
   </div>
 </footer>
 
-<script src="lang.js?v=17" defer></script>
+<script src="lang.js?v=18" defer></script>
 <script>
   window.addEventListener('scroll', () => {
     const nav = document.getElementById('top-nav');
