@@ -705,28 +705,63 @@ nav {
   gap: 14px; color: var(--gold);
 }
 
-/* ── WONDERS FEATURE (index) — same minimalist style as hotels ── */
+/* ── WONDERS FEATURE (index) — beige bg, 9-tile mosaic, minimalist CTA ── */
 .wonders-feature {
   display: grid; grid-template-columns: 1fr 1fr;
   border-top: 1px solid var(--sand);
   border-bottom: 1px solid var(--sand);
-  min-height: 380px;
+  min-height: 460px;
   text-decoration: none; color: inherit;
   background: var(--linen);
   position: relative;
   transition: background 0.3s;
 }
 .wonders-feature:hover { background: var(--parchment); }
-.wonders-feature-img {
+.wonders-feature-art {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  padding: 4rem 3rem;
+  perspective: 1200px;
+}
+.wonders-mosaic {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  width: 100%; max-width: 380px;
+  aspect-ratio: 1;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.wonders-feature:hover .wonders-mosaic {
+  transform: rotateX(6deg) rotateY(-10deg) translateZ(18px);
+}
+.wonders-tile {
   position: relative; overflow: hidden;
-  background: linear-gradient(150deg, var(--sand) 0%, var(--stone) 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-style: italic;
+  font-size: 0.78rem; color: rgba(248,245,239,0.7);
+  letter-spacing: 0.05em;
+  border: 1px solid rgba(212,188,138,0.18);
+  box-shadow: 0 6px 18px rgba(58,52,45,0.18);
 }
-.wonders-feature-img img {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; object-position: center;
-  transition: transform 0.7s ease;
+.wonders-tile:nth-child(1) { background: linear-gradient(150deg, #6b5b3a, #3a342d); }
+.wonders-tile:nth-child(2) { background: linear-gradient(150deg, #a89070, #4a4540); }
+.wonders-tile:nth-child(3),
+.wonders-tile-img {
+  background: url('great-wall1.jpg') center/cover no-repeat;
+  font-size: 0;
 }
-.wonders-feature:hover .wonders-feature-img img { transform: scale(1.03); }
+.wonders-tile:nth-child(4) { background: linear-gradient(150deg, #8a7050, #3a342d); }
+.wonders-tile:nth-child(5) {
+  background: linear-gradient(150deg, var(--gold), var(--gold-dim));
+  color: var(--ink); font-style: normal;
+  font-size: 1.4rem; font-weight: 300;
+  letter-spacing: 0.04em;
+}
+.wonders-tile:nth-child(6) { background: linear-gradient(150deg, #6b5b3a, #2a2620); }
+.wonders-tile:nth-child(7) { background: linear-gradient(150deg, #4a4540, #1a1814); }
+.wonders-tile:nth-child(8) { background: linear-gradient(150deg, #8a7050, #4a4540); }
+.wonders-tile:nth-child(9) { background: linear-gradient(150deg, #6b5b3a, #3a342d); }
 .wonders-feature-body {
   padding: 4rem 4.5rem;
   display: flex; flex-direction: column; justify-content: center;
@@ -999,8 +1034,9 @@ footer {
   .wonders-feature,
   .clubs-feature { grid-template-columns: 1fr; min-height: auto; }
   .hotels-feature-img,
-  .wonders-feature-img,
   .clubs-feature-img { min-height: 260px; }
+  .wonders-feature-art { padding: 2.5rem 1.8rem; }
+  .wonders-mosaic { max-width: 280px; }
   .hotels-feature-body,
   .wonders-feature-body,
   .clubs-feature-body { padding: 3rem 1.8rem; border-left: none; border-top: 1px solid var(--sand); }
@@ -1132,8 +1168,18 @@ footer {
 <!-- WONDERS FEATURE -->
 <section id="wonders" aria-label="Seven Wonders">
   <a href="wonders.html" class="wonders-feature">
-    <div class="wonders-feature-img">
-      <img src="great-wall1.jpg" alt="Seven Wonders of the World">
+    <div class="wonders-feature-art" aria-hidden="true">
+      <div class="wonders-mosaic">
+        <div class="wonders-tile">Petra</div>
+        <div class="wonders-tile">Christ</div>
+        <div class="wonders-tile wonders-tile-img"></div>
+        <div class="wonders-tile">Taj</div>
+        <div class="wonders-tile">VII</div>
+        <div class="wonders-tile">Machu</div>
+        <div class="wonders-tile">Roma</div>
+        <div class="wonders-tile">Itzá</div>
+        <div class="wonders-tile">★</div>
+      </div>
     </div>
     <div class="wonders-feature-body">
       <div class="wonders-feature-eyebrow" data-i18n="wonders.eyebrow">Seven Wonders</div>
@@ -1179,12 +1225,8 @@ footer {
   </a>
 </section>
 
-<!-- DIVIDER dark -->
-<div class="divider" style="background:var(--ink); margin:0;">
-  <div class="divider-line" style="background:rgba(255,255,255,0.08);"></div>
-  <div class="divider-mark" style="color:rgba(200,191,176,0.25);">✦</div>
-  <div class="divider-line" style="background:rgba(255,255,255,0.08);"></div>
-</div>
+<!-- DIVIDER -->
+<div class="divider"><div class="divider-line"></div><div class="divider-mark">✦</div><div class="divider-line"></div></div>
 
 <!-- ABOUT -->
 <section id="about">
@@ -1264,7 +1306,7 @@ footer {
   </div>
 </footer>
 
-<script src="lang.js?v=18" defer></script>
+<script src="lang.js?v=20" defer></script>
 <script>
   window.addEventListener('scroll', () => {
     const nav = document.getElementById('top-nav');
