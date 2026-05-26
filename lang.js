@@ -157,6 +157,7 @@ const TRANSLATIONS = {
     'news.emailPlaceholder': 'your@email.com',
     'news.button': 'Subscribe',
     'news.success': 'Thank you — you’re on the list.',
+    'news.rateLimit': 'Too many requests — please try again in an hour.',
     'news.errorEmail': 'Please enter a valid email address.',
     'news.errorName': 'Please enter your name.',
 
@@ -465,6 +466,7 @@ const TRANSLATIONS = {
     'news.emailPlaceholder': 'deine@email.de',
     'news.button': 'Abonnieren',
     'news.success': 'Danke — du bist auf der Liste.',
+    'news.rateLimit': 'Zu viele Anfragen — bitte in einer Stunde erneut versuchen.',
     'news.errorEmail': 'Bitte gib eine gültige E-Mail-Adresse ein.',
     'news.errorName': 'Bitte gib deinen Namen ein.',
 
@@ -773,6 +775,7 @@ const TRANSLATIONS = {
     'news.emailPlaceholder': 'you@email.com',
     'news.button': '订阅',
     'news.success': '感谢 — 你已加入名单。',
+    'news.rateLimit': '请求过于频繁——请一小时后再试。',
     'news.errorEmail': '请输入有效的电子邮件地址。',
     'news.errorName': '请输入你的姓名。',
 
@@ -1621,9 +1624,51 @@ async function postToEndpoint(endpoint, payload) {
   } catch (_) { return false; }
 }
 
+/* ── Anti-bot helpers ────────────────────────────────────────
+   1. Honeypot: hidden field named "_gotcha" — bots fill it.
+   2. Time-trap: if the form is submitted < 3s after load → bot.
+   3. Rate limit: max 3 submissions / hour per browser.
+   ──────────────────────────────────────────────────────────── */
+const RATE_LIMIT_KEY = 'cityArchivistRateLimit';
+const RATE_LIMIT_MAX = 3;              // submissions per window
+const RATE_LIMIT_WINDOW_MS = 3600000;  // 1 hour
+const MIN_FORM_TIME_MS = 3000;         // min 3s between page-load and submit
+
+function stampFormLoadTime(form) {
+  const stamp = form.querySelector('[name="_form_loaded_at"]');
+  if (stamp) stamp.value = Date.now().toString();
+}
+
+function isHoneypotTripped(form) {
+  const hp = form.querySelector('[name="_gotcha"]');
+  return !!(hp && hp.value && hp.value.trim() !== '');
+}
+
+function isTooFast(form) {
+  const stamp = form.querySelector('[name="_form_loaded_at"]');
+  if (!stamp || !stamp.value) return false;
+  const loaded = parseInt(stamp.value, 10);
+  if (!loaded) return false;
+  return (Date.now() - loaded) < MIN_FORM_TIME_MS;
+}
+
+function hitRateLimit() {
+  const now = Date.now();
+  let log;
+  try { log = JSON.parse(localStorage.getItem(RATE_LIMIT_KEY) || '[]'); }
+  catch (_) { log = []; }
+  log = log.filter(t => (now - t) < RATE_LIMIT_WINDOW_MS);
+  if (log.length >= RATE_LIMIT_MAX) return true;
+  log.push(now);
+  localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify(log));
+  return false;
+}
+
 function bindNewsletter() {
   const form = document.getElementById('newsletter-form');
   if (!form) return;
+  stampFormLoadTime(form);
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const lang = getCurrentLang() || 'en';
@@ -1632,14 +1677,37 @@ function bindNewsletter() {
     const emailEl = form.querySelector('[name="email"]');
     const msgEl   = document.getElementById('newsletter-msg');
 
+    // ── SECURITY: silently drop bot submissions ──
+    if (isHoneypotTripped(form) || isTooFast(form)) {
+      msgEl.textContent = dict['news.success'];  // fake success — bots learn nothing
+      msgEl.dataset.state = 'ok';
+      form.reset();
+      stampFormLoadTime(form);
+      return;
+    }
+    // ── SECURITY: rate-limit ──
+    if (hitRateLimit()) {
+      msgEl.textContent = dict['news.rateLimit'] || 'Too many requests. Try again later.';
+      msgEl.dataset.state = 'error';
+      return;
+    }
+
     const name  = nameEl.value.trim();
     const email = emailEl.value.trim();
     const ok    = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-    if (!name) { msgEl.textContent = dict['news.errorName'];  msgEl.dataset.state = 'error'; return; }
-    if (!ok)   { msgEl.textContent = dict['news.errorEmail']; msgEl.dataset.state = 'error'; return; }
+    // ── INPUT SANITISATION: limit length, strip control chars ──
+    if (name.length > 100 || email.length > 200) {
+      msgEl.textContent = dict['news.errorName'];
+      msgEl.dataset.state = 'error';
+      return;
+    }
+    const safeName = name.replace(/[ -<>]/g, '').slice(0, 100);
 
-    const payload = { name, email, lang, ts: new Date().toISOString() };
+    if (!safeName) { msgEl.textContent = dict['news.errorName'];  msgEl.dataset.state = 'error'; return; }
+    if (!ok)       { msgEl.textContent = dict['news.errorEmail']; msgEl.dataset.state = 'error'; return; }
+
+    const payload = { name: safeName, email, lang, ts: new Date().toISOString() };
 
     // Local backup
     const list = JSON.parse(localStorage.getItem(NEWSLETTER_KEY) || '[]');
@@ -1648,13 +1716,21 @@ function bindNewsletter() {
 
     // Remote endpoint (Formspree etc.) if configured
     const endpoint = form.getAttribute('data-endpoint');
-    const valid = endpoint && /^https?:\/\//.test(endpoint) && !/PLACEHOLDER/i.test(endpoint);
+    const valid = endpoint && /^https:\/\//.test(endpoint) && !/PLACEHOLDER/i.test(endpoint);
     if (valid) await postToEndpoint(endpoint, payload);
 
     msgEl.textContent = dict['news.success'];
     msgEl.dataset.state = 'ok';
     form.reset();
+    stampFormLoadTime(form);
   });
+}
+
+/* ── Same anti-bot logic for Baaria reservation form ── */
+function bindBaariaForm() {
+  const form = document.getElementById('baaria-form');
+  if (!form) return;
+  stampFormLoadTime(form);
 }
 
 /* ============================================================
@@ -1683,4 +1759,5 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   bindNewsletter();
+  bindBaariaForm();
 });
