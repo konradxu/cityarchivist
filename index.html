@@ -860,6 +860,38 @@ nav {
   font-weight: 300; line-height: 1.95;
   max-width: 430px; margin-bottom: 1.1rem;
 }
+.about-why {
+  margin-top: 2.6rem;
+  padding-top: 2.2rem;
+  border-top: 1px solid var(--sand);
+  max-width: 460px;
+}
+.about-why-label {
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 12px;
+}
+.about-why-label::before {
+  content: ''; width: 18px; height: 1px;
+  background: var(--gold); display: inline-block;
+}
+.about-why-h {
+  font-family: var(--serif);
+  font-size: clamp(1.25rem, 1.6vw, 1.55rem);
+  font-weight: 300; line-height: 1.3;
+  color: var(--ink); margin-bottom: 1rem;
+}
+.about-why-h em { font-style: italic; color: var(--gold); }
+.about-why-p {
+  font-size: 13px; color: var(--ink-light);
+  font-weight: 300; line-height: 1.95;
+  margin-bottom: 1rem;
+}
+.about-why-p em {
+  font-family: var(--serif); font-style: italic;
+  font-weight: 400; color: var(--ink-mid);
+}
 .about-values {
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 1.5rem; margin-top: 3rem;
@@ -1056,9 +1088,9 @@ footer {
   <ul class="nav-links">
     <li><a href="#home" data-i18n="nav.home">Home</a></li>
     <li><a href="#destinations" data-i18n="nav.destinations">Destinations</a></li>
-    <li><a href="wonders.html" data-i18n="nav.wonders">Wonders</a></li>
-    <li><a href="hotels.html" data-i18n="nav.hotels">Hotels</a></li>
-    <li><a href="clubs.html" data-i18n="nav.nightclubs">Nightclubs</a></li>
+    <li><a href="/wonders" data-i18n="nav.wonders">Wonders</a></li>
+    <li><a href="/hotels" data-i18n="nav.hotels">Hotels</a></li>
+    <li><a href="/clubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
     <li><a href="#about" data-i18n="nav.about">About Us</a></li>
   </ul>
   <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
@@ -1106,7 +1138,7 @@ footer {
     <p class="sec-desc"></p>
   </div>
   <div class="dest-dual">
-    <a href="muenchen.html" class="dest-panel">
+    <a href="/muenchen" class="dest-panel">
       <div class="dest-bg" style="background:none;">
         <img src="muenchen_bild.png" alt="München" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;">
       </div>
@@ -1117,7 +1149,7 @@ footer {
       </div>
       <div class="dest-explore-btn" data-i18n="dest.explore">Explore →</div>
     </a>
-    <a href="shanghai.html" class="dest-panel">
+    <a href="/shanghai" class="dest-panel">
       <div class="dest-bg dest-bg-shanghai" style="background:none;">
         <img src="shanghai.png" alt="Shanghai" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;">
       </div>
@@ -1128,7 +1160,7 @@ footer {
       </div>
       <div class="dest-explore-btn" data-i18n="dest.explore">Explore →</div>
     </a>
-    <a href="london.html" class="dest-panel">
+    <a href="/london" class="dest-panel">
       <div class="dest-bg" style="background:none;">
         <img src="london.png" alt="London" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;">
       </div>
@@ -1139,7 +1171,7 @@ footer {
       </div>
       <div class="dest-explore-btn" data-i18n="dest.explore">Explore →</div>
     </a>
-    <a href="tokyo.html" class="dest-panel">
+    <a href="/tokyo" class="dest-panel">
       <div class="dest-bg" style="background:none;">
         <img src="tokyo.png" alt="Tokyo" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;">
       </div>
@@ -1167,7 +1199,7 @@ footer {
 
 <!-- WONDERS FEATURE -->
 <section id="wonders" aria-label="Seven Wonders">
-  <a href="wonders.html" class="wonders-feature">
+  <a href="/wonders" class="wonders-feature">
     <div class="wonders-feature-art" aria-hidden="true">
       <div class="wonders-mosaic">
         <div class="wonders-tile">Petra</div>
@@ -1195,7 +1227,7 @@ footer {
 
 <!-- HOTELS FEATURE -->
 <section id="hotels" class="hotels-teaser">
-  <a href="hotels.html" class="hotels-feature">
+  <a href="/hotels" class="hotels-feature">
     <div class="hotels-feature-img">
       <img src="hotelpng.png" alt="Top hotel chains">
     </div>
@@ -1212,7 +1244,7 @@ footer {
 <div class="divider"><div class="divider-line"></div><div class="divider-mark">✦</div><div class="divider-line"></div></div>
 
 <section id="nightclubs">
-  <a href="clubs.html" class="clubs-feature">
+  <a href="/clubs" class="clubs-feature">
     <div class="clubs-feature-img">
       <img src="hiibiza1.png" alt="Top nightclubs on the globe">
     </div>
@@ -1242,6 +1274,13 @@ footer {
     <div class="about-eyebrow" data-i18n="about.eyebrow">About Us</div>
     <h2 class="about-h" data-i18n="about.h">built from passion for <em>hospitality and tourism.</em></h2>
     <p class="about-p" data-i18n="about.p">Hi, I’m Konrad Xu. My passion for hotels and hospitality started when I was just 12 years old, and over time it grew into a deep interest in how places can create truly memorable experiences.</p>
+
+    <div class="about-why">
+      <div class="about-why-label" data-i18n="about.why.label">The Origin</div>
+      <h3 class="about-why-h" data-i18n="about.why.h">Why <em>City Archivist</em> exists.</h3>
+      <p class="about-why-p" data-i18n="about.why.p1">During my internship at <em>Le Méridien Munich</em> — part of Marriott Bonvoy — I spent two weeks working in breakfast service. Day after day, I noticed the same thing: guests would ask not about the famous monuments, but about <em>what else</em> there is to a city — the corners that don't make it into guidebooks, the places locals actually go.</p>
+      <p class="about-why-p" data-i18n="about.why.p2">That gap is what I set out to fill. <em>City Archivist</em> is a quiet act of curation — for travellers who want to look beyond the queue lines and find the city that the city actually lives in.</p>
+    </div>
   </div>
 </section>
 
@@ -1284,8 +1323,8 @@ footer {
       <ul class="footer-links">
         <li><a href="#home" data-i18n="nav.home">Home</a></li>
         <li><a href="#destinations" data-i18n="nav.destinations">Destinations</a></li>
-        <li><a href="hotels.html" data-i18n="nav.hotels">Hotels</a></li>
-        <li><a href="clubs.html" data-i18n="nav.nightclubs">Nightclubs</a></li>
+        <li><a href="/hotels" data-i18n="nav.hotels">Hotels</a></li>
+        <li><a href="/clubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
         <li><a href="#about" data-i18n="nav.about">About Us</a></li>
       </ul>
     </div>
@@ -1294,9 +1333,9 @@ footer {
       <ul class="footer-links">
         <li><a href="#about" data-i18n="footer.aboutLink">About Us</a></li>
         <li><a href="#" data-i18n="footer.newsletter">Newsletter</a></li>
-        <li><a href="impressum.html#kontakt" data-i18n="footer.contact">Contact</a></li>
-        <li><a href="impressum.html#imprint" data-i18n="footer.imprint">Imprint</a></li>
-        <li><a href="impressum.html#datenschutz" data-i18n="footer.privacy">Privacy</a></li>
+        <li><a href="/impressum#kontakt" data-i18n="footer.contact">Contact</a></li>
+        <li><a href="/impressum#imprint" data-i18n="footer.imprint">Imprint</a></li>
+        <li><a href="/impressum#datenschutz" data-i18n="footer.privacy">Privacy</a></li>
       </ul>
     </div>
   </div>
@@ -1306,7 +1345,7 @@ footer {
   </div>
 </footer>
 
-<script src="lang.js?v=20" defer></script>
+<script src="lang.js?v=22" defer></script>
 <script>
   window.addEventListener('scroll', () => {
     const nav = document.getElementById('top-nav');

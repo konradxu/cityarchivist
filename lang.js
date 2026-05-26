@@ -3,6 +3,25 @@
    Languages: en (English), de (Deutsch), zh (中文)
    ============================================================ */
 
+/* ── Pretty URLs: hide .html from the address bar ──
+   GitHub Pages serves <page>.html when /<page> is requested,
+   so we just rewrite what the user sees in the URL bar.       */
+(function () {
+  try {
+    const path = window.location.pathname;
+    if (/\.html$/.test(path) && path !== '/404.html') {
+      const pretty = path === '/index.html'
+        ? '/'
+        : path.replace(/\.html$/, '');
+      window.history.replaceState(
+        null,
+        '',
+        pretty + window.location.search + window.location.hash
+      );
+    }
+  } catch (e) { /* no-op */ }
+})();
+
 /* ════════════════════════════════════════════════════════════
    ✏️  EDIT YOUR DETAILS HERE
    These values are used on the Imprint / Contact page.
@@ -126,6 +145,10 @@ const TRANSLATIONS = {
     'about.eyebrow': 'About Us',
     'about.h': 'Built from passion for <em>hospitality and tourism.</em>',
     'about.p': 'Hi, I’m Konrad Xu. My passion for hotels and hospitality started when I was just 12 years old, and over time it grew into a deep interest in how places can create truly memorable experiences. I created this platform to help people discover unique hotels, hidden spots and inspiring locations across Europe that go beyond standard travel guides.',
+    'about.why.label': 'The Origin',
+    'about.why.h': 'Why <em>City Archivist</em> exists.',
+    'about.why.p1': 'During my internship at <em>Le Méridien Munich</em> — part of Marriott Bonvoy — I spent two weeks working in breakfast service. Day after day, I noticed the same thing: guests would ask not about the famous monuments, but about <em>what else</em> there is to a city — the corners that don’t make it into guidebooks, the places locals actually go.',
+    'about.why.p2': 'That gap is what I set out to fill. <em>City Archivist</em> is a quiet act of curation — for travellers who want to look beyond the queue lines and find the city that the city actually lives in.',
 
     'news.eyebrow': 'Newsletter',
     'news.h': 'Stay in <em>the Archive.</em>',
@@ -145,6 +168,21 @@ const TRANSLATIONS = {
     'footer.imprint': 'Imprint',
     'footer.privacy': 'Privacy',
     'footer.copy': '© 2026 City Archivist — All rights reserved',
+
+    'error.eyebrow': 'Page not found',
+    'error.h': 'This corner of the archive is <em>still being written.</em>',
+    'error.p': 'The page you were looking for may have moved, been renamed, or never existed in the first place. Try the links below — or head back to the front page.',
+    'error.home': 'Back to Home',
+    'error.explore': 'Browse Destinations',
+    'error.quicklinks': 'Quick links',
+    'error.link.muenchen': 'Munich',
+    'error.link.london': 'London',
+    'error.link.shanghai': 'Shanghai',
+    'error.link.tokyo': 'Tokyo',
+    'error.link.wonders': 'Seven Wonders',
+    'error.link.hotels': 'Top Hotels',
+    'error.link.clubs': 'Nightclubs',
+    'error.link.imprint': 'Imprint',
 
     'hotelsPage.eyebrow': 'The Hotel Archive',
     'hotelsPage.h1': 'Top Hotel Chains<br>on the <em>Globe</em>',
@@ -415,6 +453,10 @@ const TRANSLATIONS = {
     'about.eyebrow': 'Über uns',
     'about.h': 'Aus Leidenschaft für <em>Hotellerie und Tourismus.</em>',
     'about.p': 'Hi, ich bin Konrad Xu. Meine Leidenschaft für Hotels und Gastfreundschaft begann mit zwölf Jahren — und wuchs mit der Zeit zu einem tiefen Interesse daran, wie Orte wirklich denkwürdige Erlebnisse schaffen können. Ich habe diese Plattform geschaffen, um einzigartige Hotels, versteckte Orte und inspirierende Plätze in ganz Europa zu zeigen, jenseits der Standard-Reiseführer.',
+    'about.why.label': 'Der Ursprung',
+    'about.why.h': 'Warum es <em>City Archivist</em> gibt.',
+    'about.why.p1': 'Während meines Praktikums im <em>Le Méridien München</em> — Teil von Marriott Bonvoy — habe ich zwei Wochen lang im Frühstücksservice gearbeitet. Tag für Tag ist mir dasselbe aufgefallen: Gäste fragten nicht nach den bekannten Sehenswürdigkeiten, sondern danach, <em>was es sonst noch</em> in einer Stadt gibt — die Ecken, die es nicht in Reiseführer schaffen, die Orte, an die Einheimische tatsächlich gehen.',
+    'about.why.p2': 'Genau diese Lücke wollte ich schließen. <em>City Archivist</em> ist eine leise Form der Kuration — für Reisende, die hinter die Warteschlangen schauen und die Stadt finden wollen, in der die Stadt tatsächlich lebt.',
 
     'news.eyebrow': 'Newsletter',
     'news.h': 'Bleib im <em>Archiv.</em>',
@@ -434,6 +476,21 @@ const TRANSLATIONS = {
     'footer.imprint': 'Impressum',
     'footer.privacy': 'Datenschutz',
     'footer.copy': '© 2026 City Archivist — Alle Rechte vorbehalten',
+
+    'error.eyebrow': 'Seite nicht gefunden',
+    'error.h': 'Diese Ecke des Archivs wird <em>gerade noch geschrieben.</em>',
+    'error.p': 'Die gesuchte Seite wurde möglicherweise verschoben, umbenannt oder existierte nie. Probier die Links unten — oder geh zurück zur Startseite.',
+    'error.home': 'Zurück zur Startseite',
+    'error.explore': 'Reiseziele entdecken',
+    'error.quicklinks': 'Schnellzugriff',
+    'error.link.muenchen': 'München',
+    'error.link.london': 'London',
+    'error.link.shanghai': 'Shanghai',
+    'error.link.tokyo': 'Tokio',
+    'error.link.wonders': 'Sieben Weltwunder',
+    'error.link.hotels': 'Top Hotels',
+    'error.link.clubs': 'Nachtclubs',
+    'error.link.imprint': 'Impressum',
 
     'hotelsPage.eyebrow': 'Das Hotel-Archiv',
     'hotelsPage.h1': 'Top Hotelketten<br>der <em>Welt</em>',
@@ -704,6 +761,10 @@ const TRANSLATIONS = {
     'about.eyebrow': '关于我们',
     'about.h': '源于对<em>酒店与旅游业</em>的热爱。',
     'about.p': '你好,我是 Konrad Xu。我对酒店与待客之道的热爱始于十二岁,逐渐演变为对"地方如何创造真正难忘的体验"的深入兴趣。我创建了这个平台,帮助大家发现独特的酒店、隐秘之地和富有灵感的所在,超越普通旅行指南。',
+    'about.why.label': '初衷',
+    'about.why.h': '为什么会有 <em>City Archivist</em>。',
+    'about.why.p1': '在<em>慕尼黑艾美酒店</em>（万豪旅享家旗下）的实习期间，我在早餐服务部门工作了整整两周。日复一日，我注意到同样的事情：客人问的不是著名景点，而是一座城市<em>还有什么</em>——那些没有出现在旅行指南里的角落，本地人真正会去的地方。',
+    'about.why.p2': '正是这个空白让我决定去填补。<em>City Archivist</em> 是一份安静的精选——为那些想穿过排队人群、找到这座城市真正生活其中的地方的旅人而存在。',
 
     'news.eyebrow': '订阅',
     'news.h': '留在 <em>档案中。</em>',
@@ -723,6 +784,21 @@ const TRANSLATIONS = {
     'footer.imprint': '版权信息',
     'footer.privacy': '隐私政策',
     'footer.copy': '© 2026 City Archivist — 版权所有',
+
+    'error.eyebrow': '页面未找到',
+    'error.h': '档案的这个角落<em>仍在书写中。</em>',
+    'error.p': '你要找的页面可能已被移动、重命名，或从未存在。试试下方的链接 — 或返回首页。',
+    'error.home': '返回首页',
+    'error.explore': '浏览目的地',
+    'error.quicklinks': '快速链接',
+    'error.link.muenchen': '慕尼黑',
+    'error.link.london': '伦敦',
+    'error.link.shanghai': '上海',
+    'error.link.tokyo': '东京',
+    'error.link.wonders': '世界七大奇迹',
+    'error.link.hotels': '顶级酒店',
+    'error.link.clubs': '夜店',
+    'error.link.imprint': '版权信息',
 
     'hotelsPage.eyebrow': '酒店档案',
     'hotelsPage.h1': '全球顶级<br><em>酒店集团</em>',
