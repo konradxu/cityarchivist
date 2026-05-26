@@ -717,12 +717,20 @@ footer {
 
   .divider { margin: 2.5rem 0; padding: 0 1.8rem; }
 }
-.nav-logo img {
-  height: 46px; width: auto;
+
+@media (max-width: 768px) {
+  
+}
+.nav-logo {
+  display: inline-flex !important; align-items: center;
+  height: 50px; padding: 0;
+}
+.nav-logo svg {
   display: block;
+  height: 100%; width: auto;
 }
 @media (max-width: 768px) {
-  .nav-logo img { height: 38px; }
+  .nav-logo { height: 40px; }
 }
 </style><link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="alternate icon" type="image/png" href="/favicon-32.png">
@@ -732,7 +740,14 @@ footer {
 
 <!-- NAV -->
 <nav id="top-nav">
-  <a class="nav-logo" href="/"><img src="/logo-nav.svg" alt="City Archivist"></a>
+  <a class="nav-logo" href="/" aria-label="City Archivist — Home"><svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-label="City Archivist" style="display:block;height:100%;width:auto">
+  <rect width="400" height="400" fill="#e9ddc7"/>
+  <circle cx="200" cy="200" r="170" fill="none" stroke="#a89070" stroke-width="1.8"/>
+  <circle cx="200" cy="200" r="162" fill="none" stroke="#a89070" stroke-width="1.8"/>
+  <text x="200" y="198" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, 'Times New Roman', serif" font-size="42" font-weight="400" letter-spacing="6" fill="#8a7556">CITY</text>
+  <text x="200" y="252" text-anchor="middle" font-family="'Cormorant Garamond', Georgia, 'Times New Roman', serif" font-size="42" font-weight="400" letter-spacing="6" fill="#8a7556">ARCHIVIST</text>
+  <line x1="180" y1="282" x2="220" y2="282" stroke="#a89070" stroke-width="1.8"/>
+</svg></a>
   <ul class="nav-links">
     <li><a href="/#home" data-i18n="nav.home">Home</a></li>
     <li><a href="/#destinations" data-i18n="nav.destinations">Destinations</a></li>
@@ -1242,6 +1257,6 @@ footer {
     });
   })();
 </script>
-<script src="lang.js?v=22" defer></script>
+<script src="lang.js?v=23" defer></script>
 </body>
 </html>
