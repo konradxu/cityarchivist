@@ -2,6 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<!-- Security headers -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://formspree.io; script-src 'self' 'unsafe-inline'; frame-src https://www.google.com https://maps.google.com; form-action https://formspree.io 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=()">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>London — City Archivist</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
@@ -1169,6 +1174,9 @@ footer {
           <input id="b-email" type="email" name="email" autocomplete="email" required placeholder="your@email.com">
         </div>
         <button class="baaria-submit" type="submit">Request reservation</button>
+        <!-- Honeypot: bots fill it, humans don't see it -->
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;">
+        <input type="hidden" name="_form_loaded_at" value="">
         <div id="baaria-msg" class="baaria-msg"></div>
       </form>
     </div>
@@ -1203,21 +1211,50 @@ footer {
     modal.addEventListener('click', e => { if (e.target === modal) close(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.style.display === 'flex') close(); });
 
+    /* Stamp form load time for anti-bot timing check */
+    const loadStamp = form.querySelector('[name="_form_loaded_at"]');
+    if (loadStamp) loadStamp.value = Date.now().toString();
+
     /* Form submit */
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       msg.textContent = ''; msg.removeAttribute('data-state');
+
+      /* ── SECURITY: honeypot + time-trap (silent drop) ── */
+      const hp = form.querySelector('[name="_gotcha"]');
+      if (hp && hp.value && hp.value.trim() !== '') {
+        msg.textContent = 'Thank you — we will confirm by email shortly.'; msg.dataset.state='ok';
+        form.reset(); if (loadStamp) loadStamp.value = Date.now().toString(); return;
+      }
+      if (loadStamp && loadStamp.value && (Date.now() - parseInt(loadStamp.value, 10)) < 3000) {
+        msg.textContent = 'Thank you — we will confirm by email shortly.'; msg.dataset.state='ok';
+        form.reset(); loadStamp.value = Date.now().toString(); return;
+      }
+      /* ── SECURITY: rate limit (max 3 / hour) ── */
+      try {
+        const RL_KEY = 'cityArchivistRateLimit';
+        const now = Date.now();
+        let log = JSON.parse(localStorage.getItem(RL_KEY) || '[]');
+        log = log.filter(t => (now - t) < 3600000);
+        if (log.length >= 3) {
+          msg.textContent = 'Too many requests. Please try again in an hour.'; msg.dataset.state='error'; return;
+        }
+        log.push(now); localStorage.setItem(RL_KEY, JSON.stringify(log));
+      } catch (_) {}
+
       const data = {
-        name:     form.name.value.trim(),
+        name:     form.name.value.trim().slice(0, 100).replace(/[<>]/g, ''),
         guests:   form.guests.value,
         datetime: form.datetime.value,
         occasion: form.occasion.value,
-        email:    form.email.value.trim(),
+        email:    form.email.value.trim().slice(0, 200),
         _subject: form._subject.value,
         venue:    form.venue.value,
       };
       if (!data.name)     { msg.textContent = 'Please enter your name.';       msg.dataset.state='error'; return; }
-      if (!data.guests)   { msg.textContent = 'How many guests?';               msg.dataset.state='error'; return; }
+      if (!data.guests || data.guests < 1 || data.guests > 20) {
+        msg.textContent = 'Guests must be between 1 and 20.';                  msg.dataset.state='error'; return;
+      }
       if (!data.datetime) { msg.textContent = 'Please pick a date and time.';   msg.dataset.state='error'; return; }
       if (!data.occasion) { msg.textContent = 'Please choose an occasion.';     msg.dataset.state='error'; return; }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
@@ -1244,6 +1281,6 @@ footer {
     });
   })();
 </script>
-<script src="lang.js?v=23" defer></script>
+<script src="lang.js?v=24" defer></script>
 </body>
 </html>

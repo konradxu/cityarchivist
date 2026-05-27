@@ -498,15 +498,133 @@ footer {
 }
 .soc:hover { color: var(--gold-dim); border-color: rgba(184,153,90,0.4); }
 
+/* ── ONE PERFECT DAY ── */
+#perfect-day { background: var(--linen); border-top: 1px solid var(--sand); }
+.day-intro {
+  display: grid; grid-template-columns: 220px 1fr;
+  gap: 6rem; padding: 5rem 4rem 2rem;
+  align-items: start;
+}
+.day-intro-label {
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--warm-gray); padding-top: 0.4rem;
+}
+.day-intro-body p {
+  font-size: 13.5px; color: var(--ink-light);
+  font-weight: 300; line-height: 1.95;
+  max-width: 580px; margin-bottom: 1.6rem;
+}
+.day-toggle {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: var(--sans);
+  font-size: 10px; font-weight: 300;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  background: transparent;
+  padding: 12px 24px; cursor: pointer;
+  transition: background 0.25s, color 0.25s, gap 0.3s;
+}
+.day-toggle::after { content: '↓'; transition: transform 0.3s; }
+.day-toggle:hover { background: var(--ink); color: var(--parchment); gap: 18px; }
+.day-toggle[aria-expanded="true"]::after { transform: rotate(180deg); }
+
+.day-timeline {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0 4rem;
+}
+.day-timeline[data-open="true"] {
+  max-height: 4000px;
+  padding: 2rem 4rem 6rem;
+}
+.day-track {
+  position: relative;
+  max-width: 880px; margin: 0 auto;
+  padding-left: 2rem;
+}
+.day-track::before {
+  content: ''; position: absolute;
+  left: 5px; top: 12px; bottom: 12px;
+  width: 1px; background: var(--sand);
+}
+.day-stop {
+  position: relative;
+  padding: 1.4rem 0 1.4rem 3rem;
+  display: grid; grid-template-columns: 80px 1fr;
+  gap: 2rem; align-items: start;
+}
+.day-stop::before {
+  content: ''; position: absolute;
+  left: -1px; top: 1.8rem;
+  width: 13px; height: 13px;
+  background: var(--gold);
+  border: 3px solid var(--linen);
+  border-radius: 50%;
+  z-index: 2;
+}
+.day-time {
+  font-family: var(--serif);
+  font-size: 1.05rem; font-weight: 400;
+  color: var(--gold); letter-spacing: 0.04em;
+  padding-top: 0.2rem;
+}
+.day-stop-content { }
+.day-stop-tag {
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 0.26em; text-transform: uppercase;
+  color: var(--warm-gray); margin-bottom: 0.4rem;
+}
+.day-stop-name {
+  font-family: var(--serif);
+  font-size: 1.35rem; font-weight: 400;
+  color: var(--ink); line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+.day-stop-name em { font-style: italic; color: var(--gold); }
+.day-stop-desc {
+  font-size: 12.5px; color: var(--ink-light);
+  font-weight: 300; line-height: 1.85;
+}
+.day-transit {
+  position: relative;
+  padding: 0.6rem 0 0.6rem 5.5rem;
+  margin-left: 1rem;
+  font-size: 9.5px; letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--warm-gray);
+  display: flex; align-items: center; gap: 10px;
+}
+.day-transit::before {
+  content: ''; position: absolute;
+  left: 0.5rem; top: 0; bottom: 0;
+  width: 1px;
+  background: repeating-linear-gradient(to bottom, var(--stone) 0 4px, transparent 4px 8px);
+}
+.day-transit-icon {
+  font-style: normal; color: var(--gold-dim);
+  font-size: 13px; font-family: var(--serif);
+}
+
 /* ── MOBILE ── */
+@media (max-width: 768px) {
+  .day-intro { grid-template-columns: 1fr; gap: 1.5rem; padding: 3rem 1.8rem 1.5rem; }
+  .day-timeline { padding: 0 1.8rem; }
+  .day-timeline[data-open="true"] { padding: 1.5rem 1.8rem 4rem; }
+  .day-stop { grid-template-columns: 60px 1fr; gap: 1rem; padding-left: 2rem; }
+  .day-time { font-size: 0.9rem; }
+  .day-stop-name { font-size: 1.15rem; }
+  .day-transit { padding-left: 4rem; font-size: 8.5px; letter-spacing: 0.18em; }
+}
 @media (max-width: 768px) {
   nav { padding: 0 1.5rem; gap: 0; }
   .nav-links { display: none; }
   .nav-back { font-size: 9px; letter-spacing: 0.16em; }
 
   .city-hero { grid-template-columns: 1fr; height: auto; min-height: 100svh; }
-  .city-hero-right { display: none; }
-  .city-hero-left { padding: 6rem 1.8rem 4rem; }
+  .city-hero-right { display: block; min-height: 45vh; order: -1; }
+  .city-hero-left { padding: 4rem 1.8rem 4rem; }
   .city-eyebrow { left: 1.8rem; top: 2rem; }
   .city-h1 { font-size: clamp(3.2rem, 14vw, 5rem); }
   .city-tagline { max-width: 100%; }
@@ -581,12 +699,11 @@ footer {
   <div class="city-hero-left">
     <div class="city-eyebrow">China · East Asia · City Guide</div>
     <h1 class="city-h1">Shang<br><em>hai</em></h1>
-    <p class="city-tagline">Test test test test test test test test test test test test test test test test test.</p>
+    <p class="city-tagline">Where the Huangpu river splits the city in two: art-deco arcades on one bank, glass towers on the other — and a thousand hidden lanes in between.</p>
   </div>
   <div class="city-hero-right">
-    <div class="city-hero-img">
-      <div class="ph-frame">◎</div>
-      <span class="ph-label">Shanghai Hero Bild</span>
+    <div class="city-hero-img" style="background:none;">
+      <img src="shanghai-hero.jpg" alt="Shanghai Pudong skyline at night" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center;">
     </div>
   </div>
 </section>
@@ -594,6 +711,7 @@ footer {
 <!-- SECTION TABS -->
 <div class="section-tabs">
   <a href="#spots" class="tab-link active">Hidden Spots</a>
+  <a href="#perfect-day" class="tab-link">One Perfect Day</a>
   <a href="#reads" class="tab-link">Reads</a>
   <a href="#hotels" class="tab-link">Hotels</a>
   <a href="#nightclubs" class="tab-link">Nightclubs</a>
@@ -716,6 +834,145 @@ footer {
 <!-- DIVIDER -->
 <div class="divider"><div class="divider-line"></div><div class="divider-mark">✦</div><div class="divider-line"></div></div>
 
+<!-- ONE PERFECT DAY -->
+<section id="perfect-day">
+  <div class="sec-header" style="background:var(--linen);">
+    <div>
+      <div class="sec-eyebrow">One Perfect Day</div>
+      <h2 class="sec-h">A day in <em>Shanghai</em></h2>
+    </div>
+    <p class="sec-desc">Morning dumplings, an afternoon in the lilong lanes, sunset over the Bund — one route, ten stops, twelve hours.</p>
+  </div>
+
+  <div class="day-intro">
+    <div class="day-intro-label">The Route</div>
+    <div class="day-intro-body">
+      <p>An ideal one-day itinerary built around the rhythm Shanghai actually keeps: the city starts slow, peaks at golden hour, and only really opens up after dark. Below: the full timeline with travel times between each stop.</p>
+      <button type="button" class="day-toggle" data-day-toggle aria-expanded="false" aria-controls="day-timeline-panel">
+        Show the timeline
+      </button>
+    </div>
+  </div>
+
+  <div class="day-timeline" id="day-timeline-panel" data-open="false">
+    <div class="day-track">
+
+      <!-- Stop 1 -->
+      <div class="day-stop">
+        <div class="day-time">08:00</div>
+        <div class="day-stop-content">
+          <div class="day-stop-tag">Breakfast</div>
+          <div class="day-stop-name">Jia Jia <em>Tang Bao</em></div>
+          <p class="day-stop-desc">A counter-only xiaolongbao spot two minutes from People's Square. Order the crab-and-pork basket, eat standing, leave before the line forms.</p>
+        </div>
+      </div>
+      <div class="day-transit"><span class="day-transit-icon">→</span> 12 min · taxi to Yu Garden</div>
+
+      <!-- Stop 2 -->
+      <div class="day-stop">
+        <div class="day-time">09:30</div>
+        <div class="day-stop-content">
+          <div class="day-stop-tag">Classical Garden</div>
+          <div class="day-stop-name">Yu Garden &amp; <em>Old Town</em></div>
+          <p class="day-stop-desc">A five-hundred-year-old Ming-dynasty garden of pavilions, koi ponds and rockeries — get there at opening to have the courtyards almost to yourself.</p>
+        </div>
+      </div>
+      <div class="day-transit"><span class="day-transit-icon">→</span> 15 min · walk along Zhongshan Road to the Bund</div>
+
+      <!-- Stop 3 -->
+      <div class="day-stop">
+        <div class="day-time">11:00</div>
+        <div class="day-stop-content">
+          <div class="day-stop-tag">The Waterfront</div>
+          <div class="day-stop-name">The <em>Bund</em></div>
+          <p class="day-stop-desc">Walk the promenade with the colonial banks on your left and Pudong's glass skyline across the Huangpu. Best photographed from the Waibaidu Bridge end.</p>
+        </div>
+      </div>
+      <div class="day-transit"><span class="day-transit-icon">→</span> 10 min · taxi to French Concession</div>
+
+      <!-- Stop 4 -->
+      <div class="day-stop">
+        <div class="day-time">13:00</div>
+        <div class="day-stop-content">
+          <div class="day-stop-tag">Lunch</div>
+          <div class="day-stop-name">Lunch in the <em>French Concession</em></div>
+          <p class="day-stop-desc">Either Lost Heaven for Yunnan cuisine in a former missionary house, or RAC bar for a quiet plateau under plane trees.</p>
+        </div>
+      </div>
+      <div class="day-transit"><span class="day-transit-icon">→</span> 8 min · walk through the plane-tree lanes</div>
+
+      <!-- Stop 5 -->
+      <div class="day-stop">
+        <div class="day-time">14:30</div>
+        <div class="day-stop-content">
+          <div class="day-stop-tag">Lanes &amp; Studios</div>
+          <div class="day-stop-name"><em>Tianzifang</em> lanes</div>
+          <p class="day-stop-desc">A maze of restored shikumen lane houses turned into independent shops, ateliers and coffee bars. Touristy on the main artery, quietly artisanal one alley over.</p>
+        </div>
+      </div>
+      <div class="day-transit"><span class="day-transit-icon">→</span> 15 min · metro Line 9 to Jing'an Temple</div>
+
+      <!-- Stop 6 -->
+      <div class="day-stop">
+        <div class="day-time">16:30</div>
+        <div class="day-stop-content">
+          <div class="day-stop-tag">Coffee Break</div>
+          <div class="day-stop-name">% Arabica <em>Jing'an</em></div>
+          <p class="day-stop-desc">The Kyoto-born coffee bar set against the golden Jing'an Temple — get the iced Kyoto blend, sit on the steps, breathe before the evening starts.</p>
+        </div>
+      </div>
+      <div class="day-transit"><span class="day-transit-icon">→</span> 20 min · taxi back toward the Bund</div>
+
+      <!-- Stop 7 -->
+      <div class="day-stop">
+        <div class="day-time">18:30</div>
+        <div class="day-stop-content">
+          <div class="day-stop-tag">Sunset</div>
+          <div class="day-stop-name">Sundown on a <em>rooftop</em></div>
+          <p class="day-stop-desc">Bar Rouge above the Bund 18 is the postcard — but Heritage by Madison on the eighth floor of the Peninsula has the calmer view and the better negroni.</p>
+        </div>
+      </div>
+      <div class="day-transit"><span class="day-transit-icon">→</span> 5 min · short walk to dinner</div>
+
+      <!-- Stop 8 -->
+      <div class="day-stop">
+        <div class="day-time">20:00</div>
+        <div class="day-stop-content">
+          <div class="day-stop-tag">Dinner</div>
+          <div class="day-stop-name">Dinner at <em>Mr &amp; Mrs Bund</em></div>
+          <p class="day-stop-desc">Paul Pairet's playful French brasserie on the sixth floor of Bund 18. Open until 2 am — ask for a window table when you book.</p>
+        </div>
+      </div>
+      <div class="day-transit"><span class="day-transit-icon">→</span> 10 min · taxi to Found 158</div>
+
+      <!-- Stop 9 -->
+      <div class="day-stop">
+        <div class="day-time">22:30</div>
+        <div class="day-stop-content">
+          <div class="day-stop-tag">Cocktails</div>
+          <div class="day-stop-name"><em>Speak Low</em></div>
+          <p class="day-stop-desc">A four-floor speakeasy behind a vintage bar-tool shop in Xintiandi. Push the bookshelf on the second floor to find the third bar. Tokyo-trained bartenders, no menu.</p>
+        </div>
+      </div>
+      <div class="day-transit"><span class="day-transit-icon">→</span> Optional — walk or taxi home</div>
+
+      <!-- Stop 10 -->
+      <div class="day-stop">
+        <div class="day-time">00:30</div>
+        <div class="day-stop-content">
+          <div class="day-stop-tag">Late-Night</div>
+          <div class="day-stop-name">Noodles at a <em>24-hour stall</em></div>
+          <p class="day-stop-desc">A bowl of scallion-oil noodles or pork wontons at any of the late-night vendors along Yunnan South Road — the city's true closing ceremony.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="divider"><div class="divider-line"></div><div class="divider-mark">✦</div><div class="divider-line"></div></div>
+
 <!-- READS / ARTICLES -->
 <section id="reads">
   <div class="sec-header" style="background:var(--linen);">
@@ -785,66 +1042,83 @@ footer {
     <p class="sec-desc">Test test test test test test test test test test test test test test test test test test.</p>
   </div>
   <div class="hotels-grid">
-    <div class="hotel-card">
-      <div class="hotel-img a"><div class="ph-frame">◎</div><span class="ph-label">Bild</span></div>
+
+    <a class="hotel-card" href="https://www.aman.com/hotels/aman-yangyun" target="_blank" rel="noopener">
+      <div class="hotel-img a">
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">Aman Yangyun</span>
+      </div>
       <div class="hotel-body">
         <div>
           <div class="hotel-stars">★★★★★</div>
-          <div class="hotel-name">Test Test Test Hotel</div>
-          <div class="hotel-area">The Bund · Shanghai</div>
-          <p class="hotel-desc">Test test test test test test test test test test test test test test test.</p>
+          <div class="hotel-name">Aman Yangyun</div>
+          <div class="hotel-area">Min'hang District · 1 h from city</div>
+          <p class="hotel-desc">Thirteen Ming-dynasty courtyard houses transplanted stone-by-stone from Jiangxi and rebuilt inside a 100-acre camphor forest. The most ambitious resort Aman has ever opened.</p>
         </div>
         <div class="hotel-footer">
-          <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">€000</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
-          <a class="hotel-link" data-i18n="hotel.discover">Discover</a>
+          <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">€1.800</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
+          <span class="hotel-link" data-i18n="hotel.discover">Discover</span>
         </div>
       </div>
-    </div>
-    <div class="hotel-card">
-      <div class="hotel-img b"><div class="ph-frame">◎</div><span class="ph-label">Bild</span></div>
+    </a>
+
+    <a class="hotel-card" href="https://capellahotels.com/en/capella-shanghai" target="_blank" rel="noopener">
+      <div class="hotel-img b">
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">Capella Shanghai</span>
+      </div>
       <div class="hotel-body">
         <div>
           <div class="hotel-stars">★★★★★</div>
-          <div class="hotel-name">Test Test Test Hotel</div>
-          <div class="hotel-area">French Concession · Shanghai</div>
-          <p class="hotel-desc">Test test test test test test test test test test test test test test test.</p>
+          <div class="hotel-name">Capella Shanghai, Jian Ye Li</div>
+          <div class="hotel-area">French Concession · Xuhui</div>
+          <p class="hotel-desc">Fifty-five restored shikumen lane-houses inside the city's last intact lilong. Each villa has its own butler, garden and front door — Shanghai's only true lane-house hotel.</p>
         </div>
         <div class="hotel-footer">
-          <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">€000</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
-          <a class="hotel-link" data-i18n="hotel.discover">Discover</a>
+          <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">€950</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
+          <span class="hotel-link" data-i18n="hotel.discover">Discover</span>
         </div>
       </div>
-    </div>
-    <div class="hotel-card">
-      <div class="hotel-img c"><div class="ph-frame">◎</div><span class="ph-label">Bild</span></div>
+    </a>
+
+    <a class="hotel-card" href="https://www.peninsula.com/en/shanghai" target="_blank" rel="noopener">
+      <div class="hotel-img c">
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">The Peninsula Shanghai</span>
+      </div>
       <div class="hotel-body">
         <div>
-          <div class="hotel-stars">★★★★</div>
-          <div class="hotel-name">Test Test Test Hotel</div>
-          <div class="hotel-area">Jing'an · Shanghai</div>
-          <p class="hotel-desc">Test test test test test test test test test test test test test test test.</p>
+          <div class="hotel-stars">★★★★★</div>
+          <div class="hotel-name">The Peninsula Shanghai</div>
+          <div class="hotel-area">The Bund · Huangpu</div>
+          <p class="hotel-desc">Art-deco grandeur at the head of the Bund — the only new building permitted on the historic waterfront in seven decades. Sir Elly's rooftop has the city's best view of Pudong.</p>
         </div>
         <div class="hotel-footer">
-          <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">€000</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
-          <a class="hotel-link" data-i18n="hotel.discover">Discover</a>
+          <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">€700</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
+          <span class="hotel-link" data-i18n="hotel.discover">Discover</span>
         </div>
       </div>
-    </div>
-    <div class="hotel-card">
-      <div class="hotel-img d"><div class="ph-frame">◎</div><span class="ph-label">Bild</span></div>
+    </a>
+
+    <a class="hotel-card" href="https://www.editionhotels.com/shanghai/" target="_blank" rel="noopener">
+      <div class="hotel-img d">
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">The Shanghai EDITION</span>
+      </div>
       <div class="hotel-body">
         <div>
-          <div class="hotel-stars">★★★★</div>
-          <div class="hotel-name">Test Test Test Hotel</div>
-          <div class="hotel-area">Pudong · Shanghai</div>
-          <p class="hotel-desc">Test test test test test test test test test test test test test test test.</p>
+          <div class="hotel-stars">★★★★★</div>
+          <div class="hotel-name">The Shanghai EDITION</div>
+          <div class="hotel-area">Nanjing East Road · Huangpu</div>
+          <p class="hotel-desc">Ian Schrager's reinvention of the 1929 Shanghai Power Company HQ. A neon roof terrace, two Michelin-stars at Hiya, and the moodiest lobby bar in the city.</p>
         </div>
         <div class="hotel-footer">
-          <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">€000</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
-          <a class="hotel-link" data-i18n="hotel.discover">Discover</a>
+          <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">€450</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
+          <span class="hotel-link" data-i18n="hotel.discover">Discover</span>
         </div>
       </div>
-    </div>
+    </a>
+
   </div>
 </section>
 
@@ -929,5 +1203,19 @@ footer {
   });
 </script>
 <script src="lang.js?v=24" defer></script>
+<script>
+  /* ── "One Perfect Day" toggle ── */
+  (function () {
+    const btn = document.querySelector('[data-day-toggle]');
+    const panel = document.getElementById('day-timeline-panel');
+    if (!btn || !panel) return;
+    btn.addEventListener('click', () => {
+      const open = panel.getAttribute('data-open') === 'true';
+      panel.setAttribute('data-open', open ? 'false' : 'true');
+      btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+      btn.textContent = open ? 'Show the timeline' : 'Hide the timeline';
+    });
+  })();
+</script>
 </body>
 </html>
