@@ -250,6 +250,22 @@ const TRANSLATIONS = {
     'sh.hm.f.villa': 'Room type',
     'sh.hm.f.note': 'Additional notes (optional)',
     'sh.hm.f.submit': 'Send enquiry',
+    // ── Shanghai hotel modal — Capella, Jian Ye Li ──
+    'sh.hm.capella.eyebrow': 'Featured Hotel · Shanghai',
+    'sh.hm.capella.h': 'A hotel hidden inside a lane',
+    'sh.hm.capella.p1': 'In the heart of the French Concession sits <em>Jian Ye Li</em> — the last fully intact shikumen lilong in Shanghai. Built in 1930 as a private residential development, these grey-brick lane-houses were saved from demolition and meticulously restored over nine years.',
+    'sh.hm.capella.p2': 'Capella took fifty-five of them and turned each into a stand-alone villa: its own front door from the lane, its own private courtyard, its own butler. The Auriga Spa runs the indoor swimming pool framed by arched warehouse windows. Le Comptoir de Pierre Gagnaire serves classic French in a former missionary\'s house with the Pierre Yovanovitch chairs and Bourgeois flowers.',
+    'sh.hm.capella.p3': 'It is the only address in Shanghai where you sleep <em>inside</em> the city\'s pre-war architecture rather than behind a glass curtain wall above it.',
+    'sh.hm.capella.loc': 'French Concession · Xuhui',
+
+    // ── Shanghai: Spots / Reads / Clubs section headers ──
+    'sh.spots.h2': 'Secret<br><em>Shanghai</em>',
+    'sh.spots.desc': 'A curated selection of the cafés, ateliers and quiet corners that locals keep to themselves — beyond the Bund, beyond the tourist trail.',
+    'sh.reads.h2': 'About<br><em>Shanghai</em>',
+    'sh.reads.desc': 'Long-form essays, neighbourhood guides and the occasional history lesson — the kind of writing that takes you below the surface of the city.',
+    'sh.clubs.h2': 'After<br><em>Dark</em>',
+    'sh.clubs.desc': 'From speakeasies hidden behind bookshelves to riverside megaclubs — where Shanghai actually opens up after midnight.',
+
 
 
 
@@ -651,6 +667,22 @@ const TRANSLATIONS = {
     'sh.hm.f.villa': 'Zimmertyp',
     'sh.hm.f.note': 'Zusätzliche Hinweise (optional)',
     'sh.hm.f.submit': 'Anfrage senden',
+    // ── Shanghai hotel modal — Capella, Jian Ye Li ──
+    'sh.hm.capella.eyebrow': 'Featured Hotel · Shanghai',
+    'sh.hm.capella.h': 'Ein Hotel, versteckt in einer Gasse',
+    'sh.hm.capella.p1': 'Im Herzen der French Concession liegt <em>Jian Ye Li</em> — das letzte vollständig intakte Shikumen-Lilong in Shanghai. 1930 als private Wohnsiedlung erbaut, wurden diese grauen Backsteinhäuser vor dem Abriss gerettet und über neun Jahre minutiös restauriert.',
+    'sh.hm.capella.p2': 'Capella verwandelte fünfundfünfzig davon in eigenständige Villen: eigene Haustür zur Gasse, eigener privater Innenhof, eigener Butler. Das Auriga Spa betreibt den Indoor-Pool, gerahmt von bogenförmigen Lagerhausfenstern. Le Comptoir de Pierre Gagnaire serviert klassische französische Küche in einem ehemaligen Missionarshaus — mit Pierre-Yovanovitch-Stühlen und Bourgeois-Blumen.',
+    'sh.hm.capella.p3': 'Es ist die einzige Adresse in Shanghai, wo man <em>innerhalb</em> der Vorkriegsarchitektur der Stadt schläft — und nicht hinter einer Glasvorhangwand darüber.',
+    'sh.hm.capella.loc': 'French Concession · Xuhui',
+
+    // ── Shanghai: Spots / Reads / Clubs section headers ──
+    'sh.spots.h2': 'Geheimes<br><em>Shanghai</em>',
+    'sh.spots.desc': 'Eine kuratierte Auswahl von Cafés, Ateliers und ruhigen Ecken, die Einheimische für sich behalten — jenseits des Bund, jenseits der Touristenpfade.',
+    'sh.reads.h2': 'Über<br><em>Shanghai</em>',
+    'sh.reads.desc': 'Längere Essays, Stadtteilführer und gelegentliche Geschichtsstunden — die Art von Texten, die dich unter die Oberfläche der Stadt führen.',
+    'sh.clubs.h2': 'After<br><em>Dark</em>',
+    'sh.clubs.desc': 'Von Speakeasies hinter Bücherregalen bis zu Megaclubs am Flussufer — wo Shanghai sich wirklich erst nach Mitternacht öffnet.',
+
 
 
 
@@ -1052,6 +1084,22 @@ const TRANSLATIONS = {
     'sh.hm.f.villa': '房型',
     'sh.hm.f.note': '其他备注（选填）',
     'sh.hm.f.submit': '发送咨询',
+    // ── Shanghai hotel modal — Capella, Jian Ye Li ──
+    'sh.hm.capella.eyebrow': '推荐酒店 · 上海',
+    'sh.hm.capella.h': '藏在弄堂里的酒店',
+    'sh.hm.capella.p1': '法租界腹地坐落着 <em>建业里</em> — 上海最后一片完整的石库门里弄。1930 年作为私人住宅区建成，这些灰砖弄堂房屋从拆迁中被抢救下来，历经九年精心修复。',
+    'sh.hm.capella.p2': '嘉佩乐将其中五十五栋改造成独立的别墅：每栋有自己面向弄堂的入口、自己的私人庭院、自己的管家。Auriga Spa 经营着拱形仓库窗户环绕的室内泳池。Le Comptoir de Pierre Gagnaire 在一栋前传教士住宅里供应经典法式料理——配以 Pierre Yovanovitch 的椅子和 Bourgeois 的鲜花。',
+    'sh.hm.capella.p3': '这是上海唯一一个让你睡在这座城市战前建筑<em>之中</em>的地址——而不是躲在它上方的玻璃幕墙后面。',
+    'sh.hm.capella.loc': '法租界 · 徐汇',
+
+    // ── Shanghai: Spots / Reads / Clubs section headers ──
+    'sh.spots.h2': '隐秘的<br><em>上海</em>',
+    'sh.spots.desc': '一份精心策划的咖啡馆、工作室和宁静角落清单——本地人不对外分享的地方，外滩之外，游客路线之外。',
+    'sh.reads.h2': '关于<br><em>上海</em>',
+    'sh.reads.desc': '长篇随笔、街区指南，以及偶尔的历史课——这种写作会带你深入这座城市的表面之下。',
+    'sh.clubs.h2': '夜<br><em>幕降临</em>',
+    'sh.clubs.desc': '从藏在书架后的私酿酒吧到江边的大型夜店——上海真正展开是在午夜之后。',
+
 
 
 

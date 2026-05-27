@@ -916,9 +916,9 @@ footer {
   <div class="sec-header">
     <div>
       <div class="sec-eyebrow" data-i18n="city.spots.eyebrow">Hidden Spots</div>
-      <h2 class="sec-h">Secret<br><em>Shanghai</em></h2>
+      <h2 class="sec-h" data-i18n="sh.spots.h2">Secret<br><em>Shanghai</em></h2>
     </div>
-    <p class="sec-desc">Test test test test test test test test test test test test test test test test test test test test test.</p>
+    <p class="sec-desc" data-i18n="sh.spots.desc">A curated selection of the cafés, ateliers and quiet corners that locals keep to themselves — beyond the Bund, beyond the tourist trail.</p>
   </div>
 
   <div class="spots-filter">
@@ -1172,9 +1172,9 @@ footer {
   <div class="sec-header" style="background:var(--linen);">
     <div>
       <div class="sec-eyebrow" data-i18n="city.reads.eyebrow">Reads</div>
-      <h2 class="sec-h">Über<br><em>Shanghai</em></h2>
+      <h2 class="sec-h" data-i18n="sh.reads.h2">About<br><em>Shanghai</em></h2>
     </div>
-    <p class="sec-desc">Test test test test test test test test test test test test test test test test test test.</p>
+    <p class="sec-desc" data-i18n="sh.reads.desc">Long-form essays, neighbourhood guides and the occasional history lesson — the kind of writing that takes you below the surface of the city.</p>
   </div>
 
   <div class="featured-article" style="background:var(--linen);">
@@ -1256,10 +1256,10 @@ footer {
       </div>
     </div>
 
-    <a class="hotel-card" href="https://capellahotels.com/en/capella-shanghai" target="_blank" rel="noopener">
-      <div class="hotel-img b">
-        <div class="ph-frame">◎</div>
-        <span class="ph-label">Capella Shanghai</span>
+    <div class="hotel-card" data-hotel-trigger="capella" tabindex="0" role="button" aria-label="Open Capella Shanghai details">
+      <div class="hotel-img" style="background:none;">
+        <img src="capella-shanghai-1.jpg" alt="Capella Shanghai, Jian Ye Li" loading="lazy"
+             style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="hotel-body">
         <div>
@@ -1273,7 +1273,7 @@ footer {
           <span class="hotel-link" data-i18n="hotel.discover">Discover</span>
         </div>
       </div>
-    </a>
+    </div>
 
     <a class="hotel-card" href="https://www.peninsula.com/en/shanghai" target="_blank" rel="noopener">
       <div class="hotel-img c">
@@ -1324,9 +1324,9 @@ footer {
   <div class="sec-header">
     <div>
       <div class="sec-eyebrow" data-i18n="city.nightclubs.eyebrow">Nightclubs</div>
-      <h2 class="sec-h">After<br><em>Dark</em></h2>
+      <h2 class="sec-h" data-i18n="sh.clubs.h2">After<br><em>Dark</em></h2>
     </div>
-    <p class="sec-desc">Test test test test test test test test test test test test test test test test test.</p>
+    <p class="sec-desc" data-i18n="sh.clubs.desc">From speakeasies hidden behind bookshelves to riverside megaclubs — where Shanghai actually opens up after midnight.</p>
   </div>
   <div class="clubs-list">
     <div class="club-row">
@@ -1503,7 +1503,114 @@ footer {
   </div>
 </div>
 
-<script src="lang.js?v=26" defer></script>
+<!-- ════════════════════════════════════════════════
+     HOTEL MODAL — Capella Shanghai, Jian Ye Li
+     ════════════════════════════════════════════════ -->
+<div class="hotel-modal" id="hotel-modal-capella" role="dialog" aria-modal="true" aria-labelledby="capella-modal-title">
+  <div class="hotel-modal-card">
+    <button type="button" class="hotel-modal-close" data-hotel-close aria-label="Close">×</button>
+
+    <div class="hotel-modal-hero" style="background-image:url('capella-shanghai-1.jpg');">
+      <div class="hotel-modal-hero-text">
+        <div class="hotel-modal-eyebrow" data-i18n="sh.hm.capella.eyebrow">Featured Hotel · Shanghai</div>
+        <h2 class="hotel-modal-name" id="capella-modal-title">Capella <em>Shanghai</em></h2>
+      </div>
+    </div>
+
+    <div class="hotel-modal-body">
+      <div class="hotel-modal-text">
+        <h3 data-i18n="sh.hm.capella.h">A hotel hidden inside a lane</h3>
+        <p data-i18n="sh.hm.capella.p1">In the heart of the French Concession sits <em>Jian Ye Li</em> — the last fully intact shikumen lilong in Shanghai. Built in 1930 as a private residential development, these grey-brick lane-houses were saved from demolition and meticulously restored over nine years.</p>
+        <p data-i18n="sh.hm.capella.p2">Capella took fifty-five of them and turned each into a stand-alone villa: its own front door from the lane, its own private courtyard, its own butler. The Auriga Spa runs the indoor swimming pool framed by arched warehouse windows. Le Comptoir de Pierre Gagnaire serves classic French in a former missionary's house with the Pierre Yovanovitch chairs and Bourgeois flowers.</p>
+        <p data-i18n="sh.hm.capella.p3">It is the only address in Shanghai where you sleep <em>inside</em> the city's pre-war architecture rather than behind a glass curtain wall above it.</p>
+
+        <div class="hotel-modal-meta">
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="sh.hm.label.location">Location</div>
+            <div class="hotel-modal-meta-val" data-i18n="sh.hm.capella.loc">French Concession · Xuhui</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="sh.hm.label.opened">Opened</div>
+            <div class="hotel-modal-meta-val">2017</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="sh.hm.label.rooms">Rooms &amp; villas</div>
+            <div class="hotel-modal-meta-val">55 shikumen villas</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="sh.hm.label.from">From</div>
+            <div class="hotel-modal-meta-val">€ 950 / night</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hotel-modal-gallery">
+        <a href="capella-shanghai-1.jpg" target="_blank" rel="noopener"><img src="capella-shanghai-1.jpg" alt="Capella exterior arch" loading="lazy"></a>
+        <a href="capella-shanghai-2.jpg" target="_blank" rel="noopener"><img src="capella-shanghai-2.jpg" alt="Shikumen Villa bedroom" loading="lazy"></a>
+        <a href="capella-shanghai-3.jpg" target="_blank" rel="noopener"><img src="capella-shanghai-3.jpg" alt="Auriga Spa pool" loading="lazy"></a>
+        <a href="capella-shanghai-4.jpg" target="_blank" rel="noopener"><img src="capella-shanghai-4.jpg" alt="Le Comptoir de Pierre Gagnaire" loading="lazy"></a>
+        <a href="capella-shanghai-5.jpg" target="_blank" rel="noopener"><img src="capella-shanghai-5.jpg" alt="Resident calligraphy ritual" loading="lazy"></a>
+      </div>
+    </div>
+
+    <div class="hotel-modal-reserve">
+      <h3 class="hotel-modal-reserve-h" data-i18n="sh.hm.reserve.h">Request a <em>reservation</em></h3>
+      <p class="hotel-modal-reserve-p" data-i18n="sh.hm.reserve.p">Send a non-binding enquiry. We forward it directly to the hotel's reservations desk and reply within 24 hours.</p>
+
+      <form id="hotel-form-capella" class="hotel-form" data-endpoint="https://formspree.io/f/myklrnro" novalidate>
+        <input type="hidden" name="_subject" value="Capella Shanghai reservation enquiry">
+        <input type="hidden" name="hotel" value="Capella Shanghai, Jian Ye Li">
+        <input type="hidden" name="city" value="Shanghai">
+
+        <div>
+          <label for="capella-name" data-i18n="sh.hm.f.name">Your name</label>
+          <input id="capella-name" type="text" name="name" autocomplete="name" required placeholder="Full name">
+        </div>
+        <div>
+          <label for="capella-email" data-i18n="sh.hm.f.email">Email</label>
+          <input id="capella-email" type="email" name="email" autocomplete="email" required placeholder="your@email.com">
+        </div>
+        <div>
+          <label for="capella-checkin" data-i18n="sh.hm.f.checkin">Check-in</label>
+          <input id="capella-checkin" type="date" name="checkin" required>
+        </div>
+        <div>
+          <label for="capella-checkout" data-i18n="sh.hm.f.checkout">Check-out</label>
+          <input id="capella-checkout" type="date" name="checkout" required>
+        </div>
+        <div>
+          <label for="capella-guests" data-i18n="sh.hm.f.guests">Guests</label>
+          <input id="capella-guests" type="number" name="guests" min="1" max="10" required placeholder="2">
+        </div>
+        <div>
+          <label for="capella-villa" data-i18n="sh.hm.f.villa">Room type</label>
+          <select id="capella-villa" name="villa" required>
+            <option value="" selected disabled>Choose</option>
+            <option value="shikumen-king">Shikumen Villa, King</option>
+            <option value="shikumen-duplex">Shikumen Duplex Villa</option>
+            <option value="garden-villa">Garden Shikumen Villa</option>
+            <option value="presidential">Presidential Villa</option>
+            <option value="not-sure">Not sure yet</option>
+          </select>
+        </div>
+        <div class="full">
+          <label for="capella-note" data-i18n="sh.hm.f.note">Additional notes (optional)</label>
+          <input id="capella-note" type="text" name="note" placeholder="Occasion, dietary requirements, transfers…">
+        </div>
+        <button class="hotel-submit" type="submit" data-i18n="sh.hm.f.submit">Send enquiry</button>
+
+        <!-- Honeypot + anti-bot -->
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;">
+        <input type="hidden" name="_form_loaded_at" value="">
+
+        <div id="hotel-msg-capella" class="hotel-msg"></div>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<script src="lang.js?v=28" defer></script>
 <script>
   /* ── "One Perfect Day" toggle ── */
   (function () {
