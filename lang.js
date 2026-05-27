@@ -271,6 +271,14 @@ const TRANSLATIONS = {
     'sh.hm.bulgari.p2': 'The interior language is unmistakably Italian: chocolate-brown leather, black-marble bathrooms with chequerboard floors, brass detailing, custom Maxalto furniture and B&amp;B Italia in every room. Il Ristorante is led by three-Michelin-starred Niko Romito; the Bulgari Spa wraps a 25-metre indoor pool in a tunnel of warm-wood slats.',
     'sh.hm.bulgari.p3': 'It is the city\'s most explicit statement of <em>European luxury transplanted</em> — a Roman address built into a Chinese skyline.',
     'sh.hm.bulgari.loc': 'Suzhou Creek · Zhabei',
+    // ── Shanghai: Request any other hotel ──
+    'sh.req.eyebrow': 'Looking for something else?',
+    'sh.req.h': 'Request <em>any other</em> Shanghai hotel.',
+    'sh.req.p': 'Not one of the four featured? Tell us where you\'d like to stay — Mandarin Oriental Pudong, The PuLi, Waldorf Astoria on the Bund, Six Senses Qing Cheng, or any other address — and we\'ll arrange the reservation for you.',
+    'sh.req.f.hotel': 'Which hotel?',
+    'sh.req.f.preference': 'Room preference',
+    'sh.req.submit': 'Send request',
+
 
 
 
@@ -704,6 +712,14 @@ const TRANSLATIONS = {
     'sh.hm.bulgari.p2': 'Die Innenarchitektur ist unverkennbar italienisch: schokoladenbraunes Leder, schwarze Marmorbäder mit Schachbrett-Boden, Messing-Details, maßgefertigte Maxalto-Möbel und B&amp;B Italia in jedem Zimmer. Il Ristorante wird vom Drei-Michelin-Sterne-Koch Niko Romito geführt; das Bulgari Spa umhüllt einen 25-Meter-Indoor-Pool mit einem Tunnel aus warmen Holzlamellen.',
     'sh.hm.bulgari.p3': 'Es ist die deutlichste Aussage der Stadt zum <em>transplantierten europäischen Luxus</em> — eine römische Adresse, gebaut in eine chinesische Skyline.',
     'sh.hm.bulgari.loc': 'Suzhou Creek · Zhabei',
+    // ── Shanghai: Request any other hotel ──
+    'sh.req.eyebrow': 'Du suchst etwas anderes?',
+    'sh.req.h': 'Reservierung für <em>jedes andere</em> Hotel in Shanghai.',
+    'sh.req.p': 'Keines der vier vorgestellten? Sag uns, wo du übernachten möchtest — Mandarin Oriental Pudong, The PuLi, Waldorf Astoria am Bund, Six Senses Qing Cheng oder eine andere Adresse — und wir kümmern uns um die Reservierung.',
+    'sh.req.f.hotel': 'Welches Hotel?',
+    'sh.req.f.preference': 'Zimmer-Wunsch',
+    'sh.req.submit': 'Anfrage senden',
+
 
 
 
@@ -1137,6 +1153,14 @@ const TRANSLATIONS = {
     'sh.hm.bulgari.p2': '室内语言无可挑剔地意式：巧克力棕皮革、黑色大理石浴室配棋盘地砖、黄铜细节、定制 Maxalto 家具和每间客房的 B&amp;B Italia。Il Ristorante 由三星米其林大厨 Niko Romito 主理；宝格丽水疗中心用一条温暖木条隧道环绕 25 米室内泳池。',
     'sh.hm.bulgari.p3': '这是这座城市对<em>移植的欧洲奢华</em>最明确的宣言——一个建在中国天际线上的罗马地址。',
     'sh.hm.bulgari.loc': '苏州河 · 闸北',
+    // ── Shanghai: Request any other hotel ──
+    'sh.req.eyebrow': '在找其他酒店？',
+    'sh.req.h': '为<em>任何其他</em>上海酒店申请预订。',
+    'sh.req.p': '不是这四家精选的？告诉我们你想住哪——浦东文华东方、璞丽酒店、外滩华尔道夫、青城山六善，或任何其他地址——我们会为你安排预订。',
+    'sh.req.f.hotel': '哪家酒店？',
+    'sh.req.f.preference': '房型偏好',
+    'sh.req.submit': '发送申请',
+
 
 
 

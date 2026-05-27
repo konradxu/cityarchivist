@@ -598,15 +598,16 @@ footer {
 }
 .hotel-modal-gallery {
   display: grid; grid-template-columns: repeat(2, 1fr);
-  gap: 6px; max-height: 540px;
+  gap: 6px;
+  align-self: start;
 }
 .hotel-modal-gallery a {
   display: block; overflow: hidden; position: relative;
-  aspect-ratio: 1;
+  aspect-ratio: 4/3;
 }
 .hotel-modal-gallery a:first-child {
   grid-column: span 2;
-  aspect-ratio: 2;
+  aspect-ratio: 16/9;
 }
 .hotel-modal-gallery img {
   width: 100%; height: 100%;
@@ -679,17 +680,64 @@ footer {
 }
 .hotel-msg[data-state="ok"] { color: var(--gold); }
 .hotel-msg[data-state="error"] { color: #b54848; }
+@media (max-width: 1100px) {
+  .hotel-modal-body { grid-template-columns: 1fr; gap: 2.5rem; }
+  .hotel-modal-gallery { max-width: 760px; margin: 0 auto; width: 100%; }
+}
 @media (max-width: 768px) {
   .hotel-modal { padding: 1rem; }
   .hotel-modal-hero { aspect-ratio: 16/10; }
   .hotel-modal-hero-text { left: 1.5rem; right: 1.5rem; bottom: 1.5rem; }
-  .hotel-modal-body { grid-template-columns: 1fr; padding: 2rem 1.5rem; gap: 2rem; }
-  .hotel-modal-gallery { max-height: none; }
+  .hotel-modal-body { padding: 2rem 1.5rem; }
   .hotel-modal-reserve { padding: 2rem 1.5rem 3rem; }
   .hotel-form { grid-template-columns: 1fr; }
   .hotel-form .full,
   .hotel-submit,
   .hotel-msg { grid-column: auto; }
+}
+
+/* ── REQUEST ANY HOTEL (under hotels grid) ── */
+.hotel-request {
+  background: var(--linen);
+  border-top: 1px solid var(--sand);
+  padding: 4.5rem 4rem 5rem;
+}
+.hotel-request-inner {
+  max-width: 980px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1.4fr;
+  gap: 4rem; align-items: start;
+}
+.hotel-request-eyebrow {
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 12px;
+}
+.hotel-request-eyebrow::before {
+  content: ''; width: 20px; height: 1px;
+  background: var(--gold); display: inline-block;
+}
+.hotel-request-h {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+  font-weight: 300; line-height: 1.2;
+  color: var(--ink); margin-bottom: 1.2rem;
+}
+.hotel-request-h em { font-style: italic; color: var(--gold); }
+.hotel-request-p {
+  font-size: 13px; color: var(--ink-light);
+  font-weight: 300; line-height: 1.9;
+  max-width: 380px;
+}
+.hotel-request .hotel-form {
+  background: var(--white);
+  padding: 2.2rem 2.2rem 2.5rem;
+  border: 1px solid var(--sand);
+}
+@media (max-width: 768px) {
+  .hotel-request { padding: 3rem 1.5rem 3.5rem; }
+  .hotel-request-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+  .hotel-request .hotel-form { padding: 1.6rem 1.4rem 2rem; }
 }
 
 /* ── ONE PERFECT DAY ── */
@@ -1314,6 +1362,62 @@ footer {
     </div>
 
   </div>
+
+  <!-- ── Request any other hotel ── -->
+  <div class="hotel-request">
+    <div class="hotel-request-inner">
+      <div>
+        <div class="hotel-request-eyebrow" data-i18n="sh.req.eyebrow">Looking for something else?</div>
+        <h3 class="hotel-request-h" data-i18n="sh.req.h">Request <em>any other</em> Shanghai hotel.</h3>
+        <p class="hotel-request-p" data-i18n="sh.req.p">Not one of the four featured? Tell us where you'd like to stay — Mandarin Oriental Pudong, The PuLi, Waldorf Astoria on the Bund, Six Senses Qing Cheng, or any other address — and we'll arrange the reservation for you.</p>
+      </div>
+      <form id="hotel-form-other" class="hotel-form" data-endpoint="https://formspree.io/f/myklrnro" novalidate>
+        <input type="hidden" name="_subject" value="Hotel reservation enquiry — Shanghai (other)">
+        <input type="hidden" name="city" value="Shanghai">
+
+        <div>
+          <label for="other-name" data-i18n="sh.hm.f.name">Your name</label>
+          <input id="other-name" type="text" name="name" autocomplete="name" required placeholder="Full name">
+        </div>
+        <div>
+          <label for="other-email" data-i18n="sh.hm.f.email">Email</label>
+          <input id="other-email" type="email" name="email" autocomplete="email" required placeholder="your@email.com">
+        </div>
+        <div class="full">
+          <label for="other-hotel" data-i18n="sh.req.f.hotel">Which hotel?</label>
+          <input id="other-hotel" type="text" name="hotel" required placeholder="e.g. Mandarin Oriental Pudong">
+        </div>
+        <div>
+          <label for="other-checkin" data-i18n="sh.hm.f.checkin">Check-in</label>
+          <input id="other-checkin" type="date" name="checkin" required>
+        </div>
+        <div>
+          <label for="other-checkout" data-i18n="sh.hm.f.checkout">Check-out</label>
+          <input id="other-checkout" type="date" name="checkout" required>
+        </div>
+        <div>
+          <label for="other-guests" data-i18n="sh.hm.f.guests">Guests</label>
+          <input id="other-guests" type="number" name="guests" min="1" max="10" required placeholder="2">
+        </div>
+        <div>
+          <label for="other-room" data-i18n="sh.req.f.preference">Room preference</label>
+          <input id="other-room" type="text" name="villa" placeholder="Suite, twin, view, …">
+        </div>
+        <div class="full">
+          <label for="other-note" data-i18n="sh.hm.f.note">Additional notes (optional)</label>
+          <input id="other-note" type="text" name="note" placeholder="Occasion, dietary requirements, transfers…">
+        </div>
+        <button class="hotel-submit" type="submit" data-i18n="sh.req.submit">Send request</button>
+
+        <!-- Honeypot + anti-bot -->
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;">
+        <input type="hidden" name="_form_loaded_at" value="">
+
+        <div id="hotel-msg-other" class="hotel-msg"></div>
+      </form>
+    </div>
+  </div>
+
 </section>
 
 <!-- DIVIDER -->
@@ -1826,7 +1930,7 @@ footer {
   </div>
 </div>
 
-<script src="lang.js?v=31" defer></script>
+<script src="lang.js?v=32" defer></script>
 <script>
   /* ── "One Perfect Day" toggle ── */
   (function () {
@@ -1886,6 +1990,11 @@ footer {
     /* Form submit handler (works for any hotel-form-*) */
     document.querySelectorAll('form[id^="hotel-form-"]').forEach(form => {
       const msg = form.querySelector('.hotel-msg');
+      // Stamp load-time on page load for forms NOT inside a modal (the modal-open handler stamps modal forms)
+      if (!form.closest('.hotel-modal')) {
+        const initStamp = form.querySelector('[name="_form_loaded_at"]');
+        if (initStamp) initStamp.value = Date.now().toString();
+      }
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         msg.textContent = ''; msg.removeAttribute('data-state');
@@ -1935,7 +2044,15 @@ footer {
           msg.textContent = 'Check-out must be after check-in.'; msg.dataset.state='error'; return;
         }
         if (!data.guests || data.guests < 1) { msg.textContent = 'How many guests?'; msg.dataset.state='error'; return; }
-        if (!data.villa) { msg.textContent = 'Please pick a room type.'; msg.dataset.state='error'; return; }
+        // Generic form: hotel is a free-text input → validate it; modal forms have hidden hotel value already
+        if (!data.hotel || data.hotel.trim() === '') {
+          msg.textContent = 'Please tell us which hotel.'; msg.dataset.state='error'; return;
+        }
+        // Villa/room: only required if the form's input is `required`
+        const villaInput = form.querySelector('[name="villa"]');
+        if (villaInput && villaInput.required && !data.villa) {
+          msg.textContent = 'Please pick a room type.'; msg.dataset.state='error'; return;
+        }
 
         msg.textContent = 'Sending…';
         try {
