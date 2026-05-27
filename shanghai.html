@@ -1275,10 +1275,10 @@ footer {
       </div>
     </div>
 
-    <a class="hotel-card" href="https://www.peninsula.com/en/shanghai" target="_blank" rel="noopener">
-      <div class="hotel-img c">
-        <div class="ph-frame">◎</div>
-        <span class="ph-label">The Peninsula Shanghai</span>
+    <div class="hotel-card" data-hotel-trigger="peninsula" tabindex="0" role="button" aria-label="Open The Peninsula Shanghai details">
+      <div class="hotel-img" style="background:none;">
+        <img src="peninsula-shanghai-1.jpg" alt="The Peninsula Shanghai" loading="lazy"
+             style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="hotel-body">
         <div>
@@ -1292,22 +1292,22 @@ footer {
           <span class="hotel-link" data-i18n="hotel.discover">Discover</span>
         </div>
       </div>
-    </a>
+    </div>
 
-    <a class="hotel-card" href="https://www.editionhotels.com/shanghai/" target="_blank" rel="noopener">
+    <a class="hotel-card" href="https://www.bulgarihotels.com/en_US/shanghai" target="_blank" rel="noopener">
       <div class="hotel-img d">
         <div class="ph-frame">◎</div>
-        <span class="ph-label">The Shanghai EDITION</span>
+        <span class="ph-label">Bulgari Hotel Shanghai</span>
       </div>
       <div class="hotel-body">
         <div>
           <div class="hotel-stars">★★★★★</div>
-          <div class="hotel-name" data-i18n="sh.h.edition.name">The Shanghai EDITION</div>
-          <div class="hotel-area" data-i18n="sh.h.edition.area">Nanjing East Road · Huangpu</div>
-          <p class="hotel-desc" data-i18n="sh.h.edition.desc">Ian Schrager's reinvention of the 1929 Shanghai Power Company HQ. A neon roof terrace, two Michelin-stars at Hiya, and the moodiest lobby bar in the city.</p>
+          <div class="hotel-name" data-i18n="sh.h.bulgari.name">Bulgari Hotel Shanghai</div>
+          <div class="hotel-area" data-i18n="sh.h.bulgari.area">Suzhou Creek · Zhabei</div>
+          <p class="hotel-desc" data-i18n="sh.h.bulgari.desc">Antonio Citterio's Italian masterpiece on the banks of Suzhou Creek — anchored by the restored 1916 Shanghai Chamber of Commerce. Black-marble bathrooms, a 20-metre spa pool, Il Ristorante by Niko Romito.</p>
         </div>
         <div class="hotel-footer">
-          <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">€450</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
+          <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">€780</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
           <span class="hotel-link" data-i18n="hotel.discover">Discover</span>
         </div>
       </div>
@@ -1610,7 +1610,115 @@ footer {
   </div>
 </div>
 
-<script src="lang.js?v=28" defer></script>
+<!-- ════════════════════════════════════════════════
+     HOTEL MODAL — The Peninsula Shanghai
+     ════════════════════════════════════════════════ -->
+<div class="hotel-modal" id="hotel-modal-peninsula" role="dialog" aria-modal="true" aria-labelledby="peninsula-modal-title">
+  <div class="hotel-modal-card">
+    <button type="button" class="hotel-modal-close" data-hotel-close aria-label="Close">×</button>
+
+    <div class="hotel-modal-hero" style="background-image:url('peninsula-shanghai-1.jpg');">
+      <div class="hotel-modal-hero-text">
+        <div class="hotel-modal-eyebrow" data-i18n="sh.hm.peninsula.eyebrow">Featured Hotel · Shanghai</div>
+        <h2 class="hotel-modal-name" id="peninsula-modal-title">The Peninsula <em>Shanghai</em></h2>
+      </div>
+    </div>
+
+    <div class="hotel-modal-body">
+      <div class="hotel-modal-text">
+        <h3 data-i18n="sh.hm.peninsula.h">The last building on the Bund</h3>
+        <p data-i18n="sh.hm.peninsula.p1">For seventy years the Shanghai government did not permit a single new building on the Bund. In 2009, that rule was broken once — for The Peninsula. The result is an <em>art-deco volume</em> that picks up the rhythm of the Cathay and the HSBC building beside it, conceived by David Beim of Hirsch Bedner so faithfully that most guests assume it has stood there since 1929.</p>
+        <p data-i18n="sh.hm.peninsula.p2">Inside: 235 of the largest rooms in Shanghai, every one with a view either of Pudong's glass skyline or the heritage Bund. The lobby tea ritual is the city's oldest. Sir Elly's, on the 14th floor, has the best terrace view of the Pudong skyline in town — telescope included.</p>
+        <p data-i18n="sh.hm.peninsula.p3">The 25-metre indoor pool sits beneath a stained-glass canopy. The spa runs the original Peninsula Page Boy service: a uniformed page will deliver anything, anywhere, at any hour.</p>
+
+        <div class="hotel-modal-meta">
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="sh.hm.label.location">Location</div>
+            <div class="hotel-modal-meta-val" data-i18n="sh.hm.peninsula.loc">The Bund · Huangpu</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="sh.hm.label.opened">Opened</div>
+            <div class="hotel-modal-meta-val">2009</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="sh.hm.label.rooms">Rooms &amp; villas</div>
+            <div class="hotel-modal-meta-val">235 rooms &amp; suites</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="sh.hm.label.from">From</div>
+            <div class="hotel-modal-meta-val">€ 700 / night</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hotel-modal-gallery">
+        <a href="peninsula-shanghai-1.jpg" target="_blank" rel="noopener"><img src="peninsula-shanghai-1.jpg" alt="Astor Suite with Pudong view" loading="lazy"></a>
+        <a href="peninsula-shanghai-2.jpg" target="_blank" rel="noopener"><img src="peninsula-shanghai-2.jpg" alt="Deluxe Garden Room" loading="lazy"></a>
+        <a href="peninsula-shanghai-3.jpg" target="_blank" rel="noopener"><img src="peninsula-shanghai-3.jpg" alt="Indoor swimming pool" loading="lazy"></a>
+        <a href="peninsula-shanghai-4.jpg" target="_blank" rel="noopener"><img src="peninsula-shanghai-4.jpg" alt="Housekeeping ritual with skyline view" loading="lazy"></a>
+        <a href="peninsula-shanghai-5.jpg" target="_blank" rel="noopener"><img src="peninsula-shanghai-5.jpg" alt="Private dining florals" loading="lazy"></a>
+      </div>
+    </div>
+
+    <div class="hotel-modal-reserve">
+      <h3 class="hotel-modal-reserve-h" data-i18n="sh.hm.reserve.h">Request a <em>reservation</em></h3>
+      <p class="hotel-modal-reserve-p" data-i18n="sh.hm.reserve.p">Send a non-binding enquiry. We forward it directly to the hotel's reservations desk and reply within 24 hours.</p>
+
+      <form id="hotel-form-peninsula" class="hotel-form" data-endpoint="https://formspree.io/f/myklrnro" novalidate>
+        <input type="hidden" name="_subject" value="The Peninsula Shanghai reservation enquiry">
+        <input type="hidden" name="hotel" value="The Peninsula Shanghai">
+        <input type="hidden" name="city" value="Shanghai">
+
+        <div>
+          <label for="peninsula-name" data-i18n="sh.hm.f.name">Your name</label>
+          <input id="peninsula-name" type="text" name="name" autocomplete="name" required placeholder="Full name">
+        </div>
+        <div>
+          <label for="peninsula-email" data-i18n="sh.hm.f.email">Email</label>
+          <input id="peninsula-email" type="email" name="email" autocomplete="email" required placeholder="your@email.com">
+        </div>
+        <div>
+          <label for="peninsula-checkin" data-i18n="sh.hm.f.checkin">Check-in</label>
+          <input id="peninsula-checkin" type="date" name="checkin" required>
+        </div>
+        <div>
+          <label for="peninsula-checkout" data-i18n="sh.hm.f.checkout">Check-out</label>
+          <input id="peninsula-checkout" type="date" name="checkout" required>
+        </div>
+        <div>
+          <label for="peninsula-guests" data-i18n="sh.hm.f.guests">Guests</label>
+          <input id="peninsula-guests" type="number" name="guests" min="1" max="10" required placeholder="2">
+        </div>
+        <div>
+          <label for="peninsula-villa" data-i18n="sh.hm.f.villa">Room type</label>
+          <select id="peninsula-villa" name="villa" required>
+            <option value="" selected disabled>Choose</option>
+            <option value="deluxe-bund">Deluxe Bund View Room</option>
+            <option value="deluxe-pudong">Deluxe Pudong View Room</option>
+            <option value="grand-deluxe">Grand Deluxe Suite</option>
+            <option value="astor-suite">Astor Suite</option>
+            <option value="peninsula-suite">Peninsula Suite</option>
+            <option value="not-sure">Not sure yet</option>
+          </select>
+        </div>
+        <div class="full">
+          <label for="peninsula-note" data-i18n="sh.hm.f.note">Additional notes (optional)</label>
+          <input id="peninsula-note" type="text" name="note" placeholder="Occasion, dietary requirements, transfers…">
+        </div>
+        <button class="hotel-submit" type="submit" data-i18n="sh.hm.f.submit">Send enquiry</button>
+
+        <!-- Honeypot + anti-bot -->
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;">
+        <input type="hidden" name="_form_loaded_at" value="">
+
+        <div id="hotel-msg-peninsula" class="hotel-msg"></div>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<script src="lang.js?v=30" defer></script>
 <script>
   /* ── "One Perfect Day" toggle ── */
   (function () {

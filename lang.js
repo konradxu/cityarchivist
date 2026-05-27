@@ -226,9 +226,9 @@ const TRANSLATIONS = {
     'sh.h.peninsula.name': 'The Peninsula Shanghai',
     'sh.h.peninsula.area': 'The Bund · Huangpu',
     'sh.h.peninsula.desc': 'Art-deco grandeur at the head of the Bund — the only new building permitted on the historic waterfront in seven decades. Sir Elly\'s rooftop has the city\'s best view of Pudong.',
-    'sh.h.edition.name': 'The Shanghai EDITION',
-    'sh.h.edition.area': 'Nanjing East Road · Huangpu',
-    'sh.h.edition.desc': 'Ian Schrager\'s reinvention of the 1929 Shanghai Power Company HQ. A neon roof terrace, two Michelin-stars at Hiya, and the moodiest lobby bar in the city.',
+    'sh.h.bulgari.name': 'Bulgari Hotel Shanghai',
+    'sh.h.bulgari.area': 'Suzhou Creek · Zhabei',
+    'sh.h.bulgari.desc': "Antonio Citterio's Italian masterpiece on the banks of Suzhou Creek — anchored by the restored 1916 Shanghai Chamber of Commerce. Black-marble bathrooms, a 20-metre spa pool, Il Ristorante by Niko Romito.",
     // ── Shanghai hotel modal — Aman Yangyun ──
     'sh.hm.aman.eyebrow': 'Featured Hotel · Shanghai',
     'sh.hm.aman.h': 'The forest, the dynasty, the resort',
@@ -257,6 +257,14 @@ const TRANSLATIONS = {
     'sh.hm.capella.p2': 'Capella took fifty-five of them and turned each into a stand-alone villa: its own front door from the lane, its own private courtyard, its own butler. The Auriga Spa runs the indoor swimming pool framed by arched warehouse windows. Le Comptoir de Pierre Gagnaire serves classic French in a former missionary\'s house with the Pierre Yovanovitch chairs and Bourgeois flowers.',
     'sh.hm.capella.p3': 'It is the only address in Shanghai where you sleep <em>inside</em> the city\'s pre-war architecture rather than behind a glass curtain wall above it.',
     'sh.hm.capella.loc': 'French Concession · Xuhui',
+    // ── Shanghai hotel modal — Peninsula ──
+    'sh.hm.peninsula.eyebrow': 'Featured Hotel · Shanghai',
+    'sh.hm.peninsula.h': 'The last building on the Bund',
+    'sh.hm.peninsula.p1': 'For seventy years the Shanghai government did not permit a single new building on the Bund. In 2009, that rule was broken once — for The Peninsula. The result is an <em>art-deco volume</em> that picks up the rhythm of the Cathay and the HSBC building beside it, conceived by David Beim of Hirsch Bedner so faithfully that most guests assume it has stood there since 1929.',
+    'sh.hm.peninsula.p2': 'Inside: 235 of the largest rooms in Shanghai, every one with a view either of Pudong’s glass skyline or the heritage Bund. The lobby tea ritual is the city’s oldest. Sir Elly’s, on the 14th floor, has the best terrace view of the Pudong skyline in town — telescope included.',
+    'sh.hm.peninsula.p3': 'The 25-metre indoor pool sits beneath a stained-glass canopy. The spa runs the original Peninsula Page Boy service: a uniformed page will deliver anything, anywhere, at any hour.',
+    'sh.hm.peninsula.loc': 'The Bund · Huangpu',
+
 
     // ── Shanghai: Spots / Reads / Clubs section headers ──
     'sh.spots.h2': 'Secret<br><em>Shanghai</em>',
@@ -643,9 +651,9 @@ const TRANSLATIONS = {
     'sh.h.peninsula.name': 'The Peninsula Shanghai',
     'sh.h.peninsula.area': 'Der Bund · Huangpu',
     'sh.h.peninsula.desc': 'Art-déco-Pracht am Anfang des Bund — das einzige neue Gebäude, das in sieben Jahrzehnten an der historischen Uferpromenade gebaut werden durfte. Sir Elly’s Rooftop hat den besten Blick auf Pudong in der Stadt.',
-    'sh.h.edition.name': 'The Shanghai EDITION',
-    'sh.h.edition.area': 'Nanjing East Road · Huangpu',
-    'sh.h.edition.desc': 'Ian Schragers Neuerfindung der 1929er Shanghai Power Company HQ. Eine Neon-Dachterrasse, zwei Michelin-Sterne im Hiya und die stimmungsvollste Lobby-Bar der Stadt.',
+    'sh.h.bulgari.name': 'Bulgari Hotel Shanghai',
+    'sh.h.bulgari.area': 'Suzhou Creek · Zhabei',
+    'sh.h.bulgari.desc': 'Antonio Citterios italienisches Meisterwerk am Ufer des Suzhou Creek — verankert in der restaurierten Shanghai Chamber of Commerce von 1916. Schwarze Marmorbäder, ein 20-Meter-Spa-Pool, Il Ristorante by Niko Romito.',
     // ── Shanghai hotel modal — Aman Yangyun ──
     'sh.hm.aman.eyebrow': 'Featured Hotel · Shanghai',
     'sh.hm.aman.h': 'Der Wald, die Dynastie, das Resort',
@@ -674,6 +682,14 @@ const TRANSLATIONS = {
     'sh.hm.capella.p2': 'Capella verwandelte fünfundfünfzig davon in eigenständige Villen: eigene Haustür zur Gasse, eigener privater Innenhof, eigener Butler. Das Auriga Spa betreibt den Indoor-Pool, gerahmt von bogenförmigen Lagerhausfenstern. Le Comptoir de Pierre Gagnaire serviert klassische französische Küche in einem ehemaligen Missionarshaus — mit Pierre-Yovanovitch-Stühlen und Bourgeois-Blumen.',
     'sh.hm.capella.p3': 'Es ist die einzige Adresse in Shanghai, wo man <em>innerhalb</em> der Vorkriegsarchitektur der Stadt schläft — und nicht hinter einer Glasvorhangwand darüber.',
     'sh.hm.capella.loc': 'French Concession · Xuhui',
+    // ── Shanghai hotel modal — Peninsula ──
+    'sh.hm.peninsula.eyebrow': 'Featured Hotel · Shanghai',
+    'sh.hm.peninsula.h': 'Das letzte Gebäude am Bund',
+    'sh.hm.peninsula.p1': 'Siebzig Jahre lang hat die Shanghaier Stadtregierung kein einziges neues Gebäude am Bund erlaubt. 2009 wurde diese Regel ein einziges Mal gebrochen — für das Peninsula. Das Ergebnis ist ein <em>Art-déco-Bau</em>, der den Rhythmus des Cathay und des HSBC-Gebäudes daneben aufnimmt, von David Beim (Hirsch Bedner) so getreu entworfen, dass die meisten Gäste annehmen, er stünde dort seit 1929.',
+    'sh.hm.peninsula.p2': 'Innen: 235 der größten Zimmer Shanghais, jedes mit Blick entweder auf Pudongs Glas-Skyline oder den historischen Bund. Das Tee-Ritual in der Lobby ist das älteste der Stadt. Sir Elly’s im 14. Stock hat die beste Terrassen-Aussicht auf die Pudong-Skyline der Stadt — Teleskop inklusive.',
+    'sh.hm.peninsula.p3': 'Der 25-Meter-Indoor-Pool liegt unter einem Glaskuppel-Dach. Das Spa führt den originalen Peninsula Page Boy Service: ein uniformierter Page liefert dir alles, überall, zu jeder Stunde.',
+    'sh.hm.peninsula.loc': 'Der Bund · Huangpu',
+
 
     // ── Shanghai: Spots / Reads / Clubs section headers ──
     'sh.spots.h2': 'Geheimes<br><em>Shanghai</em>',
@@ -1060,9 +1076,9 @@ const TRANSLATIONS = {
     'sh.h.peninsula.name': '上海半岛酒店',
     'sh.h.peninsula.area': '外滩 · 黄浦',
     'sh.h.peninsula.desc': '外滩起点的装饰艺术大气派——七十年来历史滨水区唯一获准新建的建筑。Sir Elly’s 屋顶拥有城中观赏浦东的最佳视角。',
-    'sh.h.edition.name': '上海艾迪逊酒店',
-    'sh.h.edition.area': '南京东路 · 黄浦',
-    'sh.h.edition.desc': 'Ian Schrager 对 1929 年上海电力公司总部的重新诠释。霓虹屋顶露台、Hiya 的两颗米其林星，以及全城最有氛围的大堂酒吧。',
+    'sh.h.bulgari.name': '上海宝格丽酒店',
+    'sh.h.bulgari.area': '苏州河 · 闸北',
+    'sh.h.bulgari.desc': 'Antonio Citterio 在苏州河畔的意大利杰作——以修复后的 1916 年上海总商会大楼为核心。黑色大理石浴室、20 米水疗泳池、Niko Romito 主理的 Il Ristorante。',
     // ── Shanghai hotel modal — Aman Yangyun ──
     'sh.hm.aman.eyebrow': '推荐酒店 · 上海',
     'sh.hm.aman.h': '森林、王朝、度假村',
@@ -1091,6 +1107,14 @@ const TRANSLATIONS = {
     'sh.hm.capella.p2': '嘉佩乐将其中五十五栋改造成独立的别墅：每栋有自己面向弄堂的入口、自己的私人庭院、自己的管家。Auriga Spa 经营着拱形仓库窗户环绕的室内泳池。Le Comptoir de Pierre Gagnaire 在一栋前传教士住宅里供应经典法式料理——配以 Pierre Yovanovitch 的椅子和 Bourgeois 的鲜花。',
     'sh.hm.capella.p3': '这是上海唯一一个让你睡在这座城市战前建筑<em>之中</em>的地址——而不是躲在它上方的玻璃幕墙后面。',
     'sh.hm.capella.loc': '法租界 · 徐汇',
+    // ── Shanghai hotel modal — Peninsula ──
+    'sh.hm.peninsula.eyebrow': '推荐酒店 · 上海',
+    'sh.hm.peninsula.h': '外滩上最后一座新建筑',
+    'sh.hm.peninsula.p1': '七十年来上海市政府没有批准过外滩上任何一栋新建筑。2009 年这条规则被打破了一次——为了半岛酒店。成果是一座<em>装饰艺术建筑</em>，承接了旁边华懋饭店和汇丰银行大楼的节奏，由 David Beim（Hirsch Bedner）忠实设计，以至于大多数客人以为它从 1929 年就矗立在那里。',
+    'sh.hm.peninsula.p2': '内部：上海最大的 235 间客房，每一间都拥有浦东玻璃天际线或历史外滩的景观。大堂下午茶仪式是这座城市最古老的。十四楼的 Sir Elly’s 拥有全城观赏浦东天际线最好的露台视角——配有望远镜。',
+    'sh.hm.peninsula.p3': '25 米室内泳池位于彩色玻璃天棚之下。水疗中心延续了半岛酒店原创的 Page Boy 服务：穿制服的传讯员会在任何时刻将任何东西送到任何地方。',
+    'sh.hm.peninsula.loc': '外滩 · 黄浦',
+
 
     // ── Shanghai: Spots / Reads / Clubs section headers ──
     'sh.spots.h2': '隐秘的<br><em>上海</em>',
