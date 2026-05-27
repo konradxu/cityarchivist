@@ -264,6 +264,14 @@ const TRANSLATIONS = {
     'sh.hm.peninsula.p2': 'Inside: 235 of the largest rooms in Shanghai, every one with a view either of Pudong’s glass skyline or the heritage Bund. The lobby tea ritual is the city’s oldest. Sir Elly’s, on the 14th floor, has the best terrace view of the Pudong skyline in town — telescope included.',
     'sh.hm.peninsula.p3': 'The 25-metre indoor pool sits beneath a stained-glass canopy. The spa runs the original Peninsula Page Boy service: a uniformed page will deliver anything, anywhere, at any hour.',
     'sh.hm.peninsula.loc': 'The Bund · Huangpu',
+    // ── Shanghai hotel modal — Bulgari ──
+    'sh.hm.bulgari.eyebrow': 'Featured Hotel · Shanghai',
+    'sh.hm.bulgari.h': 'An Italian palazzo on Suzhou Creek',
+    'sh.hm.bulgari.p1': 'Bulgari\'s eighth hotel sits at the corner where Suzhou Creek meets the Bund — anchored by the meticulously restored <em>1916 Shanghai Chamber of Commerce</em>, which now houses Bulgari Bar, Il Ristorante and Il Cioccolato. The new tower behind it, designed by Antonio Citterio Patricia Viel, rises 48 floors above the river.',
+    'sh.hm.bulgari.p2': 'The interior language is unmistakably Italian: chocolate-brown leather, black-marble bathrooms with chequerboard floors, brass detailing, custom Maxalto furniture and B&amp;B Italia in every room. Il Ristorante is led by three-Michelin-starred Niko Romito; the Bulgari Spa wraps a 25-metre indoor pool in a tunnel of warm-wood slats.',
+    'sh.hm.bulgari.p3': 'It is the city\'s most explicit statement of <em>European luxury transplanted</em> — a Roman address built into a Chinese skyline.',
+    'sh.hm.bulgari.loc': 'Suzhou Creek · Zhabei',
+
 
 
     // ── Shanghai: Spots / Reads / Clubs section headers ──
@@ -689,6 +697,14 @@ const TRANSLATIONS = {
     'sh.hm.peninsula.p2': 'Innen: 235 der größten Zimmer Shanghais, jedes mit Blick entweder auf Pudongs Glas-Skyline oder den historischen Bund. Das Tee-Ritual in der Lobby ist das älteste der Stadt. Sir Elly’s im 14. Stock hat die beste Terrassen-Aussicht auf die Pudong-Skyline der Stadt — Teleskop inklusive.',
     'sh.hm.peninsula.p3': 'Der 25-Meter-Indoor-Pool liegt unter einem Glaskuppel-Dach. Das Spa führt den originalen Peninsula Page Boy Service: ein uniformierter Page liefert dir alles, überall, zu jeder Stunde.',
     'sh.hm.peninsula.loc': 'Der Bund · Huangpu',
+    // ── Shanghai hotel modal — Bulgari ──
+    'sh.hm.bulgari.eyebrow': 'Featured Hotel · Shanghai',
+    'sh.hm.bulgari.h': 'Ein italienischer Palazzo am Suzhou Creek',
+    'sh.hm.bulgari.p1': 'Bulgaris achtes Hotel liegt an der Ecke, wo der Suzhou Creek auf den Bund trifft — verankert durch die minutiös restaurierte <em>Shanghai Chamber of Commerce von 1916</em>, die heute Bulgari Bar, Il Ristorante und Il Cioccolato beherbergt. Der neue Tower dahinter, von Antonio Citterio Patricia Viel entworfen, erhebt sich 48 Stockwerke über dem Fluss.',
+    'sh.hm.bulgari.p2': 'Die Innenarchitektur ist unverkennbar italienisch: schokoladenbraunes Leder, schwarze Marmorbäder mit Schachbrett-Boden, Messing-Details, maßgefertigte Maxalto-Möbel und B&amp;B Italia in jedem Zimmer. Il Ristorante wird vom Drei-Michelin-Sterne-Koch Niko Romito geführt; das Bulgari Spa umhüllt einen 25-Meter-Indoor-Pool mit einem Tunnel aus warmen Holzlamellen.',
+    'sh.hm.bulgari.p3': 'Es ist die deutlichste Aussage der Stadt zum <em>transplantierten europäischen Luxus</em> — eine römische Adresse, gebaut in eine chinesische Skyline.',
+    'sh.hm.bulgari.loc': 'Suzhou Creek · Zhabei',
+
 
 
     // ── Shanghai: Spots / Reads / Clubs section headers ──
@@ -1114,6 +1130,14 @@ const TRANSLATIONS = {
     'sh.hm.peninsula.p2': '内部：上海最大的 235 间客房，每一间都拥有浦东玻璃天际线或历史外滩的景观。大堂下午茶仪式是这座城市最古老的。十四楼的 Sir Elly’s 拥有全城观赏浦东天际线最好的露台视角——配有望远镜。',
     'sh.hm.peninsula.p3': '25 米室内泳池位于彩色玻璃天棚之下。水疗中心延续了半岛酒店原创的 Page Boy 服务：穿制服的传讯员会在任何时刻将任何东西送到任何地方。',
     'sh.hm.peninsula.loc': '外滩 · 黄浦',
+    // ── Shanghai hotel modal — Bulgari ──
+    'sh.hm.bulgari.eyebrow': '推荐酒店 · 上海',
+    'sh.hm.bulgari.h': '苏州河畔的意大利宫殿',
+    'sh.hm.bulgari.p1': '宝格丽旗下第八家酒店坐落在苏州河与外滩交汇之处——以精心修复的 <em>1916 年上海总商会</em>为核心，如今容纳着宝格丽酒吧、Il Ristorante 和 Il Cioccolato。后方由 Antonio Citterio Patricia Viel 设计的新塔楼高耸 48 层，俯瞰整条河流。',
+    'sh.hm.bulgari.p2': '室内语言无可挑剔地意式：巧克力棕皮革、黑色大理石浴室配棋盘地砖、黄铜细节、定制 Maxalto 家具和每间客房的 B&amp;B Italia。Il Ristorante 由三星米其林大厨 Niko Romito 主理；宝格丽水疗中心用一条温暖木条隧道环绕 25 米室内泳池。',
+    'sh.hm.bulgari.p3': '这是这座城市对<em>移植的欧洲奢华</em>最明确的宣言——一个建在中国天际线上的罗马地址。',
+    'sh.hm.bulgari.loc': '苏州河 · 闸北',
+
 
 
     // ── Shanghai: Spots / Reads / Clubs section headers ──
