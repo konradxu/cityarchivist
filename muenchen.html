@@ -2,6 +2,11 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
+<!-- Security headers -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://formspree.io; script-src 'self' 'unsafe-inline'; frame-src https://www.google.com https://maps.google.com; form-action https://formspree.io 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=()">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>München — City Archivist</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
@@ -493,6 +498,250 @@ footer {
 }
 .soc:hover { color: var(--gold-dim); border-color: rgba(184,153,90,0.4); }
 
+/* ── HOTEL CARD → clickable ── */
+.hotel-card[data-hotel-trigger] { cursor: pointer; }
+.hotel-img {
+  position: relative; overflow: hidden;
+  min-height: 220px;
+}
+
+/* ── HOTEL MODAL ── */
+.hotel-modal {
+  display: none;
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(20,18,15,0.78);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  overflow-y: auto;
+  align-items: flex-start; justify-content: center;
+  padding: 4rem 2rem;
+}
+.hotel-modal.open { display: flex; }
+.hotel-modal-card {
+  background: var(--white);
+  max-width: 1080px; width: 100%;
+  position: relative;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+  border: 1px solid var(--sand);
+}
+.hotel-modal-close {
+  position: absolute; top: 1.4rem; right: 1.4rem;
+  width: 38px; height: 38px;
+  background: var(--white);
+  border: 1px solid var(--sand);
+  color: var(--ink);
+  font-size: 16px; font-weight: 300;
+  cursor: pointer; z-index: 5;
+  transition: background 0.2s, color 0.2s, transform 0.3s;
+  display: flex; align-items: center; justify-content: center;
+}
+.hotel-modal-close:hover { background: var(--ink); color: var(--parchment); transform: rotate(90deg); }
+.hotel-modal-hero {
+  width: 100%; aspect-ratio: 21/9;
+  background: var(--sand) center/cover no-repeat;
+  position: relative;
+}
+.hotel-modal-hero::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.65) 100%);
+}
+.hotel-modal-hero-text {
+  position: absolute; bottom: 2.5rem; left: 3rem; right: 3rem; z-index: 2;
+  color: var(--parchment);
+}
+.hotel-modal-eyebrow {
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--gold-dim); margin-bottom: 0.8rem;
+  display: flex; align-items: center; gap: 12px;
+}
+.hotel-modal-eyebrow::before {
+  content: ''; width: 20px; height: 1px;
+  background: var(--gold-dim); display: inline-block;
+}
+.hotel-modal-name {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 300; line-height: 1.05;
+  color: var(--parchment);
+}
+.hotel-modal-name em { font-style: italic; color: var(--gold); }
+.hotel-modal-body {
+  padding: 3rem 3rem 4rem;
+  display: grid; grid-template-columns: 1.3fr 1fr;
+  gap: 3.5rem;
+}
+.hotel-modal-text h3 {
+  font-family: var(--serif);
+  font-size: 1.35rem; font-weight: 400;
+  color: var(--ink); margin-bottom: 1rem;
+}
+.hotel-modal-text p {
+  font-size: 13.5px; color: var(--ink-light);
+  font-weight: 300; line-height: 1.95;
+  margin-bottom: 1.2rem;
+}
+.hotel-modal-text p em {
+  font-family: var(--serif); font-style: italic;
+  color: var(--ink-mid); font-weight: 400;
+}
+.hotel-modal-meta {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.2rem 1.8rem;
+  margin-top: 2rem; padding-top: 2rem;
+  border-top: 1px solid var(--sand);
+}
+.hotel-modal-meta-item {
+  font-size: 9px; letter-spacing: 0.24em;
+  text-transform: uppercase; color: var(--warm-gray);
+}
+.hotel-modal-meta-val {
+  font-family: var(--serif);
+  font-size: 1.05rem; font-weight: 400;
+  color: var(--ink); margin-top: 0.3rem;
+  letter-spacing: 0; text-transform: none;
+}
+.hotel-modal-gallery {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 6px; align-self: start;
+}
+.hotel-modal-gallery a {
+  display: block; overflow: hidden; position: relative;
+  aspect-ratio: 4/3;
+}
+.hotel-modal-gallery a:first-child {
+  grid-column: span 2;
+  aspect-ratio: 16/9;
+}
+.hotel-modal-gallery img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  transition: transform 0.5s;
+}
+.hotel-modal-gallery a:hover img { transform: scale(1.05); }
+.hotel-modal-reserve {
+  padding: 3rem 3rem 4rem;
+  background: var(--linen);
+  border-top: 1px solid var(--sand);
+}
+.hotel-modal-reserve-h {
+  font-family: var(--serif);
+  font-size: 1.7rem; font-weight: 300;
+  color: var(--ink); margin-bottom: 0.6rem;
+}
+.hotel-modal-reserve-h em { font-style: italic; color: var(--gold); }
+.hotel-modal-reserve-p {
+  font-size: 13px; color: var(--ink-light);
+  font-weight: 300; line-height: 1.9;
+  max-width: 540px; margin-bottom: 2rem;
+}
+.hotel-form {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.2rem 1.5rem;
+}
+.hotel-form .full { grid-column: span 2; }
+.hotel-form label {
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--warm-gray);
+  margin-bottom: 0.4rem; display: block;
+}
+.hotel-form input,
+.hotel-form select {
+  width: 100%;
+  background: transparent;
+  border: none; border-bottom: 1px solid var(--sand);
+  color: var(--ink);
+  font-family: var(--sans); font-size: 13px; font-weight: 300;
+  padding: 8px 0;
+  transition: border-bottom-color 0.2s;
+}
+.hotel-form input:focus,
+.hotel-form select:focus { border-bottom-color: var(--gold); outline: none; }
+.hotel-form select option { background: var(--white); color: var(--ink); }
+.hotel-submit {
+  grid-column: span 2;
+  justify-self: start;
+  margin-top: 1rem;
+  background: var(--ink); color: var(--parchment);
+  border: 1px solid var(--ink);
+  font-family: var(--sans);
+  font-size: 10px; font-weight: 300;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  padding: 14px 30px; cursor: pointer;
+  transition: background 0.25s, color 0.25s, gap 0.3s;
+  display: inline-flex; align-items: center; gap: 12px;
+}
+.hotel-submit::after { content: '→'; }
+.hotel-submit:hover { background: transparent; color: var(--ink); gap: 18px; }
+.hotel-msg {
+  grid-column: span 2;
+  margin-top: 1rem;
+  font-size: 12px; color: var(--ink-light);
+  font-style: italic;
+  font-family: var(--serif);
+  min-height: 1.2em;
+}
+.hotel-msg[data-state="ok"] { color: var(--gold); }
+.hotel-msg[data-state="error"] { color: #b54848; }
+
+/* Request-any-other-hotel section */
+.hotel-request {
+  background: var(--linen);
+  border-top: 1px solid var(--sand);
+  padding: 4.5rem 4rem 5rem;
+}
+.hotel-request-inner {
+  max-width: 980px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1.4fr;
+  gap: 4rem; align-items: start;
+}
+.hotel-request-eyebrow {
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 12px;
+}
+.hotel-request-eyebrow::before {
+  content: ''; width: 20px; height: 1px;
+  background: var(--gold); display: inline-block;
+}
+.hotel-request-h {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+  font-weight: 300; line-height: 1.2;
+  color: var(--ink); margin-bottom: 1.2rem;
+}
+.hotel-request-h em { font-style: italic; color: var(--gold); }
+.hotel-request-p {
+  font-size: 13px; color: var(--ink-light);
+  font-weight: 300; line-height: 1.9;
+  max-width: 380px;
+}
+.hotel-request .hotel-form {
+  background: var(--white);
+  padding: 2.2rem 2.2rem 2.5rem;
+  border: 1px solid var(--sand);
+}
+
+@media (max-width: 1100px) {
+  .hotel-modal-body { grid-template-columns: 1fr; gap: 2.5rem; }
+  .hotel-modal-gallery { max-width: 760px; margin: 0 auto; width: 100%; }
+}
+@media (max-width: 768px) {
+  .hotel-modal { padding: 1rem; }
+  .hotel-modal-hero { aspect-ratio: 16/10; }
+  .hotel-modal-hero-text { left: 1.5rem; right: 1.5rem; bottom: 1.5rem; }
+  .hotel-modal-body { padding: 2rem 1.5rem; }
+  .hotel-modal-reserve { padding: 2rem 1.5rem 3rem; }
+  .hotel-form { grid-template-columns: 1fr; }
+  .hotel-form .full,
+  .hotel-submit,
+  .hotel-msg { grid-column: auto; }
+  .hotel-request { padding: 3rem 1.5rem 3.5rem; }
+  .hotel-request-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+  .hotel-request .hotel-form { padding: 1.6rem 1.4rem 2rem; }
+}
+
 /* ── MOBILE ── */
 @media (max-width: 768px) {
   nav { padding: 0 1.5rem; gap: 0; }
@@ -775,72 +1024,144 @@ footer {
   <div class="sec-header">
     <div>
       <div class="sec-eyebrow" data-i18n="city.hotels.eyebrow">Hotels</div>
-      <h2 class="sec-h">Where to<br><em>Stay</em></h2>
+      <h2 class="sec-h" data-i18n="mu.hotels.h2">Where to<br><em>Stay</em></h2>
     </div>
-    <p class="sec-desc">Four addresses that capture different sides of Munich — the grand dame, the classical maximalist, the Asian-luxury jewel-box and the modern outsider with the best garden view in town.</p>
+    <p class="sec-desc" data-i18n="mu.hotels.desc">Four addresses that capture different sides of Munich — the grand dame, the classical maximalist, the Asian-luxury jewel-box and the modern outsider with the best garden view in town.</p>
   </div>
   <div class="hotels-grid">
-    <div class="hotel-card">
-      <div class="hotel-img a"><div class="ph-frame">◎</div><span class="ph-label">Bayerischer Hof</span></div>
+
+    <div class="hotel-card" data-hotel-trigger="bayerischer" tabindex="0" role="button" aria-label="Open Bayerischer Hof details">
+      <div class="hotel-img a">
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">Bayerischer Hof</span>
+      </div>
       <div class="hotel-body">
         <div>
           <div class="hotel-stars">★★★★★</div>
-          <div class="hotel-name">Bayerischer Hof</div>
-          <div class="hotel-area">Promenadeplatz · München</div>
-          <p class="hotel-desc">Munich's grand dame since 1841 — Falk family ownership across five generations, a rooftop Blue Spa with city views, the Night Club bar and a Volkstheater to itself.</p>
+          <div class="hotel-name" data-i18n="mu.h.bayerischer.name">Bayerischer Hof</div>
+          <div class="hotel-area" data-i18n="mu.h.bayerischer.area">Promenadeplatz · München</div>
+          <p class="hotel-desc" data-i18n="mu.h.bayerischer.desc">Munich's grand dame since 1841 — Falk family ownership across five generations, a rooftop Blue Spa with city views, the Night Club bar and a Volkstheater to itself.</p>
         </div>
         <div class="hotel-footer">
           <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">€450</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
-          <a class="hotel-link" data-i18n="hotel.discover">Discover</a>
+          <span class="hotel-link" data-i18n="hotel.discover">Discover</span>
         </div>
       </div>
     </div>
-    <div class="hotel-card">
-      <div class="hotel-img b"><div class="ph-frame">◎</div><span class="ph-label">Vier Jahreszeiten</span></div>
+
+    <div class="hotel-card" data-hotel-trigger="kempinski" tabindex="0" role="button" aria-label="Open Vier Jahreszeiten Kempinski details">
+      <div class="hotel-img b">
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">Vier Jahreszeiten</span>
+      </div>
       <div class="hotel-body">
         <div>
           <div class="hotel-stars">★★★★★</div>
-          <div class="hotel-name">Vier Jahreszeiten Kempinski</div>
-          <div class="hotel-area">Maximilianstraße · München</div>
-          <p class="hotel-desc">Munich's classical address since 1858 — French neo-Renaissance facade on the Maximilianstraße, the Schwarzreiter restaurant, and a top-floor pool with rooftops to the Alps.</p>
+          <div class="hotel-name" data-i18n="mu.h.kempinski.name">Vier Jahreszeiten Kempinski</div>
+          <div class="hotel-area" data-i18n="mu.h.kempinski.area">Maximilianstraße · München</div>
+          <p class="hotel-desc" data-i18n="mu.h.kempinski.desc">Munich's classical address since 1858 — French neo-Renaissance facade on the Maximilianstraße, the Schwarzreiter restaurant, and a top-floor pool with rooftops to the Alps.</p>
         </div>
         <div class="hotel-footer">
           <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">€500</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
-          <a class="hotel-link" data-i18n="hotel.discover">Discover</a>
+          <span class="hotel-link" data-i18n="hotel.discover">Discover</span>
         </div>
       </div>
     </div>
-    <div class="hotel-card">
-      <div class="hotel-img c"><div class="ph-frame">◎</div><span class="ph-label">Mandarin Oriental</span></div>
+
+    <div class="hotel-card" data-hotel-trigger="mandarin" tabindex="0" role="button" aria-label="Open Mandarin Oriental Munich details">
+      <div class="hotel-img c">
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">Mandarin Oriental</span>
+      </div>
       <div class="hotel-body">
         <div>
           <div class="hotel-stars">★★★★★</div>
-          <div class="hotel-name">Mandarin Oriental Munich</div>
-          <div class="hotel-area">Altstadt · München</div>
-          <p class="hotel-desc">A 73-room jewel box behind a baroque facade two minutes from the Marienplatz. The rooftop pool stops conversation — old Munich, quietly polished by Asian luxury.</p>
+          <div class="hotel-name" data-i18n="mu.h.mandarin.name">Mandarin Oriental Munich</div>
+          <div class="hotel-area" data-i18n="mu.h.mandarin.area">Altstadt · München</div>
+          <p class="hotel-desc" data-i18n="mu.h.mandarin.desc">A 73-room jewel box behind a baroque facade two minutes from the Marienplatz. The rooftop pool stops conversation — old Munich, quietly polished by Asian luxury.</p>
         </div>
         <div class="hotel-footer">
           <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">€700</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
-          <a class="hotel-link" data-i18n="hotel.discover">Discover</a>
+          <span class="hotel-link" data-i18n="hotel.discover">Discover</span>
         </div>
       </div>
     </div>
-    <div class="hotel-card">
-      <div class="hotel-img d"><div class="ph-frame">◎</div><span class="ph-label">Rocco Forte Charles</span></div>
+
+    <div class="hotel-card" data-hotel-trigger="charles" tabindex="0" role="button" aria-label="Open Rocco Forte The Charles Hotel details">
+      <div class="hotel-img d">
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">Rocco Forte Charles</span>
+      </div>
       <div class="hotel-body">
         <div>
           <div class="hotel-stars">★★★★★</div>
-          <div class="hotel-name">Rocco Forte The Charles Hotel</div>
-          <div class="hotel-area">Lenbachplatz · München</div>
-          <p class="hotel-desc">Olga Polizzi's interior, looking onto the Alter Botanischer Garten — newer money, more relaxed energy than the Bayerischer Hof, and the city's best hotel garden view.</p>
+          <div class="hotel-name" data-i18n="mu.h.charles.name">Rocco Forte The Charles Hotel</div>
+          <div class="hotel-area" data-i18n="mu.h.charles.area">Lenbachplatz · München</div>
+          <p class="hotel-desc" data-i18n="mu.h.charles.desc">Olga Polizzi's interior, looking onto the Alter Botanischer Garten — newer money, more relaxed energy than the Bayerischer Hof, and the city's best hotel garden view.</p>
         </div>
         <div class="hotel-footer">
           <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">€380</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
-          <a class="hotel-link" data-i18n="hotel.discover">Discover</a>
+          <span class="hotel-link" data-i18n="hotel.discover">Discover</span>
         </div>
       </div>
     </div>
+
   </div>
+
+  <!-- ── Request any other hotel ── -->
+  <div class="hotel-request">
+    <div class="hotel-request-inner">
+      <div>
+        <div class="hotel-request-eyebrow" data-i18n="mu.req.eyebrow">Looking for something else?</div>
+        <h3 class="hotel-request-h" data-i18n="mu.req.h">Request <em>any other</em> Munich hotel.</h3>
+        <p class="hotel-request-p" data-i18n="mu.req.p">Not one of the four featured? Tell us where you'd like to stay — Hotel Königshof, The Flushing Meadows, Sofitel Munich Bayerpost, Louis Hotel, or any other address — and we'll arrange the reservation for you.</p>
+      </div>
+      <form id="hotel-form-other" class="hotel-form" data-endpoint="https://formspree.io/f/myklrnro" novalidate>
+        <input type="hidden" name="_subject" value="Hotel reservation enquiry — Munich (other)">
+        <input type="hidden" name="city" value="Munich">
+
+        <div>
+          <label for="other-name" data-i18n="mu.hm.f.name">Your name</label>
+          <input id="other-name" type="text" name="name" autocomplete="name" required placeholder="Full name">
+        </div>
+        <div>
+          <label for="other-email" data-i18n="mu.hm.f.email">Email</label>
+          <input id="other-email" type="email" name="email" autocomplete="email" required placeholder="your@email.com">
+        </div>
+        <div class="full">
+          <label for="other-hotel" data-i18n="mu.req.f.hotel">Which hotel?</label>
+          <input id="other-hotel" type="text" name="hotel" required placeholder="e.g. Hotel Königshof">
+        </div>
+        <div>
+          <label for="other-checkin" data-i18n="mu.hm.f.checkin">Check-in</label>
+          <input id="other-checkin" type="date" name="checkin" required>
+        </div>
+        <div>
+          <label for="other-checkout" data-i18n="mu.hm.f.checkout">Check-out</label>
+          <input id="other-checkout" type="date" name="checkout" required>
+        </div>
+        <div>
+          <label for="other-guests" data-i18n="mu.hm.f.guests">Guests</label>
+          <input id="other-guests" type="number" name="guests" min="1" max="10" required placeholder="2">
+        </div>
+        <div>
+          <label for="other-room" data-i18n="mu.req.f.preference">Room preference</label>
+          <input id="other-room" type="text" name="villa" placeholder="Suite, twin, view, …">
+        </div>
+        <div class="full">
+          <label for="other-note" data-i18n="mu.hm.f.note">Additional notes (optional)</label>
+          <input id="other-note" type="text" name="note" placeholder="Occasion, dietary requirements, transfers…">
+        </div>
+        <button class="hotel-submit" type="submit" data-i18n="mu.req.submit">Send request</button>
+
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;">
+        <input type="hidden" name="_form_loaded_at" value="">
+
+        <div id="hotel-msg-other" class="hotel-msg"></div>
+      </form>
+    </div>
+  </div>
+
 </section>
 
 <!-- DIVIDER -->
@@ -928,6 +1249,442 @@ footer {
     });
   });
 </script>
-<script src="lang.js?v=23" defer></script>
+<!-- ════════════════════════════════════════════════
+     HOTEL MODALS — Munich
+     ════════════════════════════════════════════════ -->
+
+<!-- BAYERISCHER HOF -->
+<div class="hotel-modal" id="hotel-modal-bayerischer" role="dialog" aria-modal="true" aria-labelledby="bayerischer-modal-title">
+  <div class="hotel-modal-card">
+    <button type="button" class="hotel-modal-close" data-hotel-close aria-label="Close">×</button>
+    <div class="hotel-modal-hero" style="background-image: linear-gradient(135deg, #5a4a35, #3a342d 60%, #2a2620 100%);">
+      <div class="hotel-modal-hero-text">
+        <div class="hotel-modal-eyebrow" data-i18n="mu.hm.featured">Featured Hotel · Munich</div>
+        <h2 class="hotel-modal-name" id="bayerischer-modal-title">Bayerischer <em>Hof</em></h2>
+      </div>
+    </div>
+    <div class="hotel-modal-body">
+      <div class="hotel-modal-text">
+        <h3 data-i18n="mu.hm.bayerischer.h">Munich's grand dame since 1841.</h3>
+        <p data-i18n="mu.hm.bayerischer.p1">Five generations of the <em>Falk family</em> have owned the Bayerischer Hof since the 1890s — a rarity in modern hospitality, and the reason the hotel still feels like a private house run at scale. 337 rooms across an entire block on the Promenadeplatz, no two of them quite the same.</p>
+        <p data-i18n="mu.hm.bayerischer.p2">The Blue Spa designed by Andrée Putman sits on the rooftop with Frauenkirche views. The Night Club downstairs has hosted Tony Bennett and Buena Vista Social Club. There's a Volkstheater inside. There are four restaurants. There is a tea salon Garbo apparently liked.</p>
+        <p data-i18n="mu.hm.bayerischer.p3">If Munich has a hotel that feels like Munich itself, it is this one.</p>
+
+        <div class="hotel-modal-meta">
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.location">Location</div>
+            <div class="hotel-modal-meta-val" data-i18n="mu.hm.bayerischer.loc">Promenadeplatz · Altstadt</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.opened">Founded</div>
+            <div class="hotel-modal-meta-val">1841</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.rooms">Rooms &amp; suites</div>
+            <div class="hotel-modal-meta-val">337 rooms · 65 suites</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.from">From</div>
+            <div class="hotel-modal-meta-val">€ 450 / night</div>
+          </div>
+        </div>
+      </div>
+      <div class="hotel-modal-gallery">
+        <a href="#" style="background:linear-gradient(150deg,#7a6a45,#3a342d); aspect-ratio:16/9; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#5a4a35,#2a2620); aspect-ratio:4/3; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#a89070,#4a4540); aspect-ratio:4/3; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#3a342d,#1a1814); aspect-ratio:4/3; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#8a7050,#3a342d); aspect-ratio:4/3; display:block;"></a>
+      </div>
+    </div>
+
+    <div class="hotel-modal-reserve">
+      <h3 class="hotel-modal-reserve-h" data-i18n="mu.hm.reserve.h">Request a <em>reservation</em></h3>
+      <p class="hotel-modal-reserve-p" data-i18n="mu.hm.reserve.p">Send a non-binding enquiry. We forward it directly to the hotel's reservations desk and reply within 24 hours.</p>
+      <form id="hotel-form-bayerischer" class="hotel-form" data-endpoint="https://formspree.io/f/myklrnro" novalidate>
+        <input type="hidden" name="_subject" value="Bayerischer Hof reservation enquiry">
+        <input type="hidden" name="hotel" value="Bayerischer Hof">
+        <input type="hidden" name="city" value="Munich">
+        <div><label for="bayerischer-name" data-i18n="mu.hm.f.name">Your name</label><input id="bayerischer-name" type="text" name="name" autocomplete="name" required placeholder="Full name"></div>
+        <div><label for="bayerischer-email" data-i18n="mu.hm.f.email">Email</label><input id="bayerischer-email" type="email" name="email" autocomplete="email" required placeholder="your@email.com"></div>
+        <div><label for="bayerischer-checkin" data-i18n="mu.hm.f.checkin">Check-in</label><input id="bayerischer-checkin" type="date" name="checkin" required></div>
+        <div><label for="bayerischer-checkout" data-i18n="mu.hm.f.checkout">Check-out</label><input id="bayerischer-checkout" type="date" name="checkout" required></div>
+        <div><label for="bayerischer-guests" data-i18n="mu.hm.f.guests">Guests</label><input id="bayerischer-guests" type="number" name="guests" min="1" max="10" required placeholder="2"></div>
+        <div><label for="bayerischer-villa" data-i18n="mu.hm.f.villa">Room type</label>
+          <select id="bayerischer-villa" name="villa" required>
+            <option value="" selected disabled>Choose</option>
+            <option value="superior">Superior Room</option>
+            <option value="deluxe">Deluxe Room</option>
+            <option value="junior-suite">Junior Suite</option>
+            <option value="executive-suite">Executive Suite</option>
+            <option value="penthouse">Penthouse Suite</option>
+            <option value="not-sure">Not sure yet</option>
+          </select>
+        </div>
+        <div class="full"><label for="bayerischer-note" data-i18n="mu.hm.f.note">Additional notes (optional)</label><input id="bayerischer-note" type="text" name="note" placeholder="Occasion, dietary requirements, transfers…"></div>
+        <button class="hotel-submit" type="submit" data-i18n="mu.hm.f.submit">Send enquiry</button>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;">
+        <input type="hidden" name="_form_loaded_at" value="">
+        <div id="hotel-msg-bayerischer" class="hotel-msg"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- VIER JAHRESZEITEN KEMPINSKI -->
+<div class="hotel-modal" id="hotel-modal-kempinski" role="dialog" aria-modal="true" aria-labelledby="kempinski-modal-title">
+  <div class="hotel-modal-card">
+    <button type="button" class="hotel-modal-close" data-hotel-close aria-label="Close">×</button>
+    <div class="hotel-modal-hero" style="background-image: linear-gradient(135deg, #4a3a25, #2a2218 60%, #1a1410 100%);">
+      <div class="hotel-modal-hero-text">
+        <div class="hotel-modal-eyebrow" data-i18n="mu.hm.featured">Featured Hotel · Munich</div>
+        <h2 class="hotel-modal-name" id="kempinski-modal-title">Vier Jahreszeiten <em>Kempinski</em></h2>
+      </div>
+    </div>
+    <div class="hotel-modal-body">
+      <div class="hotel-modal-text">
+        <h3 data-i18n="mu.hm.kempinski.h">The Maximilianstraße address.</h3>
+        <p data-i18n="mu.hm.kempinski.p1">Commissioned by <em>King Maximilian II</em> in 1858 as part of his grand boulevard, the Vier Jahreszeiten is built into the same French neo-Renaissance facade he ordered for the rest of the street. Three different doorways open into one hotel — a quirk that's never been corrected.</p>
+        <p data-i18n="mu.hm.kempinski.p2">The Schwarzreiter restaurant carries Michelin recognition. The top-floor pool faces south, with rooftops to the Alps on a clear day. The Falk's Bar serves the city's most uncompromising negroni.</p>
+        <p data-i18n="mu.hm.kempinski.p3">Where the Bayerischer Hof feels like a household, the Kempinski feels like a state institution — calmer, more upholstered, more diplomatically composed.</p>
+
+        <div class="hotel-modal-meta">
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.location">Location</div>
+            <div class="hotel-modal-meta-val" data-i18n="mu.hm.kempinski.loc">Maximilianstraße · Altstadt</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.opened">Founded</div>
+            <div class="hotel-modal-meta-val">1858</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.rooms">Rooms &amp; suites</div>
+            <div class="hotel-modal-meta-val">298 rooms · 60 suites</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.from">From</div>
+            <div class="hotel-modal-meta-val">€ 500 / night</div>
+          </div>
+        </div>
+      </div>
+      <div class="hotel-modal-gallery">
+        <a href="#" style="background:linear-gradient(150deg,#6a5530,#2a2218); aspect-ratio:16/9; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#4a3a25,#1a1410); aspect-ratio:4/3; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#9a8055,#3a2e1f); aspect-ratio:4/3; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#2a2218,#0e0c08); aspect-ratio:4/3; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#7a6040,#2a2218); aspect-ratio:4/3; display:block;"></a>
+      </div>
+    </div>
+    <div class="hotel-modal-reserve">
+      <h3 class="hotel-modal-reserve-h" data-i18n="mu.hm.reserve.h">Request a <em>reservation</em></h3>
+      <p class="hotel-modal-reserve-p" data-i18n="mu.hm.reserve.p">Send a non-binding enquiry. We forward it directly to the hotel's reservations desk and reply within 24 hours.</p>
+      <form id="hotel-form-kempinski" class="hotel-form" data-endpoint="https://formspree.io/f/myklrnro" novalidate>
+        <input type="hidden" name="_subject" value="Vier Jahreszeiten Kempinski reservation enquiry">
+        <input type="hidden" name="hotel" value="Vier Jahreszeiten Kempinski Munich">
+        <input type="hidden" name="city" value="Munich">
+        <div><label for="kempinski-name" data-i18n="mu.hm.f.name">Your name</label><input id="kempinski-name" type="text" name="name" autocomplete="name" required placeholder="Full name"></div>
+        <div><label for="kempinski-email" data-i18n="mu.hm.f.email">Email</label><input id="kempinski-email" type="email" name="email" autocomplete="email" required placeholder="your@email.com"></div>
+        <div><label for="kempinski-checkin" data-i18n="mu.hm.f.checkin">Check-in</label><input id="kempinski-checkin" type="date" name="checkin" required></div>
+        <div><label for="kempinski-checkout" data-i18n="mu.hm.f.checkout">Check-out</label><input id="kempinski-checkout" type="date" name="checkout" required></div>
+        <div><label for="kempinski-guests" data-i18n="mu.hm.f.guests">Guests</label><input id="kempinski-guests" type="number" name="guests" min="1" max="10" required placeholder="2"></div>
+        <div><label for="kempinski-villa" data-i18n="mu.hm.f.villa">Room type</label>
+          <select id="kempinski-villa" name="villa" required>
+            <option value="" selected disabled>Choose</option>
+            <option value="superior">Superior Room</option>
+            <option value="deluxe">Deluxe Room</option>
+            <option value="junior-suite">Junior Suite</option>
+            <option value="grand-deluxe-suite">Grand Deluxe Suite</option>
+            <option value="presidential-suite">Presidential Suite</option>
+            <option value="not-sure">Not sure yet</option>
+          </select>
+        </div>
+        <div class="full"><label for="kempinski-note" data-i18n="mu.hm.f.note">Additional notes (optional)</label><input id="kempinski-note" type="text" name="note" placeholder="Occasion, dietary requirements, transfers…"></div>
+        <button class="hotel-submit" type="submit" data-i18n="mu.hm.f.submit">Send enquiry</button>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;">
+        <input type="hidden" name="_form_loaded_at" value="">
+        <div id="hotel-msg-kempinski" class="hotel-msg"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- MANDARIN ORIENTAL MUNICH -->
+<div class="hotel-modal" id="hotel-modal-mandarin" role="dialog" aria-modal="true" aria-labelledby="mandarin-modal-title">
+  <div class="hotel-modal-card">
+    <button type="button" class="hotel-modal-close" data-hotel-close aria-label="Close">×</button>
+    <div class="hotel-modal-hero" style="background-image: linear-gradient(135deg, #3a2818, #2a1c10 60%, #1a1208 100%);">
+      <div class="hotel-modal-hero-text">
+        <div class="hotel-modal-eyebrow" data-i18n="mu.hm.featured">Featured Hotel · Munich</div>
+        <h2 class="hotel-modal-name" id="mandarin-modal-title">Mandarin Oriental <em>Munich</em></h2>
+      </div>
+    </div>
+    <div class="hotel-modal-body">
+      <div class="hotel-modal-text">
+        <h3 data-i18n="mu.hm.mandarin.h">A jewel-box behind a baroque facade.</h3>
+        <p data-i18n="mu.hm.mandarin.p1">Two minutes from the Marienplatz, in a <em>1880s neo-Renaissance corner building</em> that used to be a ballroom, the Mandarin Oriental opened in 2000 as the city's first hotel in the modern Asian-luxury tradition. Seventy-three rooms — small for a Munich five-star, deliberately so.</p>
+        <p data-i18n="mu.hm.mandarin.p2">The rooftop pool sits in a glass house above the Old Town with the Frauenkirche towers in eye-line — one of the most photographed amenities in any European hotel. Matsuhisa Munich on the eighth floor is the city's only Nobu address.</p>
+        <p data-i18n="mu.hm.mandarin.p3">Old Munich, quietly polished by Hong Kong sensibility.</p>
+
+        <div class="hotel-modal-meta">
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.location">Location</div>
+            <div class="hotel-modal-meta-val" data-i18n="mu.hm.mandarin.loc">Altstadt · Marienplatz</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.opened">Opened</div>
+            <div class="hotel-modal-meta-val">2000</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.rooms">Rooms &amp; suites</div>
+            <div class="hotel-modal-meta-val">73 rooms · 20 suites</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.from">From</div>
+            <div class="hotel-modal-meta-val">€ 700 / night</div>
+          </div>
+        </div>
+      </div>
+      <div class="hotel-modal-gallery">
+        <a href="#" style="background:linear-gradient(150deg,#5a3e25,#1a1208); aspect-ratio:16/9; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#3a2818,#0e0a05); aspect-ratio:4/3; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#8a6535,#2a1c10); aspect-ratio:4/3; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#2a1c10,#0a0604); aspect-ratio:4/3; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#6a4830,#2a1c10); aspect-ratio:4/3; display:block;"></a>
+      </div>
+    </div>
+    <div class="hotel-modal-reserve">
+      <h3 class="hotel-modal-reserve-h" data-i18n="mu.hm.reserve.h">Request a <em>reservation</em></h3>
+      <p class="hotel-modal-reserve-p" data-i18n="mu.hm.reserve.p">Send a non-binding enquiry. We forward it directly to the hotel's reservations desk and reply within 24 hours.</p>
+      <form id="hotel-form-mandarin" class="hotel-form" data-endpoint="https://formspree.io/f/myklrnro" novalidate>
+        <input type="hidden" name="_subject" value="Mandarin Oriental Munich reservation enquiry">
+        <input type="hidden" name="hotel" value="Mandarin Oriental Munich">
+        <input type="hidden" name="city" value="Munich">
+        <div><label for="mandarin-name" data-i18n="mu.hm.f.name">Your name</label><input id="mandarin-name" type="text" name="name" autocomplete="name" required placeholder="Full name"></div>
+        <div><label for="mandarin-email" data-i18n="mu.hm.f.email">Email</label><input id="mandarin-email" type="email" name="email" autocomplete="email" required placeholder="your@email.com"></div>
+        <div><label for="mandarin-checkin" data-i18n="mu.hm.f.checkin">Check-in</label><input id="mandarin-checkin" type="date" name="checkin" required></div>
+        <div><label for="mandarin-checkout" data-i18n="mu.hm.f.checkout">Check-out</label><input id="mandarin-checkout" type="date" name="checkout" required></div>
+        <div><label for="mandarin-guests" data-i18n="mu.hm.f.guests">Guests</label><input id="mandarin-guests" type="number" name="guests" min="1" max="10" required placeholder="2"></div>
+        <div><label for="mandarin-villa" data-i18n="mu.hm.f.villa">Room type</label>
+          <select id="mandarin-villa" name="villa" required>
+            <option value="" selected disabled>Choose</option>
+            <option value="superior">Superior Room</option>
+            <option value="deluxe">Deluxe Room</option>
+            <option value="junior-suite">Junior Suite</option>
+            <option value="mandarin-suite">Mandarin Suite</option>
+            <option value="oriental-suite">Oriental Suite</option>
+            <option value="not-sure">Not sure yet</option>
+          </select>
+        </div>
+        <div class="full"><label for="mandarin-note" data-i18n="mu.hm.f.note">Additional notes (optional)</label><input id="mandarin-note" type="text" name="note" placeholder="Occasion, dietary requirements, transfers…"></div>
+        <button class="hotel-submit" type="submit" data-i18n="mu.hm.f.submit">Send enquiry</button>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;">
+        <input type="hidden" name="_form_loaded_at" value="">
+        <div id="hotel-msg-mandarin" class="hotel-msg"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ROCCO FORTE THE CHARLES HOTEL -->
+<div class="hotel-modal" id="hotel-modal-charles" role="dialog" aria-modal="true" aria-labelledby="charles-modal-title">
+  <div class="hotel-modal-card">
+    <button type="button" class="hotel-modal-close" data-hotel-close aria-label="Close">×</button>
+    <div class="hotel-modal-hero" style="background-image: linear-gradient(135deg, #3a3a25, #1f2a1f 60%, #0a1408 100%);">
+      <div class="hotel-modal-hero-text">
+        <div class="hotel-modal-eyebrow" data-i18n="mu.hm.featured">Featured Hotel · Munich</div>
+        <h2 class="hotel-modal-name" id="charles-modal-title">Rocco Forte · The <em>Charles</em></h2>
+      </div>
+    </div>
+    <div class="hotel-modal-body">
+      <div class="hotel-modal-text">
+        <h3 data-i18n="mu.hm.charles.h">The garden-side outsider.</h3>
+        <p data-i18n="mu.hm.charles.p1">When the Charles opened in 2007 it was the first new <em>luxury build</em> in central Munich in decades — a modern limestone block by Florian Fischer on the western edge of the Old Town, looking onto the Alter Botanischer Garten. Olga Polizzi's interiors are quieter and warmer than the city's grand-historical players.</p>
+        <p data-i18n="mu.hm.charles.p2">The 15-metre pool on the lower level is the city's longest hotel pool. Sophia's, the ground-floor restaurant, opens onto the garden in summer. Service is unfussy in the very specific Rocco Forte way.</p>
+        <p data-i18n="mu.hm.charles.p3">Newer money, more relaxed energy than the Bayerischer Hof — and the most generous green view of any luxury room in Munich.</p>
+
+        <div class="hotel-modal-meta">
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.location">Location</div>
+            <div class="hotel-modal-meta-val" data-i18n="mu.hm.charles.loc">Lenbachplatz · Maxvorstadt</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.opened">Opened</div>
+            <div class="hotel-modal-meta-val">2007</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.rooms">Rooms &amp; suites</div>
+            <div class="hotel-modal-meta-val">160 rooms · 33 suites</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.from">From</div>
+            <div class="hotel-modal-meta-val">€ 380 / night</div>
+          </div>
+        </div>
+      </div>
+      <div class="hotel-modal-gallery">
+        <a href="#" style="background:linear-gradient(150deg,#5a5a35,#1a200e); aspect-ratio:16/9; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#3a3a25,#0a1408); aspect-ratio:4/3; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#7a8055,#2a3018); aspect-ratio:4/3; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#1f2a1f,#08120a); aspect-ratio:4/3; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#6a6035,#2a2818); aspect-ratio:4/3; display:block;"></a>
+      </div>
+    </div>
+    <div class="hotel-modal-reserve">
+      <h3 class="hotel-modal-reserve-h" data-i18n="mu.hm.reserve.h">Request a <em>reservation</em></h3>
+      <p class="hotel-modal-reserve-p" data-i18n="mu.hm.reserve.p">Send a non-binding enquiry. We forward it directly to the hotel's reservations desk and reply within 24 hours.</p>
+      <form id="hotel-form-charles" class="hotel-form" data-endpoint="https://formspree.io/f/myklrnro" novalidate>
+        <input type="hidden" name="_subject" value="Rocco Forte The Charles reservation enquiry">
+        <input type="hidden" name="hotel" value="Rocco Forte The Charles Hotel Munich">
+        <input type="hidden" name="city" value="Munich">
+        <div><label for="charles-name" data-i18n="mu.hm.f.name">Your name</label><input id="charles-name" type="text" name="name" autocomplete="name" required placeholder="Full name"></div>
+        <div><label for="charles-email" data-i18n="mu.hm.f.email">Email</label><input id="charles-email" type="email" name="email" autocomplete="email" required placeholder="your@email.com"></div>
+        <div><label for="charles-checkin" data-i18n="mu.hm.f.checkin">Check-in</label><input id="charles-checkin" type="date" name="checkin" required></div>
+        <div><label for="charles-checkout" data-i18n="mu.hm.f.checkout">Check-out</label><input id="charles-checkout" type="date" name="checkout" required></div>
+        <div><label for="charles-guests" data-i18n="mu.hm.f.guests">Guests</label><input id="charles-guests" type="number" name="guests" min="1" max="10" required placeholder="2"></div>
+        <div><label for="charles-villa" data-i18n="mu.hm.f.villa">Room type</label>
+          <select id="charles-villa" name="villa" required>
+            <option value="" selected disabled>Choose</option>
+            <option value="superior">Superior Room</option>
+            <option value="deluxe">Deluxe Garden Room</option>
+            <option value="junior-suite">Junior Suite</option>
+            <option value="charles-suite">Charles Suite</option>
+            <option value="presidential">Presidential Suite</option>
+            <option value="not-sure">Not sure yet</option>
+          </select>
+        </div>
+        <div class="full"><label for="charles-note" data-i18n="mu.hm.f.note">Additional notes (optional)</label><input id="charles-note" type="text" name="note" placeholder="Occasion, dietary requirements, transfers…"></div>
+        <button class="hotel-submit" type="submit" data-i18n="mu.hm.f.submit">Send enquiry</button>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;">
+        <input type="hidden" name="_form_loaded_at" value="">
+        <div id="hotel-msg-charles" class="hotel-msg"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="lang.js?v=35" defer></script>
+<script>
+  /* ── Hotel modals — Munich ── */
+  (function () {
+    const triggers = document.querySelectorAll('[data-hotel-trigger]');
+    const modals = document.querySelectorAll('.hotel-modal');
+
+    function openModal(hotel) {
+      const m = document.getElementById('hotel-modal-' + hotel);
+      if (!m) return;
+      m.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      const stamp = m.querySelector('[name="_form_loaded_at"]');
+      if (stamp) stamp.value = Date.now().toString();
+    }
+    function closeModal(m) {
+      m.classList.remove('open');
+      document.body.style.overflow = '';
+      const msg = m.querySelector('.hotel-msg');
+      if (msg) { msg.textContent = ''; msg.removeAttribute('data-state'); }
+    }
+
+    triggers.forEach(el => {
+      const hotel = el.getAttribute('data-hotel-trigger');
+      el.addEventListener('click', e => {
+        if (e.target.closest('a')) return;
+        openModal(hotel);
+      });
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(hotel); }
+      });
+    });
+
+    modals.forEach(m => {
+      m.querySelectorAll('[data-hotel-close]').forEach(b => b.addEventListener('click', () => closeModal(m)));
+      m.addEventListener('click', e => { if (e.target === m) closeModal(m); });
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') modals.forEach(m => { if (m.classList.contains('open')) closeModal(m); });
+    });
+
+    /* Form submit handler */
+    document.querySelectorAll('form[id^="hotel-form-"]').forEach(form => {
+      const msg = form.querySelector('.hotel-msg');
+      if (!form.closest('.hotel-modal')) {
+        const initStamp = form.querySelector('[name="_form_loaded_at"]');
+        if (initStamp) initStamp.value = Date.now().toString();
+      }
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        msg.textContent = ''; msg.removeAttribute('data-state');
+
+        const hp = form.querySelector('[name="_gotcha"]');
+        const stamp = form.querySelector('[name="_form_loaded_at"]');
+        if (hp && hp.value && hp.value.trim() !== '') {
+          msg.textContent = 'Thank you — we will be in touch within 24 hours.'; msg.dataset.state='ok';
+          form.reset(); if (stamp) stamp.value = Date.now().toString(); return;
+        }
+        if (stamp && stamp.value && (Date.now() - parseInt(stamp.value, 10)) < 3000) {
+          msg.textContent = 'Thank you — we will be in touch within 24 hours.'; msg.dataset.state='ok';
+          form.reset(); stamp.value = Date.now().toString(); return;
+        }
+        try {
+          const KEY = 'cityArchivistRateLimit'; const now = Date.now();
+          let log = JSON.parse(localStorage.getItem(KEY) || '[]');
+          log = log.filter(t => (now - t) < 3600000);
+          if (log.length >= 3) {
+            msg.textContent = 'Too many requests. Please try again in an hour.'; msg.dataset.state='error'; return;
+          }
+          log.push(now); localStorage.setItem(KEY, JSON.stringify(log));
+        } catch (_) {}
+
+        const data = {
+          hotel:    form.hotel.value,
+          city:     form.city.value,
+          _subject: form._subject.value,
+          name:     form.name.value.trim().slice(0, 100).replace(/[<>]/g, ''),
+          email:    form.email.value.trim().slice(0, 200),
+          checkin:  form.checkin.value,
+          checkout: form.checkout.value,
+          guests:   form.guests.value,
+          villa:    form.villa.value,
+          note:     (form.note ? form.note.value.trim().slice(0, 500) : ''),
+        };
+        if (!data.name) { msg.textContent = 'Please enter your name.'; msg.dataset.state='error'; return; }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+          msg.textContent = 'Please enter a valid email address.'; msg.dataset.state='error'; return;
+        }
+        if (!data.checkin || !data.checkout) {
+          msg.textContent = 'Please choose check-in and check-out dates.'; msg.dataset.state='error'; return;
+        }
+        if (new Date(data.checkout) <= new Date(data.checkin)) {
+          msg.textContent = 'Check-out must be after check-in.'; msg.dataset.state='error'; return;
+        }
+        if (!data.guests || data.guests < 1) { msg.textContent = 'How many guests?'; msg.dataset.state='error'; return; }
+        if (!data.hotel || data.hotel.trim() === '') {
+          msg.textContent = 'Please tell us which hotel.'; msg.dataset.state='error'; return;
+        }
+        const villaInput = form.querySelector('[name="villa"]');
+        if (villaInput && villaInput.required && !data.villa) {
+          msg.textContent = 'Please pick a room type.'; msg.dataset.state='error'; return;
+        }
+
+        msg.textContent = 'Sending…';
+        try {
+          const res = await fetch(form.getAttribute('data-endpoint'), {
+            method: 'POST',
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+          if (res.ok) {
+            msg.textContent = 'Thank you — we will be in touch within 24 hours.'; msg.dataset.state='ok';
+            form.reset(); if (stamp) stamp.value = Date.now().toString();
+          } else {
+            msg.textContent = 'Something went wrong. Please try again or email us.'; msg.dataset.state='error';
+          }
+        } catch (_) {
+          msg.textContent = 'Network error. Please try again.'; msg.dataset.state='error';
+        }
+      });
+    });
+  })();
+</script>
 </body>
 </html>

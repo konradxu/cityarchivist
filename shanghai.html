@@ -696,6 +696,109 @@ footer {
   .hotel-msg { grid-column: auto; }
 }
 
+/* ── CLUB ROW → clickable card ── */
+.club-row[data-club-trigger] { cursor: pointer; transition: background 0.25s; }
+.club-row[data-club-trigger]:hover { background: rgba(255,255,255,0.05); }
+.club-row[data-club-trigger]:focus-visible { outline: 1px solid var(--gold); outline-offset: -1px; }
+.club-row[data-club-trigger] .club-tag {
+  color: var(--gold-dim);
+  border-color: rgba(184,153,90,0.4);
+}
+
+/* ── DARK CLUB MODAL (extends .hotel-modal) ── */
+.hotel-modal.club-modal-wrap .hotel-modal-card {
+  background: #1a1814; color: var(--parchment);
+  border-color: rgba(212,188,138,0.18);
+}
+.hotel-modal.club-modal-wrap .hotel-modal-close {
+  background: rgba(248,245,239,0.05);
+  border-color: rgba(212,188,138,0.2);
+  color: var(--parchment);
+}
+.hotel-modal.club-modal-wrap .hotel-modal-close:hover {
+  background: var(--gold); color: var(--ink); border-color: var(--gold);
+}
+.hotel-modal.club-modal-wrap .hotel-modal-hero {
+  background-color: #2a2620;
+}
+.hotel-modal.club-modal-wrap .hotel-modal-hero::after {
+  background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.85) 100%);
+}
+.hotel-modal.club-modal-wrap .hotel-modal-eyebrow { color: var(--gold-dim); }
+.hotel-modal.club-modal-wrap .hotel-modal-eyebrow::before { background: var(--gold-dim); }
+.hotel-modal.club-modal-wrap .hotel-modal-name { color: var(--parchment); }
+.hotel-modal.club-modal-wrap .hotel-modal-text h3 {
+  color: var(--parchment);
+}
+.hotel-modal.club-modal-wrap .hotel-modal-text p { color: rgba(248,245,239,0.65); }
+.hotel-modal.club-modal-wrap .hotel-modal-text p em { color: var(--gold-dim); }
+.hotel-modal.club-modal-wrap .hotel-modal-meta {
+  border-top-color: rgba(212,188,138,0.15);
+}
+.hotel-modal.club-modal-wrap .hotel-modal-meta-item { color: rgba(248,245,239,0.45); }
+.hotel-modal.club-modal-wrap .hotel-modal-meta-val { color: var(--parchment); }
+.hotel-modal.club-modal-wrap .hotel-modal-reserve {
+  background: #0e0c08;
+  border-top-color: rgba(212,188,138,0.15);
+}
+.hotel-modal.club-modal-wrap .hotel-modal-reserve-h { color: var(--parchment); }
+.hotel-modal.club-modal-wrap .hotel-modal-reserve-p { color: rgba(248,245,239,0.55); }
+.hotel-modal.club-modal-wrap .hotel-form label { color: rgba(248,245,239,0.45); }
+.hotel-modal.club-modal-wrap .hotel-form input,
+.hotel-modal.club-modal-wrap .hotel-form select {
+  color: var(--parchment);
+  border-bottom-color: rgba(212,188,138,0.2);
+}
+.hotel-modal.club-modal-wrap .hotel-form input:focus,
+.hotel-modal.club-modal-wrap .hotel-form select:focus {
+  border-bottom-color: var(--gold);
+}
+.hotel-modal.club-modal-wrap .hotel-form input::placeholder { color: rgba(248,245,239,0.3); }
+.hotel-modal.club-modal-wrap .hotel-form select option { background: var(--ink); color: var(--parchment); }
+.hotel-modal.club-modal-wrap .hotel-submit {
+  background: var(--gold); color: var(--ink); border-color: var(--gold);
+}
+.hotel-modal.club-modal-wrap .hotel-submit:hover {
+  background: transparent; color: var(--gold);
+}
+
+/* Club modal: simpler body (no gallery, just info) */
+.club-modal-body {
+  padding: 3rem 3rem 4rem;
+  display: grid; grid-template-columns: 1.4fr 1fr;
+  gap: 3.5rem;
+}
+@media (max-width: 1100px) {
+  .club-modal-body { grid-template-columns: 1fr; gap: 2rem; }
+}
+@media (max-width: 768px) {
+  .club-modal-body { padding: 2rem 1.5rem; }
+}
+.club-modal-info {
+  background: rgba(248,245,239,0.04);
+  padding: 1.8rem 1.8rem 2rem;
+  border: 1px solid rgba(212,188,138,0.1);
+}
+.club-modal-info-label {
+  font-size: 9px; letter-spacing: 0.26em;
+  text-transform: uppercase; color: var(--gold-dim);
+  margin-bottom: 1.2rem;
+}
+.club-modal-info-grid {
+  display: grid; gap: 1.2rem;
+}
+.club-modal-info-item {
+  font-size: 9px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: rgba(248,245,239,0.4);
+}
+.club-modal-info-val {
+  font-family: var(--serif);
+  font-size: 1rem; font-weight: 400;
+  color: var(--parchment); margin-top: 0.25rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
 /* ── REQUEST ANY HOTEL (under hotels grid) ── */
 .hotel-request {
   background: var(--linen);
@@ -738,6 +841,36 @@ footer {
   .hotel-request { padding: 3rem 1.5rem 3.5rem; }
   .hotel-request-inner { grid-template-columns: 1fr; gap: 1.5rem; }
   .hotel-request .hotel-form { padding: 1.6rem 1.4rem 2rem; }
+}
+
+/* Dark variant: club request box */
+.club-request {
+  background: #0e0c08;
+  border-top: 1px solid rgba(212,188,138,0.12);
+}
+.club-request .hotel-request-eyebrow { color: var(--gold-dim); }
+.club-request .hotel-request-eyebrow::before { background: var(--gold-dim); }
+.club-request .hotel-request-h { color: var(--parchment); }
+.club-request .hotel-request-p { color: rgba(248,245,239,0.55); }
+.club-request .hotel-form {
+  background: #1a1814;
+  border-color: rgba(212,188,138,0.12);
+}
+.club-request .hotel-form label { color: rgba(248,245,239,0.45); }
+.club-request .hotel-form input,
+.club-request .hotel-form select {
+  color: var(--parchment);
+  border-bottom-color: rgba(212,188,138,0.2);
+}
+.club-request .hotel-form input:focus,
+.club-request .hotel-form select:focus { border-bottom-color: var(--gold); }
+.club-request .hotel-form input::placeholder { color: rgba(248,245,239,0.3); }
+.club-request .hotel-form select option { background: var(--ink); color: var(--parchment); }
+.club-request .hotel-submit {
+  background: var(--gold); color: var(--ink); border-color: var(--gold);
+}
+.club-request .hotel-submit:hover {
+  background: transparent; color: var(--gold);
 }
 
 /* ── ONE PERFECT DAY ── */
@@ -1433,30 +1566,57 @@ footer {
     <p class="sec-desc" data-i18n="sh.clubs.desc">From speakeasies hidden behind bookshelves to riverside megaclubs — where Shanghai actually opens up after midnight.</p>
   </div>
   <div class="clubs-list">
-    <div class="club-row">
+
+    <div class="club-row" data-club-trigger="taxx" tabindex="0" role="button" aria-label="Open TAXX details">
       <div class="club-num">01</div>
-      <div><div class="club-name">Test Test Test</div><div class="club-genre">Techno · Xintiandi</div></div>
-      <p class="club-desc">Test test test test test test test test test test test test.</p>
-      <div class="club-tag">Test Tag</div>
+      <div>
+        <div class="club-name" data-i18n="sh.c.taxx.name">TAXX</div>
+        <div class="club-genre" data-i18n="sh.c.taxx.genre">Big-Room · Hip-Hop · EDM</div>
+      </div>
+      <p class="club-desc" data-i18n="sh.c.taxx.desc">The largest luxury club in Shanghai — a Hollywood-scale production with rotating headliners, bottle parades and the city's loudest LED wall.</p>
+      <div class="club-tag" data-i18n="sh.c.taxx.tag">People's Square</div>
     </div>
-    <div class="club-row">
+
+    <div class="club-row" data-club-trigger="ins" tabindex="0" role="button" aria-label="Open INS details">
       <div class="club-num">02</div>
-      <div><div class="club-name">Test Test Test</div><div class="club-genre">House · Lujiazui</div></div>
-      <p class="club-desc">Test test test test test test test test test test test test.</p>
-      <div class="club-tag">Test Tag</div>
+      <div>
+        <div class="club-name" data-i18n="sh.c.ins.name">INS</div>
+        <div class="club-genre" data-i18n="sh.c.ins.genre">Mega-Venue · Six Floors · Multi-Genre</div>
+      </div>
+      <p class="club-desc" data-i18n="sh.c.ins.desc">Six clubs stacked into one tower — each floor with its own booth, its own genre, its own crowd. Hip-hop on one, techno on another, K-pop and KTV upstairs.</p>
+      <div class="club-tag" data-i18n="sh.c.ins.tag">Nanjing West Road</div>
     </div>
-    <div class="club-row">
+
+    <div class="club-row" data-club-trigger="arkham" tabindex="0" role="button" aria-label="Open Arkham details">
       <div class="club-num">03</div>
-      <div><div class="club-name">Test Test Test</div><div class="club-genre">Electronic · French Concession</div></div>
-      <p class="club-desc">Test test test test test test test test test test test test.</p>
-      <div class="club-tag">Test Tag</div>
+      <div>
+        <div class="club-name" data-i18n="sh.c.arkham.name">Arkham</div>
+        <div class="club-genre" data-i18n="sh.c.arkham.genre">Techno · Underground</div>
+      </div>
+      <p class="club-desc" data-i18n="sh.c.arkham.desc">The institution. Inside Found 158, Arkham has run residencies and one-night-stands with the heaviest names in techno since 2014 — Funktion-One sound, no nonsense.</p>
+      <div class="club-tag" data-i18n="sh.c.arkham.tag">Found 158</div>
     </div>
-    <div class="club-row">
+
+    <div class="club-row" data-club-trigger="all" tabindex="0" role="button" aria-label="Open ALL Club details">
       <div class="club-num">04</div>
-      <div><div class="club-name">Test Test Test</div><div class="club-genre">Jazz · The Bund</div></div>
-      <p class="club-desc">Test test test test test test test test test test test test.</p>
-      <div class="club-tag">Test Tag</div>
+      <div>
+        <div class="club-name" data-i18n="sh.c.all.name">ALL Club</div>
+        <div class="club-genre" data-i18n="sh.c.all.genre">Minimal · House · Techno</div>
+      </div>
+      <p class="club-desc" data-i18n="sh.c.all.desc">A small, audiophile-grade listening club tucked behind an unmarked door — the place where local heads go when the bigger rooms feel too obvious.</p>
+      <div class="club-tag" data-i18n="sh.c.all.tag">Xintiandi</div>
     </div>
+
+    <div class="club-row" data-club-trigger="sober" tabindex="0" role="button" aria-label="Open Sober Company details">
+      <div class="club-num">05</div>
+      <div>
+        <div class="club-name" data-i18n="sh.c.sober.name">Sober Company</div>
+        <div class="club-genre" data-i18n="sh.c.sober.genre">Cocktail Bar · Multi-Concept</div>
+      </div>
+      <p class="club-desc" data-i18n="sh.c.sober.desc">Shingo Gokan's four-floor cocktail concept — Sip & Guzzle, Sober Society, The Odd Couple — built into a Shintori-style brutalist shell. Voted Asia's best year after year.</p>
+      <div class="club-tag" data-i18n="sh.c.sober.tag">French Concession</div>
+    </div>
+
   </div>
 </section>
 
@@ -1930,7 +2090,221 @@ footer {
   </div>
 </div>
 
-<script src="lang.js?v=32" defer></script>
+<!-- ════════════════════════════════════════════════
+     CLUB MODALS — Shanghai
+     ════════════════════════════════════════════════ -->
+
+<!-- TAXX -->
+<div class="hotel-modal club-modal-wrap" id="club-modal-taxx" role="dialog" aria-modal="true" aria-labelledby="taxx-modal-title">
+  <div class="hotel-modal-card">
+    <button type="button" class="hotel-modal-close" data-hotel-close aria-label="Close">×</button>
+    <div class="hotel-modal-hero" style="background-image: linear-gradient(135deg, #2a1a24 0%, #1a1014 60%, #0a0608 100%);">
+      <div class="hotel-modal-hero-text">
+        <div class="hotel-modal-eyebrow" data-i18n="sh.cm.featured">Featured Club · Shanghai</div>
+        <h2 class="hotel-modal-name" id="taxx-modal-title"><em>TAXX</em></h2>
+      </div>
+    </div>
+    <div class="club-modal-body">
+      <div class="hotel-modal-text">
+        <h3 data-i18n="sh.cm.taxx.h">The biggest room in the city.</h3>
+        <p data-i18n="sh.cm.taxx.p1">TAXX sits where M2 used to — and turned what was already Shanghai's flashiest big-room into <em>something louder, taller and more aggressively glamorous</em>. The LED wall behind the booth runs three storeys. The bottle parades roll out on illuminated trays. The crowd shows up dressed.</p>
+        <p data-i18n="sh.cm.taxx.p2">Programming leans hip-hop, EDM and Mandopop hits — with regular headliner takeovers from international names. Reserve a table well in advance: walk-ins on a Saturday will spend the night in the queue, not inside.</p>
+        <p data-i18n="sh.cm.taxx.p3">Best seen from a high table on the second balcony, ideally before midnight when the room still has room.</p>
+      </div>
+      <div class="club-modal-info">
+        <div class="club-modal-info-label" data-i18n="sh.cm.label.info">The essentials</div>
+        <div class="club-modal-info-grid">
+          <div>
+            <div class="club-modal-info-item" data-i18n="sh.cm.label.area">Area</div>
+            <div class="club-modal-info-val" data-i18n="sh.cm.taxx.area">People's Square · Huangpu</div>
+          </div>
+          <div>
+            <div class="club-modal-info-item" data-i18n="sh.cm.label.sound">Sound</div>
+            <div class="club-modal-info-val" data-i18n="sh.cm.taxx.sound">Hip-hop · EDM · Mandopop</div>
+          </div>
+          <div>
+            <div class="club-modal-info-item" data-i18n="sh.cm.label.dress">Dress code</div>
+            <div class="club-modal-info-val" data-i18n="sh.cm.taxx.dress">Smart, glamorous</div>
+          </div>
+          <div>
+            <div class="club-modal-info-item" data-i18n="sh.cm.label.peak">Peak nights</div>
+            <div class="club-modal-info-val" data-i18n="sh.cm.taxx.peak">Friday · Saturday</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INS -->
+<div class="hotel-modal club-modal-wrap" id="club-modal-ins" role="dialog" aria-modal="true" aria-labelledby="ins-modal-title">
+  <div class="hotel-modal-card">
+    <button type="button" class="hotel-modal-close" data-hotel-close aria-label="Close">×</button>
+    <div class="hotel-modal-hero" style="background-image: linear-gradient(135deg, #1a1a2a 0%, #14141c 60%, #08080e 100%);">
+      <div class="hotel-modal-hero-text">
+        <div class="hotel-modal-eyebrow" data-i18n="sh.cm.featured">Featured Club · Shanghai</div>
+        <h2 class="hotel-modal-name" id="ins-modal-title"><em>INS</em></h2>
+      </div>
+    </div>
+    <div class="club-modal-body">
+      <div class="hotel-modal-text">
+        <h3 data-i18n="sh.cm.ins.h">Six clubs under one roof.</h3>
+        <p data-i18n="sh.cm.ins.p1">INS is what happens when you take Shanghai's appetite for scale and stack it on top of itself: a <em>six-storey entertainment tower</em> on Nanjing West Road where every floor is a different club. Hip-hop on one, big-room EDM on another, a Latin-trap room, a KTV floor, a rooftop lounge — each with its own booth, its own door staff, its own crowd.</p>
+        <p data-i18n="sh.cm.ins.p2">The whole building runs as one organism: a single wristband moves you up and down between floors. The lifts are slow on a Saturday — most people just climb. The most ambitious group will hit three floors before the night is over and have completely forgotten which one they came in through.</p>
+        <p data-i18n="sh.cm.ins.p3">If you only do one mega-club in Shanghai and don't know which genre suits the night yet, this is the room — because it's six rooms.</p>
+      </div>
+      <div class="club-modal-info">
+        <div class="club-modal-info-label" data-i18n="sh.cm.label.info">The essentials</div>
+        <div class="club-modal-info-grid">
+          <div>
+            <div class="club-modal-info-item" data-i18n="sh.cm.label.area">Area</div>
+            <div class="club-modal-info-val" data-i18n="sh.cm.ins.area">Nanjing West Road · Jing'an</div>
+          </div>
+          <div>
+            <div class="club-modal-info-item" data-i18n="sh.cm.label.sound">Sound</div>
+            <div class="club-modal-info-val" data-i18n="sh.cm.ins.sound">Hip-hop · EDM · Latin · K-pop</div>
+          </div>
+          <div>
+            <div class="club-modal-info-item" data-i18n="sh.cm.label.dress">Dress code</div>
+            <div class="club-modal-info-val" data-i18n="sh.cm.ins.dress">Smart, statement</div>
+          </div>
+          <div>
+            <div class="club-modal-info-item" data-i18n="sh.cm.label.peak">Peak nights</div>
+            <div class="club-modal-info-val" data-i18n="sh.cm.ins.peak">Friday · Saturday</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ARKHAM -->
+<div class="hotel-modal club-modal-wrap" id="club-modal-arkham" role="dialog" aria-modal="true" aria-labelledby="arkham-modal-title">
+  <div class="hotel-modal-card">
+    <button type="button" class="hotel-modal-close" data-hotel-close aria-label="Close">×</button>
+    <div class="hotel-modal-hero" style="background-image: linear-gradient(135deg, #1a2a2a 0%, #0e1818 60%, #050808 100%);">
+      <div class="hotel-modal-hero-text">
+        <div class="hotel-modal-eyebrow" data-i18n="sh.cm.featured">Featured Club · Shanghai</div>
+        <h2 class="hotel-modal-name" id="arkham-modal-title"><em>Arkham</em></h2>
+      </div>
+    </div>
+    <div class="club-modal-body">
+      <div class="hotel-modal-text">
+        <h3 data-i18n="sh.cm.arkham.h">The temple of techno.</h3>
+        <p data-i18n="sh.cm.arkham.p1">Inside the Found 158 sunken food court — past the noodle counters and the natural-wine bar — sits a black door that opens into the city's most uncompromising room. <em>Arkham has been programming techno residencies since 2014</em>, longer than most of its dancers have been clubbing.</p>
+        <p data-i18n="sh.cm.arkham.p2">The Funktion-One rig is dialled in for clarity, not volume. The crowd is locals plus visiting heads who heard from someone where to go. Resident night every Friday; international headliners most Saturdays — Floating Points, Charlotte de Witte, Marcel Dettmann have all played here.</p>
+        <p data-i18n="sh.cm.arkham.p3">Doors at midnight. Best arrived around two.</p>
+      </div>
+      <div class="club-modal-info">
+        <div class="club-modal-info-label" data-i18n="sh.cm.label.info">The essentials</div>
+        <div class="club-modal-info-grid">
+          <div>
+            <div class="club-modal-info-item" data-i18n="sh.cm.label.area">Area</div>
+            <div class="club-modal-info-val" data-i18n="sh.cm.arkham.area">Found 158 · Jing'an</div>
+          </div>
+          <div>
+            <div class="club-modal-info-item" data-i18n="sh.cm.label.sound">Sound</div>
+            <div class="club-modal-info-val" data-i18n="sh.cm.arkham.sound">Techno · House</div>
+          </div>
+          <div>
+            <div class="club-modal-info-item" data-i18n="sh.cm.label.dress">Dress code</div>
+            <div class="club-modal-info-val" data-i18n="sh.cm.arkham.dress">Anything black</div>
+          </div>
+          <div>
+            <div class="club-modal-info-item" data-i18n="sh.cm.label.peak">Peak nights</div>
+            <div class="club-modal-info-val" data-i18n="sh.cm.arkham.peak">Friday · Saturday</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ALL CLUB -->
+<div class="hotel-modal club-modal-wrap" id="club-modal-all" role="dialog" aria-modal="true" aria-labelledby="all-modal-title">
+  <div class="hotel-modal-card">
+    <button type="button" class="hotel-modal-close" data-hotel-close aria-label="Close">×</button>
+    <div class="hotel-modal-hero" style="background-image: linear-gradient(135deg, #2a2620 0%, #1a1814 60%, #0e0c08 100%);">
+      <div class="hotel-modal-hero-text">
+        <div class="hotel-modal-eyebrow" data-i18n="sh.cm.featured">Featured Club · Shanghai</div>
+        <h2 class="hotel-modal-name" id="all-modal-title">ALL <em>Club</em></h2>
+      </div>
+    </div>
+    <div class="club-modal-body">
+      <div class="hotel-modal-text">
+        <h3 data-i18n="sh.cm.all.h">A small room for serious sound.</h3>
+        <p data-i18n="sh.cm.all.p1">ALL is what Shanghai's underground built when it got tired of the warehouse format. A <em>small, audiophile-tuned listening room</em> with a custom-built sound system, no dance floor lighting to speak of, and a residency programme that books names you only know if you actually follow this music.</p>
+        <p data-i18n="sh.cm.all.p2">The crowd is a mix of label heads, producers and very serious listeners. Drinks are quiet — a short menu, well-built. Phones discouraged. There's no door policy as such, but the door is unmarked, and you'll need the address.</p>
+        <p data-i18n="sh.cm.all.p3">When ALL has the right name behind the booth, it is the best room in Asia.</p>
+      </div>
+      <div class="club-modal-info">
+        <div class="club-modal-info-label" data-i18n="sh.cm.label.info">The essentials</div>
+        <div class="club-modal-info-grid">
+          <div>
+            <div class="club-modal-info-item" data-i18n="sh.cm.label.area">Area</div>
+            <div class="club-modal-info-val" data-i18n="sh.cm.all.area">Xintiandi · Huangpu</div>
+          </div>
+          <div>
+            <div class="club-modal-info-item" data-i18n="sh.cm.label.sound">Sound</div>
+            <div class="club-modal-info-val" data-i18n="sh.cm.all.sound">Minimal · House · Techno</div>
+          </div>
+          <div>
+            <div class="club-modal-info-item" data-i18n="sh.cm.label.dress">Dress code</div>
+            <div class="club-modal-info-val" data-i18n="sh.cm.all.dress">No code · quiet</div>
+          </div>
+          <div>
+            <div class="club-modal-info-item" data-i18n="sh.cm.label.peak">Peak nights</div>
+            <div class="club-modal-info-val" data-i18n="sh.cm.all.peak">Friday · Saturday</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SOBER COMPANY -->
+<div class="hotel-modal club-modal-wrap" id="club-modal-sober" role="dialog" aria-modal="true" aria-labelledby="sober-modal-title">
+  <div class="hotel-modal-card">
+    <button type="button" class="hotel-modal-close" data-hotel-close aria-label="Close">×</button>
+    <div class="hotel-modal-hero" style="background-image: linear-gradient(135deg, #2a1f14 0%, #1a1408 60%, #0a0804 100%);">
+      <div class="hotel-modal-hero-text">
+        <div class="hotel-modal-eyebrow" data-i18n="sh.cm.featured">Featured Club · Shanghai</div>
+        <h2 class="hotel-modal-name" id="sober-modal-title">Sober <em>Company</em></h2>
+      </div>
+    </div>
+    <div class="club-modal-body">
+      <div class="hotel-modal-text">
+        <h3 data-i18n="sh.cm.sober.h">Four floors, four worlds, one address.</h3>
+        <p data-i18n="sh.cm.sober.p1">Shingo Gokan's <em>multi-concept cocktail destination</em> on Xinle Road is a category-defying address: four floors, three bars and a restaurant, each with its own concept. Sip & Guzzle on the ground floor for fast-served classics. Sober Society for the technical-cocktail flagship. The Odd Couple on the top floor — speakeasy-style, by appointment.</p>
+        <p data-i18n="sh.cm.sober.p2">The whole thing is built into a Shintori-style brutalist concrete shell — exposed, dark, unfinished. Sober Society has held a fixture in Asia's 50 Best Bars list since the year it opened.</p>
+        <p data-i18n="sh.cm.sober.p3">Not a dance club. The most serious cocktail address in the city.</p>
+      </div>
+      <div class="club-modal-info">
+        <div class="club-modal-info-label" data-i18n="sh.cm.label.info">The essentials</div>
+        <div class="club-modal-info-grid">
+          <div>
+            <div class="club-modal-info-item" data-i18n="sh.cm.label.area">Area</div>
+            <div class="club-modal-info-val" data-i18n="sh.cm.sober.area">French Concession · Xuhui</div>
+          </div>
+          <div>
+            <div class="club-modal-info-item" data-i18n="sh.cm.label.sound">Style</div>
+            <div class="club-modal-info-val" data-i18n="sh.cm.sober.sound">Cocktail bar · Multi-concept</div>
+          </div>
+          <div>
+            <div class="club-modal-info-item" data-i18n="sh.cm.label.dress">Dress code</div>
+            <div class="club-modal-info-val" data-i18n="sh.cm.sober.dress">Smart casual</div>
+          </div>
+          <div>
+            <div class="club-modal-info-item" data-i18n="sh.cm.label.peak">Best for</div>
+            <div class="club-modal-info-val" data-i18n="sh.cm.sober.peak">Pre-dinner · late drinks</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="lang.js?v=35" defer></script>
 <script>
   /* ── "One Perfect Day" toggle ── */
   (function () {
@@ -1985,6 +2359,24 @@ footer {
 
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') modals.forEach(m => { if (m.classList.contains('open')) closeModal(m); });
+    });
+
+    /* ── Club modals (info only, no form) ── */
+    document.querySelectorAll('[data-club-trigger]').forEach(el => {
+      const club = el.getAttribute('data-club-trigger');
+      const openClub = () => {
+        const m = document.getElementById('club-modal-' + club);
+        if (!m) return;
+        m.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      };
+      el.addEventListener('click', e => {
+        if (e.target.closest('a')) return;
+        openClub();
+      });
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openClub(); }
+      });
     });
 
     /* Form submit handler (works for any hotel-form-*) */
