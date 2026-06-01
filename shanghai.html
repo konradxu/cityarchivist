@@ -1103,106 +1103,113 @@ footer {
   </div>
 
   <div class="spots-filter">
-    <button class="filter-btn active">Alle</button>
+    <button class="filter-btn active" data-filter="all" data-i18n="spots.filter.all">All</button>
     <button class="filter-btn" data-filter="cafes" data-i18n="spots.filter.cafes">Cafés</button>
     <button class="filter-btn" data-filter="bars" data-i18n="spots.filter.bars">Bars</button>
-    <button class="filter-btn" data-filter="parks" data-i18n="spots.filter.parks">Parks</button>
-    <button class="filter-btn">Kultur</button>
+    <button class="filter-btn" data-filter="walks" data-i18n="spots.filter.walks">Walks</button>
+    <button class="filter-btn" data-filter="culture" data-i18n="spots.filter.culture">Culture</button>
+    <button class="filter-btn" data-filter="food" data-i18n="spots.filter.food">Food</button>
     <button class="filter-btn" data-filter="shopping" data-i18n="spots.filter.shopping">Shopping</button>
-    <button class="filter-btn">Essen</button>
   </div>
 
   <div class="spots-grid">
-    <div class="spot-card">
-      <div class="spot-img a">
-        <span class="spot-cat">Café</span>
-        <div class="ph-frame">◎</div>
-        <span class="ph-label">Bild</span>
+
+    <div class="spot-card" data-cat="cafes">
+      <div class="spot-img" style="background:none; position:relative; overflow:hidden;">
+        <img src="spot-sumerian.webp" alt="Sumerian Coffee" loading="lazy"
+             style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+        <span class="spot-cat" data-i18n="spots.cat.cafe">Café</span>
       </div>
       <div class="spot-body">
-        <div class="spot-title">Test Test Test Test</div>
-        <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
+        <div class="spot-title" data-i18n="sh.s.sumerian.title">Sumerian Coffee</div>
+        <p class="spot-desc" data-i18n="sh.s.sumerian.desc">A small back-lane specialty roaster on Wujiang Lu — beloved by local heads, founded by a Korean-American expat. Single-origin pours, brown-sugar lattes, no fuss.</p>
         <div class="spot-footer">
-          <span class="spot-location">The Bund</span>
+          <span class="spot-location" data-i18n="sh.s.sumerian.loc">Wujiang Lu · Jing'an</span>
           <a class="spot-read" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
-    <div class="spot-card">
-      <div class="spot-img b">
-        <span class="spot-cat">Bar</span>
-        <div class="ph-frame">◎</div>
-        <span class="ph-label">Bild</span>
+
+    <div class="spot-card" data-cat="bars">
+      <div class="spot-img" style="background:none; position:relative; overflow:hidden;">
+        <img src="spot-hide.jpg" alt="Hide Bar" loading="lazy"
+             style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+        <span class="spot-cat" data-i18n="spots.cat.bar">Bar</span>
       </div>
       <div class="spot-body">
-        <div class="spot-title">Test Test Test Test</div>
-        <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
+        <div class="spot-title" data-i18n="sh.s.hide.title">Hide Bar</div>
+        <p class="spot-desc" data-i18n="sh.s.hide.desc">A speakeasy hidden behind a sliding bookshelf in a mahjong parlour. Dark, low-lit, ceiling lined with Japanese washi-paper boxes — Asia's 50 Best for a reason.</p>
         <div class="spot-footer">
-          <span class="spot-location">Lujiazui</span>
+          <span class="spot-location" data-i18n="sh.s.hide.loc">Hongkou · North Bund</span>
           <a class="spot-read" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
-    <div class="spot-card">
-      <div class="spot-img c">
-        <span class="spot-cat">Park</span>
-        <div class="ph-frame">◎</div>
-        <span class="ph-label">Bild</span>
+
+    <div class="spot-card" data-cat="walks">
+      <div class="spot-img" style="background:none; position:relative; overflow:hidden;">
+        <img src="spot-anfu.webp" alt="Anfu Lu" loading="lazy"
+             style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+        <span class="spot-cat" data-i18n="spots.cat.walk">Walk</span>
       </div>
       <div class="spot-body">
-        <div class="spot-title">Test Test Test Test</div>
-        <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
+        <div class="spot-title" data-i18n="sh.s.anfu.title">Anfu Lu Lanes</div>
+        <p class="spot-desc" data-i18n="sh.s.anfu.desc">The most beautiful plane-tree street in the French Concession. Independent boutiques, cafés like %Arabica and Egg, and a Sunday morning that feels like another century.</p>
         <div class="spot-footer">
-          <span class="spot-location">French Concession</span>
+          <span class="spot-location" data-i18n="sh.s.anfu.loc">French Concession · Xuhui</span>
           <a class="spot-read" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
-    <div class="spot-card">
-      <div class="spot-img d">
-        <span class="spot-cat">Kultur</span>
-        <div class="ph-frame">◎</div>
-        <span class="ph-label">Bild</span>
+
+    <div class="spot-card" data-cat="culture">
+      <div class="spot-img" style="background:none; position:relative; overflow:hidden;">
+        <img src="spot-1933.jpg" alt="1933 Old Millfun" loading="lazy"
+             style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+        <span class="spot-cat" data-i18n="spots.cat.culture">Culture</span>
       </div>
       <div class="spot-body">
-        <div class="spot-title">Test Test Test Test</div>
-        <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
+        <div class="spot-title" data-i18n="sh.s.m1933.title">1933 Old Millfun</div>
+        <p class="spot-desc" data-i18n="sh.s.m1933.desc">A 1933 art-deco slaughterhouse by British architect Balfours, now a brutalist exhibition complex — concrete bridges, animal ramps, the most photographed staircase in Hongkou.</p>
         <div class="spot-footer">
-          <span class="spot-location">Jing'an</span>
+          <span class="spot-location" data-i18n="sh.s.m1933.loc">Hongkou · North Bund</span>
           <a class="spot-read" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
-    <div class="spot-card">
-      <div class="spot-img e">
-        <span class="spot-cat">Essen</span>
-        <div class="ph-frame">◎</div>
-        <span class="ph-label">Bild</span>
+
+    <div class="spot-card" data-cat="food">
+      <div class="spot-img" style="background:none; position:relative; overflow:hidden;">
+        <img src="spot-willis.jpg" alt="Mr Willis" loading="lazy"
+             style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+        <span class="spot-cat" data-i18n="spots.cat.food">Food</span>
       </div>
       <div class="spot-body">
-        <div class="spot-title">Test Test Test Test</div>
-        <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
+        <div class="spot-title" data-i18n="sh.s.willis.title">Mr Willis</div>
+        <p class="spot-desc" data-i18n="sh.s.willis.desc">Craig Willis's no-menu, daily-changing Australian-Mediterranean kitchen above a corner store on Anfu Lu. Chalkboard dishes, copper pendants, the most relaxed lunch in the city.</p>
         <div class="spot-footer">
-          <span class="spot-location">Xintiandi</span>
+          <span class="spot-location" data-i18n="sh.s.willis.loc">Anfu Lu · French Concession</span>
           <a class="spot-read" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
-    <div class="spot-card">
-      <div class="spot-img f">
-        <span class="spot-cat">Shopping</span>
-        <div class="ph-frame">◎</div>
-        <span class="ph-label">Bild</span>
+
+    <div class="spot-card" data-cat="shopping">
+      <div class="spot-img" style="background:none; position:relative; overflow:hidden;">
+        <img src="spot-popmart.jpg" alt="POP MART Shanghai" loading="lazy"
+             style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+        <span class="spot-cat" data-i18n="spots.cat.shopping">Shopping</span>
       </div>
       <div class="spot-body">
-        <div class="spot-title">Test Test Test Test</div>
-        <p class="spot-desc">Test test test test test test test test test test test test test test test.</p>
+        <div class="spot-title" data-i18n="sh.s.popmart.title">POP MART Flagship</div>
+        <p class="spot-desc" data-i18n="sh.s.popmart.desc">The Chinese collectible-toy giant's Shanghai flagship — three storeys of MOLLY, SKULLPANDA and Labubu, fronted by a giant 3D figure on the façade. Tourist-magnet by day, locals-only after eight.</p>
         <div class="spot-footer">
-          <span class="spot-location">Hongqiao</span>
+          <span class="spot-location" data-i18n="sh.s.popmart.loc">Huaihai Lu · Huangpu</span>
           <a class="spot-read" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -1359,51 +1366,58 @@ footer {
   </div>
 
   <div class="featured-article" style="background:var(--linen);">
-    <div class="feat-img">
+    <div class="feat-img" style="background:none; position:relative; overflow:hidden;">
+      <img src="read-featured.jpg" alt="Pudong skyline from above" loading="lazy"
+           style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
       <div class="feat-badge" data-i18n="feat.featured">Featured Read</div>
-      <div class="ph-frame">◎</div>
-      <span class="ph-label">Bild</span>
     </div>
     <div class="feat-body" style="background:var(--linen);">
       <div class="feat-meta">
-        <span class="feat-tag">Stadtgeschichte</span>
+        <span class="feat-tag" data-i18n="sh.r.featured.tag">City History</span>
         <div class="feat-dot"></div>
-        <span class="feat-date">Test Test 2025</span>
+        <span class="feat-date" data-i18n="sh.r.featured.date">February 2026</span>
       </div>
-      <div class="feat-title">Test test test test test test test test test test.</div>
-      <p class="feat-excerpt">Test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test.</p>
+      <div class="feat-title" data-i18n="sh.r.featured.title">How the Bund became the Bund — a century of architecture along the Huangpu.</div>
+      <p class="feat-excerpt" data-i18n="sh.r.featured.excerpt">From the British Consulate of 1873 to the HSBC dome and the Cathay Hotel, the mile-long curve of stone facades on the Bund tells the story of a city built from twelve banking powers and never quite handed back to any of them. A walking essay through the names, dates and quiet rivalries that built the most recognisable skyline in modern China.</p>
       <a class="feat-cta" data-i18n="feat.readmore">Read more</a>
     </div>
   </div>
 
   <div class="article-list" style="background:var(--linen);">
+
     <div class="article-row">
-      <div class="art-img a">◎</div>
+      <div class="art-img" style="background:none; position:relative; overflow:hidden;">
+        <img src="read-shikumen.jpg" alt="Restored shikumen lane" loading="lazy"
+             style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+      </div>
       <div>
-        <div class="art-tag">Architektur · Test Test 2025</div>
-        <div class="art-title">Test test test test test test test test test</div>
-        <p class="art-excerpt">Test test test test test test test test test test test test test test test.</p>
+        <div class="art-tag" data-i18n="sh.r.shikumen.tag">Architecture · January 2026</div>
+        <div class="art-title" data-i18n="sh.r.shikumen.title">Inside Shanghai's shikumen renaissance</div>
+        <p class="art-excerpt" data-i18n="sh.r.shikumen.excerpt">Why the city's grey-brick 1920s lane-houses became the last battleground between developers and preservationists — and which lilong still survive intact.</p>
       </div>
       <div class="art-arrow">→</div>
     </div>
+
     <div class="article-row">
-      <div class="art-img b">◎</div>
+      <div class="art-img" style="background:linear-gradient(140deg,#a89070,#3a342d); position:relative; overflow:hidden;"></div>
       <div>
-        <div class="art-tag">Kulinarik · Test Test 2025</div>
-        <div class="art-title">Test test test test test test test test test</div>
-        <p class="art-excerpt">Test test test test test test test test test test test test test test test.</p>
+        <div class="art-tag" data-i18n="sh.r.mandopop.tag">Culture · December 2025</div>
+        <div class="art-title" data-i18n="sh.r.mandopop.title">From Shanghai to the Mandopop empire</div>
+        <p class="art-excerpt" data-i18n="sh.r.mandopop.excerpt">The 1930s jazz halls of Shanghai gave birth to a sound that would conquer the Sinophone world — and the EMI building on Hengshan Road is still standing.</p>
       </div>
       <div class="art-arrow">→</div>
     </div>
+
     <div class="article-row">
-      <div class="art-img c">◎</div>
+      <div class="art-img" style="background:linear-gradient(140deg,#6b8e9c,#1e2a35); position:relative; overflow:hidden;"></div>
       <div>
-        <div class="art-tag">Nightlife · Test Test 2025</div>
-        <div class="art-title">Test test test test test test test test test</div>
-        <p class="art-excerpt">Test test test test test test test test test test test test test test test.</p>
+        <div class="art-tag" data-i18n="sh.r.yangtze.tag">Travel · November 2025</div>
+        <div class="art-title" data-i18n="sh.r.yangtze.title">The Yangtze Delta — Shanghai's hidden hinterland</div>
+        <p class="art-excerpt" data-i18n="sh.r.yangtze.excerpt">Hangzhou, Suzhou, Wuxi — the water-towns and gardens an hour from Shanghai that built the city's idea of beauty long before there was a Bund.</p>
       </div>
       <div class="art-arrow">→</div>
     </div>
+
   </div>
 </section>
 
@@ -2304,8 +2318,26 @@ footer {
   </div>
 </div>
 
-<script src="lang.js?v=35" defer></script>
+<script src="lang.js?v=38" defer></script>
 <script>
+  /* ── Hidden Spots filter ── */
+  (function () {
+    const buttons = document.querySelectorAll('.spots-filter .filter-btn');
+    const cards = document.querySelectorAll('.spots-grid .spot-card');
+    if (!buttons.length || !cards.length) return;
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter') || 'all';
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        cards.forEach(card => {
+          const cat = card.getAttribute('data-cat');
+          card.style.display = (filter === 'all' || cat === filter) ? '' : 'none';
+        });
+      });
+    });
+  })();
+
   /* ── "One Perfect Day" toggle ── */
   (function () {
     const btn = document.querySelector('[data-day-toggle]');
