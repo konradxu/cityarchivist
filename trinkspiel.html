@@ -353,13 +353,13 @@
   <p class="subtitle">Spieler eintragen und los geht's</p>
   <div class="setup-form">
     <div id="playerList"></div>
-    <button class="btn btn-ghost" id="addPlayerBtn" type="button" onclick="addPlayer()">+ Spieler hinzufügen</button>
-    <button class="btn" type="button" onclick="startGame()">Spiel starten</button>
+    <button class="btn btn-ghost" id="addPlayerBtn" type="button">+ Spieler hinzufügen</button>
+    <button class="btn" id="startGameBtn" type="button">Spiel starten</button>
   </div>
 </div>
 
 <!-- Geheimer Spicy-Toggle -->
-<div class="secret-dot" id="secretDot" onclick="toggleSpicy()"></div>
+<div class="secret-dot" id="secretDot"></div>
 
 <!-- Spiel -->
 <div class="screen" id="gameScreen">
@@ -394,8 +394,8 @@
       </svg>
     </div>
   </div>
-  <button class="btn spin-btn" id="spinBtn" onclick="spin()">🌀 Drehen</button>
-  <button class="btn btn-ghost" onclick="resetGame()">Neues Spiel</button>
+  <button class="btn spin-btn" id="spinBtn" type="button">🌀 Drehen</button>
+  <button class="btn btn-ghost" id="resetBtn" type="button">Neues Spiel</button>
 </div>
 
 <!-- Karten-Overlay -->
@@ -418,8 +418,8 @@
           <span id="cardSkip">2 Shots.</span>
         </div>
         <div class="card-actions">
-          <button class="btn btn-ghost" onclick="closeCard()">Strafe 🍺</button>
-          <button class="btn" onclick="closeCard()">Erledigt ✓</button>
+          <button class="btn btn-ghost" id="skipBtn" type="button">Strafe 🍺</button>
+          <button class="btn" id="doneBtn" type="button">Erledigt ✓</button>
         </div>
       </div>
     </div>
@@ -852,11 +852,19 @@ function resetGame() {
 }
 
 // Tap card-back to flip manually if it hasn't flipped
-document.getElementById("card").addEventListener("click", (e) => {
-  if (!document.getElementById("card").classList.contains("flipped")) {
-    document.getElementById("card").classList.add("flipped");
-  }
+document.getElementById("card").addEventListener("click", () => {
+  const c = document.getElementById("card");
+  if (!c.classList.contains("flipped")) c.classList.add("flipped");
 });
+
+// Wire buttons via addEventListener (some preview environments block inline onclick)
+document.getElementById("startGameBtn").addEventListener("click", startGame);
+document.getElementById("addPlayerBtn").addEventListener("click", addPlayer);
+document.getElementById("spinBtn").addEventListener("click", spin);
+document.getElementById("resetBtn").addEventListener("click", resetGame);
+document.getElementById("skipBtn").addEventListener("click", closeCard);
+document.getElementById("doneBtn").addEventListener("click", closeCard);
+document.getElementById("secretDot").addEventListener("click", toggleSpicy);
 
 // Setup initial player rows
 renderPlayers();
