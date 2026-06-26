@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alinas Geburtstag 🎉</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; overflow: hidden; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: radial-gradient(circle at 30% 20%, #2a0a3e 0%, #0a0014 50%, #000 100%);
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    user-select: none;
+  }
+
+  .screen { display: none; width: 100%; max-width: 720px; }
+  .screen.active { display: flex; flex-direction: column; align-items: center; }
+
+  h1 {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    background: linear-gradient(90deg, #ff3df0, #ff6b6b, #ffd93d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+    text-align: center;
+    font-weight: 900;
+    letter-spacing: -1px;
+  }
+  .subtitle { color: #aaa; margin-bottom: 32px; text-align: center; font-size: 0.95rem; }
+
+  /* Setup */
+  .setup-form { display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 380px; }
+  .player-input {
+    background: rgba(255,255,255,0.06);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 16px 20px;
+    color: #fff;
+    font-size: 1.05rem;
+    outline: none;
+    transition: all .2s;
+  }
+  .player-input:focus { border-color: #ff3df0; background: rgba(255,61,240,0.08); }
+  .player-input::placeholder { color: #777; }
+
+  .btn {
+    background: linear-gradient(135deg, #ff3df0, #ff6b6b);
+    color: #fff;
+    border: none;
+    padding: 16px 36px;
+    border-radius: 14px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform .15s, box-shadow .2s;
+    box-shadow: 0 8px 24px rgba(255,61,240,0.35);
+    margin-top: 12px;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(255,61,240,0.5); }
+  .btn:active { transform: translateY(0); }
+  .btn-ghost {
+    background: rgba(255,255,255,0.08);
+    box-shadow: none;
+    margin-top: 8px;
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.14); box-shadow: none; }
+
+  /* Game board */
+  .board-wrap {
+    position: relative;
+    width: min(92vw, 480px);
+    height: min(92vw, 480px);
+    margin: 16px 0;
+  }
+  .board {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,61,240,0.15) 0%, rgba(0,0,0,0.4) 70%);
+    border: 2px solid rgba(255,255,255,0.15);
+    box-shadow: inset 0 0 60px rgba(255,61,240,0.2), 0 0 80px rgba(255,61,240,0.15);
+  }
+  .player-label {
+    position: absolute;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.2);
+    padding: 10px 18px;
+    border-radius: 24px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transform: translate(-50%, -50%);
+    transition: all .3s;
+    white-space: nowrap;
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .player-label.highlight {
+    background: linear-gradient(135deg, #ff3df0, #ffd93d);
+    border-color: #fff;
+    transform: translate(-50%, -50%) scale(1.15);
+    box-shadow: 0 0 30px rgba(255,61,240,0.8);
+  }
+
+  .bottle {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 50px;
+    height: 60%;
+    transform: translate(-50%, -50%) rotate(0deg);
+    transition: transform 4.5s cubic-bezier(0.17, 0.67, 0.21, 1);
+    transform-origin: center center;
+    pointer-events: none;
+  }
+  .bottle svg { width: 100%; height: 100%; filter: drop-shadow(0 4px 16px rgba(0,0,0,0.6)); }
+
+  .spin-btn {
+    background: linear-gradient(135deg, #ffd93d, #ff6b6b);
+    box-shadow: 0 8px 24px rgba(255,107,107,0.4);
+  }
+  .spin-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  /* Card overlay */
+  .card-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(10px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 20px;
+  }
+  .card-overlay.active { display: flex; }
+
+  .card-scene {
+    width: min(88vw, 360px);
+    height: min(120vw, 500px);
+    max-height: 80vh;
+    perspective: 1500px;
+  }
+  .card {
+    position: relative;
+    width: 100%; height: 100%;
+    transform-style: preserve-3d;
+    transform: rotateY(180deg);
+    transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .card.flipped { transform: rotateY(0deg); }
+  .card-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    border-radius: 22px;
+    padding: 30px 24px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
+  .card-back {
+    background: linear-gradient(135deg, #2a0a3e, #6b1a8a);
+    border: 2px solid rgba(255,61,240,0.4);
+    transform: rotateY(180deg);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .card-back::before {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border-radius: 16px;
+    border: 2px dashed rgba(255,255,255,0.2);
+  }
+  .card-back-logo {
+    font-size: 4rem;
+    margin-bottom: 12px;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  .card-back-text {
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #ffd93d;
+  }
+  @keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.1);} }
+
+  .card-front {
+    background: linear-gradient(160deg, #1a0033, #3d0066);
+    border: 2px solid rgba(255,255,255,0.15);
+    justify-content: space-between;
+  }
+  .card-category {
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .card-player {
+    font-size: 1.8rem;
+    font-weight: 900;
+    background: linear-gradient(90deg, #ff3df0, #ffd93d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 8px 0 18px;
+    line-height: 1.1;
+    word-break: break-word;
+  }
+  .card-task {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    line-height: 1.45;
+    font-weight: 500;
+  }
+  .card-emoji { font-size: 2.5rem; margin-bottom: 8px; }
+
+  .card-penalty {
+    background: linear-gradient(135deg, rgba(255,61,61,0.18), rgba(255,107,107,0.1));
+    border: 1px solid rgba(255,107,107,0.4);
+    border-radius: 12px;
+    padding: 10px 14px;
+    margin-top: 14px;
+    font-size: 0.95rem;
+    line-height: 1.3;
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+    flex-wrap: wrap;
+  }
+  .penalty-label {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #ff8a8a;
+  }
+  #cardSkip { color: #ffe9a8; font-weight: 600; }
+
+  .card-actions { display: flex; gap: 10px; margin-top: 16px; }
+  .card-actions .btn { flex: 1; margin: 0; padding: 14px 16px; font-size: 0.95rem; }
+
+  .age-warn {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    padding: 30px;
+    text-align: center;
+  }
+  .age-warn h2 { font-size: 2rem; margin-bottom: 16px; color: #ff6b6b; }
+  .age-warn p { color: #ccc; max-width: 400px; margin-bottom: 24px; line-height: 1.5; }
+
+  .footer-bar {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .pill {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: #aaa;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .pill:hover { background: rgba(255,255,255,0.12); color: #fff; }
+  .pill.on { background: linear-gradient(135deg, #ff3df0, #ff6b6b); border-color: transparent; color: #fff; }
+
+  .counter {
+    position: absolute;
+    top: 16px; right: 16px;
+    background: rgba(0,0,0,0.5);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: #ffd93d;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+
+<!-- Altersbestätigung -->
+<div class="age-warn" id="ageWarn">
+  <h2>🔞 Nur für Erwachsene</h2>
+  <p>Dieses Spiel enthält Karten mit Inhalten ab 18 Jahren und Alkoholbezug. Trink verantwortungsvoll und nur Aufgaben, mit denen sich alle wohl fühlen.</p>
+  <button class="btn" onclick="document.getElementById('ageWarn').style.display='none'">Ich bin 18+ und stimme zu</button>
+</div>
+
+<!-- Setup -->
+<div class="screen active" id="setupScreen">
+  <h1>Alinas Geburtstag 🎉</h1>
+  <p class="subtitle">Gib die Namen der 4 Spieler ein</p>
+  <div class="setup-form">
+    <input class="player-input" id="p1" placeholder="Spieler 1" maxlength="14" value="Anna">
+    <input class="player-input" id="p2" placeholder="Spieler 2" maxlength="14" value="Ben">
+    <input class="player-input" id="p3" placeholder="Spieler 3" maxlength="14" value="Lisa">
+    <input class="player-input" id="p4" placeholder="Spieler 4" maxlength="14" value="Max">
+    <button class="btn" onclick="startGame()">Spiel starten</button>
+  </div>
+</div>
+
+<!-- Spiel -->
+<div class="screen" id="gameScreen">
+  <div class="counter" id="counter">Runde 1</div>
+  <h1 style="font-size:1.8rem">Wer ist dran?</h1>
+  <div class="board-wrap" id="boardWrap">
+    <div class="board"></div>
+    <div class="bottle" id="bottle">
+      <svg viewBox="0 0 50 240" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bg" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#1a4d2e"/>
+            <stop offset="50%" stop-color="#2d8047"/>
+            <stop offset="100%" stop-color="#0e2e1a"/>
+          </linearGradient>
+        </defs>
+        <!-- Hals -->
+        <rect x="20" y="0" width="10" height="40" fill="url(#bg)"/>
+        <!-- Schulter -->
+        <path d="M 12 40 Q 25 50 38 40 L 42 80 L 8 80 Z" fill="url(#bg)"/>
+        <!-- Körper -->
+        <rect x="6" y="80" width="38" height="140" rx="6" fill="url(#bg)"/>
+        <!-- Boden -->
+        <rect x="8" y="220" width="34" height="14" rx="3" fill="#0a2014"/>
+        <!-- Etikett -->
+        <rect x="10" y="120" width="30" height="60" fill="#f4e1c1" stroke="#a8895a" stroke-width="1"/>
+        <text x="25" y="155" text-anchor="middle" font-size="9" font-weight="bold" fill="#8b2a2a">VODKA</text>
+        <!-- Highlight -->
+        <rect x="10" y="85" width="4" height="130" fill="rgba(255,255,255,0.25)" rx="2"/>
+        <!-- Spitze als Pfeil -->
+        <polygon points="20,-8 30,-8 25,2" fill="#0a2014"/>
+      </svg>
+    </div>
+  </div>
+  <button class="btn spin-btn" id="spinBtn" onclick="spin()">🌀 Drehen</button>
+  <button class="btn btn-ghost" onclick="resetGame()">Neues Spiel</button>
+</div>
+
+<!-- Karten-Overlay -->
+<div class="card-overlay" id="cardOverlay">
+  <div class="card-scene">
+    <div class="card" id="card">
+      <div class="card-face card-back">
+        <div class="card-back-logo">🎴</div>
+        <div class="card-back-text">TIPP MICH</div>
+      </div>
+      <div class="card-face card-front">
+        <div>
+          <div class="card-emoji" id="cardEmoji">🍻</div>
+          <div class="card-category" id="cardCategory">Trinken</div>
+          <div class="card-player" id="cardPlayer">Anna</div>
+        </div>
+        <div class="card-task" id="cardTask">Trink einen Shot!</div>
+        <div class="card-penalty">
+          <span class="penalty-label">Wenn nicht:</span>
+          <span id="cardSkip">2 Shots.</span>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn-ghost" onclick="closeCard()">Strafe 🍺</button>
+          <button class="btn" onclick="closeCard()">Erledigt ✓</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Jede Karte: { t: Aufgabe, s: Strafe wenn nicht erfüllt }
+// Faustregel Shots: Trinken 1, Wahrheit 2, Aufgabe 2-3, Spicy 3-6 je nach Krassheit
+const CARDS = {
+  trinken: [
+    { t: "Trink 1 Shot!", s: "Trink 2 Shots." },
+    { t: "Verteile 3 Schlucke an wen du willst.", s: "Trink sie selbst." },
+    { t: "Alle trinken außer dir – du bestimmst wie viel.", s: "Du trinkst doppelt so viel wie du verteilt hättest." },
+    { t: "Trink so viele Schlucke wie Geschwister du hast (mind. 1).", s: "Trink die doppelte Menge." },
+    { t: "Mach einen Toast und alle trinken mit dir.", s: "2 Shots." },
+    { t: "Trink 2 Schlucke ODER zieh ein Kleidungsstück aus.", s: "4 Shots." },
+    { t: "Du bist Bier-Meister: bis zur nächsten Drehung muss jeder vor dem Trinken dich fragen.", s: "2 Shots." },
+    { t: "Trinke so lange, bis dein linker Nachbar 'Stop' sagt.", s: "Ex dein Glas zur Hälfte." },
+    { t: "Ex dein Glas zur Hälfte.", s: "3 Shots." },
+    { t: "Wer zuletzt die Hand auf den Tisch legt, trinkt 3.", s: "Du trinkst die 3." },
+    { t: "Würfel im Kopf 1–6. Stimmt mit echtem Wurf überein: alle trinken 5 – sonst du.", s: "Du trinkst 5." },
+    { t: "Wähle einen Mitspieler – ihr trinkt beide einen Shot.", s: "Du trinkst 2 Shots allein." },
+    { t: "Daumenregel: Legst du den Daumen auf den Tisch, müssen alle anderen es auch. Letzte:r trinkt – gilt bis nächste Drehung.", s: "2 Shots." },
+    { t: "Trinke mit, wenn jemand 'Ich' sagt – bis zur nächsten Drehung.", s: "3 Shots." },
+    { t: "Schenk dir und deinem Nachbarn etwas Stärkeres ein und stoßt an.", s: "Du trinkst beide Gläser." },
+    { t: "Mische deinen Drink mit einer Zutat, die jemand anderes auswählt, und trink.", s: "4 Shots." },
+    { t: "Trink im Stehen, mit geschlossenen Augen, ohne Hände.", s: "3 Shots." },
+    { t: "Schere-Stein-Papier gegen Spieler rechts – Verlierer trinkt 3.", s: "Trink die 3 ohne Spiel." },
+    { t: "Trink 1 Schluck für jedes Tattoo, das du hast (mind. 1).", s: "Trink 4." },
+    { t: "Alle Frauen trinken 2.", s: "Du trinkst für sie mit." },
+    { t: "Alle Männer trinken 2.", s: "Du trinkst für sie mit." },
+    { t: "Wer heute schon was Süßes gegessen hat, trinkt 2.", s: "3 Shots." },
+    { t: "Sage einen Buchstaben – jeder im Raum mit dem Buchstaben im Vornamen trinkt.", s: "3 Shots." },
+    { t: "Trinke jedes Mal, wenn jemand sein Handy berührt – bis zur nächsten Drehung.", s: "5 Shots sofort." },
+    { t: "Du wählst eine Regel, die bis zum Spielende gilt (z. B. kein Lachen).", s: "4 Shots, keine Regel." },
+    { t: "Kategorie 'Biermarken': reihum, wer keine nennt, trinkt. Starte du.", s: "Trink 3." },
+    { t: "Stoße ohne Worte mit jedem Spieler an. Wer reagiert nicht? Der trinkt 2.", s: "Du trinkst 3." },
+    { t: "Trink so viele Schlucke wie heute Smileys in deiner letzten WhatsApp sind.", s: "Trink 5." },
+    { t: "Wer als Nächster lacht, trinkt 2.", s: "Du trinkst 4 wenn niemand lacht in 30 Sek." },
+    { t: "Trink mit dem Strohhalm aus dem Glas deines Nachbarn.", s: "Trink dein Glas zur Hälfte." },
+    { t: "Augen zu, der Spieler gegenüber mischt dir einen 'Überraschungs-Shot'.", s: "Trink 2 normale Shots." },
+    { t: "Sing den Refrain eines Songs – wer falsch singt, trinkt. Starte du.", s: "3 Shots." },
+    { t: "Stoßt alle gleichzeitig an, ohne dass sich 2 Gläser kreuzen. Klappt's nicht: Verursacher trinkt.", s: "Du trinkst sofort 3." },
+  ],
+  wahrheit: [
+    { t: "Was war dein peinlichster Moment in einer Beziehung?", s: "2 Shots." },
+    { t: "Wen im Raum würdest du heiraten, wenn du müsstest?", s: "2 Shots + verteile 2 weitere." },
+    { t: "Was war deine längste Beziehung in Wochen?", s: "2 Shots." },
+    { t: "Hattest du jemals einen Crush auf eine:n Lehrer:in?", s: "2 Shots." },
+    { t: "Was ist deine größte Lüge auf einem ersten Date?", s: "3 Shots." },
+    { t: "Wann hast du das letzte Mal geweint und warum?", s: "2 Shots." },
+    { t: "Welchen unpopulären Promi findest du heimlich heiß?", s: "3 Shots." },
+    { t: "Wen aus deinem Freundeskreis hast du schon mal geträumt (heiß)?", s: "4 Shots." },
+    { t: "Was war dein dümmster Betrunken-Move?", s: "2 Shots." },
+    { t: "Auf wen im Raum bist du am ehesten neidisch und warum?", s: "3 Shots." },
+    { t: "Was war der schlechteste Kuss deines Lebens?", s: "2 Shots." },
+    { t: "Hast du schon mal jemanden gegoogelt, mit dem du nur einmal geredet hast?", s: "2 Shots." },
+    { t: "Was ist eine Sache, die du noch nie jemandem hier erzählt hast?", s: "4 Shots." },
+    { t: "Wen würdest du im Raum für 1000€ küssen?", s: "3 Shots." },
+    { t: "Wie viele Ex-Partner:innen hast du noch im Handy?", s: "2 Shots." },
+    { t: "Was war dein peinlichster Suchverlauf?", s: "3 Shots." },
+    { t: "Was ist das Gemeinste, das du je über eine:n Freund:in gedacht hast?", s: "3 Shots." },
+    { t: "Bei wem im Raum stalkst du am ehesten Social Media?", s: "3 Shots." },
+    { t: "Was ist die längste Zeit, die du ohne Dusche warst?", s: "2 Shots." },
+    { t: "Welcher Promi ist dein 'Free Pass'?", s: "2 Shots." },
+    { t: "Was ist die größte Lüge, die du deinen Eltern erzählt hast?", s: "3 Shots." },
+    { t: "Wann hast du das letzte Mal gepetzt – und warum?", s: "2 Shots." },
+    { t: "Was war dein peinlichster Moment in der Schule?", s: "2 Shots." },
+    { t: "Wen aus dem Raum hältst du für am wenigsten loyal? (Begründe)", s: "4 Shots." },
+    { t: "Wie viele Menschen hast du wirklich geliebt?", s: "2 Shots." },
+    { t: "Was war dein dümmster Geld-Move?", s: "2 Shots." },
+    { t: "Welches Geheimnis hast du noch nie deinem/deiner Partner:in erzählt?", s: "4 Shots." },
+    { t: "Welche Lüge erzählst du immer wieder auf Dates?", s: "3 Shots." },
+    { t: "Wen aus dem Raum hast du schon mal stalkermäßig gegoogelt?", s: "3 Shots." },
+    { t: "Was ist die teuerste Sache, die du je geklaut hast?", s: "3 Shots." },
+    { t: "Wie oft am Tag denkst du an Sex?", s: "3 Shots." },
+    { t: "Welchen Song hörst du heimlich und schämst dich dafür?", s: "2 Shots." },
+    { t: "Was war das Letzte, wofür du dich richtig geschämt hast?", s: "3 Shots." },
+    { t: "Welche Beziehung bereust du am meisten?", s: "3 Shots." },
+    { t: "Was war dein letzter Mitternachts-Snack?", s: "1 Shot." },
+    { t: "Wem aus dem Raum würdest du dein Passwort niemals geben?", s: "3 Shots." },
+    { t: "Wie viele Lügen hast du heute schon erzählt?", s: "2 Shots." },
+    { t: "Welche Person aus deiner Vergangenheit würdest du sofort wieder treffen?", s: "2 Shots." },
+    { t: "Was würdest du tun, wenn du wüsstest, niemand erfährt es?", s: "3 Shots." },
+    { t: "Wann hast du jemandem das letzte Mal absichtlich wehgetan?", s: "3 Shots." },
+  ],
+  aufgabe: [
+    { t: "Mache 10 Liegestütze.", s: "3 Shots." },
+    { t: "Lass dein Handy für 2 Runden bei einem anderen Spieler.", s: "4 Shots." },
+    { t: "Rufe die zuletzt gewählte Nummer an und singe Happy Birthday.", s: "5 Shots." },
+    { t: "Sprich die nächste Runde nur im Flüsterton.", s: "2 Shots." },
+    { t: "Tausche ein Kleidungsstück mit deinem Nachbarn.", s: "3 Shots." },
+    { t: "Mache deine beste Imitation eines anderen Spielers.", s: "2 Shots." },
+    { t: "Schreib einer Ex/einem Ex 'Ich denke an dich'.", s: "5 Shots." },
+    { t: "Tanze 30 Sekunden ohne Musik.", s: "3 Shots." },
+    { t: "Lass die Gruppe den nächsten Post auf deinem Insta schreiben.", s: "6 Shots." },
+    { t: "Erzähle einen Witz – lacht niemand, trinkst du 2 extra.", s: "Trink 3 statt es zu versuchen." },
+    { t: "Mache einen Handstand an der Wand.", s: "3 Shots." },
+    { t: "Sprich die nächsten 3 Runden ohne 'E'. Pro Fehler 1 Schluck.", s: "Trink direkt 4." },
+    { t: "Zeige deine letzten 5 Fotos in der Galerie.", s: "4 Shots." },
+    { t: "Lies die letzte WhatsApp-Nachricht von Mama/Papa laut vor.", s: "3 Shots." },
+    { t: "Versuche, deine Zunge an die Nase zu bringen.", s: "1 Shot." },
+    { t: "Mache eine 20-Sekunden Plank.", s: "3 Shots." },
+    { t: "Verstelle deine Stimme bis zur nächsten Runde wie ein Promi.", s: "2 Shots." },
+    { t: "Trinke aus dem Glas eines anderen.", s: "Trink dein eigenes komplett aus." },
+    { t: "Lass dir vom rechten Nachbarn ein Wort auf den Arm schreiben.", s: "3 Shots." },
+    { t: "Mache eine 1-Minuten-Story darüber, warum dieses Spiel das beste der Welt ist.", s: "3 Shots." },
+    { t: "Setz dich zum nächsten Mal nicht auf einen Stuhl – sondern auf den Schoß eines anderen.", s: "4 Shots." },
+    { t: "Schick deinem Crush 'Heyy 👀'.", s: "5 Shots." },
+    { t: "Spiele die nächste Runde mit Akzent deiner Wahl.", s: "2 Shots." },
+    { t: "Lass dir die Augen verbinden und finde einen Mitspieler nur am Geruch.", s: "4 Shots." },
+    { t: "Mache 15 Sit-ups.", s: "3 Shots." },
+    { t: "Rufe deine Mutter an und sag ihr, du liebst sie.", s: "4 Shots." },
+    { t: "Sprich die nächste Runde nur in Reimen.", s: "3 Shots." },
+    { t: "Mache ein Selfie mit dem hässlichsten Filter, den du findest, und poste es in deiner Story.", s: "5 Shots." },
+    { t: "Iss einen Löffel von der schärfsten Sauce, die ihr da habt.", s: "3 Shots." },
+    { t: "Lass dich von einem Mitspieler schminken – mit allem, was er findet.", s: "4 Shots." },
+    { t: "Trage deine Hose verkehrt herum bis zur nächsten Drehung.", s: "3 Shots." },
+    { t: "Schreibe deinem letzten Match auf Tinder/Hinge: 'Wir sollten uns treffen.'", s: "5 Shots." },
+    { t: "Mach 30 Sek. lang Stand-up-Comedy über deinen eigenen Tag.", s: "3 Shots." },
+    { t: "Wähle einen Mitspieler – er darf eine peinliche Voice-Message an wen er will von deinem Handy schicken.", s: "6 Shots." },
+    { t: "Twerke 15 Sekunden in der Mitte des Raums.", s: "4 Shots." },
+    { t: "Halte die Hand 30 Sek. in Eiswasser.", s: "3 Shots." },
+    { t: "Tausche Schuhe mit dem Spieler gegenüber bis zur nächsten Drehung.", s: "2 Shots." },
+    { t: "Mache eine 1-Minuten-TED-Talk über ein Thema, das die Gruppe vorgibt.", s: "3 Shots." },
+    { t: "Iss 3 Esslöffel Senf hintereinander.", s: "4 Shots." },
+    { t: "Erfinde einen Song über die Person rechts von dir, mind. 4 Zeilen.", s: "3 Shots." },
+    { t: "Schicke dem 3. Kontakt in deiner WhatsApp-Liste 'Du gehst mir nicht aus dem Kopf 💭'.", s: "6 Shots." },
+    { t: "Mach 5 Burpees.", s: "3 Shots." },
+    { t: "Lass dir vom Spieler links eine Tattoo-Idee in 10 Sek. auf den Arm malen.", s: "3 Shots." },
+    { t: "Ruf einen zufälligen Kontakt an und bestelle eine Pizza – Auflegen erst nach 10 Sekunden.", s: "5 Shots." },
+    { t: "Mach eine 30-Sek-Brücke (Bridge / Wheel Pose).", s: "3 Shots." },
+  ],
+  spicy: [
+    { t: "Zeige dem Raum dein spiciest Foto in der Galerie.", s: "4 Shots." },
+    { t: "Wen im Raum würdest du am ehesten küssen? Antworte ehrlich.", s: "3 Shots." },
+    { t: "Was ist dein größter Kink, den du noch nie zugegeben hast?", s: "5 Shots." },
+    { t: "Wo war der ungewöhnlichste Ort, an dem du Sex hattest?", s: "4 Shots." },
+    { t: "Beschreibe deinen Traumtyp – jemand darf raten, wen du meinst.", s: "3 Shots." },
+    { t: "Mit wie vielen Menschen hattest du schon was? Ehrliche Zahl.", s: "4 Shots." },
+    { t: "Lass den Spieler links von dir eine Stelle aussuchen, an die er dir einen Eiswürfel legen darf.", s: "5 Shots." },
+    { t: "Gib dem heißesten Spieler im Raum einen Kuss – Wange oder Mund, deine Wahl.", s: "5 Shots." },
+    { t: "Was war dein wildester One-Night-Stand? Erzähl die Story.", s: "5 Shots." },
+    { t: "Zeige deine Lieblings-Sext-Nachricht aus dem Verlauf (Namen verdeckt ok).", s: "6 Shots." },
+    { t: "Tanze 20 Sekunden lap-dance-style für einen Mitspieler deiner Wahl.", s: "6 Shots." },
+    { t: "Lecke dem Spieler rechts etwas Salz von der Hand und nimm den Shot.", s: "Nimm 3 Shots ohne Salz." },
+    { t: "Mit wem im Raum würdest du in ein Hotel gehen, wenn alles erlaubt wäre?", s: "4 Shots." },
+    { t: "Was war dein heißester Traum letzte Woche?", s: "4 Shots." },
+    { t: "Beiß einem Mitspieler sanft in den Hals (vorher fragen!).", s: "5 Shots." },
+    { t: "Whisper dem Spieler gegenüber etwas Schmutziges ins Ohr.", s: "5 Shots." },
+    { t: "Ziehe ein Kleidungsstück aus.", s: "4 Shots." },
+    { t: "Sag jedem Spieler in einem Wort, was du an ihm/ihr heiß findest.", s: "4 Shots." },
+    { t: "Lass dich von einem Mitspieler 5 Sekunden auf den Mund küssen.", s: "6 Shots." },
+    { t: "Stelle dir vor, du und der Spieler gegenüber teilen ein Bett – wer ist big spoon?", s: "3 Shots." },
+    { t: "Was war dein peinlichstes Bett-Geräusch-Erlebnis?", s: "4 Shots." },
+    { t: "Mache ein Lap auf dem Schoß deines Nachbarn für die Dauer eines Songs.", s: "6 Shots." },
+    { t: "Welche Stelle an deinem Körper magst du am liebsten geküsst?", s: "3 Shots." },
+    { t: "Du darfst einen Mitspieler an einer beliebigen Stelle (über der Kleidung) berühren.", s: "5 Shots." },
+    { t: "Was war das Wildeste, das jemand mal über dich gesagt hat?", s: "4 Shots." },
+    { t: "Lass dir vom Spieler links mit den Lippen einen Eiswürfel weiterreichen.", s: "6 Shots." },
+    { t: "Tausche Unterwäsche... oder einen Socken... mit einem Mitspieler.", s: "5 Shots." },
+    { t: "Was war dein längstes Make-Out und mit wem?", s: "4 Shots." },
+    { t: "Beschreibe in 3 Worten, wie du im Bett bist.", s: "4 Shots." },
+    { t: "Staring-Contest 30 Sek. mit einem Mitspieler – Verlierer trinkt 3.", s: "Du trinkst die 3 sofort." },
+    { t: "Wen aus dem Raum würdest du dich trauen, um 3 Uhr nachts anzuschreiben?", s: "3 Shots." },
+    { t: "Mache deinen sexiest Walk durch den Raum.", s: "4 Shots." },
+    { t: "Lass dir vom Spieler gegenüber sagen, welche 2 Klamottenstücke du jetzt ausziehst – such dir das harmloseste aus.", s: "6 Shots." },
+    { t: "Wie alt warst du beim ersten Kuss – und mit wem?", s: "3 Shots." },
+    { t: "Was war dein bisher heißester Sex-Ort?", s: "5 Shots." },
+    { t: "Beschreibe deinen perfekten Abend – ehrlich, ab 22 Uhr.", s: "4 Shots." },
+    { t: "Welche Person im Raum würdest du am ehesten zum Threesome einladen?", s: "6 Shots." },
+    { t: "Wie viele Dates hattest du in den letzten 6 Monaten?", s: "3 Shots." },
+    { t: "Welches Outfit von dir findest du selbst am heißesten?", s: "3 Shots." },
+    { t: "Wessen Lippen findest du im Raum am attraktivsten?", s: "4 Shots." },
+    { t: "Welche Stelle an einem anderen Körper macht dich sofort an?", s: "4 Shots." },
+    { t: "Sag dem Spieler links 3 Sachen, die du sexy an ihm/ihr findest.", s: "5 Shots." },
+    { t: "Bewerte alle Mitspieler heimlich von 1–10 und sag nur deinen Durchschnitt.", s: "4 Shots." },
+    { t: "Lass den Spieler rechts deinen Hals 5 Sek. küssen (oder die Stirn – seine Wahl).", s: "6 Shots." },
+    { t: "Beschreibe, wie du gerne geweckt werden würdest.", s: "4 Shots." },
+    { t: "Was war dein letzter heißer Gedanke heute?", s: "4 Shots." },
+    { t: "Welche Position ist deine Lieblingsposition?", s: "5 Shots." },
+    { t: "Lass dich vom Spieler gegenüber 10 Sek. festhalten – Augenkontakt, ohne zu lachen.", s: "5 Shots." },
+    { t: "Erzähle einen Sex-Albtraum (peinlichster Moment).", s: "5 Shots." },
+    { t: "Wessen Stimme im Raum würde sich für Phone-Sex eignen?", s: "4 Shots." },
+    { t: "Dirty Talk – sag deinen besten Satz laut.", s: "5 Shots." },
+    { t: "Sing 'Pony' oder einen anderen Bedroom-Song und tanze dazu 20 Sekunden.", s: "5 Shots." },
+    { t: "Wen würdest du im Raum nach 3 Drinks mit nach Hause nehmen?", s: "5 Shots." },
+    { t: "Lass dir vom Spieler gegenüber Honig auf den Hals tropfen – dann darf er ihn abwischen.", s: "6 Shots." },
+    { t: "Mach 60 Sek. lang Augenkontakt mit dem Spieler gegenüber, ohne zu sprechen.", s: "4 Shots." },
+    { t: "Welche Sache hast du im Bett schon mal gemacht und würdest sie nie zugeben?", s: "6 Shots." },
+    { t: "Was ist dein 'Hard Limit' – und was ist dein 'absolutes Yes'?", s: "5 Shots." },
+    { t: "Ziehe dir 2 Eiswürfel über Hals/Schlüsselbein und lass sie schmelzen, ohne zu zucken.", s: "5 Shots." },
+    { t: "Lass dich von einem Mitspieler 10 Sek. an einer Stelle deiner Wahl streicheln.", s: "5 Shots." },
+    { t: "Demonstriere, wie du jemanden verführen würdest – pantomimisch, 20 Sek.", s: "5 Shots." },
+    { t: "Lass den Spieler links deine Hand führen – wohin er sie auf seinem Arm legt, küsst du.", s: "6 Shots." },
+    { t: "Sag jedem im Raum, welche Stellung du dir mit ihm/ihr vorstellen könntest.", s: "6 Shots." },
+    { t: "Erzähl die Story deines wildesten Urlaubs-Hookups.", s: "5 Shots." },
+    { t: "Welche Fantasie hast du noch nie ausgesprochen?", s: "6 Shots." },
+    { t: "Lass dir eine Bodypart-Massage von 30 Sek. von einem Mitspieler geben.", s: "5 Shots." },
+    { t: "Imitiere ein 'O-Gesicht' so überzeugend wie möglich.", s: "5 Shots." },
+    { t: "Lass den Spieler gegenüber dir mit einem Eiswürfel im Mund den Hals küssen.", s: "6 Shots." },
+    { t: "Du und der Spieler rechts: 10 Sekunden Tango ohne Musik, eng.", s: "4 Shots." },
+    { t: "Was war dein letztes Mal Sexting und an wen?", s: "5 Shots." },
+    { t: "Welche Berührung macht dich sofort weich?", s: "5 Shots." },
+    { t: "Hast du jemals Sex an einem öffentlichen Ort gehabt? Wo?", s: "5 Shots." },
+    { t: "Lass den Spieler gegenüber dein Lieblingsparfum/After-Shave riechen – am Hals.", s: "5 Shots." },
+    { t: "Mit wem im Raum würdest du nüchtern flirten? Sag's vor allen.", s: "5 Shots." },
+    { t: "Schreibe einem Ex/einer Ex 'Ich vermisse uns 🥺'.", s: "6 Shots." },
+    { t: "Setz dich für 30 Sek. auf den Schoß des Spielers, den du am süßesten findest.", s: "6 Shots." },
+    { t: "Sag ehrlich: Hattest du heute Abend einen Crush-Moment mit jemandem hier?", s: "5 Shots." },
+    { t: "Welche Stelle an dir wurde am längsten nicht geküsst?", s: "4 Shots." },
+    { t: "Spiele 2 Truth: nimm 2 Mitspieler – jeder fragt dich eine intime Frage, du musst beide ehrlich beantworten.", s: "6 Shots." },
+    { t: "Lass dich vom Spieler rechts mit Augen verbunden 30 Sek. an Hand, Hals und Wange streicheln – rate, was wo war.", s: "5 Shots." },
+    { t: "Erzähle ein Detail über deinen besten Sex ever.", s: "5 Shots." },
+    { t: "Lass den Spieler gegenüber dir mit dem Finger ein Wort auf den Rücken schreiben – rate es.", s: "3 Shots." },
+    { t: "Demonstriere deinen Lieblings-Kuss-Style an deiner eigenen Hand.", s: "4 Shots." },
+    { t: "Welcher Mitspieler hat das beste Lächeln und warum macht es dich an?", s: "4 Shots." },
+    { t: "Lass den Spieler links dir ins Ohr flüstern – und du musst es laut wiederholen.", s: "6 Shots." },
+    { t: "Body-Shot: Salz auf Hals/Schulter eines Mitspielers, Limette zwischen den Zähnen, Shot dazwischen.", s: "Trink direkt 6 Shots." },
+    { t: "Welcher Mitspieler ist dein 'Wenn ich Single wäre'?", s: "5 Shots." },
+    { t: "Spreche 30 Sek. lang im sexiest Voice-Mode, den du kannst – Thema bestimmt die Gruppe.", s: "5 Shots." },
+    { t: "Lass den Spieler gegenüber 3 Mal raten, wo dein 'sweet spot' ist. Bei Treffer: Schluck für ihn.", s: "5 Shots." },
+    { t: "Sex-Mythos oder wahr? Erzähl eine Sex-Geschichte – die Gruppe rät, ob wahr.", s: "5 Shots." },
+    { t: "Wem im Raum würdest du heimlich ein Nude schicken?", s: "6 Shots." },
+    { t: "Wie viele Personen haben dich schon nackt gesehen (ehrliche Zahl)?", s: "4 Shots." },
+    { t: "Lass den Spieler deiner Wahl deine Bauchmuskeln/Bauch fühlen.", s: "4 Shots." },
+    { t: "Was magst du lieber: oben oder unten – und warum?", s: "5 Shots." },
+    { t: "Lass dir vom Spieler links die Lippen mit dem Finger nachzeichnen (5 Sek.).", s: "5 Shots." },
+    { t: "Erzähl deinen heißesten Tagtraum von letzter Woche.", s: "5 Shots." },
+    { t: "Welche Marke Unterwäsche trägst du gerade?", s: "3 Shots." },
+    { t: "Wem im Raum würdest du sofort eine Massage geben – wo zuerst?", s: "5 Shots." },
+    { t: "Spiele 1 Min. lang die Rolle 'dein Crush' für den Spieler gegenüber.", s: "5 Shots." },
+    { t: "Ehrlich: wie laut bist du im Bett auf einer Skala 1-10?", s: "4 Shots." },
+    { t: "Lass den Spieler rechts dir eine 'Erotik-Note' zwischen 1 und 10 geben – du musst sie laut sagen.", s: "4 Shots." },
+  ]
+};
+
+const CAT_META = {
+  trinken: { name: "Trinken", emoji: "🍻" },
+  wahrheit: { name: "Wahrheit", emoji: "💭" },
+  aufgabe: { name: "Aufgabe", emoji: "😈" },
+  spicy: { name: "Spicy 18+", emoji: "🔥" }
+};
+
+let players = [];
+const activeCats = ["trinken","wahrheit","aufgabe","spicy"];
+let currentRotation = 0;
+let isSpinning = false;
+let round = 0;
+
+function startGame() {
+  players = [1,2,3,4].map(i => document.getElementById("p"+i).value.trim() || ("Spieler "+i));
+  document.getElementById("setupScreen").classList.remove("active");
+  document.getElementById("gameScreen").classList.add("active");
+  layoutPlayers();
+}
+
+function layoutPlayers() {
+  const wrap = document.getElementById("boardWrap");
+  wrap.querySelectorAll(".player-label").forEach(n => n.remove());
+  const positions = [
+    { top: "5%", left: "50%" },
+    { top: "50%", left: "95%" },
+    { top: "95%", left: "50%" },
+    { top: "50%", left: "5%" }
+  ];
+  players.forEach((name, i) => {
+    const el = document.createElement("div");
+    el.className = "player-label";
+    el.dataset.idx = i;
+    el.style.top = positions[i].top;
+    el.style.left = positions[i].left;
+    el.textContent = name;
+    wrap.appendChild(el);
+  });
+}
+
+function spin() {
+  if (isSpinning) return;
+  isSpinning = true;
+  round++;
+  document.getElementById("counter").textContent = "Runde " + round;
+  document.getElementById("spinBtn").disabled = true;
+  document.querySelectorAll(".player-label").forEach(l => l.classList.remove("highlight"));
+
+  const winner = Math.floor(Math.random() * 4); // 0..3
+  // Bottle points up at 0deg -> player 0 (top). Each player is at 90deg increments.
+  const targetAngle = winner * 90;
+  const fullSpins = 4 + Math.floor(Math.random() * 3);
+  const jitter = (Math.random() - 0.5) * 50; // ±25deg
+  // Compute next rotation > current
+  const base = Math.floor(currentRotation / 360) * 360;
+  currentRotation = base + fullSpins * 360 + targetAngle + jitter;
+
+  const bottle = document.getElementById("bottle");
+  bottle.style.transform = `translate(-50%, -50%) rotate(${currentRotation}deg)`;
+
+  setTimeout(() => {
+    document.querySelector(`.player-label[data-idx="${winner}"]`).classList.add("highlight");
+    setTimeout(() => showCard(winner), 600);
+  }, 4600);
+}
+
+function showCard(playerIdx) {
+  const cats = [...activeCats];
+  const cat = cats[Math.floor(Math.random() * cats.length)];
+  const pool = CARDS[cat];
+  const card = pool[Math.floor(Math.random() * pool.length)];
+  const meta = CAT_META[cat];
+
+  document.getElementById("cardEmoji").textContent = meta.emoji;
+  document.getElementById("cardCategory").textContent = meta.name;
+  document.getElementById("cardPlayer").textContent = players[playerIdx];
+  document.getElementById("cardTask").textContent = card.t;
+  document.getElementById("cardSkip").textContent = card.s;
+
+  const overlay = document.getElementById("cardOverlay");
+  const card = document.getElementById("card");
+  card.classList.remove("flipped");
+  overlay.classList.add("active");
+  // Flip after a short beat
+  setTimeout(() => card.classList.add("flipped"), 350);
+}
+
+function closeCard() {
+  const overlay = document.getElementById("cardOverlay");
+  const card = document.getElementById("card");
+  card.classList.remove("flipped");
+  setTimeout(() => {
+    overlay.classList.remove("active");
+    document.getElementById("spinBtn").disabled = false;
+    isSpinning = false;
+  }, 500);
+}
+
+function resetGame() {
+  if (!confirm("Neues Spiel starten? Aktuelle Runde geht verloren.")) return;
+  round = 0;
+  currentRotation = 0;
+  document.getElementById("bottle").style.transition = "none";
+  document.getElementById("bottle").style.transform = "translate(-50%, -50%) rotate(0deg)";
+  setTimeout(() => {
+    document.getElementById("bottle").style.transition = "";
+  }, 50);
+  document.getElementById("gameScreen").classList.remove("active");
+  document.getElementById("setupScreen").classList.add("active");
+}
+
+// Tap card-back to flip manually if it hasn't flipped
+document.getElementById("card").addEventListener("click", (e) => {
+  if (!document.getElementById("card").classList.contains("flipped")) {
+    document.getElementById("card").classList.add("flipped");
+  }
+});
+</script>
+</body>
+</html>
