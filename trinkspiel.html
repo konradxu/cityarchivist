@@ -6,7 +6,7 @@
 <title>Alinas Geburtstag 🎉</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { height: 100%; overflow: hidden; }
+  html, body { min-height: 100%; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     background: radial-gradient(circle at 30% 20%, #2a0a3e 0%, #0a0014 50%, #000 100%);
@@ -15,9 +15,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 20px;
+    justify-content: safe center;
+    padding: 24px 20px;
     user-select: none;
+    overflow-x: hidden;
   }
 
   .screen { display: none; width: 100%; max-width: 720px; }
@@ -253,20 +254,64 @@
   .card-actions { display: flex; gap: 10px; margin-top: 16px; }
   .card-actions .btn { flex: 1; margin: 0; padding: 14px 16px; font-size: 0.95rem; }
 
-  .age-warn {
-    position: fixed;
-    inset: 0;
-    background: #000;
+  .player-row {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 200;
-    padding: 30px;
-    text-align: center;
+    gap: 8px;
+    align-items: stretch;
+    margin-bottom: 12px;
   }
-  .age-warn h2 { font-size: 2rem; margin-bottom: 16px; color: #ff6b6b; }
-  .age-warn p { color: #ccc; max-width: 400px; margin-bottom: 24px; line-height: 1.5; }
+  .player-row .player-input { flex: 1; margin: 0; }
+  .remove-btn {
+    background: rgba(255,107,107,0.12);
+    border: 2px solid rgba(255,107,107,0.3);
+    color: #ff8a8a;
+    border-radius: 14px;
+    width: 52px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .remove-btn:hover { background: rgba(255,107,107,0.25); color: #fff; }
+
+  .secret-dot {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    z-index: 50;
+    cursor: pointer;
+    transition: all .25s;
+  }
+  .secret-dot:hover { background: rgba(255,255,255,0.12); }
+  .secret-dot.on {
+    background: #ff3df0;
+    border-color: #fff;
+    box-shadow: 0 0 14px rgba(255,61,240,0.8);
+  }
+  .spicy-toast {
+    position: fixed;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.9);
+    color: #ffd93d;
+    padding: 10px 20px;
+    border-radius: 22px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    z-index: 300;
+    border: 1px solid rgba(255,61,240,0.5);
+    animation: toastIn .25s ease-out;
+    pointer-events: none;
+  }
+  @keyframes toastIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
 
   .footer-bar {
     display: flex;
@@ -302,25 +347,19 @@
 </head>
 <body>
 
-<!-- Altersbestätigung -->
-<div class="age-warn" id="ageWarn">
-  <h2>🔞 Nur für Erwachsene</h2>
-  <p>Dieses Spiel enthält Karten mit Inhalten ab 18 Jahren und Alkoholbezug. Trink verantwortungsvoll und nur Aufgaben, mit denen sich alle wohl fühlen.</p>
-  <button class="btn" onclick="document.getElementById('ageWarn').style.display='none'">Ich bin 18+ und stimme zu</button>
-</div>
-
 <!-- Setup -->
 <div class="screen active" id="setupScreen">
   <h1>Alinas Geburtstag 🎉</h1>
-  <p class="subtitle">Gib die Namen der 4 Spieler ein</p>
+  <p class="subtitle">Spieler eintragen und los geht's</p>
   <div class="setup-form">
-    <input class="player-input" id="p1" placeholder="Spieler 1" maxlength="14" value="Anna">
-    <input class="player-input" id="p2" placeholder="Spieler 2" maxlength="14" value="Ben">
-    <input class="player-input" id="p3" placeholder="Spieler 3" maxlength="14" value="Lisa">
-    <input class="player-input" id="p4" placeholder="Spieler 4" maxlength="14" value="Max">
-    <button class="btn" onclick="startGame()">Spiel starten</button>
+    <div id="playerList"></div>
+    <button class="btn btn-ghost" id="addPlayerBtn" type="button" onclick="addPlayer()">+ Spieler hinzufügen</button>
+    <button class="btn" type="button" onclick="startGame()">Spiel starten</button>
   </div>
 </div>
+
+<!-- Geheimer Spicy-Toggle -->
+<div class="secret-dot" id="secretDot" onclick="toggleSpicy()"></div>
 
 <!-- Spiel -->
 <div class="screen" id="gameScreen">
@@ -627,33 +666,90 @@ const CAT_META = {
 };
 
 let players = [];
-const activeCats = ["trinken","wahrheit","aufgabe","spicy"];
 let currentRotation = 0;
 let isSpinning = false;
 let round = 0;
+let spicyBoost = false;
+
+const MIN_PLAYERS = 2;
+const MAX_PLAYERS = 8;
+let playerNames = ["Anna", "Ben", "Lisa", "Max"];
+
+function renderPlayers() {
+  const list = document.getElementById("playerList");
+  list.innerHTML = "";
+  playerNames.forEach((name, i) => {
+    const row = document.createElement("div");
+    row.className = "player-row";
+    const input = document.createElement("input");
+    input.className = "player-input";
+    input.placeholder = "Spieler " + (i + 1);
+    input.maxLength = 14;
+    input.value = name;
+    input.id = "p" + (i + 1);
+    input.addEventListener("input", () => { playerNames[i] = input.value; });
+    row.appendChild(input);
+    if (playerNames.length > MIN_PLAYERS) {
+      const remove = document.createElement("button");
+      remove.className = "remove-btn";
+      remove.type = "button";
+      remove.textContent = "✕";
+      remove.title = "Spieler entfernen";
+      remove.onclick = () => removePlayer(i);
+      row.appendChild(remove);
+    }
+    list.appendChild(row);
+  });
+  document.getElementById("addPlayerBtn").style.display =
+    playerNames.length >= MAX_PLAYERS ? "none" : "";
+}
+
+function syncNamesFromInputs() {
+  playerNames.forEach((_, i) => {
+    const el = document.getElementById("p" + (i + 1));
+    if (el) playerNames[i] = el.value;
+  });
+}
+
+function addPlayer() {
+  if (playerNames.length >= MAX_PLAYERS) return;
+  syncNamesFromInputs();
+  playerNames.push("");
+  renderPlayers();
+}
+
+function removePlayer(idx) {
+  if (playerNames.length <= MIN_PLAYERS) return;
+  syncNamesFromInputs();
+  playerNames.splice(idx, 1);
+  renderPlayers();
+}
 
 function startGame() {
-  players = [1,2,3,4].map(i => document.getElementById("p"+i).value.trim() || ("Spieler "+i));
+  syncNamesFromInputs();
+  players = playerNames.map((n, i) => (n.trim() || ("Spieler " + (i + 1))));
   document.getElementById("setupScreen").classList.remove("active");
   document.getElementById("gameScreen").classList.add("active");
+  round = 0;
+  document.getElementById("counter").textContent = "Runde 1";
   layoutPlayers();
 }
 
 function layoutPlayers() {
   const wrap = document.getElementById("boardWrap");
   wrap.querySelectorAll(".player-label").forEach(n => n.remove());
-  const positions = [
-    { top: "5%", left: "50%" },
-    { top: "50%", left: "95%" },
-    { top: "95%", left: "50%" },
-    { top: "50%", left: "5%" }
-  ];
+  const n = players.length;
+  const r = 45; // % radius from center
   players.forEach((name, i) => {
+    const angle = (360 / n) * i;
+    const rad = angle * Math.PI / 180;
+    const top = 50 - r * Math.cos(rad);
+    const left = 50 + r * Math.sin(rad);
     const el = document.createElement("div");
     el.className = "player-label";
     el.dataset.idx = i;
-    el.style.top = positions[i].top;
-    el.style.left = positions[i].left;
+    el.style.top = top + "%";
+    el.style.left = left + "%";
     el.textContent = name;
     wrap.appendChild(el);
   });
@@ -667,12 +763,12 @@ function spin() {
   document.getElementById("spinBtn").disabled = true;
   document.querySelectorAll(".player-label").forEach(l => l.classList.remove("highlight"));
 
-  const winner = Math.floor(Math.random() * 4); // 0..3
-  // Bottle points up at 0deg -> player 0 (top). Each player is at 90deg increments.
-  const targetAngle = winner * 90;
+  const n = players.length;
+  const winner = Math.floor(Math.random() * n);
+  const segment = 360 / n;
+  const targetAngle = winner * segment;
   const fullSpins = 4 + Math.floor(Math.random() * 3);
-  const jitter = (Math.random() - 0.5) * 50; // ±25deg
-  // Compute next rotation > current
+  const jitter = (Math.random() - 0.5) * Math.min(segment * 0.6, 50);
   const base = Math.floor(currentRotation / 360) * 360;
   currentRotation = base + fullSpins * 360 + targetAngle + jitter;
 
@@ -685,9 +781,34 @@ function spin() {
   }, 4600);
 }
 
+function pickCategory() {
+  // OFF: spicy rare (~10%) | ON: spicy dominant (~62%)
+  const weights = spicyBoost
+    ? { trinken: 1, wahrheit: 1, aufgabe: 1, spicy: 5 }
+    : { trinken: 3, wahrheit: 3, aufgabe: 3, spicy: 1 };
+  const entries = Object.entries(weights);
+  const total = entries.reduce((s, [, w]) => s + w, 0);
+  let r = Math.random() * total;
+  for (const [cat, w] of entries) {
+    if ((r -= w) < 0) return cat;
+  }
+  return "trinken";
+}
+
+function toggleSpicy() {
+  spicyBoost = !spicyBoost;
+  document.getElementById("secretDot").classList.toggle("on", spicyBoost);
+  const old = document.querySelector(".spicy-toast");
+  if (old) old.remove();
+  const t = document.createElement("div");
+  t.className = "spicy-toast";
+  t.textContent = spicyBoost ? "🌶 Spicy-Modus AN" : "🌶 Spicy-Modus AUS";
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 1500);
+}
+
 function showCard(playerIdx) {
-  const cats = [...activeCats];
-  const cat = cats[Math.floor(Math.random() * cats.length)];
+  const cat = pickCategory();
   const pool = CARDS[cat];
   const card = pool[Math.floor(Math.random() * pool.length)];
   const meta = CAT_META[cat];
@@ -736,6 +857,9 @@ document.getElementById("card").addEventListener("click", (e) => {
     document.getElementById("card").classList.add("flipped");
   }
 });
+
+// Setup initial player rows
+renderPlayers();
 </script>
 </body>
 </html>
