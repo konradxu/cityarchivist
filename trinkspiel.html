@@ -810,21 +810,20 @@ function toggleSpicy() {
 function showCard(playerIdx) {
   const cat = pickCategory();
   const pool = CARDS[cat];
-  const card = pool[Math.floor(Math.random() * pool.length)];
+  const data = pool[Math.floor(Math.random() * pool.length)];
   const meta = CAT_META[cat];
 
   document.getElementById("cardEmoji").textContent = meta.emoji;
   document.getElementById("cardCategory").textContent = meta.name;
   document.getElementById("cardPlayer").textContent = players[playerIdx];
-  document.getElementById("cardTask").textContent = card.t;
-  document.getElementById("cardSkip").textContent = card.s;
+  document.getElementById("cardTask").textContent = data.t;
+  document.getElementById("cardSkip").textContent = data.s;
 
   const overlay = document.getElementById("cardOverlay");
-  const card = document.getElementById("card");
-  card.classList.remove("flipped");
+  const cardEl = document.getElementById("card");
+  cardEl.classList.remove("flipped");
   overlay.classList.add("active");
-  // Flip after a short beat
-  setTimeout(() => card.classList.add("flipped"), 350);
+  setTimeout(() => cardEl.classList.add("flipped"), 350);
 }
 
 function closeCard() {
