@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kategorien 🧠</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { min-height: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: radial-gradient(circle at 30% 20%, #0a3e2a 0%, #02140a 50%, #000 100%);
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: safe center;
+    padding: 24px 20px;
+    user-select: none;
+    overflow-x: hidden;
+  }
+
+  .back-link {
+    position: fixed;
+    top: 14px; left: 14px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 18px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    z-index: 60;
+    transition: background .15s;
+  }
+  .back-link:hover { background: rgba(255,255,255,0.18); }
+
+  .screen { display: none; width: 100%; max-width: 720px; }
+  .screen.active { display: flex; flex-direction: column; align-items: center; }
+
+  h1 {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    background: linear-gradient(90deg, #3dff8a, #ffd93d, #ff6b6b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+    text-align: center;
+    font-weight: 900;
+    letter-spacing: -1px;
+  }
+  .subtitle { color: #aaa; margin-bottom: 28px; text-align: center; font-size: 0.95rem; max-width: 460px; line-height: 1.4; }
+
+  .setup-form { display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 380px; }
+  .player-row { display: flex; gap: 8px; align-items: stretch; margin-bottom: 12px; }
+  .player-row .player-input { flex: 1; margin: 0; }
+  .player-input {
+    background: rgba(255,255,255,0.06);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 16px 20px;
+    color: #fff;
+    font-size: 1.05rem;
+    outline: none;
+    transition: all .2s;
+    width: 100%;
+  }
+  .player-input:focus { border-color: #3dff8a; background: rgba(61,255,138,0.08); }
+  .player-input::placeholder { color: #777; }
+  .remove-btn {
+    background: rgba(255,107,107,0.12);
+    border: 2px solid rgba(255,107,107,0.3);
+    color: #ff8a8a;
+    border-radius: 14px;
+    width: 52px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .remove-btn:hover { background: rgba(255,107,107,0.25); color: #fff; }
+
+  .btn {
+    background: linear-gradient(135deg, #3dff8a, #ffd93d);
+    color: #000;
+    border: none;
+    padding: 16px 36px;
+    border-radius: 14px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform .15s, box-shadow .2s;
+    box-shadow: 0 8px 24px rgba(61,255,138,0.3);
+    margin-top: 12px;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(61,255,138,0.45); }
+  .btn:active { transform: translateY(0); }
+  .btn-ghost {
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    box-shadow: none;
+    margin-top: 8px;
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.14); box-shadow: none; }
+  .btn-danger {
+    background: linear-gradient(135deg, #ff3d6b, #ff8a3d);
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(255,61,107,0.35);
+  }
+
+  /* Spielfeld */
+  .game-wrap { display: flex; flex-direction: column; align-items: center; gap: 18px; width: 100%; }
+
+  .turn-label {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .current-player {
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    font-weight: 900;
+    background: linear-gradient(90deg, #3dff8a, #ffd93d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-align: center;
+    word-break: break-word;
+    margin-bottom: 14px;
+  }
+
+  .category-card {
+    width: min(92vw, 480px);
+    background: linear-gradient(160deg, #1a2e1f, #0d3d23);
+    border: 2px solid rgba(61,255,138,0.3);
+    border-radius: 24px;
+    padding: 28px 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), inset 0 0 30px rgba(61,255,138,0.07);
+    margin-bottom: 8px;
+    animation: cardIn .4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .category-emoji { font-size: 3rem; text-align: center; margin-bottom: 6px; }
+  .category-label {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #3dff8a;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .category-name {
+    text-align: center;
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+  }
+
+  .timer-ring {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    margin: 4px 0 4px;
+  }
+  .timer-ring svg { transform: rotate(-90deg); width: 100%; height: 100%; }
+  .timer-ring circle { fill: none; stroke-width: 8; }
+  .timer-ring .bg { stroke: rgba(255,255,255,0.08); }
+  .timer-ring .fg {
+    stroke: #ffd93d;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s linear, stroke .25s;
+  }
+  .timer-ring.warn .fg { stroke: #ff8a3d; }
+  .timer-ring.crit .fg { stroke: #ff3d6b; }
+  .timer-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 900;
+  }
+
+  .action-row { display: flex; gap: 10px; width: min(92vw, 480px); }
+  .action-row .btn { flex: 1; margin: 0; padding: 16px 14px; font-size: 1rem; }
+
+  .info-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 8px;
+    color: #999;
+    font-size: 0.8rem;
+  }
+  .info-row span { background: rgba(255,255,255,0.06); padding: 4px 10px; border-radius: 12px; }
+
+  .footer-actions { display: flex; gap: 8px; margin-top: 14px; }
+
+  /* Strafe overlay */
+  .penalty-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.88);
+    backdrop-filter: blur(8px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 24px;
+  }
+  .penalty-overlay.active { display: flex; }
+  .penalty-card {
+    background: linear-gradient(160deg, #2e1010, #4d1a1a);
+    border: 2px solid #ff3d6b;
+    border-radius: 22px;
+    padding: 32px 28px;
+    text-align: center;
+    max-width: 360px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(255,61,107,0.4);
+    animation: shake .4s cubic-bezier(.36,.07,.19,.97);
+  }
+  @keyframes shake {
+    10%, 90% { transform: translateX(-2px); }
+    20%, 80% { transform: translateX(3px); }
+    30%, 50%, 70% { transform: translateX(-5px); }
+    40%, 60% { transform: translateX(5px); }
+  }
+  .penalty-emoji { font-size: 3.5rem; margin-bottom: 8px; }
+  .penalty-title {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: #ff8a8a;
+    margin-bottom: 8px;
+  }
+  .penalty-player {
+    font-size: 2.2rem;
+    font-weight: 900;
+    background: linear-gradient(90deg, #ffd93d, #ff6b6b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 6px;
+    word-break: break-word;
+  }
+  .penalty-text { color: #ffe9a8; font-size: 1.1rem; margin-bottom: 22px; }
+</style>
+</head>
+<body>
+
+<a href="trinkspiel.html" class="back-link">← Lobby</a>
+
+<!-- Setup -->
+<div class="screen active" id="setupScreen">
+  <h1>Kategorien 🧠</h1>
+  <p class="subtitle">Eine Kategorie erscheint, reihum muss jeder einen Begriff sagen. Wer keinen weiß, trinkt!</p>
+  <div class="setup-form">
+    <div id="playerList"></div>
+    <button class="btn btn-ghost" id="addPlayerBtn" type="button">+ Spieler hinzufügen</button>
+    <button class="btn" id="startGameBtn" type="button">Spiel starten</button>
+  </div>
+</div>
+
+<!-- Spiel -->
+<div class="screen" id="gameScreen">
+  <div class="game-wrap">
+    <div>
+      <div class="turn-label">Am Zug</div>
+      <div class="current-player" id="currentPlayer">—</div>
+    </div>
+
+    <div class="category-card">
+      <div class="category-emoji" id="catEmoji">🍻</div>
+      <div class="category-label">Kategorie</div>
+      <div class="category-name" id="catName">Biermarken</div>
+    </div>
+
+    <div class="timer-ring" id="timerRing">
+      <svg viewBox="0 0 120 120">
+        <circle class="bg" cx="60" cy="60" r="52"/>
+        <circle class="fg" cx="60" cy="60" r="52" stroke-dasharray="326.7" stroke-dashoffset="0"/>
+      </svg>
+      <div class="timer-text" id="timerText">7</div>
+    </div>
+
+    <div class="action-row">
+      <button class="btn btn-danger" id="failBtn" type="button">Weiß nichts 🍺</button>
+      <button class="btn" id="passBtn" type="button">Genannt ✓</button>
+    </div>
+
+    <div class="info-row">
+      <span id="roundInfo">Runde 1</span>
+      <span id="categoryInfo">Kategorie 1</span>
+    </div>
+
+    <div class="footer-actions">
+      <button class="btn btn-ghost" id="newCatBtn" type="button">Neue Kategorie</button>
+      <button class="btn btn-ghost" id="resetBtn" type="button">Neues Spiel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Strafe -->
+<div class="penalty-overlay" id="penaltyOverlay">
+  <div class="penalty-card">
+    <div class="penalty-emoji">🍻</div>
+    <div class="penalty-title">Pech gehabt!</div>
+    <div class="penalty-player" id="penaltyPlayer">—</div>
+    <div class="penalty-text" id="penaltyText">trinkt 2 Shots</div>
+    <button class="btn" id="penaltyOkBtn" type="button">Erledigt ✓</button>
+  </div>
+</div>
+
+<script>
+const CATEGORIES = [
+  { name: "Biermarken", emoji: "🍺" },
+  { name: "Auto-Marken", emoji: "🚗" },
+  { name: "Disney-Filme", emoji: "🏰" },
+  { name: "Pizza-Beläge", emoji: "🍕" },
+  { name: "Eissorten", emoji: "🍦" },
+  { name: "Süßigkeiten", emoji: "🍬" },
+  { name: "Länder in Europa", emoji: "🌍" },
+  { name: "Hauptstädte", emoji: "🏛" },
+  { name: "Fußballvereine", emoji: "⚽" },
+  { name: "Cocktails", emoji: "🍹" },
+  { name: "Schauspieler", emoji: "🎬" },
+  { name: "Sänger / Sängerinnen", emoji: "🎤" },
+  { name: "Marvel-Helden", emoji: "🦸" },
+  { name: "Harry-Potter-Charaktere", emoji: "⚡" },
+  { name: "Star-Wars-Figuren", emoji: "🌌" },
+  { name: "Brettspiele", emoji: "🎲" },
+  { name: "Sportarten", emoji: "🏅" },
+  { name: "Hunderassen", emoji: "🐶" },
+  { name: "Smartphone-Marken", emoji: "📱" },
+  { name: "Sneaker-Marken", emoji: "👟" },
+  { name: "Influencer / TikTok-Stars", emoji: "📲" },
+  { name: "Klamotten-Marken", emoji: "👕" },
+  { name: "Filme mit über 2h Laufzeit", emoji: "🎥" },
+  { name: "Serien auf Netflix", emoji: "📺" },
+  { name: "Reality-TV-Shows", emoji: "🎭" },
+  { name: "YouTuber", emoji: "▶️" },
+  { name: "Berliner Clubs", emoji: "🪩" },
+  { name: "Berge weltweit", emoji: "🏔" },
+  { name: "Flüsse", emoji: "🌊" },
+  { name: "Inseln", emoji: "🏝" },
+  { name: "Anmachsprüche", emoji: "💋" },
+  { name: "Kosenamen", emoji: "🥰" },
+  { name: "Dinge im Bad", emoji: "🛁" },
+  { name: "Dinge in der Küche", emoji: "🍳" },
+  { name: "Gewürze", emoji: "🧂" },
+  { name: "Obstsorten", emoji: "🍎" },
+  { name: "Gemüse", emoji: "🥕" },
+  { name: "Käsesorten", emoji: "🧀" },
+  { name: "Anime / Manga", emoji: "🇯🇵" },
+  { name: "Rapper", emoji: "🎧" },
+  { name: "Bands der 90er/2000er", emoji: "🎸" },
+  { name: "Songs, die jeder kennt", emoji: "🎵" },
+  { name: "Berufe", emoji: "👔" },
+  { name: "Sprachen", emoji: "🗣" },
+  { name: "Werkzeuge", emoji: "🔧" },
+  { name: "Möbelstücke", emoji: "🛋" },
+  { name: "Reiseziele für eine Hochzeitsreise", emoji: "✈️" },
+  { name: "Restaurantketten", emoji: "🍔" },
+  { name: "Pokémon", emoji: "⚡" },
+  { name: "Disney-Prinzessinnen", emoji: "👑" },
+  { name: "F1-Fahrer", emoji: "🏎" },
+  { name: "Bundesländer", emoji: "🇩🇪" },
+  { name: "Tiere mit 4 Buchstaben", emoji: "🦊" },
+  { name: "Dinge, die rot sind", emoji: "🟥" },
+  { name: "Dinge, die man im Sommer macht", emoji: "☀️" },
+  { name: "Dinge auf einer Party", emoji: "🎉" },
+  { name: "Dinge in der Schule", emoji: "🎒" },
+  { name: "Berliner Sehenswürdigkeiten", emoji: "🗺" },
+  { name: "Bayerische Wörter", emoji: "🥨" },
+  { name: "Lügen, die jeder schon mal erzählt hat", emoji: "🤥" },
+  { name: "Schlimme erste Date-Themen", emoji: "💀" },
+  { name: "Outfits für Halloween", emoji: "🎃" },
+  { name: "Filme von Tarantino / Nolan / Scorsese", emoji: "🍿" },
+  { name: "TV-Köche", emoji: "👨‍🍳" },
+  { name: "Sänger mit nur einem Namen (Adele, Madonna, ...)", emoji: "🎙" },
+  { name: "Dinge, die man auf einem Festival vergisst", emoji: "⛺" },
+  { name: "Drinks mit Rum", emoji: "🥃" },
+  { name: "Was man nicht zur Schwiegermutter sagt", emoji: "🙊" },
+  { name: "Comic-Bösewichte", emoji: "😈" },
+];
+
+const TURN_TIME = 7; // Sekunden pro Spieler
+const PENALTY_SHOTS = 2;
+
+const MIN_PLAYERS = 2;
+const MAX_PLAYERS = 8;
+let playerNames = ["Anna", "Ben", "Lisa", "Max"];
+let players = [];
+let currentIdx = 0;
+let round = 1;
+let categoryCount = 0;
+let timer = null;
+let timeLeft = TURN_TIME;
+let currentCategory = null;
+let usedCategories = new Set();
+
+function renderPlayers() {
+  const list = document.getElementById("playerList");
+  list.innerHTML = "";
+  playerNames.forEach((name, i) => {
+    const row = document.createElement("div");
+    row.className = "player-row";
+    const input = document.createElement("input");
+    input.className = "player-input";
+    input.placeholder = "Spieler " + (i + 1);
+    input.maxLength = 14;
+    input.value = name;
+    input.id = "p" + (i + 1);
+    input.addEventListener("input", () => { playerNames[i] = input.value; });
+    row.appendChild(input);
+    if (playerNames.length > MIN_PLAYERS) {
+      const remove = document.createElement("button");
+      remove.className = "remove-btn";
+      remove.type = "button";
+      remove.textContent = "✕";
+      remove.onclick = () => removePlayer(i);
+      row.appendChild(remove);
+    }
+    list.appendChild(row);
+  });
+  document.getElementById("addPlayerBtn").style.display =
+    playerNames.length >= MAX_PLAYERS ? "none" : "";
+}
+
+function syncNamesFromInputs() {
+  playerNames.forEach((_, i) => {
+    const el = document.getElementById("p" + (i + 1));
+    if (el) playerNames[i] = el.value;
+  });
+}
+
+function addPlayer() {
+  if (playerNames.length >= MAX_PLAYERS) return;
+  syncNamesFromInputs();
+  playerNames.push("");
+  renderPlayers();
+}
+
+function removePlayer(idx) {
+  if (playerNames.length <= MIN_PLAYERS) return;
+  syncNamesFromInputs();
+  playerNames.splice(idx, 1);
+  renderPlayers();
+}
+
+function startGame() {
+  syncNamesFromInputs();
+  players = playerNames.map((n, i) => (n.trim() || ("Spieler " + (i + 1))));
+  document.getElementById("setupScreen").classList.remove("active");
+  document.getElementById("gameScreen").classList.add("active");
+  currentIdx = Math.floor(Math.random() * players.length);
+  round = 1;
+  categoryCount = 0;
+  usedCategories.clear();
+  nextCategory();
+}
+
+function pickCategory() {
+  if (usedCategories.size >= CATEGORIES.length) usedCategories.clear();
+  let c;
+  do {
+    c = CATEGORIES[Math.floor(Math.random() * CATEGORIES.length)];
+  } while (usedCategories.has(c.name));
+  usedCategories.add(c.name);
+  return c;
+}
+
+function nextCategory() {
+  currentCategory = pickCategory();
+  categoryCount++;
+  document.getElementById("catEmoji").textContent = currentCategory.emoji;
+  document.getElementById("catName").textContent = currentCategory.name;
+  document.getElementById("categoryInfo").textContent = "Kategorie " + categoryCount;
+  document.getElementById("roundInfo").textContent = "Runde " + round;
+  // re-animate card
+  const card = document.querySelector(".category-card");
+  card.style.animation = "none";
+  void card.offsetWidth;
+  card.style.animation = "";
+  startTurn();
+}
+
+function startTurn() {
+  document.getElementById("currentPlayer").textContent = players[currentIdx];
+  clearInterval(timer);
+  timeLeft = TURN_TIME;
+  updateTimerUI();
+  timer = setInterval(() => {
+    timeLeft--;
+    updateTimerUI();
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      failTurn();
+    }
+  }, 1000);
+}
+
+function updateTimerUI() {
+  const ring = document.getElementById("timerRing");
+  const fg = ring.querySelector(".fg");
+  const circumference = 2 * Math.PI * 52;
+  const progress = Math.max(0, timeLeft) / TURN_TIME;
+  fg.style.strokeDashoffset = circumference * (1 - progress);
+  ring.classList.toggle("warn", timeLeft <= 4 && timeLeft > 2);
+  ring.classList.toggle("crit", timeLeft <= 2);
+  document.getElementById("timerText").textContent = Math.max(0, timeLeft);
+}
+
+function passTurn() {
+  clearInterval(timer);
+  currentIdx = (currentIdx + 1) % players.length;
+  if (currentIdx === 0) round++;
+  startTurn();
+}
+
+function failTurn() {
+  clearInterval(timer);
+  document.getElementById("penaltyPlayer").textContent = players[currentIdx];
+  document.getElementById("penaltyText").textContent =
+    "trinkt " + PENALTY_SHOTS + " Shot" + (PENALTY_SHOTS !== 1 ? "s" : "");
+  document.getElementById("penaltyOverlay").classList.add("active");
+}
+
+function dismissPenalty() {
+  document.getElementById("penaltyOverlay").classList.remove("active");
+  currentIdx = (currentIdx + 1) % players.length;
+  if (currentIdx === 0) round++;
+  nextCategory();
+}
+
+function resetGame() {
+  if (!confirm("Neues Spiel starten?")) return;
+  clearInterval(timer);
+  document.getElementById("gameScreen").classList.remove("active");
+  document.getElementById("setupScreen").classList.add("active");
+}
+
+document.getElementById("startGameBtn").addEventListener("click", startGame);
+document.getElementById("addPlayerBtn").addEventListener("click", addPlayer);
+document.getElementById("passBtn").addEventListener("click", passTurn);
+document.getElementById("failBtn").addEventListener("click", failTurn);
+document.getElementById("newCatBtn").addEventListener("click", nextCategory);
+document.getElementById("resetBtn").addEventListener("click", resetGame);
+document.getElementById("penaltyOkBtn").addEventListener("click", dismissPenalty);
+
+renderPlayers();
+</script>
+</body>
+</html>
