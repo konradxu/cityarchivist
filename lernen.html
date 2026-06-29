@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lernzettel – Urheberrecht & Excel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#171b2e;
+    --ink-soft:#3b4061;
+    --paper:#f7f4ec;
+    --card:#fffdf8;
+    --line:#e3ddcd;
+    --marker:#ffd84d;
+    --marker-deep:#f5b700;
+    --green:#1f8a5b;
+    --green-bg:#e6f4ec;
+    --red:#c0432f;
+    --red-bg:#fbe9e5;
+    --shadow:0 1px 0 rgba(23,27,46,.04),0 18px 40px -24px rgba(23,27,46,.45);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    background:
+      radial-gradient(1200px 500px at 100% -10%, #fcf8ee, transparent),
+      var(--paper);
+    color:var(--ink);
+    line-height:1.55;
+    min-height:100vh;
+    padding:clamp(16px,4vw,40px);
+  }
+  .wrap{max-width:680px;margin:0 auto}
+
+  /* header */
+  .top{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:28px;flex-wrap:wrap}
+  .brand{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(26px,6vw,40px);letter-spacing:-.02em;line-height:1}
+  .brand .mark{position:relative;white-space:nowrap}
+  .brand .mark::after{content:"";position:absolute;left:-3px;right:-3px;bottom:.08em;height:.42em;background:var(--marker);z-index:-1;transform:rotate(-1.2deg);border-radius:2px}
+  .who{font-size:13px;color:var(--ink-soft);font-weight:500}
+  .who b{color:var(--ink)}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:clamp(20px,4.5vw,34px)}
+
+  /* type */
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(22px,5vw,30px);letter-spacing:-.02em;line-height:1.12;margin-bottom:10px}
+  .lead{color:var(--ink-soft);font-size:15px;margin-bottom:24px}
+  label{display:block;font-size:13px;font-weight:600;color:var(--ink-soft);margin-bottom:8px}
+
+  input[type=text]{
+    width:100%;font-family:inherit;font-size:17px;color:var(--ink);
+    background:#fff;border:1.5px solid var(--line);border-radius:12px;
+    padding:14px 16px;transition:border-color .15s,box-shadow .15s;
+  }
+  input[type=text]:focus{outline:none;border-color:var(--marker-deep);box-shadow:0 0 0 4px rgba(245,183,0,.18)}
+
+  .btn{
+    font-family:inherit;font-size:16px;font-weight:600;cursor:pointer;
+    border:none;border-radius:12px;padding:14px 22px;transition:transform .08s,box-shadow .15s,background .15s;
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  }
+  .btn:active{transform:translateY(1px)}
+  .btn:focus-visible{outline:3px solid var(--marker-deep);outline-offset:2px}
+  .btn-primary{background:var(--ink);color:#fff;width:100%;margin-top:18px}
+  .btn-primary:hover{background:#0e1120}
+  .btn-ghost{background:transparent;color:var(--ink-soft);border:1.5px solid var(--line)}
+  .btn-ghost:hover{border-color:var(--ink-soft);color:var(--ink)}
+
+  /* topic picker */
+  .topics{display:grid;gap:12px;margin-top:6px}
+  .topic{
+    text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:14px;
+    padding:18px 20px;cursor:pointer;transition:border-color .15s,transform .08s,background .15s;
+    display:flex;align-items:center;gap:16px;font-family:inherit;width:100%;
+  }
+  .topic:hover{border-color:var(--marker-deep);background:#fffef9}
+  .topic:active{transform:translateY(1px)}
+  .topic:focus-visible{outline:3px solid var(--marker-deep);outline-offset:2px}
+  .topic .em{font-family:'Fraunces',serif;font-weight:900;font-size:26px;width:46px;height:46px;flex:none;display:grid;place-items:center;background:var(--marker);border-radius:12px;color:var(--ink);transform:rotate(-2deg)}
+  .topic .tt{font-weight:600;font-size:17px}
+  .topic .ts{font-size:13px;color:var(--ink-soft)}
+
+  /* quiz */
+  .meta{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--ink-soft);font-weight:600;margin-bottom:14px}
+  .pill{background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px 12px}
+  .bar{height:6px;background:var(--line);border-radius:999px;overflow:hidden;margin-bottom:22px}
+  .bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--marker),var(--marker-deep));border-radius:999px;transition:width .35s ease}
+  .q{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(19px,4.4vw,24px);line-height:1.28;letter-spacing:-.01em;margin-bottom:20px}
+
+  .solution{margin-top:20px;border-top:1px dashed var(--line);padding-top:20px;animation:rise .35s ease}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .sol-label{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--marker-deep);margin-bottom:8px}
+  .sol-text{font-size:16px;font-weight:500;margin-bottom:16px}
+  .sol-text code, code.inline{font-family:'JetBrains Mono',monospace;font-size:.92em;background:#f0ece0;padding:2px 6px;border-radius:6px;font-weight:600}
+  .explain{font-size:14.5px;color:var(--ink-soft);background:#faf7ef;border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .explain b{color:var(--ink)}
+  pre{font-family:'JetBrains Mono',monospace;font-size:13.5px;font-weight:500;background:var(--ink);color:#f4f1e8;padding:14px 16px;border-radius:12px;overflow-x:auto;margin:4px 0 16px;line-height:1.5}
+  pre .str{color:var(--marker)}
+  pre .fn{color:#7fd4a8}
+
+  .grade{display:flex;gap:10px;margin-top:20px}
+  .grade .btn{flex:1}
+  .btn-yes{background:var(--green-bg);color:var(--green);border:1.5px solid #bfe3cf}
+  .btn-yes:hover{background:#dcefe3}
+  .btn-no{background:var(--red-bg);color:var(--red);border:1.5px solid #f1cdc4}
+  .btn-no:hover{background:#f7ddd6}
+
+  .youtyped{font-size:13px;color:var(--ink-soft);margin-top:14px}
+  .youtyped span{color:var(--ink);font-weight:600}
+
+  /* result */
+  .score-big{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(48px,14vw,84px);line-height:1;letter-spacing:-.03em;text-align:center;margin:6px 0}
+  .score-big .of{color:var(--line)}
+  .score-sub{text-align:center;color:var(--ink-soft);font-size:15px;margin-bottom:8px}
+  .verdict{text-align:center;font-family:'Fraunces',serif;font-weight:600;font-size:20px;margin-bottom:22px}
+
+  /* leaderboard */
+  .lb{margin-top:26px}
+  .lb h2{font-family:'Fraunces',serif;font-weight:600;font-size:18px;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+  .lb .note{font-size:12px;color:var(--ink-soft);margin-bottom:14px}
+  .row{display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:12px;padding:11px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;margin-bottom:8px;font-size:15px}
+  .row.me{border-color:var(--marker-deep);background:#fffdf3;box-shadow:0 0 0 3px rgba(245,183,0,.12)}
+  .row .rank{font-family:'Fraunces',serif;font-weight:900;color:var(--ink-soft);text-align:center}
+  .row.top1 .rank{color:var(--marker-deep)}
+  .row .nm{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .row .nm small{font-weight:500;color:var(--ink-soft);font-size:12px}
+  .row .pts{font-weight:600;font-variant-numeric:tabular-nums}
+  .row .pts small{color:var(--ink-soft);font-weight:500}
+  .lb-empty{font-size:14px;color:var(--ink-soft);text-align:center;padding:18px}
+
+  .actions{display:flex;gap:10px;margin-top:24px}
+  .actions .btn{flex:1}
+
+  .footnote{text-align:center;font-size:12px;color:var(--ink-soft);margin-top:22px}
+  .hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand">Lern<span class="mark">zettel</span></div>
+    <div class="who" id="who"></div>
+  </div>
+
+  <!-- SCREEN: name -->
+  <section id="screen-name" class="card">
+    <h1>Bevor's losgeht – wie heißt du?</h1>
+    <p class="lead">Dein Name landet im gemeinsamen Ranking. Wähl etwas, das du wiedererkennst.</p>
+    <label for="nameInput">Name oder Kürzel</label>
+    <input type="text" id="nameInput" maxlength="20" placeholder="z. B. Konrad" autocomplete="off">
+    <button class="btn btn-primary" id="nameGo">Weiter</button>
+  </section>
+
+  <!-- SCREEN: topic -->
+  <section id="screen-topic" class="card hidden">
+    <h1>Was willst du üben?</h1>
+    <p class="lead">Freitext eintippen, Lösung aufdecken, selbst bewerten. Punkte zählen fürs Ranking.</p>
+    <div class="topics">
+      <button class="topic" data-topic="urheber">
+        <span class="em">§</span>
+        <span><span class="tt">Urheberrecht</span><br><span class="ts">15 Fragen · Paragraphen, Verwertung, Fotos</span></span>
+      </button>
+      <button class="topic" data-topic="excel">
+        <span class="em">ƒ</span>
+        <span><span class="tt">Excel-Funktionen</span><br><span class="ts">10 Fragen · WENN, UND, ODER, verschachtelt</span></span>
+      </button>
+      <button class="topic" data-topic="mix">
+        <span class="em">∞</span>
+        <span><span class="tt">Gemischt</span><br><span class="ts">Alles zusammen, zufällig gemischt</span></span>
+      </button>
+    </div>
+    <div class="lb" id="topicLb"></div>
+  </section>
+
+  <!-- SCREEN: quiz -->
+  <section id="screen-quiz" class="card hidden">
+    <div class="meta">
+      <span class="pill" id="qProgress">Frage 1</span>
+      <span id="qScore">0 Punkte</span>
+    </div>
+    <div class="bar"><i id="qBar" style="width:0%"></i></div>
+    <div class="q" id="qText"></div>
+
+    <div id="answerArea">
+      <label for="answerInput">Deine Antwort</label>
+      <input type="text" id="answerInput" placeholder="Tipp deine Antwort …" autocomplete="off">
+      <button class="btn btn-primary" id="checkBtn">Antwort prüfen</button>
+    </div>
+
+    <div id="solArea" class="solution hidden">
+      <div class="sol-label">Musterlösung</div>
+      <div class="sol-text" id="solText"></div>
+      <div class="explain" id="solExplain"></div>
+      <div class="youtyped" id="youTyped"></div>
+      <div class="grade">
+        <button class="btn btn-no" id="gradeNo">Wusste ich nicht</button>
+        <button class="btn btn-yes" id="gradeYes">Wusste ich ✓</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN: result -->
+  <section id="screen-result" class="card hidden">
+    <div class="score-big"><span id="rScore">0</span><span class="of"> / </span><span id="rTotal">0</span></div>
+    <div class="score-sub" id="rPct"></div>
+    <div class="verdict" id="rVerdict"></div>
+
+    <div class="lb" id="resultLb"></div>
+
+    <div class="actions">
+      <button class="btn btn-ghost" id="againSame">Gleiches Thema</button>
+      <button class="btn btn-primary" style="margin-top:0" id="againPick">Neues Thema</button>
+    </div>
+  </section>
+
+  <div class="footnote">Selbstkontrolle · Du bewertest ehrlich, ob du's wusstest. Ranking ist für alle sichtbar.</div>
+</div>
+
+<script>
+/* =========================================================
+   FRAGENKATALOG  – hier einfach neue Fragen ergänzen.
+   Jede Frage: { frage, loesung (HTML erlaubt), erklaerung (HTML) }
+   Excel-Formeln in <pre>…</pre> oder <code class="inline">…</code>.
+   ========================================================= */
+const FRAGEN = {
+  urheber: [
+    { frage:"Wer ist Urheber – und nach welchem Paragraphen?",
+      loesung:"Der <b>Schöpfer</b> eines Werkes, <code class='inline'>§ 7 UrhG</code>.",
+      erklaerung:"Das Urheberrecht entsteht <b>automatisch</b> mit der Schöpfung – keine Anmeldung nötig." },
+    { frage:"Muss man in Deutschland das ©-Symbol setzen, damit ein Werk geschützt ist?",
+      loesung:"<b>Nein.</b>",
+      erklaerung:"Der Schutz entsteht automatisch. Das © stammt aus dem <b>US-Recht</b> und war dort früher Voraussetzung." },
+    { frage:"Was ist der Unterschied zwischen © und ® / TM / SM?",
+      loesung:"© = <b>Urheberrecht</b>. ® (Registered), TM (Trademark), SM (Service Mark) = <b>Markenrecht</b>.",
+      erklaerung:"® / TM / SM haben mit dem Urheberrecht nichts zu tun. Ohne Eintragung kann die Nutzung irreführend sein." },
+    { frage:"Welcher Paragraph regelt das Kopieren (Vervielfältigung)?",
+      loesung:"<code class='inline'>§ 16 UrhG</code> – Vervielfältigung.",
+      erklaerung:"Merksatz: <b>Kopieren = § 16</b>. Gehört zur körperlichen Verwertung (§ 15)." },
+    { frage:"Welcher Paragraph regelt das Verkaufen / Weitergeben (Verbreitung)?",
+      loesung:"<code class='inline'>§ 17 UrhG</code> – Verbreitung.",
+      erklaerung:"Merksatz: <b>Verkaufen = § 17</b>. Ebenfalls körperliche Verwertung." },
+    { frage:"Welcher Paragraph regelt das Bereitstellen im Internet (öffentliche Zugänglichmachung)?",
+      loesung:"<code class='inline'>§ 19a UrhG</code>.",
+      erklaerung:"Merksatz: <b>Internet = § 19a</b>. Das ist <b>unkörperliche</b> Verwertung." },
+    { frage:"Welcher Paragraph regelt das Senderecht (TV / Radio)?",
+      loesung:"<code class='inline'>§ 20 UrhG</code> – Senderecht.",
+      erklaerung:"Unkörperliche Verwertung, z. B. Ausstrahlung im Fernsehen oder Radio." },
+    { frage:"Bearbeitungen eines Werkes – unter welcher Bedingung erlaubt, und welcher Paragraph?",
+      loesung:"Nur mit <b>Zustimmung</b> des Urhebers, <code class='inline'>§ 23 UrhG</code>.",
+      erklaerung:"Ohne Zustimmung darf das Werk nicht bearbeitet/veröffentlicht werden." },
+    { frage:"Wann gilt eine Nutzung als „öffentlich“?",
+      loesung:"Bei einer <b>Mehrzahl von Personen ohne persönliche Beziehung</b>.",
+      erklaerung:"Merksatz: <b>Öffentlich = viele fremde Personen</b>." },
+    { frage:"Welche Werke sind nach § 5 UrhG gemeinfrei?",
+      loesung:"<b>Gesetze, Verordnungen und Urteile.</b>",
+      erklaerung:"Amtliche Werke sind frei nutzbar – sie sollen allen zugänglich sein." },
+    { frage:"Wie lange dauert der Urheberrechtsschutz grundsätzlich – mit Paragraph?",
+      loesung:"<b>70 Jahre nach dem Tod</b> des Urhebers, <code class='inline'>§ 64 UrhG</code>.",
+      erklaerung:"Gerechnet ab dem Todesjahr des Urhebers (post mortem auctoris)." },
+    { frage:"Wie lange sind Lichtbilder geschützt – mit Paragraph?",
+      loesung:"<b>50 Jahre</b>, <code class='inline'>§ 72 UrhG</code>.",
+      erklaerung:"Zum Vergleich: wissenschaftliche Ausgaben 25 Jahre (§ 70)." },
+    { frage:"Was besagt die Panoramafreiheit (§ 59 UrhG)?",
+      loesung:"Werke im <b>öffentlichen Raum</b> dürfen <b>von außen fotografiert</b> werden.",
+      erklaerung:"Z. B. Gebäude oder Denkmäler an öffentlichen Wegen/Plätzen." },
+    { frage:"Du willst ein Foto veröffentlichen, auf dem eine Person klar erkennbar ist. Was brauchst du – mit Paragraph?",
+      loesung:"Die <b>Einwilligung</b> der Person, <code class='inline'>§ 22 KUG</code>.",
+      erklaerung:"„Recht am eigenen Bild“. Merksatz: <b>Personenfoto veröffentlichen → meist Einwilligung nötig</b>." },
+    { frage:"Nenne die drei Ausnahmen vom Recht am eigenen Bild (§ 23 KUG).",
+      loesung:"<b>Personen der Zeitgeschichte</b>, <b>Beiwerk</b>, <b>Versammlungen</b>.",
+      erklaerung:"In diesen Fällen ist die Veröffentlichung auch ohne Einwilligung möglich." },
+  ],
+  excel: [
+    { frage:"Wie lautet die Syntax (Aufbau) der WENN-Funktion?",
+      loesung:"<pre>=WENN(<span class='fn'>Bedingung</span>; <span class='fn'>Dann-Wert</span>; <span class='fn'>Sonst-Wert</span>)</pre>",
+      erklaerung:"Eine Bedingung, zwei Ausgänge. Trennzeichen ist das <b>Semikolon</b> ;" },
+    { frage:"Schreib eine WENN-Formel: ab 50 Punkten in B2 „bestanden“, sonst „durchgefallen“.",
+      loesung:"<pre>=WENN(B2>=50;<span class='str'>\"bestanden\"</span>;<span class='str'>\"durchgefallen\"</span>)</pre>",
+      erklaerung:"<b>Text in Anführungszeichen</b>, Zahlen ohne." },
+    { frage:"Wann ergibt die UND-Funktion WAHR?",
+      loesung:"Nur, wenn <b>alle</b> Bedingungen zutreffen.",
+      erklaerung:"Merksatz: <b>UND = alles muss passen</b>." },
+    { frage:"WENN kombiniert mit UND: „bestanden“ nur, wenn B2 und C2 jeweils ≥ 50 sind.",
+      loesung:"<pre>=WENN(UND(B2>=50;C2>=50);<span class='str'>\"bestanden\"</span>;<span class='str'>\"durchgefallen\"</span>)</pre>",
+      erklaerung:"Die UND-Funktion steht <b>innen</b> als Bedingung der WENN-Funktion." },
+    { frage:"Wann ergibt die ODER-Funktion WAHR?",
+      loesung:"Wenn <b>mindestens eine</b> Bedingung zutrifft.",
+      erklaerung:"Merksatz: <b>ODER = eines reicht</b>." },
+    { frage:"WENN kombiniert mit ODER: „Stipendium“, wenn B2 oder C2 mindestens 90 ist.",
+      loesung:"<pre>=WENN(ODER(B2>=90;C2>=90);<span class='str'>\"Stipendium\"</span>;<span class='str'>\"kein Stipendium\"</span>)</pre>",
+      erklaerung:"Ein einziger Top-Wert genügt, damit ODER WAHR liefert." },
+    { frage:"Bei der verschachtelten WENN-Funktion: wohin kommt das nächste WENN, und wie sortierst du die Schwellen?",
+      loesung:"In den <b>Sonst-Teil</b>; Schwellen <b>absteigend</b> (von hoch nach niedrig).",
+      erklaerung:"Excel prüft von oben nach unten und nimmt die <b>erste</b> zutreffende Bedingung." },
+    { frage:"Schreib eine verschachtelte WENN: ab 90 „sehr gut“, ab 75 „gut“, ab 50 „befriedigend“, sonst „ungenügend“ (B2).",
+      loesung:"<pre>=WENN(B2>=90;<span class='str'>\"sehr gut\"</span>;\n  WENN(B2>=75;<span class='str'>\"gut\"</span>;\n    WENN(B2>=50;<span class='str'>\"befriedigend\"</span>;<span class='str'>\"ungenügend\"</span>)))</pre>",
+      erklaerung:"Jede weitere Stufe sitzt im Sonst-Teil der vorigen – Schwellen absteigend." },
+    { frage:"Welches Trennzeichen steht in Excel-Formeln zwischen den Argumenten?",
+      loesung:"Das <b>Semikolon</b> <code class='inline'>;</code>",
+      erklaerung:"z. B. <code class='inline'>=WENN(B2>=50;\"ja\";\"nein\")</code>" },
+    { frage:"Wie schreibst du Text bzw. Zahlen in eine Formel – mit oder ohne Anführungszeichen?",
+      loesung:"<b>Text in Anführungszeichen</b>, <b>Zahlen ohne</b>.",
+      erklaerung:"<code class='inline'>\"bestanden\"</code> mit, <code class='inline'>50</code> ohne." },
+  ]
+};
+
+/* ---------- State ---------- */
+let userName = "";
+let deck = [];
+let idx = 0;
+let score = 0;
+let currentTopic = "urheber";
+const TOPIC_LABEL = {urheber:"Urheberrecht", excel:"Excel", mix:"Gemischt"};
+
+/* ---------- Helpers ---------- */
+const $ = id => document.getElementById(id);
+function show(screen){
+  ["screen-name","screen-topic","screen-quiz","screen-result"].forEach(s=>$(s).classList.add("hidden"));
+  $(screen).classList.remove("hidden");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+/* ---------- Leaderboard (shared storage) ---------- */
+async function loadBoard(){
+  try{
+    const res = await window.storage.get("leaderboard", true);
+    return res && res.value ? JSON.parse(res.value) : [];
+  }catch(e){ return []; }
+}
+async function saveResult(name, pts, total){
+  const pct = total ? Math.round(pts/total*100) : 0;
+  let board = await loadBoard();
+  const existing = board.find(e=>e.name.toLowerCase()===name.toLowerCase());
+  // Bestleistung behalten: nach Prozent, dann nach Punkten
+  if(existing){
+    if(pct > existing.pct || (pct===existing.pct && pts>existing.pts)){
+      existing.pct=pct; existing.pts=pts; existing.total=total; existing.topic=TOPIC_LABEL[currentTopic];
+    }
+  }else{
+    board.push({name, pct, pts, total, topic:TOPIC_LABEL[currentTopic]});
+  }
+  board.sort((a,b)=> b.pct-a.pct || b.pts-a.pts);
+  board = board.slice(0,20);
+  try{ await window.storage.set("leaderboard", JSON.stringify(board), true); }catch(e){}
+  return board;
+}
+function renderBoard(container, board, highlight){
+  if(!board || board.length===0){
+    container.innerHTML = `<h2>🏆 Ranking</h2><div class="lb-empty">Noch keine Einträge – sei der Erste!</div>`;
+    return;
+  }
+  let rows = board.map((e,i)=>{
+    const me = highlight && e.name.toLowerCase()===highlight.toLowerCase();
+    const medal = i===0?"🥇":i===1?"🥈":i===2?"🥉":(i+1);
+    return `<div class="row ${i===0?'top1':''} ${me?'me':''}">
+      <span class="rank">${medal}</span>
+      <span class="nm">${escapeHtml(e.name)} <small>· ${e.topic||""}</small></span>
+      <span class="pts">${e.pct}% <small>(${e.pts}/${e.total})</small></span>
+    </div>`;
+  }).join("");
+  container.innerHTML = `<h2>🏆 Ranking</h2><div class="note">Bestleistung pro Person · für alle sichtbar</div>${rows}`;
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+/* ---------- Flow ---------- */
+$("nameGo").addEventListener("click", startWithName);
+$("nameInput").addEventListener("keydown", e=>{ if(e.key==="Enter") startWithName(); });
+async function startWithName(){
+  const v = $("nameInput").value.trim();
+  if(!v){ $("nameInput").focus(); return; }
+  userName = v;
+  $("who").innerHTML = `Angemeldet als <b>${escapeHtml(userName)}</b>`;
+  renderBoard($("topicLb"), await loadBoard(), userName);
+  show("screen-topic");
+}
+
+document.querySelectorAll(".topic").forEach(btn=>{
+  btn.addEventListener("click", ()=> startQuiz(btn.dataset.topic));
+});
+function buildDeck(topic){
+  if(topic==="mix") return shuffle([...FRAGEN.urheber, ...FRAGEN.excel]);
+  if(topic==="excel") return shuffle(FRAGEN.excel);
+  return shuffle(FRAGEN.urheber);
+}
+function startQuiz(topic){
+  currentTopic = topic;
+  deck = buildDeck(topic);
+  idx = 0; score = 0;
+  show("screen-quiz");
+  renderQuestion();
+}
+function renderQuestion(){
+  const q = deck[idx];
+  $("qProgress").textContent = `Frage ${idx+1} / ${deck.length}`;
+  $("qScore").textContent = `${score} Punkte`;
+  $("qBar").style.width = (idx/deck.length*100)+"%";
+  $("qText").textContent = q.frage;
+  // reset answer area
+  $("answerArea").classList.remove("hidden");
+  $("solArea").classList.add("hidden");
+  $("answerInput").value = "";
+  $("answerInput").disabled = false;
+  $("answerInput").focus();
+}
+$("checkBtn").addEventListener("click", revealSolution);
+$("answerInput").addEventListener("keydown", e=>{ if(e.key==="Enter") revealSolution(); });
+function revealSolution(){
+  const q = deck[idx];
+  const typed = $("answerInput").value.trim();
+  $("solText").innerHTML = q.loesung;
+  $("solExplain").innerHTML = q.erklaerung;
+  $("youTyped").innerHTML = typed ? `Deine Antwort: <span>${escapeHtml(typed)}</span>` : `<em>Keine Antwort eingetippt.</em>`;
+  $("answerInput").disabled = true;
+  $("answerArea").classList.add("hidden");
+  $("solArea").classList.remove("hidden");
+  $("solArea").scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+$("gradeYes").addEventListener("click", ()=> grade(true));
+$("gradeNo").addEventListener("click", ()=> grade(false));
+function grade(correct){
+  if(correct) score++;
+  idx++;
+  if(idx >= deck.length){ finish(); }
+  else renderQuestion();
+}
+
+async function finish(){
+  const total = deck.length;
+  $("rScore").textContent = score;
+  $("rTotal").textContent = total;
+  const pct = Math.round(score/total*100);
+  $("rPct").textContent = `${pct}% richtig · Thema: ${TOPIC_LABEL[currentTopic]}`;
+  let v;
+  if(pct===100) v="Perfekt. Das sitzt. 🎯";
+  else if(pct>=80) v="Stark – fast alles drin. 💪";
+  else if(pct>=60) v="Solide Basis, ein bisschen Feinschliff.";
+  else if(pct>=40) v="Wird – nochmal durchgehen lohnt sich.";
+  else v="Dranbleiben – beim nächsten Lauf läuft's besser.";
+  $("rVerdict").textContent = v;
+  show("screen-result");
+  const board = await saveResult(userName, score, total);
+  renderBoard($("resultLb"), board, userName);
+}
+
+$("againSame").addEventListener("click", ()=> startQuiz(currentTopic));
+$("againPick").addEventListener("click", async ()=>{
+  renderBoard($("topicLb"), await loadBoard(), userName);
+  show("screen-topic");
+});
+
+/* init */
+$("nameInput").focus();
+</script>
+</body>
+</html>
