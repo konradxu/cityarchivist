@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <!-- Security headers -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://formspree.io; script-src 'self' 'unsafe-inline'; frame-src https://www.google.com https://maps.google.com; form-action https://formspree.io 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://formspree.io https://*.workers.dev; script-src 'self' 'unsafe-inline'; frame-src https://www.google.com https://maps.google.com; form-action https://formspree.io 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=()">
@@ -1102,6 +1102,7 @@ footer {
     <li><a href="/wonders" data-i18n="nav.wonders">Wonders</a></li>
     <li><a href="/hotels" data-i18n="nav.hotels">Hotels</a></li>
     <li><a href="/clubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
+    <li><a href="/planner" data-i18n="nav.planner">Trip Planner</a></li>
     <li><a href="#about" data-i18n="nav.about">About Us</a></li>
   </ul>
   <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
@@ -1204,6 +1205,41 @@ footer {
     <p class="dest-coming-sub" data-i18n="dest.comingsoon.sub">More cities arriving in the archive</p>
   </div>
 </section>
+
+<!-- DIVIDER -->
+<div class="divider"><div class="divider-line"></div><div class="divider-mark">✦</div><div class="divider-line"></div></div>
+
+<!-- AI PLANNER CTA -->
+<style>
+.plan-cta { display: grid; grid-template-columns: 1.05fr 1fr; gap: 4.5rem; align-items: center; padding: 6.5rem 4rem; background: var(--linen); border-bottom: 1px solid var(--sand); }
+.plan-cta-eyebrow { font-size: 9px; font-weight: 300; letter-spacing: 0.32em; text-transform: uppercase; color: var(--warm-gray); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 12px; }
+.plan-cta-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--stone); display: inline-block; }
+.plan-cta-h { font-family: var(--serif); font-weight: 300; font-size: clamp(2rem, 3.6vw, 3.3rem); line-height: 1.12; color: var(--ink); }
+.plan-cta-h em { font-style: italic; color: var(--gold); }
+.plan-cta-p { font-size: 13px; font-weight: 300; line-height: 1.95; color: var(--ink-light); max-width: 430px; margin: 1.6rem 0 2.2rem; }
+.plan-cta-btn { display: inline-flex; align-items: center; gap: 14px; font-size: 10px; font-weight: 300; letter-spacing: 0.24em; text-transform: uppercase; color: var(--parchment); background: var(--gold); padding: 15px 34px; transition: background .2s; }
+.plan-cta:hover .plan-cta-btn { background: var(--gold-dim); }
+.plan-cta-media { display: flex; justify-content: center; }
+.plan-cta-frame { background: var(--white); padding: 12px 12px 34px; box-shadow: 0 24px 60px rgba(58,52,45,0.18); transform: rotate(-2.5deg); transition: transform .45s ease; max-width: 360px; width: 100%; }
+.plan-cta:hover .plan-cta-frame { transform: rotate(0); }
+.plan-cta-frame img { display: block; width: 100%; aspect-ratio: 4/5; object-fit: cover; }
+.plan-cta-frame figcaption { font-family: var(--serif); font-style: italic; color: var(--ink-light); font-size: 0.95rem; padding-top: 10px; text-align: center; }
+@media (max-width: 768px) { .plan-cta { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 1.5rem; } .plan-cta-media { order: 2; } }
+</style>
+<a class="plan-cta" href="/planner" aria-label="Open the AI Trip Planner">
+  <div>
+    <div class="plan-cta-eyebrow" data-i18n="tp.eyebrow">AI Trip Planner</div>
+    <h2 class="plan-cta-h" data-i18n="tp.cta.h">Plan your trip<br>with <em>AI</em></h2>
+    <p class="plan-cta-p" data-i18n="tp.cta.p">Tell our concierge the kind of trip you have in mind — a couples escape, a family holiday, a budget adventure — and get a day-by-day itinerary in seconds.</p>
+    <span class="plan-cta-btn" data-i18n="tp.cta.btn">Start planning →</span>
+  </div>
+  <div class="plan-cta-media">
+    <figure class="plan-cta-frame">
+      <img src="postcard-china.jpg" alt="Paper parasols glowing at dusk" loading="lazy">
+      <figcaption data-i18n="tp.cta.cap">Somewhere worth going.</figcaption>
+    </figure>
+  </div>
+</a>
 
 <!-- DIVIDER -->
 <div class="divider"><div class="divider-line"></div><div class="divider-mark">✦</div><div class="divider-line"></div></div>
@@ -1359,7 +1395,7 @@ footer {
   </div>
 </footer>
 
-<script src="lang.js?v=31" defer></script>
+<script src="lang.js?v=41" defer></script>
 <script>
   window.addEventListener('scroll', () => {
     const nav = document.getElementById('top-nav');
@@ -1380,5 +1416,6 @@ footer {
     });
   });
 </script>
+
 </body>
 </html>

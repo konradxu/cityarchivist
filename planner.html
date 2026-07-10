@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<!-- Security headers -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://formspree.io https://*.workers.dev; script-src 'self' 'unsafe-inline'; frame-src https://www.google.com https://maps.google.com; form-action https://formspree.io 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trip Planner — City Archivist</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16-v3.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32-v3.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192-v3.png">
+<link rel="icon" type="image/svg+xml" href="favicon-v3.svg">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-v3.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --white:#fdfcf9; --parchment:#f8f5ef; --linen:#f2ede4; --sand:#e4ddd1; --stone:#c8bfb0;
+  --warm-gray:#9c9488; --ink-light:#7a756e; --ink-mid:#4a4540; --ink:#3a342d; --gold:#b8995a; --gold-dim:#d4bc8a;
+  --serif:'Cormorant Garamond', Georgia, serif; --sans:'Jost', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--white); color: var(--ink); font-size: 14px; font-weight: 300; line-height: 1.8; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; cursor: pointer; }
+img.raw-orient { image-orientation: none; }
+
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 300; height: 70px; display: flex; align-items: center; justify-content: space-between; padding: 0 4rem; background: rgba(253,252,249,0.94); backdrop-filter: blur(14px); border-bottom: 1px solid var(--sand); }
+.nav-logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; }
+.nav-logo span { color: var(--gold); }
+.nav-links { display: flex; gap: 2.3rem; list-style: none; }
+.nav-links a { font-size: 10px; font-weight: 300; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-light); position: relative; transition: color .25s; }
+.nav-links a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px; background: var(--gold); transition: width .3s; }
+.nav-links a:hover, .nav-links a.active { color: var(--ink); }
+.nav-links a.active::after, .nav-links a:hover::after { width: 100%; }
+
+/* HERO */
+.pl-hero { min-height: 82vh; padding-top: 70px; display: grid; grid-template-columns: 1fr 1fr; }
+.pl-hero-left { background: var(--linen); display: flex; flex-direction: column; justify-content: center; padding: 4rem 5rem; position: relative; }
+.pl-hero-eyebrow { font-size: 9px; font-weight: 300; letter-spacing: 0.34em; text-transform: uppercase; color: var(--warm-gray); margin-bottom: 1.8rem; display: flex; align-items: center; gap: 14px; }
+.pl-hero-eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--stone); display: inline-block; }
+.pl-hero h1 { font-family: var(--serif); font-size: clamp(3rem, 5.5vw, 5.5rem); font-weight: 300; line-height: 1.05; color: var(--ink); margin-bottom: 1.8rem; }
+.pl-hero h1 em { font-style: italic; color: var(--gold); }
+.pl-hero-sub { font-size: 13px; font-weight: 300; line-height: 2; color: var(--ink-light); max-width: 460px; margin-bottom: 2.4rem; }
+.pl-hero-cta { align-self: flex-start; display: inline-flex; align-items: center; gap: 14px; font-size: 10px; font-weight: 300; letter-spacing: 0.24em; text-transform: uppercase; color: var(--parchment); background: var(--gold); padding: 15px 36px; transition: background .2s; }
+.pl-hero-cta:hover { background: var(--gold-dim); }
+.pl-hero-right { position: relative; overflow: hidden; background: var(--sand); }
+.pl-hero-right img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* FORM */
+.pl-form-wrap { padding: 6rem 4rem 5rem; }
+.pl-form-head { max-width: 720px; margin: 0 auto 3rem; text-align: center; }
+.pl-form-head .eyebrow { font-size: 9px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--warm-gray); margin-bottom: 1.2rem; }
+.pl-form-head h2 { font-family: var(--serif); font-weight: 300; font-size: clamp(1.8rem, 3vw, 2.6rem); color: var(--ink); }
+.tp-form { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem 2rem; border: 1px solid var(--sand); background: var(--parchment); padding: 2.6rem; max-width: 900px; margin: 0 auto; }
+.tp-field { display: flex; flex-direction: column; gap: 0.6rem; }
+.tp-field-full { grid-column: 1 / -1; }
+.tp-field label { font-family: var(--sans); font-size: 9px; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-light); }
+.tp-field input, .tp-field select { font-family: var(--sans); font-size: 13px; font-weight: 300; color: var(--ink); background: var(--white); border: 1px solid var(--sand); padding: 12px 14px; outline: none; transition: border-color .2s; width: 100%; }
+.tp-field input:focus, .tp-field select:focus { border-color: var(--gold); }
+.tp-field input::placeholder { color: var(--stone); }
+.tp-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.tp-chip { font-family: var(--sans); font-size: 11px; font-weight: 300; letter-spacing: 0.04em; color: var(--ink-mid); background: var(--white); border: 1px solid var(--sand); padding: 9px 16px; border-radius: 40px; cursor: pointer; transition: all .18s; }
+.tp-chip:hover { border-color: var(--gold-dim); }
+.tp-chip.active { background: var(--ink); color: var(--parchment); border-color: var(--ink); }
+.tp-actions { align-items: flex-start; }
+.tp-btn { font-family: var(--sans); font-size: 10px; font-weight: 300; letter-spacing: 0.24em; text-transform: uppercase; color: var(--parchment); background: var(--gold); border: none; padding: 15px 40px; cursor: pointer; transition: background .2s; }
+.tp-btn:hover { background: var(--gold-dim); }
+.tp-btn:disabled { opacity: .5; cursor: default; }
+.tp-loading { padding: 4rem 0; text-align: center; }
+.tp-loading p { font-family: var(--serif); font-style: italic; font-size: 1.25rem; color: var(--ink-light); margin-top: 1.4rem; }
+.tp-spinner { width: 34px; height: 34px; margin: 0 auto; border: 2px solid var(--sand); border-top-color: var(--gold); border-radius: 50%; animation: tp-spin .8s linear infinite; }
+@keyframes tp-spin { to { transform: rotate(360deg); } }
+.tp-result { border: 1px solid var(--sand); background: var(--parchment); padding: 3rem 3.4rem; max-width: 900px; margin: 2rem auto 0; }
+.tp-result-inner h2 { font-family: var(--serif); font-weight: 300; font-size: 2rem; color: var(--ink); line-height: 1.2; margin-bottom: .4rem; }
+.tp-result-inner h3 { font-family: var(--serif); font-weight: 400; font-size: 1.3rem; color: var(--ink); margin: 1.8rem 0 .6rem; }
+.tp-result-inner p { font-family: var(--sans); font-size: 13.5px; font-weight: 300; line-height: 1.9; color: var(--ink-mid); margin: .5rem 0; }
+.tp-result-inner ul { list-style: none; margin: .5rem 0; padding: 0; }
+.tp-result-inner li { font-family: var(--sans); font-size: 13.5px; font-weight: 300; line-height: 1.8; color: var(--ink-mid); padding-left: 1.2rem; position: relative; }
+.tp-result-inner li::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
+.tp-result-inner strong { font-weight: 400; color: var(--ink); }
+.tp-result-inner em { font-style: italic; }
+.tp-again { margin-top: 2.4rem; font-family: var(--sans); font-size: 10px; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); background: none; border: 1px solid var(--ink); padding: 12px 28px; cursor: pointer; transition: all .2s; }
+.tp-again:hover { background: var(--ink); color: var(--parchment); }
+.tp-disclaimer { margin-top: 1.4rem; font-family: var(--sans); font-size: 10px; font-weight: 300; color: var(--warm-gray); line-height: 1.7; }
+.tp-msg { border: 1px solid var(--sand); background: var(--linen); padding: 1.4rem 1.6rem; font-family: var(--sans); font-size: 12px; font-weight: 300; color: var(--ink-mid); max-width: 900px; margin: 1.4rem auto 0; }
+
+/* INSPIRATION */
+.pl-insp { background: var(--linen); border-top: 1px solid var(--sand); padding: 6rem 4rem; }
+.pl-insp-head { text-align: center; margin-bottom: 3rem; }
+.pl-insp-head .eyebrow { font-size: 9px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--warm-gray); margin-bottom: 1rem; }
+.pl-insp-head h2 { font-family: var(--serif); font-weight: 300; font-style: italic; font-size: clamp(1.6rem, 2.6vw, 2.2rem); color: var(--ink-mid); }
+.pl-insp-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.4rem; max-width: 1200px; margin: 0 auto; }
+.pl-insp-card { position: relative; overflow: hidden; aspect-ratio: 3/4; background: var(--sand); }
+.pl-insp-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.pl-insp-card:hover img { transform: scale(1.06); }
+.pl-insp-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 1.4rem 1rem 1rem; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: #fff; background: linear-gradient(to top, rgba(30,28,24,0.72), rgba(30,28,24,0)); }
+
+/* DIVIDER + FOOTER */
+.divider { display: flex; align-items: center; gap: 1.5rem; padding: 0 4rem; }
+.divider-line { flex: 1; height: 1px; background: var(--sand); }
+.divider-mark { font-family: var(--serif); font-style: italic; color: var(--gold); font-size: 1.1rem; }
+footer { background: #1e1c18; border-top: 1px solid rgba(255,255,255,0.06); padding: 4rem 4rem 2.5rem; }
+.footer-top { display: flex; justify-content: space-between; align-items: start; margin-bottom: 3rem; }
+.footer-logo { font-family: var(--serif); font-size: 1.05rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--parchment); margin-bottom: 0.6rem; }
+.footer-logo span { color: var(--gold); }
+.footer-city { font-size: 11px; color: rgba(248,245,239,0.35); }
+.footer-back { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(248,245,239,0.4); display: flex; align-items: center; gap: 10px; transition: color .2s; }
+.footer-back:hover { color: var(--gold-dim); }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 2rem; }
+.footer-copy { font-size: 10.5px; color: rgba(248,245,239,0.2); letter-spacing: 0.08em; }
+.footer-socials { display: flex; gap: 1rem; }
+.soc { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(248,245,239,0.3); border: 1px solid rgba(255,255,255,0.1); padding: 6px 14px; transition: all .2s; }
+.soc:hover { color: var(--gold-dim); border-color: rgba(184,153,90,0.4); }
+
+@media (max-width: 900px) {
+  .pl-hero { grid-template-columns: 1fr; min-height: auto; }
+  .pl-hero-right { min-height: 320px; }
+  .pl-insp-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  nav { padding: 0 1.5rem; } .nav-links { display: none; }
+  .pl-hero-left { padding: 5rem 1.5rem 3.5rem; }
+  .pl-form-wrap { padding: 3.5rem 1.5rem; }
+  .tp-form { grid-template-columns: 1fr; padding: 1.8rem; gap: 1.3rem; }
+  .tp-result { padding: 2rem 1.6rem; }
+  .pl-insp { padding: 4rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="top-nav">
+  <a class="nav-logo" href="/">City <span>Archivist</span></a>
+  <ul class="nav-links">
+    <li><a href="/#home" data-i18n="nav.home">Home</a></li>
+    <li><a href="/#destinations" data-i18n="nav.destinations">Destinations</a></li>
+    <li><a href="/wonders" data-i18n="nav.wonders">Wonders</a></li>
+    <li><a href="/hotels" data-i18n="nav.hotels">Hotels</a></li>
+    <li><a href="/clubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
+    <li><a href="/planner" class="active" data-i18n="nav.planner">Trip Planner</a></li>
+    <li><a href="/#about" data-i18n="nav.about">About Us</a></li>
+  </ul>
+  <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
+    <span data-lang-current>EN</span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<header class="pl-hero">
+  <div class="pl-hero-left">
+    <div class="pl-hero-eyebrow" data-i18n="tp.eyebrow">AI Trip Planner</div>
+    <h1 data-i18n="tp.h2">Plan your<br><em>Trip</em></h1>
+    <p class="pl-hero-sub" data-i18n="tp.desc">Tell us the kind of trip you have in mind — a couples escape, a girls’ weekend, a family holiday or a budget adventure — and our AI concierge drafts a day-by-day itinerary in seconds.</p>
+    <a class="pl-hero-cta" href="#plan" data-i18n="tp.cta.btn">Start planning →</a>
+  </div>
+  <div class="pl-hero-right">
+    <img src="postcard-brighton-beach.jpg" alt="Golden-hour beach at sunset" loading="eager">
+  </div>
+</header>
+
+<!-- FORM -->
+<section class="pl-form-wrap" id="plan">
+  <div class="pl-form-head">
+    <div class="eyebrow" data-i18n="tp.type.label">What kind of trip?</div>
+    <h2 data-i18n="tp.generate">Create my itinerary</h2>
+  </div>
+
+  <form id="tp-form" class="tp-form" novalidate>
+    <div class="tp-field tp-field-full">
+      <label data-i18n="tp.type.label">What kind of trip?</label>
+      <div class="tp-chips" id="tp-chips">
+        <button type="button" class="tp-chip" data-value="Couples trip" data-i18n="tp.type.couples">Couples trip</button>
+        <button type="button" class="tp-chip" data-value="Girls' trip" data-i18n="tp.type.girls">Girls’ trip</button>
+        <button type="button" class="tp-chip" data-value="Family holiday" data-i18n="tp.type.family">Family holiday</button>
+        <button type="button" class="tp-chip" data-value="Budget trip" data-i18n="tp.type.budget">Budget trip</button>
+        <button type="button" class="tp-chip" data-value="Solo travel" data-i18n="tp.type.solo">Solo travel</button>
+        <button type="button" class="tp-chip" data-value="Luxury escape" data-i18n="tp.type.luxury">Luxury escape</button>
+        <button type="button" class="tp-chip" data-value="Friends group" data-i18n="tp.type.friends">Friends group</button>
+        <button type="button" class="tp-chip" data-value="Foodie tour" data-i18n="tp.type.foodie">Foodie tour</button>
+      </div>
+    </div>
+    <div class="tp-field tp-field-full">
+      <label for="tp-vibe" data-i18n="tp.vibe.label">…or describe it yourself</label>
+      <input id="tp-vibe" type="text" maxlength="120" data-i18n-placeholder="tp.vibe.ph" placeholder="e.g. a slow foodie honeymoon">
+    </div>
+    <div class="tp-field">
+      <label for="tp-dest" data-i18n="tp.f.destination">Destination</label>
+      <input id="tp-dest" type="text" maxlength="120" data-i18n-placeholder="tp.f.destination.ph" placeholder="e.g. Tokyo, Amalfi Coast…">
+    </div>
+    <div class="tp-field">
+      <label for="tp-month" data-i18n="tp.f.month">When</label>
+      <input id="tp-month" type="text" maxlength="40" data-i18n-placeholder="tp.f.month.ph" placeholder="e.g. May, summer…">
+    </div>
+    <div class="tp-field">
+      <label for="tp-days" data-i18n="tp.f.days">Days</label>
+      <input id="tp-days" type="number" min="1" max="30" value="4">
+    </div>
+    <div class="tp-field">
+      <label for="tp-travellers" data-i18n="tp.f.travellers">Travellers</label>
+      <input id="tp-travellers" type="number" min="1" max="20" value="2">
+    </div>
+    <div class="tp-field tp-field-full">
+      <label for="tp-budget" data-i18n="tp.f.budget">Budget</label>
+      <select id="tp-budget">
+        <option value="Budget-friendly" data-i18n="tp.budget.low">Budget-friendly</option>
+        <option value="Mid-range" selected data-i18n="tp.budget.mid">Mid-range</option>
+        <option value="Luxury" data-i18n="tp.budget.high">Luxury</option>
+      </select>
+    </div>
+    <div class="tp-field tp-field-full">
+      <label for="tp-notes" data-i18n="tp.f.notes">Anything else? (optional)</label>
+      <input id="tp-notes" type="text" maxlength="400" data-i18n-placeholder="tp.f.notes.ph" placeholder="Interests, must-sees, dietary needs…">
+    </div>
+
+    <!-- Anti-bot: honeypot (bots fill it) + time-trap -->
+    <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;">
+    <input type="hidden" name="_form_loaded_at" value="">
+
+    <div class="tp-field tp-field-full tp-actions">
+      <button type="submit" class="tp-btn" id="tp-submit" data-i18n="tp.generate">Create my itinerary</button>
+    </div>
+  </form>
+
+  <div id="tp-loading" class="tp-loading" hidden>
+    <div class="tp-spinner"></div>
+    <p data-i18n="tp.loading">Composing your itinerary…</p>
+  </div>
+
+  <div id="tp-error" class="tp-msg" hidden></div>
+
+  <div id="tp-result" class="tp-result" hidden>
+    <div class="tp-result-inner" id="tp-result-inner"></div>
+    <button type="button" class="tp-again" id="tp-again" data-i18n="tp.again">Plan another trip</button>
+    <p class="tp-disclaimer" data-i18n="tp.disclaimer">AI-generated suggestions — please double-check opening times, prices and bookings before you travel.</p>
+  </div>
+</section>
+
+<!-- INSPIRATION -->
+<section class="pl-insp">
+  <div class="pl-insp-head">
+    <div class="eyebrow" data-i18n="tp.eyebrow">AI Trip Planner</div>
+    <h2 data-i18n="tp.insp.h">A little inspiration</h2>
+  </div>
+  <div class="pl-insp-grid">
+    <figure class="pl-insp-card"><img class="raw-orient" src="postcard-bavaria.jpg" alt="Alpine lake at dawn" loading="lazy"><figcaption class="pl-insp-cap" data-i18n="tp.insp.1">Bavarian Alps</figcaption></figure>
+    <figure class="pl-insp-card"><img src="postcard-palermo.jpg" alt="Palermo alley" loading="lazy"><figcaption class="pl-insp-cap" data-i18n="tp.insp.2">Palermo · Sicily</figcaption></figure>
+    <figure class="pl-insp-card"><img src="postcard-china.jpg" alt="Paper parasols at dusk" loading="lazy"><figcaption class="pl-insp-cap" data-i18n="tp.insp.3">Southern China</figcaption></figure>
+    <figure class="pl-insp-card"><img src="postcard-brighton-beach.jpg" alt="Brighton beach at sunset" loading="lazy"><figcaption class="pl-insp-cap" data-i18n="tp.insp.4">Brighton · England</figcaption></figure>
+    <figure class="pl-insp-card"><img class="raw-orient" src="postcard-brighton-shop.jpg" alt="Seaside souvenir stand" loading="lazy"><figcaption class="pl-insp-cap" data-i18n="tp.insp.5">Brighton · England</figcaption></figure>
+  </div>
+</section>
+
+<!-- DIVIDER dark -->
+<div class="divider" style="background:#1e1c18; margin:0; padding:2.5rem 4rem 0;">
+  <div class="divider-line" style="background:rgba(255,255,255,0.08);"></div>
+  <div class="divider-mark" style="color:rgba(200,191,176,0.25);">✦</div>
+  <div class="divider-line" style="background:rgba(255,255,255,0.08);"></div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">City <span>Archivist</span></div>
+      <div class="footer-city" data-i18n="nav.planner">Trip Planner</div>
+    </div>
+    <a class="footer-back" href="/" data-i18n="nav.back">Back to Home</a>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy" data-i18n="footer.copy">© 2026 City Archivist — All rights reserved</span>
+    <div class="footer-socials">
+      <a class="soc">Instagram</a>
+      <a class="soc">TikTok</a>
+    </div>
+  </div>
+</footer>
+
+<script src="lang.js?v=41" defer></script>
+<script>
+/* ── AI Trip Planner ─────────────────────────────────────────
+   The website never holds the API key. It POSTs the brief to a
+   Cloudflare Worker (trip-planner-worker.js) which calls Claude.
+   ▸ Paste your deployed worker URL into TRIP_PLANNER_ENDPOINT.  */
+(function () {
+  const TRIP_PLANNER_ENDPOINT = 'https://REPLACE-WITH-YOUR-WORKER.workers.dev';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('tp-form');
+    if (!form) return;
+
+    const chipsWrap   = document.getElementById('tp-chips');
+    const vibeEl      = document.getElementById('tp-vibe');
+    const destEl      = document.getElementById('tp-dest');
+    const monthEl     = document.getElementById('tp-month');
+    const daysEl      = document.getElementById('tp-days');
+    const travEl      = document.getElementById('tp-travellers');
+    const budgetEl    = document.getElementById('tp-budget');
+    const notesEl     = document.getElementById('tp-notes');
+    const submitBtn   = document.getElementById('tp-submit');
+    const resultBox   = document.getElementById('tp-result');
+    const resultInner = document.getElementById('tp-result-inner');
+    const loadingBox  = document.getElementById('tp-loading');
+    const errorBox    = document.getElementById('tp-error');
+    const againBtn    = document.getElementById('tp-again');
+    const stamp       = form.querySelector('[name="_form_loaded_at"]');
+    const hp          = form.querySelector('[name="_gotcha"]');
+    let selectedType  = '';
+
+    if (stamp) stamp.value = Date.now().toString();
+
+    chipsWrap.addEventListener('click', (e) => {
+      const chip = e.target.closest('.tp-chip');
+      if (!chip) return;
+      const wasActive = chip.classList.contains('active');
+      chipsWrap.querySelectorAll('.tp-chip').forEach(c => c.classList.remove('active'));
+      if (wasActive) { selectedType = ''; }
+      else { chip.classList.add('active'); selectedType = chip.getAttribute('data-value'); }
+    });
+
+    function currentLang() {
+      try {
+        return (typeof getCurrentLang === 'function' && getCurrentLang()) ||
+               localStorage.getItem('cityArchivistLang') || 'en';
+      } catch (_) { return 'en'; }
+    }
+    function t(key, fallback) {
+      try {
+        const d = (typeof TRANSLATIONS !== 'undefined') && TRANSLATIONS[currentLang()];
+        return (d && d[key]) || fallback;
+      } catch (_) { return fallback; }
+    }
+
+    /* XSS-safe markdown: escape HTML first, then apply a small whitelist. */
+    function renderMarkdown(md) {
+      const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      const inline = s => esc(s)
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/(^|[^*])\*(?!\s)([^*]+?)\*/g, '$1<em>$2</em>');
+      let html = '', inList = false;
+      const closeList = () => { if (inList) { html += '</ul>'; inList = false; } };
+      md.replace(/\r/g, '').split('\n').forEach(raw => {
+        const line = raw.trim();
+        if (!line) { closeList(); return; }
+        if (/^###\s+/.test(line))        { closeList(); html += '<h3>' + inline(line.replace(/^###\s+/, '')) + '</h3>'; }
+        else if (/^#{1,2}\s+/.test(line)){ closeList(); html += '<h2>' + inline(line.replace(/^#{1,2}\s+/, '')) + '</h2>'; }
+        else if (/^[-*•]\s+/.test(line)) { if (!inList) { html += '<ul>'; inList = true; } html += '<li>' + inline(line.replace(/^[-*•]\s+/, '')) + '</li>'; }
+        else                             { closeList(); html += '<p>' + inline(line) + '</p>'; }
+      });
+      closeList();
+      return html;
+    }
+
+    const show = el => { el.hidden = false; };
+    const hide = el => { el.hidden = true; };
+
+    function overLimit() {
+      try {
+        const KEY = 'cityArchivistTripLimit', now = Date.now();
+        let log = JSON.parse(localStorage.getItem(KEY) || '[]').filter(ts => now - ts < 3600000);
+        if (log.length >= 5) return true;
+        log.push(now); localStorage.setItem(KEY, JSON.stringify(log));
+        return false;
+      } catch (_) { return false; }
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hide(errorBox); hide(resultBox);
+
+      if (hp && hp.value) return;
+      if (stamp && stamp.value && (Date.now() - parseInt(stamp.value, 10)) < 3000) return;
+
+      const tripType = selectedType || vibeEl.value.trim();
+      const destination = destEl.value.trim();
+      if (!tripType && !destination) {
+        errorBox.textContent = t('tp.errNeed', 'Please pick a trip type or enter a destination.');
+        show(errorBox); return;
+      }
+      if (overLimit()) {
+        errorBox.textContent = t('tp.errRate', 'You have created several itineraries recently — please try again later.');
+        show(errorBox); return;
+      }
+      if (/REPLACE-WITH-YOUR-WORKER/.test(TRIP_PLANNER_ENDPOINT)) {
+        errorBox.textContent = t('tp.errSetup', 'The trip planner is not connected yet.');
+        show(errorBox); return;
+      }
+
+      submitBtn.disabled = true;
+      show(loadingBox);
+
+      const payload = {
+        tripType, destination,
+        month: monthEl.value.trim(),
+        days: daysEl.value,
+        travellers: travEl.value,
+        budget: budgetEl.value,
+        notes: notesEl.value.trim(),
+        lang: currentLang(),
+        _gotcha: hp ? hp.value : '',
+      };
+
+      try {
+        const res = await fetch(TRIP_PLANNER_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json().catch(() => ({}));
+        hide(loadingBox); submitBtn.disabled = false;
+        if (!res.ok || !data.itinerary) {
+          errorBox.textContent = t('tp.errFail', 'Sorry — we could not create an itinerary just now. Please try again in a moment.');
+          show(errorBox); return;
+        }
+        resultInner.innerHTML = renderMarkdown(data.itinerary);
+        show(resultBox);
+        resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (_) {
+        hide(loadingBox); submitBtn.disabled = false;
+        errorBox.textContent = t('tp.errFail', 'Sorry — we could not create an itinerary just now. Please try again in a moment.');
+        show(errorBox);
+      }
+    });
+
+    if (againBtn) againBtn.addEventListener('click', () => {
+      hide(resultBox); hide(errorBox);
+      if (stamp) stamp.value = Date.now().toString();
+      form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+})();
+</script>
+</body>
+</html>
