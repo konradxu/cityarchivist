@@ -36,6 +36,9 @@ const SITE_INFO = {
 
 const TRANSLATIONS = {
   en: {
+    'tp.form.h': 'Your trip, drafted in seconds',
+    'tp.form.p': 'Tell our concierge what you have in mind — the vibe, the place, a few details — and get a tasteful day-by-day plan with real venues and booking links.',
+    'tp.popular.h': 'Popular right now',
     'tp.steps.h': 'How it works',
     'tp.step.1.h': 'Tell us your trip',
     'tp.step.1.p': 'Pick a vibe — couples, family, budget, foodie — add a destination and a few details.',
@@ -704,6 +707,9 @@ const TRANSLATIONS = {
   },
 
   de: {
+    'tp.form.h': 'Deine Reise, in Sekunden entworfen',
+    'tp.form.p': 'Sag unserem Concierge, was dir vorschwebt — Stil, Ort, ein paar Details — und erhalte einen stimmigen Tag-für-Tag-Plan mit echten Orten und Buchungslinks.',
+    'tp.popular.h': 'Gerade beliebt',
     'tp.steps.h': 'So funktioniert’s',
     'tp.step.1.h': 'Sag uns deine Reise',
     'tp.step.1.p': 'Wähl einen Vibe — Pärchen, Familie, Budget, Foodie — nenn ein Ziel und ein paar Details.',
@@ -1372,6 +1378,9 @@ const TRANSLATIONS = {
   },
 
   zh: {
+    'tp.form.h': '几秒钟，为你起草整趟旅程',
+    'tp.form.p': '告诉我们的管家你的想法——风格、地点、几个细节——即可获得一份雅致的逐日计划，附真实地点和预订链接。',
+    'tp.popular.h': '热门目的地',
     'tp.steps.h': '使用方法',
     'tp.step.1.h': '告诉我们你的旅行',
     'tp.step.1.p': '选一种风格——情侣、家庭、经济、美食——填上目的地和几个细节。',

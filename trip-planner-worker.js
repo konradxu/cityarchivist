@@ -115,9 +115,9 @@ Format as clean Markdown, nothing else:
 - First line only: "DEST: <the single main city or place this trip centres on, always written in English>" — then a blank line.
 - Then: "## " followed by an evocative trip title.
 - One short intro paragraph (2–3 sentences).
-- Then one "### Day N — <theme>" heading per day, each followed by a short paragraph or 2–4 bullet points covering morning / afternoon / evening. Use **bold** for the names of venues, neighbourhoods, hotels and restaurants.
+- Then one "### Day N — <theme>" heading per day, each followed by a short paragraph or 2–4 bullet points covering morning / afternoon / evening. Wrap the name of every real, mappable place — landmarks, neighbourhoods, hotels, restaurants, bars, museums, parks, streets — in DOUBLE SQUARE BRACKETS, e.g. [[The Bund]], [[Englischer Garten]], [[Hotel Sacher]]. Use the brackets only for real places you could find on a map, never around whole sentences or generic words. You may still use **bold** for a non-place label such as "Insider tip:".
 - End with a "### Good to know" section: 2–4 bullets on where to stay, the budget feel, and one genuine insider tip.
-Name real, plausible places for the destination. Be elegant and concrete. No preamble, no sign-off, no disclaimers, no mention of being an AI. Keep it under ~450 words.`;
+Name real, plausible places for the destination and wrap every one of them in [[double square brackets]] wherever they appear (intro and "Good to know" included). Be elegant and concrete. No preamble, no sign-off, no disclaimers, no mention of being an AI. Keep it under ~450 words.`;
 
     const parts = [];
     if (tripType)    parts.push(`Trip type / vibe: ${tripType}`);
