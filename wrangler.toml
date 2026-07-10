@@ -1,0 +1,5 @@
+# Cloudflare Worker config for the City Archivist AI trip planner.
+# Deploy with:  wrangler deploy
+name = "cityarchivist-trip"
+main = "trip-planner-worker.js"
+compatibility_date = "2024-11-01"
