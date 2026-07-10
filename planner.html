@@ -99,7 +99,34 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 300; height: 70px; di
 .pl-insp-card { position: relative; overflow: hidden; aspect-ratio: 3/4; background: var(--sand); }
 .pl-insp-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
 .pl-insp-card:hover img { transform: scale(1.06); }
-.pl-insp-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 1.4rem 1rem 1rem; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: #fff; background: linear-gradient(to top, rgba(30,28,24,0.72), rgba(30,28,24,0)); }
+.pl-insp-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 1.4rem 1rem 1rem; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: #fff; background: linear-gradient(to top, rgba(30,28,24,0.72), rgba(30,28,24,0)); z-index: 2; }
+.pl-insp-card { cursor: pointer; }
+.pl-insp-card::after { content: ''; position: absolute; inset: 0; box-shadow: inset 0 0 0 0 rgba(184,153,90,0); transition: box-shadow .25s; z-index: 1; }
+.pl-insp-card:hover::after, .pl-insp-card:focus-visible::after { box-shadow: inset 0 0 0 3px rgba(184,153,90,0.75); }
+
+/* HOW IT WORKS */
+.pl-steps { padding: 5.5rem 4rem 1rem; max-width: 1120px; margin: 0 auto; }
+.pl-steps-head { text-align: center; margin-bottom: 3rem; }
+.pl-steps-head .eyebrow { font-size: 9px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--warm-gray); }
+.pl-steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
+.pl-step { border-top: 1px solid var(--sand); padding-top: 1.6rem; }
+.pl-step-n { font-family: var(--serif); font-style: italic; font-size: 1.7rem; color: var(--gold); }
+.pl-step h3 { font-family: var(--serif); font-weight: 400; font-size: 1.4rem; color: var(--ink); margin: 0.4rem 0 0.7rem; }
+.pl-step p { font-size: 12.5px; font-weight: 300; line-height: 1.85; color: var(--ink-light); }
+
+/* BOOKING LINKS (inside result) */
+.tp-book { margin-top: 2.4rem; padding-top: 2rem; border-top: 1px solid var(--sand); }
+.tp-book-h { font-family: var(--serif); font-size: 1.4rem; font-weight: 400; color: var(--ink); margin-bottom: 0.3rem; }
+.tp-book-sub { font-size: 11px; color: var(--warm-gray); letter-spacing: 0.05em; margin-bottom: 1.3rem; }
+.tp-book-links { display: flex; flex-wrap: wrap; gap: 12px; }
+.tp-book-link { display: inline-flex; align-items: center; gap: 10px; font-family: var(--sans); font-size: 11px; font-weight: 300; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); background: var(--white); border: 1px solid var(--sand); padding: 13px 22px; transition: border-color .2s, color .2s, transform .2s; }
+.tp-book-link:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+.tp-book-link .ic { font-size: 15px; }
+
+@media (max-width: 768px) {
+  .pl-steps { padding: 3.5rem 1.5rem 0; }
+  .pl-steps-grid { grid-template-columns: 1fr; gap: 2rem; }
+}
 
 /* DIVIDER + FOOTER */
 .divider { display: flex; align-items: center; gap: 1.5rem; padding: 0 4rem; }
@@ -164,6 +191,30 @@ footer { background: #1e1c18; border-top: 1px solid rgba(255,255,255,0.06); padd
     <img src="postcard-brighton-beach.jpg" alt="Golden-hour beach at sunset" loading="eager">
   </div>
 </header>
+
+<!-- HOW IT WORKS -->
+<section class="pl-steps">
+  <div class="pl-steps-head">
+    <div class="eyebrow" data-i18n="tp.steps.h">How it works</div>
+  </div>
+  <div class="pl-steps-grid">
+    <div class="pl-step">
+      <div class="pl-step-n">01</div>
+      <h3 data-i18n="tp.step.1.h">Tell us your trip</h3>
+      <p data-i18n="tp.step.1.p">Pick a vibe — couples, family, budget, foodie — add a destination and a few details.</p>
+    </div>
+    <div class="pl-step">
+      <div class="pl-step-n">02</div>
+      <h3 data-i18n="tp.step.2.h">The AI drafts your days</h3>
+      <p data-i18n="tp.step.2.p">Our concierge writes a tasteful, day-by-day itinerary with real places in seconds.</p>
+    </div>
+    <div class="pl-step">
+      <div class="pl-step-n">03</div>
+      <h3 data-i18n="tp.step.3.h">Book in one tap</h3>
+      <p data-i18n="tp.step.3.p">Every plan comes with direct links to search flights, hotels and buses &amp; trains.</p>
+    </div>
+  </div>
+</section>
 
 <!-- FORM -->
 <section class="pl-form-wrap" id="plan">
@@ -237,6 +288,15 @@ footer { background: #1e1c18; border-top: 1px solid rgba(255,255,255,0.06); padd
 
   <div id="tp-result" class="tp-result" hidden>
     <div class="tp-result-inner" id="tp-result-inner"></div>
+    <div id="tp-book" class="tp-book" hidden>
+      <div class="tp-book-h" data-i18n="tp.book.h">Ready to book?</div>
+      <div class="tp-book-sub" data-i18n="tp.book.sub">Live prices for your destination</div>
+      <div class="tp-book-links">
+        <a id="tp-book-flights" class="tp-book-link" target="_blank" rel="noopener nofollow"><span class="ic">✈</span><span data-i18n="tp.book.flights">Flights</span></a>
+        <a id="tp-book-hotels" class="tp-book-link" target="_blank" rel="noopener nofollow"><span class="ic">🏨</span><span data-i18n="tp.book.hotels">Hotels</span></a>
+        <a id="tp-book-transport" class="tp-book-link" target="_blank" rel="noopener nofollow"><span class="ic">🚆</span><span data-i18n="tp.book.transport">Buses &amp; trains</span></a>
+      </div>
+    </div>
     <button type="button" class="tp-again" id="tp-again" data-i18n="tp.again">Plan another trip</button>
     <p class="tp-disclaimer" data-i18n="tp.disclaimer">AI-generated suggestions — please double-check opening times, prices and bookings before you travel.</p>
   </div>
@@ -249,11 +309,11 @@ footer { background: #1e1c18; border-top: 1px solid rgba(255,255,255,0.06); padd
     <h2 data-i18n="tp.insp.h">A little inspiration</h2>
   </div>
   <div class="pl-insp-grid">
-    <figure class="pl-insp-card"><img class="raw-orient" src="postcard-bavaria.jpg" alt="Alpine lake at dawn" loading="lazy"><figcaption class="pl-insp-cap" data-i18n="tp.insp.1">Bavarian Alps</figcaption></figure>
-    <figure class="pl-insp-card"><img src="postcard-palermo.jpg" alt="Palermo alley" loading="lazy"><figcaption class="pl-insp-cap" data-i18n="tp.insp.2">Palermo · Sicily</figcaption></figure>
-    <figure class="pl-insp-card"><img src="postcard-china.jpg" alt="Paper parasols at dusk" loading="lazy"><figcaption class="pl-insp-cap" data-i18n="tp.insp.3">Southern China</figcaption></figure>
-    <figure class="pl-insp-card"><img src="postcard-brighton-beach.jpg" alt="Brighton beach at sunset" loading="lazy"><figcaption class="pl-insp-cap" data-i18n="tp.insp.4">Brighton · England</figcaption></figure>
-    <figure class="pl-insp-card"><img class="raw-orient" src="postcard-brighton-shop.jpg" alt="Seaside souvenir stand" loading="lazy"><figcaption class="pl-insp-cap" data-i18n="tp.insp.5">Brighton · England</figcaption></figure>
+    <figure class="pl-insp-card" data-dest="Munich" tabindex="0" role="button" aria-label="Plan a trip to Bavaria"><img class="raw-orient" src="postcard-bavaria.jpg" alt="Alpine lake at dawn" loading="lazy"><figcaption class="pl-insp-cap" data-i18n="tp.insp.1">Bavarian Alps</figcaption></figure>
+    <figure class="pl-insp-card" data-dest="Palermo" tabindex="0" role="button" aria-label="Plan a trip to Palermo"><img src="postcard-palermo.jpg" alt="Palermo alley" loading="lazy"><figcaption class="pl-insp-cap" data-i18n="tp.insp.2">Palermo · Sicily</figcaption></figure>
+    <figure class="pl-insp-card" data-dest="Shanghai" tabindex="0" role="button" aria-label="Plan a trip to Shanghai"><img src="postcard-china.jpg" alt="Paper parasols at dusk" loading="lazy"><figcaption class="pl-insp-cap" data-i18n="tp.insp.3">Southern China</figcaption></figure>
+    <figure class="pl-insp-card" data-dest="Brighton" tabindex="0" role="button" aria-label="Plan a trip to Brighton"><img src="postcard-brighton-beach.jpg" alt="Brighton beach at sunset" loading="lazy"><figcaption class="pl-insp-cap" data-i18n="tp.insp.4">Brighton · England</figcaption></figure>
+    <figure class="pl-insp-card" data-dest="Brighton" tabindex="0" role="button" aria-label="Plan a trip to Brighton"><img class="raw-orient" src="postcard-brighton-shop.jpg" alt="Seaside souvenir stand" loading="lazy"><figcaption class="pl-insp-cap" data-i18n="tp.insp.5">Brighton · England</figcaption></figure>
   </div>
 </section>
 
@@ -282,7 +342,7 @@ footer { background: #1e1c18; border-top: 1px solid rgba(255,255,255,0.06); padd
   </div>
 </footer>
 
-<script src="lang.js?v=41" defer></script>
+<script src="lang.js?v=42" defer></script>
 <script>
 /* ── AI Trip Planner ─────────────────────────────────────────
    The website never holds the API key. It POSTs the brief to a
@@ -322,6 +382,20 @@ footer { background: #1e1c18; border-top: 1px solid rgba(255,255,255,0.06); padd
       chipsWrap.querySelectorAll('.tp-chip').forEach(c => c.classList.remove('active'));
       if (wasActive) { selectedType = ''; }
       else { chip.classList.add('active'); selectedType = chip.getAttribute('data-value'); }
+    });
+
+    // Inspiration cards → prefill the destination and jump to the form
+    document.querySelectorAll('.pl-insp-card[data-dest]').forEach(function (card) {
+      var go = function () {
+        destEl.value = card.getAttribute('data-dest');
+        var plan = document.getElementById('plan');
+        if (plan) plan.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        try { destEl.focus({ preventScroll: true }); } catch (_) { destEl.focus(); }
+      };
+      card.addEventListener('click', go);
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
+      });
     });
 
     function currentLang() {
@@ -419,6 +493,18 @@ footer { background: #1e1c18; border-top: 1px solid rgba(255,255,255,0.06); padd
           show(errorBox); return;
         }
         resultInner.innerHTML = renderMarkdown(data.itinerary);
+        // Booking links for the destination (from the worker, or the typed field)
+        var bookBox = document.getElementById('tp-book');
+        var dest = (data.destination && String(data.destination).trim()) || destination;
+        if (dest) {
+          var q = encodeURIComponent(dest);
+          document.getElementById('tp-book-flights').href    = 'https://www.google.com/travel/flights?q=' + encodeURIComponent('Flights to ' + dest);
+          document.getElementById('tp-book-hotels').href     = 'https://www.booking.com/searchresults.html?ss=' + q;
+          document.getElementById('tp-book-transport').href  = 'https://www.rome2rio.com/s/' + q;
+          bookBox.hidden = false;
+        } else {
+          bookBox.hidden = true;
+        }
         show(resultBox);
         resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } catch (_) {

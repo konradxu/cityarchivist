@@ -112,7 +112,8 @@ export default {
 Given a traveller's brief, compose a tasteful, realistic day-by-day itinerary.
 Write ENTIRELY in ${LANG_NAME[lang]}.
 Format as clean Markdown, nothing else:
-- Line 1: "## " followed by an evocative trip title.
+- First line only: "DEST: <the single main city or place this trip centres on, always written in English>" — then a blank line.
+- Then: "## " followed by an evocative trip title.
 - One short intro paragraph (2–3 sentences).
 - Then one "### Day N — <theme>" heading per day, each followed by a short paragraph or 2–4 bullet points covering morning / afternoon / evening. Use **bold** for the names of venues, neighbourhoods, hotels and restaurants.
 - End with a "### Good to know" section: 2–4 bullets on where to stay, the budget feel, and one genuine insider tip.
@@ -153,7 +154,7 @@ Name real, plausible places for the destination. Be elegant and concrete. No pre
     }
 
     const data = await aiRes.json();
-    const itinerary = (data.content || [])
+    let itinerary = (data.content || [])
       .filter(b => b.type === 'text')
       .map(b => b.text)
       .join('\n')
@@ -161,6 +162,14 @@ Name real, plausible places for the destination. Be elegant and concrete. No pre
 
     if (!itinerary) return json({ error: 'empty_response' }, 502, origin);
 
-    return json({ itinerary }, 200, origin);
+    // Pull the machine-readable destination off the first "DEST:" line, if present.
+    let resolvedDest = destination;
+    const dm = itinerary.match(/^\s*DEST:\s*(.+?)\s*(?:\n|$)/i);
+    if (dm) {
+      if (dm[1].trim()) resolvedDest = dm[1].trim();
+      itinerary = itinerary.slice(dm[0].length).replace(/^\s+/, '');
+    }
+
+    return json({ itinerary, destination: resolvedDest }, 200, origin);
   },
 };
