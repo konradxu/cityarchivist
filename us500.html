@@ -1,9 +1,10 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>US500 · Tages-Tracker</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0d12">
+<title>US500 · Daily Tracker</title>
 <link rel="icon" href="favicon.svg">
 <style>
   :root{
@@ -16,112 +17,136 @@
     --accent:#7cc4ff;
     --up:#22c55e;
     --down:#ef4444;
+    --warn:#f59e0b;
     --grid:#1e2330;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
     font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Inter,system-ui,sans-serif;
-    -webkit-font-smoothing:antialiased;}
+    -webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;}
   a{color:var(--accent);text-decoration:none}
-  .wrap{max-width:1100px;margin:0 auto;padding:32px 20px 80px}
+  .wrap{max-width:1100px;margin:0 auto;padding:22px 14px 60px;padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}
+  @media(min-width:720px){.wrap{padding:32px 20px 80px}}
 
-  header.top{display:flex;flex-direction:column;gap:6px;margin-bottom:28px}
-  .greeting{font-size:clamp(28px,4.6vw,44px);font-weight:700;letter-spacing:-0.02em;line-height:1.1}
-  .sub{color:var(--muted);font-size:14px}
-  .status{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-top:6px}
+  header.top{display:flex;flex-direction:column;gap:4px;margin-bottom:18px}
+  .greeting{font-size:clamp(24px,6.5vw,44px);font-weight:700;letter-spacing:-0.02em;line-height:1.1}
+  .sub{color:var(--muted);font-size:13px}
+  .status{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-top:4px}
   .dot{width:8px;height:8px;border-radius:50%;background:#555}
   .dot.live{background:var(--up);box-shadow:0 0 0 4px rgba(34,197,94,.15)}
 
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  @media (max-width:780px){.grid{grid-template-columns:1fr}}
+  .grid{display:grid;grid-template-columns:1fr;gap:14px}
+  @media(min-width:900px){.grid{grid-template-columns:1fr 1fr;gap:16px}}
 
-  .card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:20px}
-  .card h2{margin:0 0 14px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px}
+  @media(min-width:720px){.card{padding:20px}}
+  .card h2{margin:0 0 12px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 
   .today .row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
-  .price{font-size:clamp(34px,5vw,48px);font-weight:700;letter-spacing:-0.02em}
-  .chg{font-size:16px;font-weight:600}
+  .price{font-size:clamp(30px,8.5vw,48px);font-weight:700;letter-spacing:-0.02em;line-height:1}
+  .chg{font-size:15px;font-weight:600}
   .chg.up{color:var(--up)} .chg.down{color:var(--down)}
-  .hl{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
-  .hl .box{background:var(--panel-2);border:1px solid var(--border);border-radius:12px;padding:14px}
-  .hl .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px}
-  .hl .val{font-size:22px;font-weight:600}
+  .hl{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  .hl .box{background:var(--panel-2);border:1px solid var(--border);border-radius:12px;padding:12px}
+  .hl .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+  .hl .val{font-size:clamp(18px,4.6vw,22px);font-weight:600}
   .hl .up .val{color:var(--up)} .hl .down .val{color:var(--down)}
 
-  table{width:100%;border-collapse:collapse;font-size:14px}
-  th,td{padding:10px 8px;text-align:right;border-bottom:1px solid var(--border)}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{padding:8px 6px;text-align:right;border-bottom:1px solid var(--border);white-space:nowrap}
   th:first-child,td:first-child{text-align:left}
-  th{color:var(--muted);font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
-  tbody tr:hover{background:rgba(255,255,255,.02)}
+  th{color:var(--muted);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
   .pos{color:var(--up)} .neg{color:var(--down)}
+  .scroll-x{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px}
+  @media(max-width:520px){
+    .hide-sm{display:none}
+    table{font-size:12.5px}
+    th,td{padding:8px 4px}
+  }
 
-  .chart{width:100%;height:260px;display:block}
-  .legend{display:flex;gap:14px;font-size:12px;color:var(--muted);margin-top:10px;flex-wrap:wrap}
+  .chart{width:100%;height:200px;display:block}
+  @media(min-width:720px){.chart{height:260px}}
+  .legend{display:flex;gap:12px;font-size:11px;color:var(--muted);margin-top:8px;flex-wrap:wrap}
   .swatch{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
 
-  .predict-note{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5}
-  .pill{display:inline-block;padding:2px 8px;border:1px solid var(--border);border-radius:99px;font-size:11px;color:var(--muted);margin-left:8px;vertical-align:middle}
+  .badge{display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:99px;font-size:11px;font-weight:600;letter-spacing:.03em}
+  .badge.up{background:rgba(34,197,94,.14);color:var(--up)}
+  .badge.down{background:rgba(239,68,68,.14);color:var(--down)}
+  .badge.flat{background:rgba(139,147,167,.14);color:var(--muted)}
+  .arrow{font-size:12px;line-height:1}
 
+  .pill{display:inline-block;padding:2px 8px;border:1px solid var(--border);border-radius:99px;font-size:11px;color:var(--muted)}
+
+  .predict-note{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5}
   .loading{color:var(--muted);font-size:14px}
   .error{color:var(--down);font-size:14px;line-height:1.5}
 
-  footer{margin-top:36px;color:var(--muted);font-size:12px;text-align:center}
+  footer{margin-top:28px;color:var(--muted);font-size:11px;text-align:center;padding:0 8px}
 </style>
 </head>
 <body>
 <div class="wrap">
 
   <header class="top">
-    <div class="greeting" id="greeting">Hallo Juli</div>
+    <div class="greeting" id="greeting">Hello Juli</div>
     <div class="sub" id="today-date">—</div>
-    <div class="status"><span class="dot" id="live-dot"></span><span id="live-txt">lade Live-Kurse …</span></div>
+    <div class="status"><span class="dot" id="live-dot"></span><span id="live-txt">loading live quotes …</span></div>
   </header>
 
-  <section class="card today" style="margin-bottom:16px">
-    <h2>S&amp;P 500 · heute <span class="pill">^GSPC</span></h2>
+  <section class="card today" style="margin-bottom:14px">
+    <h2>S&amp;P 500 · today <span class="pill">^GSPC</span> <span id="sentiment"></span></h2>
     <div class="row">
       <div class="price" id="price">—</div>
       <div class="chg" id="chg">—</div>
     </div>
     <div class="hl">
-      <div class="box up"><div class="lbl">Tageshoch</div><div class="val" id="today-high">—</div></div>
-      <div class="box down"><div class="lbl">Tagestief</div><div class="val" id="today-low">—</div></div>
+      <div class="box up"><div class="lbl">Day High</div><div class="val" id="today-high">—</div></div>
+      <div class="box down"><div class="lbl">Day Low</div><div class="val" id="today-low">—</div></div>
     </div>
   </section>
 
-  <div class="grid" style="margin-bottom:16px">
+  <div class="grid" style="margin-bottom:14px">
     <section class="card">
-      <h2>Kursverlauf · 30 Tage</h2>
+      <h2>Price · 30 days</h2>
       <svg class="chart" id="chart" viewBox="0 0 600 260" preserveAspectRatio="none"></svg>
       <div class="legend">
-        <span><span class="swatch" style="background:var(--accent)"></span>Schlusskurs</span>
-        <span><span class="swatch" style="background:rgba(124,196,255,.18)"></span>High/Low Spanne</span>
+        <span><span class="swatch" style="background:var(--accent)"></span>Close</span>
+        <span><span class="swatch" style="background:rgba(124,196,255,.18)"></span>High/Low</span>
       </div>
     </section>
 
     <section class="card">
-      <h2>Prognose · nächste 5 Handelstage</h2>
+      <h2>Forecast · next 5 days</h2>
       <svg class="chart" id="predict-chart" viewBox="0 0 600 260" preserveAspectRatio="none"></svg>
       <div class="legend">
-        <span><span class="swatch" style="background:var(--accent)"></span>bisher</span>
-        <span><span class="swatch" style="background:#f59e0b"></span>Trend-Projektion</span>
-        <span><span class="swatch" style="background:rgba(245,158,11,.18)"></span>Unsicherheitsband</span>
-      </div>
-      <div class="predict-note">
-        Einfache lineare Regression über die letzten 20 Handelstage plus 1&sigma;-Streuung der Residuen.
-        Kein Anlagerat – nur eine statistische Fortschreibung des Trends.
+        <span><span class="swatch" style="background:var(--accent)"></span>so far</span>
+        <span><span class="swatch" style="background:var(--warn)"></span>expected</span>
+        <span><span class="swatch" style="background:rgba(245,158,11,.18)"></span>range</span>
       </div>
     </section>
   </div>
 
-  <section class="card">
-    <h2>Letzte Handelstage · High / Low / Close</h2>
-    <div id="history-wrap">
-      <div class="loading">lade Historie …</div>
+  <section class="card" style="margin-bottom:14px">
+    <h2>Forecast table · expected high / low / close</h2>
+    <div class="scroll-x">
+      <div id="predict-table"><div class="loading">computing …</div></div>
+    </div>
+    <div class="predict-note">
+      Trend from linear regression of the last 20 trading days.
+      Expected daily range from the 14-day average of prior high-low spans.
+      Uncertainty grows with the forecast horizon (&sigma;&middot;&radic;h).
+      Purely a statistical projection, not investment advice.
     </div>
   </section>
 
-  <footer>Daten: Yahoo Finance (^GSPC). Kein Anlagerat.</footer>
+  <section class="card">
+    <h2>Recent trading days</h2>
+    <div class="scroll-x">
+      <div id="history-wrap"><div class="loading">loading history …</div></div>
+    </div>
+  </section>
+
+  <footer>Data: Yahoo Finance (^GSPC) · Not investment advice.</footer>
 </div>
 
 <script>
@@ -131,30 +156,30 @@
   function greet(){
     const h = new Date().getHours();
     let g;
-    if (h < 5)      g = "Gute Nacht";
-    else if (h < 11) g = "Guten Morgen";
-    else if (h < 14) g = "Hallo";
-    else if (h < 18) g = "Guten Nachmittag";
-    else if (h < 22) g = "Guten Abend";
-    else            g = "Gute Nacht";
+    if (h < 5)      g = "Good night";
+    else if (h < 11) g = "Good morning";
+    else if (h < 14) g = "Hello";
+    else if (h < 18) g = "Good afternoon";
+    else if (h < 22) g = "Good evening";
+    else            g = "Good night";
     document.getElementById("greeting").textContent = `${g}, ${name}`;
     const d = new Date();
     document.getElementById("today-date").textContent =
-      d.toLocaleDateString("de-DE",{weekday:"long", day:"2-digit", month:"long", year:"numeric"});
+      d.toLocaleDateString("en-US",{weekday:"long", day:"2-digit", month:"long", year:"numeric"});
   }
   greet();
   setInterval(greet, 60_000);
 
-  // ---------- Fetch S&P 500 ----------
-  const fmt = n => n==null ? "—" : n.toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2});
-  const fmtPct = n => (n>=0?"+":"") + n.toFixed(2) + " %";
-  const fmtDate = ts => new Date(ts*1000).toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit"});
+  // ---------- Utils ----------
+  const fmt   = n => n==null ? "—" : n.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+  const fmt0  = n => n==null ? "—" : n.toLocaleString("en-US",{minimumFractionDigits:0,maximumFractionDigits:0});
+  const fmtPct= n => (n>=0?"+":"") + n.toFixed(2) + " %";
+  const fmtDate = ts => new Date(ts*1000).toLocaleDateString("en-US",{day:"2-digit",month:"2-digit"});
+  const nextBiz = d => { do { d.setDate(d.getDate()+1); } while (d.getDay()===0||d.getDay()===6); return d; };
 
-  // Snapshot (offline fallback) — ~3 Monate ^GSPC, gezogen am Deploy-Tag.
+  // ---------- Snapshot fallback ----------
   const SNAPSHOT = {"symbol":"^GSPC","asOf":1787595166,"timestamp":[1779802200,1779888600,1779975000,1780061400,1780320600,1780407000,1780493400,1780579800,1780666200,1780925400,1781011800,1781098200,1781184600,1781271000,1781530200,1781616600,1781703000,1781789400,1782135000,1782221400,1782307800,1782394200,1782480600,1782739800,1782826200,1782912600,1782999000,1783344600,1783431000,1783517400,1783603800,1783690200,1783949400,1784035800,1784122200,1784208600,1784295000,1784554200,1784640600,1784727000,1784813400,1784899800,1785159000,1785245400,1785331800,1785418200,1785504600,1785763800,1785850200,1785936600,1786023000,1786109400,1786368600,1786455000,1786541400,1786627800,1786714200,1786973400,1787059800,1787146200,1787232600,1787319000,1787578200],"open":[7511.79,7526.01,7519.82,7579.33,7582.29,7595.4,7605.31,7516.54,7537.36,7440.57,7438.66,7350.54,7287.67,7410.85,7516.75,7548.78,7524.5,7487.36,7500.44,7366.51,7370.88,7404.91,7312.74,7391.88,7441.27,7478.84,7495.14,7506.96,7516.63,7476.54,7491.6,7547.64,7547.53,7536.7,7571.72,7558.8,7447.52,7489.18,7489.95,7497.47,7418.29,7406.3,7464.2,7395.55,7418.16,7390.45,7462.13,7504.78,7630.62,7771.62,7713.79,7735.18,7751.74,7767.51,7765.46,7763.18,7806.6,7790.68,7700.04,7716.74,7690.49,7665.68,7663.38],"high":[7539.09,7530.72,7568.72,7599.38,7617.66,7620.9,7605.35,7598.19,7541.81,7466.81,7483.15,7396.56,7412.68,7456.4,7577.92,7564.96,7532.17,7511.07,7530.01,7424.17,7428.06,7419.08,7392.95,7444.32,7508.29,7521.81,7540.75,7551.31,7536.06,7488.51,7546.89,7579.93,7565.37,7557.44,7581.5,7570.74,7498.47,7513.23,7515.31,7525.94,7450.12,7460.98,7480.57,7452.09,7450.84,7448.75,7512.04,7610.04,7758.21,7793.68,7742.85,7763.08,7773.76,7767.51,7766.01,7816.7,7810.01,7790.68,7713.95,7743.93,7699.96,7697.11,7670.3],"low":[7501.1,7499.72,7508.04,7563.55,7562.61,7582.99,7551.22,7516.54,7368.63,7395.13,7237.85,7265.93,7257.33,7363.01,7516.75,7508.68,7402.61,7468.32,7460.01,7347.6,7336.82,7323.5,7294.18,7348.88,7438.04,7449.63,7427.55,7500.97,7478.63,7421.82,7481.73,7508.16,7506.41,7513.23,7526.95,7504.02,7431.26,7440.53,7467.86,7485.85,7376.0,7396.53,7382.74,7382.95,7313.92,7370.98,7399.83,7504.78,7629.1,7720.17,7698.15,7719.19,7743.11,7717.25,7737.95,7763.18,7776.31,7744.88,7688.63,7700.07,7639.01,7660.06,7638.17],"close":[7519.12,7520.36,7563.63,7580.06,7599.96,7609.78,7553.68,7584.31,7383.74,7405.73,7386.65,7266.99,7394.3,7431.46,7554.29,7511.35,7420.1,7500.58,7472.79,7365.46,7358.22,7357.49,7354.02,7440.43,7499.36,7483.23,7483.24,7537.43,7503.85,7482.71,7543.64,7575.39,7515.34,7543.59,7572.4,7533.77,7457.69,7443.28,7509.2,7498.96,7408.3,7411.98,7413.18,7428.78,7316.15,7437.63,7489.72,7600.5,7736.52,7723.55,7709.96,7757.64,7753.11,7728.2,7748.5,7798.99,7785.76,7745.06,7691.76,7707.98,7641.16,7674.37,7656.84]};
 
-  // Optionaler Live-Fetch (Yahoo direkt oder eigener Worker).
-  // Trag deine Worker-URL hier ein, sobald du `wrangler deploy` gemacht hast:
   const WORKER = "https://cityarchivist-spx.cityarchivist.workers.dev";
   const YAHOO  = "https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?range=3mo&interval=1d";
   const LIVE_URLS = [
@@ -169,10 +194,8 @@
       timestamp: s.timestamp,
       indicators: { quote: [{ open:s.open, high:s.high, low:s.low, close:s.close }] },
       _asOf: s.asOf,
-      _snapshot: true,
     };
   }
-
   async function fetchLive(){
     for (const url of LIVE_URLS){
       try{
@@ -180,11 +203,10 @@
         if (!r.ok) continue;
         const j = await r.json();
         if (j?.chart?.result?.[0]) return j.chart.result[0];
-      }catch(e){ /* try next */ }
+      }catch(e){}
     }
     return null;
   }
-
   function setLive(state, msg){
     const dot = document.getElementById("live-dot");
     const txt = document.getElementById("live-txt");
@@ -192,11 +214,10 @@
     txt.textContent = msg;
   }
 
+  // ---------- Top card ----------
   function renderTop(res){
-    const q = res.indicators.quote[0];
-    const ts = res.timestamp;
+    const q = res.indicators.quote[0], ts = res.timestamp;
     const closes = q.close, highs = q.high, lows = q.low, opens = q.open;
-    // last valid index
     let i = closes.length - 1;
     while (i>=0 && closes[i]==null) i--;
     const price = closes[i], prev = closes[i-1];
@@ -206,10 +227,11 @@
     chgEl.textContent = `${chg>=0?"+":""}${fmt(chg)}  (${fmtPct(chgPct)})`;
     chgEl.className = "chg " + (chg>=0?"up":"down");
     document.getElementById("today-high").textContent = fmt(highs[i]);
-    document.getElementById("today-low").textContent = fmt(lows[i]);
+    document.getElementById("today-low").textContent  = fmt(lows[i]);
     return {ts, opens, closes, highs, lows, i};
   }
 
+  // ---------- History table ----------
   function renderHistory(d){
     const rows = [];
     const N = Math.min(15, d.closes.length);
@@ -217,20 +239,20 @@
       if (d.closes[k]==null) continue;
       const prev = d.closes[k-1];
       const pct = prev ? ((d.closes[k]-prev)/prev)*100 : null;
-      rows.push({
-        t: d.ts[k], o:d.opens[k], h:d.highs[k], l:d.lows[k], c:d.closes[k], pct
-      });
+      rows.push({t:d.ts[k], o:d.opens[k], h:d.highs[k], l:d.lows[k], c:d.closes[k], pct});
     }
-    const html = `
+    document.getElementById("history-wrap").innerHTML = `
       <table>
         <thead><tr>
-          <th>Datum</th><th>Open</th><th>High</th><th>Low</th><th>Close</th><th>&Delta;</th>
+          <th>Date</th>
+          <th class="hide-sm">Open</th>
+          <th>High</th><th>Low</th><th>Close</th><th>&Delta;</th>
         </tr></thead>
         <tbody>
           ${rows.map(r=>`
             <tr>
-              <td>${new Date(r.t*1000).toLocaleDateString("de-DE",{weekday:"short",day:"2-digit",month:"2-digit"})}</td>
-              <td>${fmt(r.o)}</td>
+              <td>${new Date(r.t*1000).toLocaleDateString("en-US",{weekday:"short",day:"2-digit",month:"2-digit"})}</td>
+              <td class="hide-sm">${fmt(r.o)}</td>
               <td class="pos">${fmt(r.h)}</td>
               <td class="neg">${fmt(r.l)}</td>
               <td>${fmt(r.c)}</td>
@@ -238,10 +260,9 @@
             </tr>`).join("")}
         </tbody>
       </table>`;
-    document.getElementById("history-wrap").innerHTML = html;
   }
 
-  // ---------- 30d Chart ----------
+  // ---------- 30d chart ----------
   function renderChart(d){
     const svg = document.getElementById("chart");
     const W=600, H=260, padL=44, padR=12, padT=14, padB=24;
@@ -259,7 +280,6 @@
     const x = i => padL + (i/(idx.length-1))*xw;
     const y = v => padT + (1 - (v-yMin)/(yMax-yMin))*yh;
 
-    // grid + axis
     let g = "";
     for (let s=0;s<=4;s++){
       const yy = padT + (yh*s/4);
@@ -267,23 +287,19 @@
       g += `<line x1="${padL}" y1="${yy}" x2="${W-padR}" y2="${yy}" stroke="var(--grid)" stroke-width="1"/>`;
       g += `<text x="${padL-6}" y="${yy+4}" text-anchor="end" font-size="10" fill="var(--muted)">${Math.round(val)}</text>`;
     }
-    // dates (first, mid, last)
     [0, Math.floor(idx.length/2), idx.length-1].forEach(i=>{
       g += `<text x="${x(i)}" y="${H-6}" text-anchor="middle" font-size="10" fill="var(--muted)">${fmtDate(d.ts[idx[i]])}</text>`;
     });
 
-    // hi/lo band
     const bandTop = idx.map((_,i)=>`${x(i)},${y(highs[i])}`).join(" ");
     const bandBot = idx.map((_,i)=>`${x(i)},${y(lows[i])}`).reverse().join(" ");
     g += `<polygon points="${bandTop} ${bandBot}" fill="rgba(124,196,255,.18)" stroke="none"/>`;
-    // close line
     const line = idx.map((_,i)=>`${i===0?"M":"L"} ${x(i)} ${y(closes[i])}`).join(" ");
     g += `<path d="${line}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round"/>`;
-
     svg.innerHTML = g;
   }
 
-  // ---------- Prediction ----------
+  // ---------- Prediction math ----------
   function linreg(ys){
     const n = ys.length;
     const xs = ys.map((_,i)=>i);
@@ -292,29 +308,69 @@
     let num=0, den=0;
     for (let i=0;i<n;i++){ num += (xs[i]-mx)*(ys[i]-my); den += (xs[i]-mx)**2; }
     const m = num/den, b = my - m*mx;
-    // residual std
     let ss=0;
     for (let i=0;i<n;i++){ const r = ys[i]-(m*xs[i]+b); ss += r*r; }
-    const sd = Math.sqrt(ss/(n-2));
+    const sd = Math.sqrt(ss/Math.max(1,n-2));
     return {m,b,sd};
   }
 
-  function renderPredict(d){
-    const svg = document.getElementById("predict-chart");
-    const W=600, H=260, padL=44, padR=12, padT=14, padB=24;
-    const LOOKBACK = 20, HORIZON = 5;
+  // Builds the full projection & returns everything needed for chart + table.
+  function buildPrediction(d){
+    const LOOKBACK = 20, ATR_N = 14, HORIZON = 5;
+    // gather last LOOKBACK valid days
     const idx = [];
     for (let k=Math.max(0,d.i-LOOKBACK+1);k<=d.i;k++) if (d.closes[k]!=null) idx.push(k);
-    const y0 = idx.map(k=>d.closes[k]);
-    const {m,b,sd} = linreg(y0);
-    // projections
+    const closes = idx.map(k=>d.closes[k]);
+    const {m,b,sd} = linreg(closes);
+
+    // Average daily range for the last ATR_N days
+    const rangeIdx = [];
+    for (let k=Math.max(0,d.i-ATR_N+1);k<=d.i;k++) if (d.highs[k]!=null && d.lows[k]!=null) rangeIdx.push(k);
+    const dailyRange = rangeIdx.map(k=>d.highs[k]-d.lows[k]);
+    const avgRange = dailyRange.reduce((a,b)=>a+b,0)/dailyRange.length;
+
+    // Projection per day
+    const lastTs = d.ts[d.i];
+    let futDate = new Date(lastTs*1000);
     const proj = [];
     for (let h=1;h<=HORIZON;h++){
-      const val = m*(y0.length-1+h) + b;
-      proj.push({val, band: sd*Math.sqrt(h)});
+      futDate = nextBiz(futDate);
+      const close = m*(closes.length-1+h) + b;
+      const band  = sd*Math.sqrt(h);         // 1σ uncertainty of close
+      proj.push({
+        h, date: new Date(futDate),
+        close, band,
+        high: close + avgRange/2,
+        low:  close - avgRange/2,
+        bandHigh: close + avgRange/2 + band,
+        bandLow:  close - avgRange/2 - band,
+      });
     }
-    const allTop = [...y0, ...proj.map(p=>p.val+p.band)];
-    const allBot = [...y0, ...proj.map(p=>p.val-p.band)];
+
+    // Sentiment based on slope (% per day)
+    const pctPerDay = (m/closes[closes.length-1])*100;
+    let sentiment = "flat", arrow = "→", label = "sideways";
+    if (pctPerDay >  0.10){ sentiment="up";   arrow="↗"; label="bullish"; }
+    if (pctPerDay < -0.10){ sentiment="down"; arrow="↘"; label="bearish"; }
+
+    return { closes, m, b, sd, avgRange, proj, pctPerDay, sentiment, arrow, label };
+  }
+
+  function renderSentiment(p){
+    const el = document.getElementById("sentiment");
+    el.className = "badge " + p.sentiment;
+    el.innerHTML = `<span class="arrow">${p.arrow}</span> ${p.label} · ${(p.pctPerDay>=0?"+":"")}${p.pctPerDay.toFixed(2)}%/day`;
+  }
+
+  // ---------- Prediction chart ----------
+  function renderPredictChart(d, p){
+    const svg = document.getElementById("predict-chart");
+    const W=600, H=260, padL=44, padR=12, padT=14, padB=24;
+    const y0 = p.closes;
+    const HORIZON = p.proj.length;
+
+    const allTop = [...y0, ...p.proj.map(x=>x.bandHigh)];
+    const allBot = [...y0, ...p.proj.map(x=>x.bandLow)];
     const yMin = Math.min(...allBot) - 5;
     const yMax = Math.max(...allTop) + 5;
     const total = y0.length + HORIZON;
@@ -329,52 +385,71 @@
       g += `<line x1="${padL}" y1="${yy}" x2="${W-padR}" y2="${yy}" stroke="var(--grid)" stroke-width="1"/>`;
       g += `<text x="${padL-6}" y="${yy+4}" text-anchor="end" font-size="10" fill="var(--muted)">${Math.round(val)}</text>`;
     }
-    // separator between past & future
     const sepX = x(y0.length-1);
     g += `<line x1="${sepX}" y1="${padT}" x2="${sepX}" y2="${H-padB}" stroke="var(--border)" stroke-dasharray="3 3"/>`;
     // history line
     const histLine = y0.map((v,i)=>`${i===0?"M":"L"} ${x(i)} ${y(v)}`).join(" ");
     g += `<path d="${histLine}" fill="none" stroke="var(--accent)" stroke-width="2"/>`;
-    // uncertainty band
-    const bandTop = [ y0[y0.length-1], ...proj.map(p=>p.val+p.band) ];
-    const bandBot = [ y0[y0.length-1], ...proj.map(p=>p.val-p.band) ];
-    const bandTopStr = bandTop.map((v,i)=>`${x(y0.length-1+i)},${y(v)}`).join(" ");
-    const bandBotStr = bandBot.map((v,i)=>`${x(y0.length-1+i)},${y(v)}`).reverse().join(" ");
-    g += `<polygon points="${bandTopStr} ${bandBotStr}" fill="rgba(245,158,11,.18)" stroke="none"/>`;
-    // projection line
-    const projLine = [y0[y0.length-1], ...proj.map(p=>p.val)]
+    // uncertainty range: use bandHigh/bandLow (includes ATR + regression σ)
+    const top = [{v:y0[y0.length-1], i:y0.length-1}, ...p.proj.map((x2,i)=>({v:x2.bandHigh, i:y0.length-1+i+1}))];
+    const bot = [{v:y0[y0.length-1], i:y0.length-1}, ...p.proj.map((x2,i)=>({v:x2.bandLow,  i:y0.length-1+i+1}))];
+    const topStr = top.map(o=>`${x(o.i)},${y(o.v)}`).join(" ");
+    const botStr = bot.map(o=>`${x(o.i)},${y(o.v)}`).reverse().join(" ");
+    g += `<polygon points="${topStr} ${botStr}" fill="rgba(245,158,11,.18)" stroke="none"/>`;
+    // expected close line
+    const projLine = [y0[y0.length-1], ...p.proj.map(x2=>x2.close)]
       .map((v,i)=>`${i===0?"M":"L"} ${x(y0.length-1+i)} ${y(v)}`).join(" ");
-    g += `<path d="${projLine}" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5 4"/>`;
+    g += `<path d="${projLine}" fill="none" stroke="var(--warn)" stroke-width="2" stroke-dasharray="5 4"/>`;
     // future date labels
-    const lastTs = d.ts[d.i];
-    for (let h=1;h<=HORIZON;h++){
-      const t = new Date((lastTs + h*86400)*1000);
-      // skip weekends
-      let day = t.getDay();
-      while (day===0||day===6){ t.setDate(t.getDate()+1); day = t.getDay(); }
-      const lbl = t.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit"});
-      g += `<text x="${x(y0.length-1+h)}" y="${H-6}" text-anchor="middle" font-size="10" fill="var(--muted)">${lbl}</text>`;
-    }
-    // "heute" label
-    g += `<text x="${sepX}" y="${padT-2}" text-anchor="middle" font-size="10" fill="var(--muted)">heute</text>`;
-
+    p.proj.forEach((pr, i)=>{
+      const lbl = pr.date.toLocaleDateString("en-US",{day:"2-digit",month:"2-digit"});
+      g += `<text x="${x(y0.length+i)}" y="${H-6}" text-anchor="middle" font-size="10" fill="var(--muted)">${lbl}</text>`;
+    });
+    g += `<text x="${sepX}" y="${padT-2}" text-anchor="middle" font-size="10" fill="var(--muted)">today</text>`;
     svg.innerHTML = g;
+  }
+
+  // ---------- Prediction table ----------
+  function renderPredictTable(d, p){
+    const lastClose = p.closes[p.closes.length-1];
+    const rows = p.proj.map(r => {
+      const diffPct = ((r.close - lastClose)/lastClose)*100;
+      return `
+        <tr>
+          <td>${r.date.toLocaleDateString("en-US",{weekday:"short",day:"2-digit",month:"2-digit"})}</td>
+          <td>${fmt(r.close)}</td>
+          <td class="pos">${fmt(r.high)}</td>
+          <td class="neg">${fmt(r.low)}</td>
+          <td class="${diffPct>=0?"pos":"neg"}">${fmtPct(diffPct)}</td>
+          <td>&plusmn;${fmt0(r.band)}</td>
+        </tr>`;
+    }).join("");
+    document.getElementById("predict-table").innerHTML = `
+      <table>
+        <thead><tr>
+          <th>Date</th><th>Est. close</th><th>Est. high</th><th>Est. low</th><th>&Delta;</th><th class="hide-sm">Unc.</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>`;
   }
 
   // ---------- Boot ----------
   (async () => {
     let res = await fetchLive();
     if (res){
-      setLive("ok","Live-Daten geladen");
+      setLive("ok","Live data loaded");
     } else {
       res = snapshotToResult(SNAPSHOT);
       const dt = new Date(SNAPSHOT.asOf*1000)
-        .toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",year:"numeric"});
-      setLive("warn", `Snapshot vom ${dt} (Live-Fetch nicht verfügbar)`);
+        .toLocaleDateString("en-US",{day:"2-digit",month:"2-digit",year:"numeric"});
+      setLive("warn", `Snapshot from ${dt} (live fetch unavailable)`);
     }
     const d = renderTop(res);
+    const p = buildPrediction(d);
+    renderSentiment(p);
     renderChart(d);
-    renderPredict(d);
+    renderPredictChart(d, p);
+    renderPredictTable(d, p);
     renderHistory(d);
   })();
 })();
