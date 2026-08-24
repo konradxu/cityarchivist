@@ -1,5 +1,6 @@
-# Cloudflare Worker config for the City Archivist AI trip planner.
-# Deploy with:  wrangler deploy
-name = "cityarchivist-trip"
-main = "trip-planner-worker.js"
+# Deploy from THIS folder:
+#   cd spx-proxy
+#   wrangler deploy
+name = "cityarchivist-spx"
+main = "spx-proxy-worker.js"
 compatibility_date = "2024-11-01"
