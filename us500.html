@@ -43,7 +43,9 @@
   .card h2{margin:0 0 12px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 
   .today .row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
-  .price{font-size:clamp(30px,8.5vw,48px);font-weight:700;letter-spacing:-0.02em;line-height:1}
+  .price{font-size:clamp(30px,8.5vw,48px);font-weight:700;letter-spacing:-0.02em;line-height:1;transition:color .6s ease}
+  .price.flash-up{color:var(--up)}
+  .price.flash-down{color:var(--down)}
   .chg{font-size:15px;font-weight:600}
   .chg.up{color:var(--up)} .chg.down{color:var(--down)}
   .hl{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
@@ -90,7 +92,11 @@
   <header class="top">
     <div class="greeting" id="greeting">Hello Juli</div>
     <div class="sub" id="today-date">—</div>
-    <div class="status"><span class="dot" id="live-dot"></span><span id="live-txt">loading live quotes …</span></div>
+    <div class="status">
+      <span class="dot" id="live-dot"></span>
+      <span id="live-txt">loading live quotes …</span>
+      <span id="live-age" style="margin-left:6px;opacity:.7"></span>
+    </div>
   </header>
 
   <section class="card today" style="margin-bottom:14px">
@@ -433,25 +439,66 @@
       </table>`;
   }
 
-  // ---------- Boot ----------
-  (async () => {
-    let res = await fetchLive();
+  // ---------- Boot & auto-refresh ----------
+  const REFRESH_MS = 60_000;
+  let lastPrice = null, lastLoadedAt = null;
+
+  function flashPrice(newPrice){
+    if (lastPrice == null) return;
+    const el = document.getElementById("price");
+    const cls = newPrice > lastPrice ? "flash-up" : (newPrice < lastPrice ? "flash-down" : null);
+    if (!cls) return;
+    el.classList.remove("flash-up","flash-down");
+    void el.offsetWidth;
+    el.classList.add(cls);
+    setTimeout(()=>el.classList.remove(cls), 1200);
+  }
+
+  function ageString(){
+    if (!lastLoadedAt) return "";
+    const s = Math.round((Date.now()-lastLoadedAt)/1000);
+    if (s < 5)  return "· just now";
+    if (s < 60) return `· ${s}s ago`;
+    const m = Math.round(s/60);
+    return `· ${m} min ago`;
+  }
+  setInterval(()=>{ document.getElementById("live-age").textContent = ageString(); }, 5_000);
+
+  async function tick(isFirst){
+    const res = await fetchLive();
     if (res){
       setLive("ok","Live data loaded");
-    } else {
-      res = snapshotToResult(SNAPSHOT);
+    } else if (isFirst){
+      const snap = snapshotToResult(SNAPSHOT);
       const dt = new Date(SNAPSHOT.asOf*1000)
         .toLocaleDateString("en-US",{day:"2-digit",month:"2-digit",year:"numeric"});
       setLive("warn", `Snapshot from ${dt} (live fetch unavailable)`);
+      render(snap);
+      return;
+    } else {
+      // keep prior render, just note we couldn't refresh
+      setLive("warn", "live refresh failed — showing last data");
+      return;
     }
+    render(res);
+  }
+
+  function render(res){
     const d = renderTop(res);
+    if (lastPrice != null) flashPrice(d.closes[d.i]);
+    lastPrice = d.closes[d.i];
+    lastLoadedAt = Date.now();
+    document.getElementById("live-age").textContent = ageString();
     const p = buildPrediction(d);
     renderSentiment(p);
     renderChart(d);
     renderPredictChart(d, p);
     renderPredictTable(d, p);
     renderHistory(d);
-  })();
+  }
+
+  tick(true);
+  setInterval(()=>tick(false), REFRESH_MS);
 })();
 </script>
 </body>
