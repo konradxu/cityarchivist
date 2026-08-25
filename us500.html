@@ -79,6 +79,18 @@
 
   .pill{display:inline-block;padding:2px 8px;border:1px solid var(--border);border-radius:99px;font-size:11px;color:var(--muted)}
 
+  /* Pivot Points card */
+  .pp-wrap{position:relative;padding:14px 6px 34px}
+  .pp-scale{position:relative;height:6px;background:linear-gradient(90deg,rgba(34,197,94,.25),rgba(139,147,167,.25),rgba(239,68,68,.25));border-radius:99px}
+  .pp-mark{position:absolute;top:-4px;width:2px;height:14px;background:var(--text);border-radius:2px;transform:translateX(-1px)}
+  .pp-lbl{position:absolute;top:16px;font-size:10px;color:var(--muted);white-space:nowrap;transform:translateX(-50%);text-align:center;line-height:1.15}
+  .pp-lbl b{color:var(--text);font-weight:600;display:block}
+  .pp-lbl.pp b{color:var(--warn)}
+  .pp-lbl.r b{color:var(--down)} .pp-lbl.s b{color:var(--up)}
+  .pp-price{position:absolute;top:-18px;font-size:11px;color:var(--accent);white-space:nowrap;transform:translateX(-50%);font-weight:600}
+  .pp-price::after{content:"";display:block;width:2px;height:8px;background:var(--accent);margin:1px auto 0}
+  .pp-legend{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:2px;padding:0 2px;text-transform:uppercase;letter-spacing:.06em}
+
   /* AI flow card */
   .ai-card{background:linear-gradient(180deg,rgba(124,196,255,.06),transparent 60%),var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:14px}
   @media(min-width:720px){.ai-card{padding:20px}}
@@ -170,6 +182,13 @@
     </div>
   </header>
 
+  <section class="card" id="pp-card" style="margin-bottom:14px">
+    <h2>PP · 关键枢轴位 <span class="pill" id="pp-source">昨日 HLC</span></h2>
+    <div class="pp-wrap" id="pp-body">
+      <div class="loading">计算中…</div>
+    </div>
+  </section>
+
   <section class="ai-card" id="ai-card">
     <div class="ai-head">
       <div class="ai-title">
@@ -223,9 +242,8 @@
       <div id="predict-table"><div class="loading">计算中…</div></div>
     </div>
     <div class="predict-note">
-      基于过去20个交易日的线性回归趋势。
-      预期日内波动区间取过去14日 最高-最低 幅度的均值。
-      不确定性随预测时长增长 (&sigma;&middot;&radic;h)。
+      基于过去 20/60 日对数收益的漂移混合模型，日漂移每日衰减 20%，最大 &plusmn;0.35 %/日（避免线性外推失控）。
+      60% 上/下界 &asymp; 收盘 &plusmn; 0.84&sigma;&radic;h，90% 半宽 &asymp; 1.65&sigma;&radic;h（&sigma; 取过去 20 日对数收益标准差）。
       仅为统计外推，非投资建议。
     </div>
   </section>
@@ -405,46 +423,78 @@
     return {m,b,sd};
   }
 
-  // Builds the full projection & returns everything needed for chart + table.
+  // Geometric random-walk with dampened drift + realized-vol bands.
+  // Log returns → μ (blended recent+long, capped), σ (recent). Drift decays
+  // each day so we don't extrapolate a 3-week bull run into eternity.
   function buildPrediction(d){
-    const LOOKBACK = 20, ATR_N = 14, HORIZON = 5;
-    // gather last LOOKBACK valid days
-    const idx = [];
-    for (let k=Math.max(0,d.i-LOOKBACK+1);k<=d.i;k++) if (d.closes[k]!=null) idx.push(k);
-    const closes = idx.map(k=>d.closes[k]);
-    const {m,b,sd} = linreg(closes);
+    const SHORT = 20, LONG = 60, HORIZON = 5;
+    const MAX_DAILY_PCT = 0.35;  // cap drift at ±0.35 %/day (equity index sane bound)
+    const DAMP = 0.80;           // 20 % slope decay per day forward
 
-    // Average daily range for the last ATR_N days
+    // Gather up to LONG most-recent valid closes
+    const closes = [];
+    for (let k = Math.max(0, d.i - LONG + 1); k <= d.i; k++)
+      if (d.closes[k] != null) closes.push(d.closes[k]);
+    const n = closes.length;
+    const lastClose = closes[n-1];
+
+    // Log returns
+    const logRets = [];
+    for (let i = 1; i < n; i++) logRets.push(Math.log(closes[i]/closes[i-1]));
+
+    const mean = a => a.reduce((s,x)=>s+x, 0) / a.length;
+    const std  = (a, m) => Math.sqrt(a.reduce((s,x)=>s+(x-m)*(x-m), 0) / Math.max(1, a.length-1));
+
+    const recent = logRets.slice(-SHORT);
+    const muShort = mean(recent);
+    const muLong  = mean(logRets);
+    const sigma   = std(recent, muShort);
+
+    // Blend + cap
+    let mu = 0.55 * muShort + 0.45 * muLong;
+    const cap = Math.log(1 + MAX_DAILY_PCT/100);
+    mu = Math.max(-cap, Math.min(cap, mu));
+
+    // 14-day intraday range for the expected daily band (ATR-ish)
     const rangeIdx = [];
-    for (let k=Math.max(0,d.i-ATR_N+1);k<=d.i;k++) if (d.highs[k]!=null && d.lows[k]!=null) rangeIdx.push(k);
-    const dailyRange = rangeIdx.map(k=>d.highs[k]-d.lows[k]);
-    const avgRange = dailyRange.reduce((a,b)=>a+b,0)/dailyRange.length;
+    for (let k = Math.max(0, d.i-13); k <= d.i; k++)
+      if (d.highs[k] != null && d.lows[k] != null) rangeIdx.push(k);
+    const avgRange = rangeIdx.reduce((s,k)=>s+(d.highs[k]-d.lows[k]), 0) / rangeIdx.length;
 
-    // Projection per day
+    // Forward projection with damped drift
     const lastTs = d.ts[d.i];
     let futDate = new Date(lastTs*1000);
+    let cumDrift = 0;
     const proj = [];
-    for (let h=1;h<=HORIZON;h++){
+    for (let h = 1; h <= HORIZON; h++) {
       futDate = nextBiz(futDate);
-      const close = m*(closes.length-1+h) + b;
-      const band  = sd*Math.sqrt(h);         // 1σ uncertainty of close
+      cumDrift += mu * Math.pow(DAMP, h-1);      // slope fades
+      const expected = lastClose * Math.exp(cumDrift);
+      const totalSigma = sigma * Math.sqrt(h);
+      const band60 = 0.84 * totalSigma;          // ~60 % log-CI
+      const band90 = 1.65 * totalSigma;          // ~90 % log-CI
       proj.push({
         h, date: new Date(futDate),
-        close, band,
-        high: close + avgRange/2,
-        low:  close - avgRange/2,
-        bandHigh: close + avgRange/2 + band,
-        bandLow:  close - avgRange/2 - band,
+        close: expected,
+        low60:  lastClose * Math.exp(cumDrift - band60),
+        high60: lastClose * Math.exp(cumDrift + band60),
+        low90:  lastClose * Math.exp(cumDrift - band90),
+        high90: lastClose * Math.exp(cumDrift + band90),
+        band:   expected - lastClose * Math.exp(cumDrift - band60),  // for chart compat
+        bandHigh: lastClose * Math.exp(cumDrift + band90),
+        bandLow:  lastClose * Math.exp(cumDrift - band90),
+        high: expected + avgRange/2,             // typical intraday high (per-day, not cumulative)
+        low:  expected - avgRange/2,
       });
     }
 
-    // Sentiment based on slope (% per day)
-    const pctPerDay = (m/closes[closes.length-1])*100;
+    // Sentiment from blended drift (%/day)
+    const pctPerDay = (Math.exp(mu) - 1) * 100;
     let sentiment = "flat", arrow = "→", label = "横盘";
-    if (pctPerDay >  0.10){ sentiment="up";   arrow="↗"; label="看涨"; }
-    if (pctPerDay < -0.10){ sentiment="down"; arrow="↘"; label="看跌"; }
+    if (pctPerDay >  0.10) { sentiment = "up";   arrow = "↗"; label = "看涨"; }
+    if (pctPerDay < -0.10) { sentiment = "down"; arrow = "↘"; label = "看跌"; }
 
-    return { closes, m, b, sd, avgRange, proj, pctPerDay, sentiment, arrow, label };
+    return { closes, mu, sigma, avgRange, proj, pctPerDay, sentiment, arrow, label };
   }
 
   function renderSentiment(p){
@@ -505,20 +555,21 @@
     const lastClose = p.closes[p.closes.length-1];
     const rows = p.proj.map(r => {
       const diffPct = ((r.close - lastClose)/lastClose)*100;
+      const halfWidth90 = (r.high90 - r.low90) / 2;
       return `
         <tr>
           <td>${r.date.toLocaleDateString("zh-CN",{weekday:"short",day:"2-digit",month:"2-digit"})}</td>
           <td>${fmt(r.close)}</td>
-          <td class="pos">${fmt(r.high)}</td>
-          <td class="neg">${fmt(r.low)}</td>
+          <td class="pos">${fmt(r.high60)}</td>
+          <td class="neg">${fmt(r.low60)}</td>
           <td class="${diffPct>=0?"pos":"neg"}">${fmtPct(diffPct)}</td>
-          <td>&plusmn;${fmt0(r.band)}</td>
+          <td>&plusmn;${fmt0(halfWidth90)}</td>
         </tr>`;
     }).join("");
     document.getElementById("predict-table").innerHTML = `
       <table>
         <thead><tr>
-          <th>日期</th><th>预期收盘</th><th>预期最高</th><th>预期最低</th><th>涨跌</th><th class="hide-sm">不确定性</th>
+          <th>日期</th><th>预期收盘</th><th>60% 上界</th><th>60% 下界</th><th>涨跌</th><th class="hide-sm">90% 半宽</th>
         </tr></thead>
         <tbody>${rows}</tbody>
       </table>`;
@@ -580,6 +631,63 @@
     renderPredictChart(d, p);
     renderPredictTable(d, p);
     renderHistory(d);
+    renderPivots(d);
+  }
+
+  // ---------- Pivot Points (classic HLC formula) ----------
+  function renderPivots(d){
+    // Use the last COMPLETED session as the PP base:
+    //  - if d.i is already today's (forming) bar → use d.i-1
+    //  - if d.i is yesterday's complete bar (market not yet open today) → use d.i
+    const dateInNY = ts => new Intl.DateTimeFormat("en-CA",{
+      timeZone:"America/New_York", year:"numeric", month:"2-digit", day:"2-digit"
+    }).format(new Date(ts*1000));
+    const nyToday = dateInNY(Date.now()/1000);
+    const iPrev = (dateInNY(d.ts[d.i]) === nyToday) ? d.i - 1 : d.i;
+    if (iPrev < 0) return;
+    const H = d.highs[iPrev], L = d.lows[iPrev], C = d.closes[iPrev];
+    if (H == null || L == null || C == null) return;
+    const range = H - L;
+    const PP = (H + L + C) / 3;
+    const R1 = 2*PP - L, S1 = 2*PP - H;
+    const R2 = PP + range, S2 = PP - range;
+    const spot = d.closes[d.i] ?? d.highs[d.i] ?? PP;
+
+    // Positioning: map values onto 0-100% along the scale spanning [S2, R2] with 5% margin
+    const min = S2 - range*0.08;
+    const max = R2 + range*0.08;
+    const pct = v => 100 * (v - min) / (max - min);
+
+    const marks = [
+      { k:"S2", v:S2, cls:"s" },
+      { k:"S1", v:S1, cls:"s" },
+      { k:"PP", v:PP, cls:"pp" },
+      { k:"R1", v:R1, cls:"r" },
+      { k:"R2", v:R2, cls:"r" },
+    ];
+
+    const spotPct = Math.max(0, Math.min(100, pct(spot)));
+
+    const body = document.getElementById("pp-body");
+    body.innerHTML = `
+      <div class="pp-scale">
+        ${marks.map(m=>`<div class="pp-mark" style="left:${pct(m.v)}%"></div>`).join("")}
+        <div class="pp-price" style="left:${spotPct}%" title="当前 ${fmt(spot)}">现价 ${fmt(spot)}</div>
+      </div>
+      ${marks.map(m=>`
+        <div class="pp-lbl ${m.cls}" style="left:${pct(m.v)}%">
+          ${m.k}<b>${fmt(m.v)}</b>
+        </div>`).join("")}
+      <div class="pp-legend" style="margin-top:34px">
+        <span style="color:var(--up)">支撑区</span>
+        <span>枢轴</span>
+        <span style="color:var(--down)">阻力区</span>
+      </div>
+    `;
+    // Update source pill with previous-day date + numbers (in NY exchange TZ)
+    const prevDate = new Intl.DateTimeFormat("zh-CN",{timeZone:"America/New_York",month:"2-digit",day:"2-digit",weekday:"short"}).format(new Date(d.ts[iPrev]*1000));
+    document.getElementById("pp-source").textContent =
+      `${prevDate} · H ${fmt(H)} L ${fmt(L)} C ${fmt(C)}`;
   }
 
   tick(true);
