@@ -1,6 +1,17 @@
-# Deploy from THIS folder:
-#   cd spx-proxy
-#   wrangler deploy
-name = "cityarchivist-spx"
-main = "spx-proxy-worker.js"
+# Deploy from this folder:
+#   cd spx-flow && npx wrangler deploy
+#
+# Cron fires at 13:15 and 14:15 UTC every weekday. The worker itself
+# checks which one is actually 15:15 in Europe/Berlin (handles DST).
+name = "cityarchivist-spx-flow"
+main = "spx-flow-worker.js"
 compatibility_date = "2024-11-01"
+
+[triggers]
+crons = ["15 13 * * 1-5", "15 14 * * 1-5"]
+
+# KV namespace for caching the day's analysis
+# id filled in after `wrangler kv namespace create FLOW_CACHE`
+[[kv_namespaces]]
+binding = "FLOW_CACHE"
+id = "b257c56e2a384a7e99912bd7bb38afdb"

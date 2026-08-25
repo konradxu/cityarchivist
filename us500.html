@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b0d12">
-<title>US500 · Daily Tracker</title>
+<title>US500 · 每日追踪</title>
 <link rel="icon" href="favicon.svg">
 <style>
   :root{
@@ -79,6 +79,77 @@
 
   .pill{display:inline-block;padding:2px 8px;border:1px solid var(--border);border-radius:99px;font-size:11px;color:var(--muted)}
 
+  /* AI flow card */
+  .ai-card{background:linear-gradient(180deg,rgba(124,196,255,.06),transparent 60%),var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:14px}
+  @media(min-width:720px){.ai-card{padding:20px}}
+  .ai-head{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-bottom:10px}
+  .ai-title{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .ai-meta{font-size:11px;color:var(--muted);opacity:.7}
+  .bias-big{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:99px;font-size:13px;font-weight:700;letter-spacing:.02em;margin:8px 0}
+  .bias-big.bullish,.bias-big.leicht-bullish{background:rgba(34,197,94,.14);color:var(--up)}
+  .bias-big.bearish,.bias-big.leicht-bearish{background:rgba(239,68,68,.14);color:var(--down)}
+  .bias-big.neutral{background:rgba(139,147,167,.14);color:var(--muted)}
+  .conf-wrap{margin:8px 0 12px}
+  .conf-bar{height:4px;background:var(--panel-2);border-radius:99px;overflow:hidden;margin-top:4px}
+  .conf-fill{height:100%;background:linear-gradient(90deg,var(--warn),var(--accent));border-radius:99px;transition:width .6s ease}
+  .conf-txt{font-size:11px;color:var(--muted);display:flex;justify-content:space-between}
+
+  /* Direction probability bar */
+  .dir-wrap{margin:12px 0}
+  .dir-bar{display:flex;height:8px;border-radius:99px;overflow:hidden;background:var(--panel-2)}
+  .dir-seg{transition:flex .6s ease}
+  .dir-seg.up{background:var(--up)}
+  .dir-seg.flat{background:var(--muted);opacity:.5}
+  .dir-seg.down{background:var(--down)}
+  .dir-lbl{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:6px;gap:8px}
+  .dir-lbl span b{color:var(--text);font-weight:600}
+
+  /* Point estimate box */
+  .pt-est{background:linear-gradient(180deg,rgba(245,158,11,.08),transparent),var(--panel-2);border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:12px}
+  .pt-est .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+  .pt-est .val{font-size:clamp(20px,5vw,26px);font-weight:700;line-height:1.1}
+  .pt-est .val .pm{font-size:.55em;color:var(--muted);font-weight:500;margin-left:6px}
+  .pt-est .prob{font-size:11px;color:var(--muted);margin-top:4px}
+
+  /* GEX section */
+  .gex-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:8px 0}
+  @media(max-width:520px){.gex-grid{grid-template-columns:1fr 1fr}}
+  .gex-cell{background:var(--panel-2);border:1px solid var(--border);border-radius:10px;padding:8px 10px}
+  .gex-cell .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+  .gex-cell .val{font-size:15px;font-weight:600;margin-top:2px}
+  .gex-cell.wall-up{border-color:rgba(239,68,68,.35)}
+  .gex-cell.wall-dn{border-color:rgba(34,197,94,.35)}
+  .gex-cell.flip{border-color:rgba(245,158,11,.35)}
+  .gex-regime{font-size:12px;color:var(--muted);margin:6px 0 8px;padding:6px 10px;background:var(--panel-2);border-radius:8px;border-left:3px solid var(--accent)}
+  .gex-regime.pos{border-left-color:var(--up)}
+  .gex-regime.neg{border-left-color:var(--down)}
+  .gex-magnet{display:grid;grid-template-columns:70px 1fr 90px;gap:8px;padding:4px 0;border-bottom:1px dashed var(--border);font-size:12px;align-items:center}
+  .gex-magnet:last-child{border-bottom:none}
+  .gex-magnet .k{font-weight:600}
+  .gex-magnet .mbar{background:var(--panel-2);border-radius:99px;height:6px;position:relative;overflow:hidden}
+  .gex-magnet .mfill{height:100%;position:absolute;top:0;border-radius:99px}
+  .gex-magnet .mfill.pos{background:var(--up);left:50%}
+  .gex-magnet .mfill.neg{background:var(--down);right:50%}
+  .gex-magnet .mval{text-align:right;font-variant-numeric:tabular-nums;font-size:11px;color:var(--muted)}
+  .ai-summary{font-size:15px;line-height:1.5;margin:6px 0 14px}
+  .ai-numbers{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+  .ai-numbers .box{background:var(--panel-2);border:1px solid var(--border);border-radius:12px;padding:12px}
+  .ai-numbers .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+  .ai-numbers .val{font-size:clamp(16px,4.4vw,20px);font-weight:600}
+  .ai-numbers .sub{font-size:11px;color:var(--muted);margin-top:2px}
+  details.ai-details{border-top:1px solid var(--border);padding-top:10px;margin-top:8px}
+  details.ai-details summary{cursor:pointer;font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;font-weight:600;padding:6px 0;list-style:none}
+  details.ai-details summary::-webkit-details-marker{display:none}
+  details.ai-details summary::before{content:"▸ ";display:inline-block;transition:transform .2s}
+  details.ai-details[open] summary::before{transform:rotate(90deg)}
+  details.ai-details ul{margin:6px 0 10px 0;padding-left:18px;font-size:13px;line-height:1.55}
+  details.ai-details li{margin-bottom:4px}
+  .sig-row{display:grid;grid-template-columns:80px 1fr;gap:8px;padding:6px 0;border-bottom:1px dashed var(--border);font-size:12.5px;line-height:1.4}
+  .sig-row:last-child{border-bottom:none}
+  .sig-row .sig-lbl{font-weight:600;color:var(--muted);text-transform:uppercase;font-size:10px;letter-spacing:.06em;padding-top:2px}
+  .btn-mini{background:var(--panel-2);border:1px solid var(--border);border-radius:99px;padding:4px 10px;font-size:11px;color:var(--muted);cursor:pointer;font-family:inherit}
+  .btn-mini:hover{color:var(--text);border-color:var(--accent)}
+
   .predict-note{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5}
   .loading{color:var(--muted);font-size:14px}
   .error{color:var(--down);font-size:14px;line-height:1.5}
@@ -90,30 +161,44 @@
 <div class="wrap">
 
   <header class="top">
-    <div class="greeting" id="greeting">Hello Juli</div>
+    <div class="greeting" id="greeting">你好，Juli</div>
     <div class="sub" id="today-date">—</div>
     <div class="status">
       <span class="dot" id="live-dot"></span>
-      <span id="live-txt">loading live quotes …</span>
+      <span id="live-txt">加载实时行情…</span>
       <span id="live-age" style="margin-left:6px;opacity:.7"></span>
     </div>
   </header>
 
+  <section class="ai-card" id="ai-card">
+    <div class="ai-head">
+      <div class="ai-title">
+        <span>AI 盘前分析</span>
+        <span class="pill" id="ai-model">Haiku 4.5</span>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span class="ai-meta" id="ai-time">—</span>
+        <button class="btn-mini" id="ai-refresh" title="Refresh">↻</button>
+      </div>
+    </div>
+    <div id="ai-body"><div class="loading">加载 AI 简报…</div></div>
+  </section>
+
   <section class="card today" style="margin-bottom:14px">
-    <h2>S&amp;P 500 · today <span class="pill">^GSPC</span> <span id="sentiment"></span></h2>
+    <h2>标普500 · 今日 <span class="pill">^GSPC</span> <span id="sentiment"></span></h2>
     <div class="row">
       <div class="price" id="price">—</div>
       <div class="chg" id="chg">—</div>
     </div>
     <div class="hl">
-      <div class="box up"><div class="lbl">Day High</div><div class="val" id="today-high">—</div></div>
-      <div class="box down"><div class="lbl">Day Low</div><div class="val" id="today-low">—</div></div>
+      <div class="box up"><div class="lbl">今日最高</div><div class="val" id="today-high">—</div></div>
+      <div class="box down"><div class="lbl">今日最低</div><div class="val" id="today-low">—</div></div>
     </div>
   </section>
 
   <div class="grid" style="margin-bottom:14px">
     <section class="card">
-      <h2>Price · 30 days</h2>
+      <h2>30日价格走势</h2>
       <svg class="chart" id="chart" viewBox="0 0 600 260" preserveAspectRatio="none"></svg>
       <div class="legend">
         <span><span class="swatch" style="background:var(--accent)"></span>Close</span>
@@ -122,37 +207,37 @@
     </section>
 
     <section class="card">
-      <h2>Forecast · next 5 days</h2>
+      <h2>未来5日预测</h2>
       <svg class="chart" id="predict-chart" viewBox="0 0 600 260" preserveAspectRatio="none"></svg>
       <div class="legend">
-        <span><span class="swatch" style="background:var(--accent)"></span>so far</span>
-        <span><span class="swatch" style="background:var(--warn)"></span>expected</span>
-        <span><span class="swatch" style="background:rgba(245,158,11,.18)"></span>range</span>
+        <span><span class="swatch" style="background:var(--accent)"></span>历史</span>
+        <span><span class="swatch" style="background:var(--warn)"></span>预期</span>
+        <span><span class="swatch" style="background:rgba(245,158,11,.18)"></span>波动区间</span>
       </div>
     </section>
   </div>
 
   <section class="card" style="margin-bottom:14px">
-    <h2>Forecast table · expected high / low / close</h2>
+    <h2>预测表 · 预期 最高 / 最低 / 收盘</h2>
     <div class="scroll-x">
-      <div id="predict-table"><div class="loading">computing …</div></div>
+      <div id="predict-table"><div class="loading">计算中…</div></div>
     </div>
     <div class="predict-note">
-      Trend from linear regression of the last 20 trading days.
-      Expected daily range from the 14-day average of prior high-low spans.
-      Uncertainty grows with the forecast horizon (&sigma;&middot;&radic;h).
-      Purely a statistical projection, not investment advice.
+      基于过去20个交易日的线性回归趋势。
+      预期日内波动区间取过去14日 最高-最低 幅度的均值。
+      不确定性随预测时长增长 (&sigma;&middot;&radic;h)。
+      仅为统计外推，非投资建议。
     </div>
   </section>
 
   <section class="card">
-    <h2>Recent trading days</h2>
+    <h2>近期交易日</h2>
     <div class="scroll-x">
-      <div id="history-wrap"><div class="loading">loading history …</div></div>
+      <div id="history-wrap"><div class="loading">加载历史…</div></div>
     </div>
   </section>
 
-  <footer>Data: Yahoo Finance (^GSPC) · Not investment advice.</footer>
+  <footer>数据：雅虎财经 (^GSPC) · 非投资建议</footer>
 </div>
 
 <script>
@@ -162,25 +247,25 @@
   function greet(){
     const h = new Date().getHours();
     let g;
-    if (h < 5)      g = "Good night";
-    else if (h < 11) g = "Good morning";
-    else if (h < 14) g = "Hello";
-    else if (h < 18) g = "Good afternoon";
-    else if (h < 22) g = "Good evening";
-    else            g = "Good night";
-    document.getElementById("greeting").textContent = `${g}, ${name}`;
+    if (h < 5)      g = "晚安";
+    else if (h < 11) g = "早上好";
+    else if (h < 14) g = "你好";
+    else if (h < 18) g = "下午好";
+    else if (h < 22) g = "晚上好";
+    else            g = "晚安";
+    document.getElementById("greeting").textContent = `${g}，${name}`;
     const d = new Date();
     document.getElementById("today-date").textContent =
-      d.toLocaleDateString("en-US",{weekday:"long", day:"2-digit", month:"long", year:"numeric"});
+      d.toLocaleDateString("zh-CN",{weekday:"long", day:"2-digit", month:"long", year:"numeric"});
   }
   greet();
   setInterval(greet, 60_000);
 
   // ---------- Utils ----------
-  const fmt   = n => n==null ? "—" : n.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
-  const fmt0  = n => n==null ? "—" : n.toLocaleString("en-US",{minimumFractionDigits:0,maximumFractionDigits:0});
+  const fmt   = n => n==null ? "—" : n.toLocaleString("zh-CN",{minimumFractionDigits:2,maximumFractionDigits:2});
+  const fmt0  = n => n==null ? "—" : n.toLocaleString("zh-CN",{minimumFractionDigits:0,maximumFractionDigits:0});
   const fmtPct= n => (n>=0?"+":"") + n.toFixed(2) + " %";
-  const fmtDate = ts => new Date(ts*1000).toLocaleDateString("en-US",{day:"2-digit",month:"2-digit"});
+  const fmtDate = ts => new Date(ts*1000).toLocaleDateString("zh-CN",{day:"2-digit",month:"2-digit"});
   const nextBiz = d => { do { d.setDate(d.getDate()+1); } while (d.getDay()===0||d.getDay()===6); return d; };
 
   // ---------- Snapshot fallback ----------
@@ -250,14 +335,14 @@
     document.getElementById("history-wrap").innerHTML = `
       <table>
         <thead><tr>
-          <th>Date</th>
-          <th class="hide-sm">Open</th>
-          <th>High</th><th>Low</th><th>Close</th><th>&Delta;</th>
+          <th>日期</th>
+          <th class="hide-sm">开盘</th>
+          <th>最高</th><th>最低</th><th>收盘</th><th>涨跌</th>
         </tr></thead>
         <tbody>
           ${rows.map(r=>`
             <tr>
-              <td>${new Date(r.t*1000).toLocaleDateString("en-US",{weekday:"short",day:"2-digit",month:"2-digit"})}</td>
+              <td>${new Date(r.t*1000).toLocaleDateString("zh-CN",{weekday:"short",day:"2-digit",month:"2-digit"})}</td>
               <td class="hide-sm">${fmt(r.o)}</td>
               <td class="pos">${fmt(r.h)}</td>
               <td class="neg">${fmt(r.l)}</td>
@@ -355,9 +440,9 @@
 
     // Sentiment based on slope (% per day)
     const pctPerDay = (m/closes[closes.length-1])*100;
-    let sentiment = "flat", arrow = "→", label = "sideways";
-    if (pctPerDay >  0.10){ sentiment="up";   arrow="↗"; label="bullish"; }
-    if (pctPerDay < -0.10){ sentiment="down"; arrow="↘"; label="bearish"; }
+    let sentiment = "flat", arrow = "→", label = "横盘";
+    if (pctPerDay >  0.10){ sentiment="up";   arrow="↗"; label="看涨"; }
+    if (pctPerDay < -0.10){ sentiment="down"; arrow="↘"; label="看跌"; }
 
     return { closes, m, b, sd, avgRange, proj, pctPerDay, sentiment, arrow, label };
   }
@@ -365,7 +450,7 @@
   function renderSentiment(p){
     const el = document.getElementById("sentiment");
     el.className = "badge " + p.sentiment;
-    el.innerHTML = `<span class="arrow">${p.arrow}</span> ${p.label} · ${(p.pctPerDay>=0?"+":"")}${p.pctPerDay.toFixed(2)}%/day`;
+    el.innerHTML = `<span class="arrow">${p.arrow}</span> ${p.label} · ${(p.pctPerDay>=0?"+":"")}${p.pctPerDay.toFixed(2)}%/日`;
   }
 
   // ---------- Prediction chart ----------
@@ -408,10 +493,10 @@
     g += `<path d="${projLine}" fill="none" stroke="var(--warn)" stroke-width="2" stroke-dasharray="5 4"/>`;
     // future date labels
     p.proj.forEach((pr, i)=>{
-      const lbl = pr.date.toLocaleDateString("en-US",{day:"2-digit",month:"2-digit"});
+      const lbl = pr.date.toLocaleDateString("zh-CN",{day:"2-digit",month:"2-digit"});
       g += `<text x="${x(y0.length+i)}" y="${H-6}" text-anchor="middle" font-size="10" fill="var(--muted)">${lbl}</text>`;
     });
-    g += `<text x="${sepX}" y="${padT-2}" text-anchor="middle" font-size="10" fill="var(--muted)">today</text>`;
+    g += `<text x="${sepX}" y="${padT-2}" text-anchor="middle" font-size="10" fill="var(--muted)">今日</text>`;
     svg.innerHTML = g;
   }
 
@@ -422,7 +507,7 @@
       const diffPct = ((r.close - lastClose)/lastClose)*100;
       return `
         <tr>
-          <td>${r.date.toLocaleDateString("en-US",{weekday:"short",day:"2-digit",month:"2-digit"})}</td>
+          <td>${r.date.toLocaleDateString("zh-CN",{weekday:"short",day:"2-digit",month:"2-digit"})}</td>
           <td>${fmt(r.close)}</td>
           <td class="pos">${fmt(r.high)}</td>
           <td class="neg">${fmt(r.low)}</td>
@@ -433,7 +518,7 @@
     document.getElementById("predict-table").innerHTML = `
       <table>
         <thead><tr>
-          <th>Date</th><th>Est. close</th><th>Est. high</th><th>Est. low</th><th>&Delta;</th><th class="hide-sm">Unc.</th>
+          <th>日期</th><th>预期收盘</th><th>预期最高</th><th>预期最低</th><th>涨跌</th><th class="hide-sm">不确定性</th>
         </tr></thead>
         <tbody>${rows}</tbody>
       </table>`;
@@ -457,27 +542,27 @@
   function ageString(){
     if (!lastLoadedAt) return "";
     const s = Math.round((Date.now()-lastLoadedAt)/1000);
-    if (s < 5)  return "· just now";
-    if (s < 60) return `· ${s}s ago`;
+    if (s < 5)  return "· 刚刚";
+    if (s < 60) return `· ${s} 秒前`;
     const m = Math.round(s/60);
-    return `· ${m} min ago`;
+    return `· ${m} 分钟前`;
   }
   setInterval(()=>{ document.getElementById("live-age").textContent = ageString(); }, 5_000);
 
   async function tick(isFirst){
     const res = await fetchLive();
     if (res){
-      setLive("ok","Live data loaded");
+      setLive("ok","实时数据已加载");
     } else if (isFirst){
       const snap = snapshotToResult(SNAPSHOT);
       const dt = new Date(SNAPSHOT.asOf*1000)
-        .toLocaleDateString("en-US",{day:"2-digit",month:"2-digit",year:"numeric"});
-      setLive("warn", `Snapshot from ${dt} (live fetch unavailable)`);
+        .toLocaleDateString("zh-CN",{day:"2-digit",month:"2-digit",year:"numeric"});
+      setLive("warn", `${dt} 的快照（实时数据不可用）`);
       render(snap);
       return;
     } else {
       // keep prior render, just note we couldn't refresh
-      setLive("warn", "live refresh failed — showing last data");
+      setLive("warn", "实时刷新失败 — 显示上次数据");
       return;
     }
     render(res);
@@ -499,6 +584,185 @@
 
   tick(true);
   setInterval(()=>tick(false), REFRESH_MS);
+
+  // ---------- AI Flow analysis ----------
+  const FLOW_URL = "https://cityarchivist-spx-flow.cityarchivist.workers.dev";
+
+  function escapeHtml(s){
+    return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  }
+
+  function renderGex(g, a){
+    const isPos = (g.totalNetGexMn || 0) > 0;
+    const regimeCls = isPos ? "pos" : "neg";
+    const regimeIcon = isPos ? "🧲" : "⚡";
+    const magnets = g.magnetsNearATM || [];
+    const maxAbs = Math.max(1, ...magnets.map(m => Math.abs(m.netGexMn || 0)));
+    return `
+      <details class="ai-details" open>
+        <summary>GEX / 期权磁场</summary>
+        <div class="gex-regime ${regimeCls}">
+          ${regimeIcon} ${escapeHtml(g.regime || "")} · Net GEX <b>${g.totalNetGexMn>=0?"+":""}${g.totalNetGexMn} M$</b>
+        </div>
+        <div class="gex-grid">
+          <div class="gex-cell wall-up"><div class="lbl">看涨墙 (阻力)</div><div class="val">${fmt(g.callWallSPX)}</div></div>
+          <div class="gex-cell flip"><div class="lbl">Gamma Flip</div><div class="val">${fmt(g.gammaFlipSPX)}</div></div>
+          <div class="gex-cell wall-dn"><div class="lbl">看跌墙 (支撑)</div><div class="val">${fmt(g.putWallSPX)}</div></div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin:8px 0 4px;letter-spacing:.05em;text-transform:uppercase">近价磁体 (top ${Math.min(magnets.length,6)})</div>
+        ${magnets.slice(0,6).map(m => {
+          const pct = Math.min(100, Math.abs(m.netGexMn)*100/maxAbs);
+          const pos = m.netGexMn >= 0;
+          return `<div class="gex-magnet">
+            <div class="k">${fmt(m.strike)}</div>
+            <div class="mbar">
+              <div class="mfill ${pos?"pos":"neg"}" style="width:${pct/2}%"></div>
+            </div>
+            <div class="mval">${pos?"+":""}${m.netGexMn} M$</div>
+          </div>`;
+        }).join("")}
+        ${g.putCallRatioOI ? `<div style="font-size:11px;color:var(--muted);margin-top:8px">Put/Call OI 比 <b style="color:var(--text)">${g.putCallRatioOI}</b> · 数据源: ${escapeHtml(g.source||"")}</div>` : ""}
+      </details>
+    `;
+  }
+
+  function renderAI(payload){
+    const body = document.getElementById("ai-body");
+    const time = document.getElementById("ai-time");
+    if (!payload || !payload.data){
+      body.innerHTML = `<div class="ai-summary" style="color:var(--muted)">
+        尚无简报 — 每日分析在<b>中欧夏令时 15:15</b>（美股开盘前15分钟）自动运行。
+        你也可以立即生成一份。
+        <div style="margin-top:10px"><button class="btn-mini" id="ai-gen">▶ 立即生成</button></div>
+      </div>`;
+      time.textContent = "";
+      document.getElementById("ai-gen")?.addEventListener("click", ()=>loadAI(true));
+      return;
+    }
+    const a = payload.data.analysis || {};
+    const gen = payload.data.generatedAt ? new Date(payload.data.generatedAt) : null;
+    time.textContent = gen ? `生成于 ${gen.toLocaleString("zh-CN",{timeZone:"Europe/Berlin",hour:"2-digit",minute:"2-digit",day:"2-digit",month:"2-digit"})} 柏林时间` : "";
+    document.getElementById("ai-model").textContent = (a.model || "").replace("claude-","").replace("-20251001","").replace(/-/g," ");
+
+    if (!a.bias){
+      body.innerHTML = `<div class="ai-summary" style="color:var(--down)">AI 响应无法解析。<br><small>${escapeHtml(a.raw || "")}</small></div>`;
+      return;
+    }
+
+    const biasClass = a.bias.toLowerCase().replace(/\s+/g,"-");
+    const biasLabel = ({
+      "bullish":"看涨", "leicht bullish":"偏看涨",
+      "neutral":"中性",
+      "leicht bearish":"偏看跌", "bearish":"看跌",
+    })[a.bias.toLowerCase()] || a.bias;
+    const conf = Math.max(0, Math.min(100, a.confidence || 0));
+    const rng = a.expectedRangeToday || {};
+    const mv = a.expectedMoveVsPrevClose || {};
+
+    // Direction probs (normalise if they don't sum to 100)
+    const dir = a.direction || {up:0, sideways:0, down:0};
+    const dirSum = Math.max(1, (dir.up||0) + (dir.sideways||0) + (dir.down||0));
+    const dU = Math.round((dir.up||0)*100/dirSum);
+    const dF = Math.round((dir.sideways||0)*100/dirSum);
+    const dD = 100 - dU - dF;
+
+    // Point estimate
+    const pt = a.pointEstimate || {};
+    const gex = a.signals?.gex ? a.signals.gex : "";
+    const gexData = payload.data.facts?.gex || {};
+
+    body.innerHTML = `
+      <div class="bias-big ${biasClass}">
+        ${biasClass.includes("bullish") ? "↗" : biasClass.includes("bearish") ? "↘" : "→"}
+        ${escapeHtml(biasLabel)}
+      </div>
+      <div class="conf-wrap">
+        <div class="conf-txt"><span>置信度</span><span>${conf}%</span></div>
+        <div class="conf-bar"><div class="conf-fill" style="width:${conf}%"></div></div>
+      </div>
+
+      <div class="dir-wrap">
+        <div class="dir-bar">
+          <div class="dir-seg up"   style="flex:${dU}"></div>
+          <div class="dir-seg flat" style="flex:${dF}"></div>
+          <div class="dir-seg down" style="flex:${dD}"></div>
+        </div>
+        <div class="dir-lbl">
+          <span style="color:var(--up)">↑ 上 <b>${dU}%</b></span>
+          <span>→ 横盘 <b>${dF}%</b></span>
+          <span style="color:var(--down)">↓ 下 <b>${dD}%</b></span>
+        </div>
+      </div>
+
+      <div class="ai-summary">${escapeHtml(a.summary || "")}</div>
+
+      ${pt.close != null ? `
+        <div class="pt-est">
+          <div class="lbl">收盘点估 · ${pt.probability ?? 60}% 概率区间</div>
+          <div class="val">${fmt(pt.close)}<span class="pm">±${fmt0(pt.plusMinus||0)} pts</span></div>
+          <div class="prob">意味着 ${fmt(pt.close - (pt.plusMinus||0))} – ${fmt(pt.close + (pt.plusMinus||0))} · 90% 区间见下方</div>
+        </div>` : ""}
+
+      <div class="ai-numbers">
+        <div class="box">
+          <div class="lbl">今日 90% 区间</div>
+          <div class="val">${fmt(rng.low)} – ${fmt(rng.high)}</div>
+        </div>
+        <div class="box">
+          <div class="lbl">目标价（收盘）</div>
+          <div class="val">${fmt(a.priceTargetClose)}</div>
+          <div class="sub">${mv.percent!=null ? (mv.percent>=0?"+":"")+mv.percent.toFixed(2)+" % 相对昨收" : ""}</div>
+        </div>
+      </div>
+
+      ${gexData && !gexData.error ? renderGex(gexData, a) : (gexData?.error ? `<div class="gex-regime neg">GEX 不可用: ${escapeHtml(gexData.error)}</div>` : "")}
+
+      ${a.signals ? `
+      <details class="ai-details" open>
+        <summary>关键信号</summary>
+        ${(() => {
+          const L = {esFutures:"期货", vix:"波动率", yields:"利率/美元", sectors:"板块", sentiment:"情绪"};
+          return ["esFutures","vix","yields","sectors","sentiment"].filter(k=>a.signals[k]).map(k=>`
+            <div class="sig-row"><div class="sig-lbl">${L[k]}</div><div>${escapeHtml(a.signals[k])}</div></div>
+          `).join("");
+        })()}
+      </details>` : ""}
+
+      ${a.keyFactors?.length ? `
+      <details class="ai-details">
+        <summary>关键因素 (${a.keyFactors.length})</summary>
+        <ul>${a.keyFactors.map(f=>`<li>${escapeHtml(f)}</li>`).join("")}</ul>
+      </details>` : ""}
+
+      ${a.risks?.length ? `
+      <details class="ai-details">
+        <summary>风险 (${a.risks.length})</summary>
+        <ul>${a.risks.map(f=>`<li>${escapeHtml(f)}</li>`).join("")}</ul>
+      </details>` : ""}
+
+      ${a.catalysts?.length ? `
+      <details class="ai-details">
+        <summary>今日催化剂 (${a.catalysts.length})</summary>
+        <ul>${a.catalysts.map(f=>`<li>${escapeHtml(f)}</li>`).join("")}</ul>
+      </details>` : ""}
+    `;
+  }
+
+  async function loadAI(force){
+    const body = document.getElementById("ai-body");
+    if (force) body.innerHTML = `<div class="loading">正在生成新的 AI 简报…（约 10 秒）</div>`;
+    try {
+      const url = force ? `${FLOW_URL}/generate?force=1` : `${FLOW_URL}/today`;
+      const r = await fetch(url, {cache:"no-store"});
+      const j = await r.json();
+      // /today wraps as {date, data}, /generate wraps as {cached, date, data}
+      renderAI({ data: j.data });
+    } catch (e) {
+      body.innerHTML = `<div class="error">AI 简报不可用：${escapeHtml(e.message)}</div>`;
+    }
+  }
+  document.getElementById("ai-refresh").addEventListener("click", ()=>loadAI(true));
+  loadAI(false);
 })();
 </script>
 </body>
