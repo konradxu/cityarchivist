@@ -116,6 +116,18 @@
   .dir-lbl{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:6px;gap:8px}
   .dir-lbl span b{color:var(--text);font-weight:600}
 
+  /* News impact strip */
+  .news-impact{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;background:var(--panel-2);border:1px solid var(--border);margin:8px 0 12px;font-size:12.5px;line-height:1.4}
+  .news-impact.up{border-left:3px solid var(--up)}
+  .news-impact.down{border-left:3px solid var(--down)}
+  .news-impact.neutral{border-left:3px solid var(--muted)}
+  .news-impact .arrow{font-size:16px;line-height:1;flex-shrink:0}
+  .news-impact .mag{font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .news-impact.up .mag{color:var(--up)}
+  .news-impact.down .mag{color:var(--down)}
+  .news-impact .desc{color:var(--muted);font-size:12px}
+  .news-impact .desc b{color:var(--text);font-weight:500}
+
   /* Point estimate box */
   .pt-est{background:linear-gradient(180deg,rgba(245,158,11,.08),transparent),var(--panel-2);border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:12px}
   .pt-est .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
@@ -162,15 +174,67 @@
   .btn-mini{background:var(--panel-2);border:1px solid var(--border);border-radius:99px;padding:4px 10px;font-size:11px;color:var(--muted);cursor:pointer;font-family:inherit}
   .btn-mini:hover{color:var(--text);border-color:var(--accent)}
 
+  /* thefly individual-stock news card */
+  .fly-filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+  .fly-chip{background:var(--panel-2);border:1px solid var(--border);border-radius:99px;padding:4px 10px;font-size:11px;color:var(--muted);cursor:pointer;font-family:inherit;user-select:none}
+  .fly-chip.active{background:var(--accent);color:#0b0d12;border-color:var(--accent);font-weight:600}
+  .fly-list{display:flex;flex-direction:column;gap:8px;max-height:520px;overflow-y:auto}
+  .fly-item{background:var(--panel-2);border:1px solid var(--border);border-left:3px solid var(--border);border-radius:8px;padding:10px 12px;display:grid;grid-template-columns:56px 1fr;gap:10px;align-items:start}
+  .fly-item.hi{border-left-color:var(--warn);background:linear-gradient(90deg,rgba(245,158,11,.06),var(--panel-2))}
+  .fly-item.cited{border-left-color:var(--accent);background:linear-gradient(90deg,rgba(124,196,255,.08),var(--panel-2))}
+  .fly-item.cited.hi{border-left-color:var(--warn);background:linear-gradient(90deg,rgba(245,158,11,.08) 0%,rgba(124,196,255,.06) 50%,var(--panel-2) 100%)}
+  .cited-badge{padding:2px 6px;border-radius:4px;background:rgba(124,196,255,.18);color:var(--accent);font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+  .fly-time{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;padding-top:2px}
+  .fly-body{min-width:0}
+  .fly-title{font-size:13.5px;line-height:1.4;color:var(--text)}
+  .fly-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;font-size:10px}
+  .fly-topic{padding:2px 6px;border-radius:4px;background:rgba(139,147,167,.14);color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  .fly-tick{padding:2px 6px;border-radius:4px;background:rgba(124,196,255,.12);color:var(--accent);font-weight:600;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .fly-status{font-size:11px;color:var(--muted);margin-left:8px}
+  .fly-status.expired{color:var(--down)}
+
   .predict-note{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5}
   .loading{color:var(--muted);font-size:14px}
   .error{color:var(--down);font-size:14px;line-height:1.5}
 
   footer{margin-top:28px;color:var(--muted);font-size:11px;text-align:center;padding:0 8px}
+
+  /* Login gate */
+  #login-gate{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:1000;padding:20px}
+  .login-box{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:32px 24px;width:100%;max-width:340px}
+  .login-brand{font-size:22px;font-weight:700;letter-spacing:-0.02em;text-align:center;margin-bottom:4px}
+  .login-sub{font-size:12px;color:var(--muted);text-align:center;margin-bottom:24px}
+  .login-box form{display:flex;flex-direction:column;gap:10px}
+  .login-box input{background:var(--panel-2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-size:15px;font-family:inherit;-webkit-appearance:none;appearance:none;outline:none;transition:border-color .15s ease}
+  .login-box input:focus{border-color:var(--accent)}
+  .login-box button{background:var(--accent);color:#0b0d12;border:none;border-radius:10px;padding:12px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;margin-top:6px}
+  .login-box button:active{opacity:.85}
+  .login-err{color:var(--down);font-size:12px;text-align:center;margin-top:10px;min-height:16px}
+  .login-hint{font-size:11px;color:var(--muted);text-align:center;margin-top:20px;line-height:1.5}
+
+  /* Small user pill in header */
+  .user-pill{margin-left:auto;display:inline-flex;align-items:center;gap:8px;font-size:11px;color:var(--muted)}
+  .user-pill button{background:none;border:none;color:var(--muted);cursor:pointer;font-size:11px;font-family:inherit;padding:2px 6px;border-radius:4px}
+  .user-pill button:hover{color:var(--down);background:rgba(239,68,68,.1)}
 </style>
 </head>
 <body>
-<div class="wrap">
+
+<div id="login-gate">
+  <div class="login-box">
+    <div class="login-brand">US500 · 每日追踪</div>
+    <div class="login-sub">请登录以继续</div>
+    <form id="login-form" autocomplete="on">
+      <input type="text" id="login-user" placeholder="用户名" autocomplete="username" autocapitalize="off" autocorrect="off" spellcheck="false" required>
+      <input type="password" id="login-pass" placeholder="密码" autocomplete="current-password" required>
+      <button type="submit">登录</button>
+    </form>
+    <div class="login-err" id="login-err"></div>
+    <div class="login-hint">私人页面 · 仅限受邀用户</div>
+  </div>
+</div>
+
+<div class="wrap" id="main-app" style="display:none">
 
   <header class="top">
     <div class="greeting" id="greeting">你好，Juli</div>
@@ -179,6 +243,10 @@
       <span class="dot" id="live-dot"></span>
       <span id="live-txt">加载实时行情…</span>
       <span id="live-age" style="margin-left:6px;opacity:.7"></span>
+      <span class="user-pill">
+        <span id="user-name">—</span>
+        <button id="logout-btn" title="退出登录">退出</button>
+      </span>
     </div>
   </header>
 
@@ -213,6 +281,16 @@
       <div class="box up"><div class="lbl">今日最高</div><div class="val" id="today-high">—</div></div>
       <div class="box down"><div class="lbl">今日最低</div><div class="val" id="today-low">—</div></div>
     </div>
+  </section>
+
+  <section class="card" id="fly-card" style="margin-bottom:14px">
+    <h2 style="display:flex;align-items:center;gap:8px">
+      <span>个股头条 · thefly</span>
+      <span class="fly-status" id="fly-status">加载中…</span>
+      <button class="btn-mini" id="fly-refresh" style="margin-left:auto" title="刷新">↻</button>
+    </h2>
+    <div class="fly-filters" id="fly-filters"></div>
+    <div class="fly-list" id="fly-list"><div class="loading">加载 thefly 头条…</div></div>
   </section>
 
   <div class="grid" style="margin-bottom:14px">
@@ -259,9 +337,84 @@
 </div>
 
 <script>
-(function(){
+// ---------- Auth (client-side gate) ----------
+// SHA-256 of `cityarchivist:USERNAME:PASSWORD`. NOT enterprise security —
+// prevents casual visitors, would not stop someone determined with DevTools.
+const ACCOUNTS = {
+  "Juli":  "ba8baff4c828c7db4638bd40f2081a6005995d837373b40d52b9e7ca9257a31e",
+  "Chris": "f37fa06fd73a1cba060c74c7817a839c34e454db9b6806dfc66dda4660e589f3",
+};
+const SESSION_KEY = "caLogin";
+const SESSION_MAX_DAYS = 30;
+
+async function sha256Hex(str){
+  const buf  = new TextEncoder().encode(str);
+  const hash = await crypto.subtle.digest("SHA-256", buf);
+  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, "0")).join("");
+}
+
+function getSession(){
+  try {
+    const s = JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
+    if (!s || !s.user || !ACCOUNTS[s.user]) return null;
+    if (Date.now() - (s.ts || 0) > SESSION_MAX_DAYS * 86400_000) return null;
+    return s.user;
+  } catch { return null; }
+}
+
+function setSession(user){
+  localStorage.setItem(SESSION_KEY, JSON.stringify({ user, ts: Date.now() }));
+}
+function clearSession(){ localStorage.removeItem(SESSION_KEY); }
+
+async function attemptLogin(user, pass){
+  user = (user || "").trim();
+  if (!ACCOUNTS[user]) return false;
+  const hash = await sha256Hex(`cityarchivist:${user}:${pass}`);
+  return hash === ACCOUNTS[user];
+}
+
+function showApp(user){
+  window.__currentUser = user;
+  document.getElementById("login-gate").style.display = "none";
+  document.getElementById("main-app").style.display = "";
+  document.getElementById("user-name").textContent = user;
+  document.getElementById("logout-btn").addEventListener("click", () => {
+    if (confirm("确定要退出登录吗？")) { clearSession(); location.reload(); }
+  });
+  bootApp();  // start the main app AFTER we know the user
+}
+
+function showLogin(prefillUser){
+  document.getElementById("login-gate").style.display = "";
+  document.getElementById("main-app").style.display  = "none";
+  if (prefillUser) document.getElementById("login-user").value = prefillUser;
+  document.getElementById("login-form").addEventListener("submit", async e => {
+    e.preventDefault();
+    const err  = document.getElementById("login-err");
+    const u    = document.getElementById("login-user").value;
+    const p    = document.getElementById("login-pass").value;
+    err.textContent = "";
+    if (await attemptLogin(u, p)) {
+      setSession(u.trim());
+      location.reload();
+    } else {
+      err.textContent = "用户名或密码错误";
+      document.getElementById("login-pass").value = "";
+    }
+  });
+}
+
+(() => {
+  const user = getSession();
+  if (user) showApp(user);
+  else showLogin();
+})();
+
+// ---------- Main app ----------
+function bootApp(){
   // ---------- Greeting ----------
-  const name = "Juli";
+  const name = window.__currentUser || "Juli";
   function greet(){
     const h = new Date().getHours();
     let g;
@@ -757,6 +910,10 @@
       return;
     }
 
+    // propagate cited news IDs to the fly card (accepts both int and string)
+    citedIds = new Set((a.citedNewsIds || []).map(x => String(x)));
+    if (typeof renderFlyList === "function") renderFlyList();
+
     const biasClass = a.bias.toLowerCase().replace(/\s+/g,"-");
     const biasLabel = ({
       "bullish":"看涨", "leicht bullish":"偏看涨",
@@ -810,6 +967,21 @@
           <div class="val">${fmt(pt.close)}<span class="pm">±${fmt0(pt.plusMinus||0)} pts</span></div>
           <div class="prob">意味着 ${fmt(pt.close - (pt.plusMinus||0))} – ${fmt(pt.close + (pt.plusMinus||0))} · 90% 区间见下方</div>
         </div>` : ""}
+
+      ${(() => {
+        const fi = a.flyImpact;
+        if (!fi || !fi.direction) return "";
+        const dirCls = fi.direction === "up" ? "up" : (fi.direction === "down" ? "down" : "neutral");
+        const arrow  = fi.direction === "up" ? "↗" : (fi.direction === "down" ? "↘" : "→");
+        const mag    = (fi.magnitudePts != null)
+          ? `${fi.magnitudePts >= 0 ? "+" : ""}${fmt0(fi.magnitudePts)} pts`
+          : "";
+        return `<div class="news-impact ${dirCls}">
+          <span class="arrow">${arrow}</span>
+          <span class="mag">thefly 影响 ${mag}</span>
+          <span class="desc"><b>·</b> ${escapeHtml(fi.summary || "")}</span>
+        </div>`;
+      })()}
 
       <div class="ai-numbers">
         <div class="box">
@@ -871,7 +1043,100 @@
   }
   document.getElementById("ai-refresh").addEventListener("click", ()=>loadAI(true));
   loadAI(false);
-})();
+
+  // ---------- Fly News (thefly.com individual stock headlines) ----------
+  const FLY_URL = `${FLOW_URL}/fly-news`;
+  const FLY_TOPIC_LABELS = {
+    "Hot Stocks":       "热门",
+    "Recommendations":  "分析师",
+    "Earnings":         "财报",
+    "Options":          "期权",
+    "Syndicate":        "承销",
+    "General news":     "常规",
+    "Periodicals":      "刊物",
+  };
+  let flyAllItems = [];
+  let flyFilter = "ALL";
+  let citedIds = new Set();   // set by the AI card once analysis loads
+
+  function renderFlyList(){
+    const list = document.getElementById("fly-list");
+    let items = flyFilter === "ALL"
+      ? flyAllItems.slice()
+      : flyAllItems.filter(i => i.topic === flyFilter);
+    // Sort cited items to the top (stable within groups)
+    items.sort((a, b) => {
+      const ca = citedIds.has(String(a.id)) ? 0 : 1;
+      const cb = citedIds.has(String(b.id)) ? 0 : 1;
+      return ca - cb;
+    });
+    if (!items.length){
+      list.innerHTML = `<div class="loading">该分类暂无头条</div>`;
+      return;
+    }
+    list.innerHTML = items.slice(0, 30).map(i => {
+      const time = (i.date || "").slice(11, 16);
+      const topic = FLY_TOPIC_LABELS[i.topic] || i.topic || "";
+      const stocks = (i.stocks || []).slice(0, 4).map(s =>
+        `<span class="fly-tick">${escapeHtml(s)}</span>`).join("");
+      const more = (i.stocks || []).length > 4 ? `<span class="fly-topic">+${i.stocks.length - 4}</span>` : "";
+      const isCited = citedIds.has(String(i.id));
+      const cls = [i.highlight && "hi", isCited && "cited"].filter(Boolean).join(" ");
+      const citedBadge = isCited ? `<span class="cited-badge">AI 引用</span>` : "";
+      return `
+        <div class="fly-item ${cls}">
+          <div class="fly-time">${escapeHtml(time)}</div>
+          <div class="fly-body">
+            <div class="fly-title">${escapeHtml(i.title || "")}</div>
+            <div class="fly-meta">
+              <span class="fly-topic">${escapeHtml(topic)}</span>
+              ${stocks}${more}${citedBadge}
+            </div>
+          </div>
+        </div>`;
+    }).join("");
+  }
+
+  function renderFlyFilters(){
+    const wrap = document.getElementById("fly-filters");
+    const topics = Array.from(new Set(flyAllItems.map(i => i.topic).filter(Boolean)));
+    wrap.innerHTML = ["ALL", ...topics].map(t => {
+      const label = t === "ALL" ? `全部 (${flyAllItems.length})`
+                                : `${FLY_TOPIC_LABELS[t] || t} (${flyAllItems.filter(i=>i.topic===t).length})`;
+      return `<button class="fly-chip ${t === flyFilter ? "active" : ""}" data-topic="${escapeHtml(t)}">${label}</button>`;
+    }).join("");
+    wrap.querySelectorAll(".fly-chip").forEach(btn =>
+      btn.addEventListener("click", () => {
+        flyFilter = btn.dataset.topic;
+        renderFlyFilters(); renderFlyList();
+      }));
+  }
+
+  async function loadFly(){
+    const status = document.getElementById("fly-status");
+    try{
+      const r = await fetch(FLY_URL, {cache: "no-store"});
+      const j = await r.json();
+      flyAllItems = j.items || [];
+      const age = Math.round((Date.now() - (j.fetchedAt || 0)) / 60_000);
+      if (j.cookieStatus === "expired"){
+        status.textContent = "Cookie 过期 · 请刷新 FLY_COOKIE";
+        status.className = "fly-status expired";
+      } else {
+        status.textContent = `${flyAllItems.length} 条 · ${age < 1 ? "刚刚" : age + " 分钟前"}`;
+        status.className = "fly-status";
+      }
+      renderFlyFilters();
+      renderFlyList();
+    } catch(e){
+      document.getElementById("fly-list").innerHTML =
+        `<div class="error">加载失败: ${escapeHtml(e.message)}</div>`;
+    }
+  }
+  document.getElementById("fly-refresh").addEventListener("click", loadFly);
+  loadFly();
+  setInterval(loadFly, 5 * 60_000);  // refresh every 5 min
+}  // end bootApp
 </script>
 </body>
 </html>

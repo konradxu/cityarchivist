@@ -24,7 +24,8 @@ export default {
     try {
       if (url.pathname === "/today")    return json(await getToday(env), 200);
       if (url.pathname === "/generate") return json(await generate(env, url.searchParams.get("force")==="1"), 200);
-      return json({ ok: true, endpoints: ["/today", "/generate?force=1"] }, 200);
+      if (url.pathname === "/fly-news") return json(await getFlyNews(env), 200);
+      return json({ ok: true, endpoints: ["/today", "/generate?force=1", "/fly-news"] }, 200);
     } catch (e) {
       return json({ error: String(e && e.message || e) }, 500);
     }
@@ -64,7 +65,7 @@ async function generate(env, force) {
 // ---------------- Data collection ----------------
 
 async function collectData(env) {
-  const [futures, vix, tnx, dxy, spy, spxIdx, sectors, fg, reddit, stocktwits, news, gex] = await Promise.all([
+  const [futures, vix, tnx, dxy, spy, spxIdx, sectors, fg, reddit, stocktwits, news, gex, fly] = await Promise.all([
     fetchYahoo("ES=F", "5d", "15m"),   // SPX futures, incl. pre-market
     fetchYahoo("^VIX", "10d", "1d"),
     fetchYahoo("^TNX", "10d", "1d"),
@@ -77,15 +78,24 @@ async function collectData(env) {
     fetchStocktwitsTrending(),
     env.MARKETAUX_KEY ? fetchMarketauxNews(env.MARKETAUX_KEY) : { note: "no MARKETAUX_KEY set" },
     computeGEX("SPY"),
+    getFlyNews(env),
   ]);
 
   // Extract explicit anchors so Claude cannot misread them.
   const anchors = extractAnchors({ spxIdx, spy, futures });
 
+  // Trim fly news for the prompt so we don't blow the token budget
+  const flyTop = {
+    cookieStatus: fly?.cookieStatus,
+    fetchedAt: fly?.fetchedAt,
+    top: (fly?.items || []).slice(0, 25).map(n => ({
+      id: n.id, d: n.date, t: n.title, s: n.stocks, topic: n.topic, hi: n.highlight,
+    })),
+  };
   return {
     asOf: new Date().toISOString(),
     berlin: new Intl.DateTimeFormat("de-DE",{timeZone:"Europe/Berlin",hour:"2-digit",minute:"2-digit",day:"2-digit",month:"2-digit"}).format(new Date()),
-    anchors, gex,
+    anchors, gex, flyNews: flyTop,
     futures, vix, tnx, dxy, spy, spxIdx, sectors, fearGreed: fg, reddit, stocktwits, news,
   };
 }
@@ -215,6 +225,90 @@ async function fetchMarketauxNews(key) {
       sentiment: a.entities?.[0]?.sentiment_score,
     })) };
   } catch (e) { return { error: String(e && e.message || e) }; }
+}
+
+// ---------------- thefly.com (news, via user's Pro cookies) ----------------
+// Cookies live in env.FLY_COOKIE (Cloudflare secret). The user's Pro subscription
+// authorises us to fetch on their behalf; we cache in KV for ~5 min and treat
+// 401/403 as "cookie expired — refresh needed".
+
+const FLY_UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36";
+const FLY_TOPICS = [
+  // thefly topic keys observed in the frontend URL parameters
+  { key: "HOTSTOCKS",  label: "Hot Stocks" },
+  { key: "ANALYSTS",   label: "Analyst Actions" },
+  { key: "EARNINGS",   label: "Earnings" },
+  { key: "OPTIONS",    label: "Options Movers" },
+];
+
+async function fetchFlyTopic(env, topic, perPage = 20) {
+  if (!env.FLY_COOKIE) return { topic, error: "FLY_COOKIE not set" };
+  const url = `https://tfb.thefly.com/news/latest?per_page=${perPage}&topics=${topic}`;
+  try {
+    const r = await fetch(url, {
+      headers: {
+        "cookie": env.FLY_COOKIE,
+        "user-agent": FLY_UA,
+        "accept": "application/json",
+        "referer": "https://www.thefly.com/",
+        "origin": "https://www.thefly.com",
+      },
+      cf: { cacheTtl: 60, cacheEverything: false },
+    });
+    if (r.status === 401 || r.status === 403) {
+      return { topic, error: "cookie_expired", status: r.status };
+    }
+    if (!r.ok) return { topic, error: "http_" + r.status };
+    const j = await r.json();
+    const items = (j?.news || []).map(n => ({
+      id: n.id,
+      date: n.date,
+      title: n.title,
+      description: (n.description || "").slice(0, 400),
+      stocks: Array.isArray(n.stocks) ? n.stocks : (n.stocks ? [n.stocks] : []),
+      topic: n.topic,
+      subtype: n.subtype,
+      highlight: !!n.highlight,
+      author: n.authorName,
+    }));
+    return { topic, count: items.length, items };
+  } catch (e) {
+    return { topic, error: String(e && e.message || e) };
+  }
+}
+
+async function fetchFlyNews(env) {
+  const bundles = await Promise.all(FLY_TOPICS.map(t => fetchFlyTopic(env, t.key)));
+  // Aggregate all items, dedupe by id, sort newest first
+  const seen = new Set(), merged = [];
+  for (const b of bundles) {
+    if (!b.items) continue;
+    for (const it of b.items) {
+      if (seen.has(it.id)) continue;
+      seen.add(it.id); merged.push(it);
+    }
+  }
+  merged.sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+  const anyExpired = bundles.some(b => b.error === "cookie_expired");
+  const anyError   = bundles.some(b => b.error);
+  return {
+    fetchedAt: Date.now(),
+    cookieStatus: anyExpired ? "expired" : (anyError ? "partial" : "ok"),
+    perTopic: bundles.map(b => ({ topic: b.topic, count: b.count ?? 0, error: b.error })),
+    items: merged.slice(0, 40),
+  };
+}
+
+async function getFlyNews(env) {
+  const kvKey = "fly:latest";
+  const cached = await env.FLOW_CACHE.get(kvKey);
+  if (cached) {
+    const c = JSON.parse(cached);
+    if (Date.now() - c.fetchedAt < 5 * 60_000) return c;
+  }
+  const fresh = await fetchFlyNews(env);
+  await env.FLOW_CACHE.put(kvKey, JSON.stringify(fresh), { expirationTtl: 60 * 60 });
+  return fresh;
 }
 
 // ---------------- GEX (Gamma Exposure via CBOE SPX options) ----------------
@@ -463,6 +557,16 @@ async function askClaude(facts, env) {
     "   - `magnetsNearATM` = strongest gravity strikes (SPX-equivalent)",
     "   - If `regime` is positive gamma, expect narrower range and pinning near the largest magnet.",
     "3. Output ranges must be realistic: a normal SPX day moves ±0.4–0.9%; extreme days ±1.5%. Do not output ranges wider than 2% without a specific catalyst justifying it.",
+    "3b. `facts.flyNews.top` is REAL-TIME headlines from thefly.com — the user's paid Pro subscription. THIS IS YOUR PRIMARY SIGNAL for direction bias, not just background context. Weighting rules:",
+    "    • Options-flow headlines (topic='Options') that name mega-caps (AAPL, MSFT, NVDA, GOOG, META, AMZN, TSLA, JPM, SPY, QQQ) — HIGH weight for intraday direction.",
+    "    • Analyst-actions (topic='Recommendations') on mega-caps — MEDIUM weight; on smaller stocks — LOW.",
+    "    • Earnings (topic='Earnings') beats/misses from top-30 SPX names — HIGH weight.",
+    "    • Trading halts, guidance changes, M&A — HIGH weight regardless of ticker size.",
+    "    • Conference/Events, general syndicate news — LOW weight (noise).",
+    "    • Items with `hi:true` are thefly's editorial flags — treat as +1 tier.",
+    "    Aggregate bullish minus bearish weighted count → this drives the `direction` split more than pure technicals.",
+    "3c. In `flyImpact`, explicitly state how much the news shifted your target vs a pure-technical baseline. Be honest — if fly news is neutral/mixed, say so.",
+    "3d. In `citedNewsIds`, list the exact `id` values of the 3-6 fly headlines that materially shaped your analysis. These get highlighted in the UI so the user can trace your reasoning.",
     "4. `direction` probabilities MUST sum to 100. Pick the split that reflects your true belief — not a hedge (e.g. 60/30/10, not 40/35/25).",
     "5. `pointEstimate` is your single best guess for today's regular close in SPX index points, with `plusMinus` half-width of your 60%-probability interval.",
     "",
@@ -480,6 +584,12 @@ async function askClaude(facts, env) {
     '  "priceTargetClose": number,',
     '  "expectedMoveVsPrevClose": {"absolute": number, "percent": number},',
     '  "gexNotes": "1-2 concise Chinese sentences on how GEX regime + walls shape today\'s tape",',
+    '  "flyImpact": {',
+    '    "direction": "up" | "down" | "neutral",',
+    '    "magnitudePts": number,   // signed SPX points shift vs pure-technical baseline',
+    '    "summary": "1 concise Chinese sentence: how thefly news shifted the target"',
+    '  },',
+    '  "citedNewsIds": [number, number, number],   // exact `id` values from facts.flyNews.top that materially drove the analysis (3-6 items)',
     '  "summary": "1-2 sentence Chinese headline; must reference specific numbers, not hedges",',
     '  "keyFactors": ["3-5 concrete reasons the bias is what it is — cite anchor numbers"],',
     '  "risks": ["2-4 things that would invalidate the point estimate — cite specific levels"],',
