@@ -1,0 +1,1678 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<!-- Security headers -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://formspree.io; script-src 'self' 'unsafe-inline'; frame-src https://www.google.com https://maps.google.com; form-action https://formspree.io 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geneva — City Archivist</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --white:     #fdfcf9;
+  --parchment: #f8f5ef;
+  --linen:     #f2ede4;
+  --sand:      #e4ddd1;
+  --stone:     #c8bfb0;
+  --warm-gray: #9c9488;
+  --ink-light: #7a756e;
+  --ink-mid:   #4a4540;
+  --ink:       #2a2620;
+  --gold:      #b8995a;
+  --gold-dim:  #d4bc8a;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans:  'Jost', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--white);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; cursor: pointer; }
+img { image-orientation: none; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  height: 70px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 4rem;
+  background: rgba(253,252,249,0.94);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--sand);
+}
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.1rem; font-weight: 400;
+  letter-spacing: 0.22em; text-transform: uppercase;
+}
+.nav-logo span { color: var(--gold); }
+.nav-back {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 10px; font-weight: 300;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--ink-light); transition: color 0.2s;
+}
+.nav-back::before { content: '←'; font-size: 14px; }
+.nav-back:hover { color: var(--ink); }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-size: 10px; font-weight: 300;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink-light); position: relative; transition: color 0.25s;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -2px; left: 0;
+  width: 0; height: 1px; background: var(--gold); transition: width 0.3s;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-links a:hover::after { width: 100%; }
+
+/* ── HERO ── */
+.city-hero {
+  height: 100vh; padding-top: 70px;
+  display: grid; grid-template-columns: 1fr 1fr;
+}
+.city-hero-left {
+  background: var(--linen);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 4rem 5rem 6rem; position: relative;
+}
+.city-eyebrow {
+  position: absolute; top: 3.5rem; left: 5rem;
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 0.34em; text-transform: uppercase;
+  color: var(--warm-gray);
+  display: flex; align-items: center; gap: 14px;
+}
+.city-eyebrow::before {
+  content: ''; width: 22px; height: 1px;
+  background: var(--stone); display: inline-block;
+}
+.city-h1 {
+  font-family: var(--serif);
+  font-size: clamp(3.5rem, 6vw, 6.5rem);
+  font-weight: 300; line-height: 1.05;
+  color: var(--ink); margin-bottom: 2rem;
+}
+.city-h1 em { font-style: italic; color: var(--gold); }
+.city-tagline {
+  font-size: 12.5px; font-weight: 300;
+  color: var(--ink-light); max-width: 320px;
+  line-height: 1.9; margin-bottom: 3rem;
+}
+.city-meta {
+  display: flex; gap: 2.5rem;
+}
+.city-meta-item { border-top: 1px solid var(--sand); padding-top: 1rem; min-width: 90px; }
+.city-meta-num {
+  font-family: var(--serif); font-size: 1.6rem;
+  font-weight: 300; color: var(--gold); line-height: 1;
+  margin-bottom: 0.3rem;
+}
+.city-meta-label {
+  font-size: 9px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--warm-gray);
+}
+.city-hero-right {
+  position: relative; overflow: hidden; background: var(--sand);
+}
+.city-hero-img {
+  position: absolute; inset: 0;
+  background: linear-gradient(150deg, var(--linen) 0%, var(--sand) 45%, var(--stone) 100%);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 14px;
+}
+.ph-frame {
+  width: 56px; height: 56px;
+  border: 1px solid var(--stone);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--stone); font-size: 20px;
+}
+.ph-label {
+  font-size: 9px; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--stone);
+}
+
+/* ── SECTION ANCHOR NAV ── */
+.section-tabs {
+  position: sticky; top: 70px; z-index: 100;
+  background: var(--white);
+  border-bottom: 1px solid var(--sand);
+  display: flex; gap: 0;
+  padding: 0 4rem;
+  overflow-x: auto;
+}
+.tab-link {
+  font-size: 10px; font-weight: 300;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink-light);
+  padding: 1.2rem 2rem;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap; transition: all 0.25s;
+}
+.tab-link:hover, .tab-link.active {
+  color: var(--ink); border-bottom-color: var(--gold);
+}
+
+/* ── SHARED SECTION STYLES ── */
+.sec-header {
+  padding: 7rem 4rem 4rem;
+  display: grid; grid-template-columns: 1fr 1.3fr;
+  gap: 5rem; align-items: end;
+  border-bottom: 1px solid var(--sand);
+}
+.sec-eyebrow {
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--warm-gray); margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: 12px;
+}
+.sec-eyebrow::before {
+  content: ''; width: 20px; height: 1px;
+  background: var(--stone); display: inline-block;
+}
+.sec-h {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 3.5vw, 3.5rem);
+  font-weight: 300; line-height: 1.15; color: var(--ink);
+}
+.sec-h em { font-style: italic; color: var(--gold); }
+.sec-desc {
+  font-size: 13px; color: var(--ink-light);
+  font-weight: 300; line-height: 1.95;
+  max-width: 440px; align-self: end;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  display: flex; align-items: center; gap: 2rem;
+  padding: 0 4rem; margin: 4rem 0;
+}
+.divider-line { flex: 1; height: 1px; background: var(--sand); }
+.divider-mark {
+  font-family: var(--serif); font-style: italic;
+  font-size: 1rem; color: var(--stone);
+}
+
+/* ── HIDDEN SPOTS ── */
+#spots { background: var(--white); }
+.spots-filter {
+  display: flex; gap: 0.5rem; flex-wrap: wrap;
+  padding: 2.5rem 4rem;
+  border-bottom: 1px solid var(--sand);
+}
+.filter-btn {
+  font-family: var(--sans); font-size: 10px; font-weight: 300;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--ink-light);
+  border: 1px solid var(--sand);
+  background: transparent;
+  padding: 8px 18px; cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-btn:hover, .filter-btn.active {
+  background: var(--ink); color: var(--parchment);
+  border-color: var(--ink);
+}
+.spots-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--sand);
+  border-bottom: 1px solid var(--sand);
+}
+.spot-card {
+  background: var(--white);
+  display: flex; flex-direction: column;
+  cursor: pointer; transition: background 0.25s;
+}
+.spot-card:hover { background: var(--parchment); }
+.spot-img {
+  aspect-ratio: 4/3;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 10px;
+  position: relative;
+}
+.spot-img.a { background: linear-gradient(150deg, var(--linen), var(--sand)); }
+.spot-img.b { background: linear-gradient(150deg, var(--sand), var(--stone)); }
+.spot-img.c { background: linear-gradient(150deg, var(--parchment), var(--linen)); }
+.spot-img.d { background: linear-gradient(150deg, var(--sand), var(--warm-gray)); }
+.spot-img.e { background: linear-gradient(150deg, var(--linen), var(--stone)); }
+.spot-img.f { background: linear-gradient(150deg, var(--stone), var(--warm-gray)); }
+.spot-cat {
+  position: absolute; top: 1rem; left: 1rem;
+  font-size: 8.5px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink); background: rgba(253,252,249,0.85);
+  padding: 4px 10px;
+}
+.spot-body { padding: 1.8rem 2rem 2rem; }
+.spot-title {
+  font-family: var(--serif);
+  font-size: 1.25rem; font-weight: 300;
+  color: var(--ink); margin-bottom: 0.5rem; line-height: 1.3;
+}
+.spot-desc {
+  font-size: 12.5px; color: var(--ink-light);
+  font-weight: 300; line-height: 1.8; margin-bottom: 1.2rem;
+}
+.spot-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid var(--sand); padding-top: 1rem;
+}
+.spot-location {
+  font-size: 10px; letter-spacing: 0.14em;
+  color: var(--warm-gray);
+  display: flex; align-items: center; gap: 5px;
+}
+.spot-location::before { content: '◎'; font-size: 8px; }
+.spot-read {
+  font-size: 9.5px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--gold);
+  display: flex; align-items: center; gap: 6px; transition: gap 0.2s;
+}
+.spot-read::after { content: '→'; }
+.spot-read:hover { gap: 12px; }
+
+/* ── FEATURED ARTICLE ── */
+#reads { background: var(--linen); }
+.featured-article {
+  display: grid; grid-template-columns: 1.1fr 0.9fr;
+  border-bottom: 1px solid var(--sand); min-height: 480px;
+}
+.feat-img {
+  background: linear-gradient(150deg, var(--sand), var(--stone) 80%);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 14px;
+  position: relative; overflow: hidden; cursor: pointer;
+  transition: transform 0.6s;
+}
+.feat-img:hover { transform: scale(1.01); }
+.feat-badge {
+  position: absolute; top: 2rem; left: 2rem;
+  font-size: 8.5px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink); background: var(--gold-dim); padding: 5px 14px;
+}
+.feat-body {
+  padding: 4rem 4.5rem;
+  display: flex; flex-direction: column; justify-content: center;
+  border-left: 1px solid var(--sand);
+}
+.feat-meta {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 1.4rem;
+}
+.feat-tag {
+  font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--sage); border: 1px solid var(--sand); padding: 4px 10px;
+  color: var(--warm-gray);
+}
+.feat-dot { width: 3px; height: 3px; background: var(--gold); border-radius: 50%; }
+.feat-date { font-size: 11px; color: var(--ink-light); }
+.feat-title {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  font-weight: 300; line-height: 1.25;
+  color: var(--ink); margin-bottom: 1.2rem;
+}
+.feat-excerpt {
+  font-size: 13px; color: var(--ink-light);
+  font-weight: 300; line-height: 1.9; margin-bottom: 2rem;
+}
+.feat-cta {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase;
+  color: var(--ink); transition: gap 0.3s;
+}
+.feat-cta::after { content: ''; width: 30px; height: 1px; background: var(--gold); transition: width 0.3s; }
+.feat-cta:hover { gap: 18px; }
+.feat-cta:hover::after { width: 46px; }
+
+/* Article list */
+.article-list { padding: 0 4rem 7rem; }
+.article-row {
+  display: grid;
+  grid-template-columns: 100px 1fr auto;
+  gap: 2rem; align-items: start;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--sand);
+  cursor: pointer; transition: background 0.2s;
+  padding-left: 0.5rem; padding-right: 0.5rem;
+}
+.article-row:hover { background: rgba(228,221,209,0.3); }
+.art-img {
+  aspect-ratio: 1;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--stone); font-size: 16px;
+}
+.art-img.a { background: linear-gradient(135deg, var(--linen), var(--sand)); }
+.art-img.b { background: linear-gradient(135deg, var(--sand), var(--stone)); }
+.art-img.c { background: linear-gradient(135deg, var(--parchment), var(--linen)); }
+.art-tag {
+  font-size: 9px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--warm-gray); margin-bottom: 0.4rem;
+}
+.art-title {
+  font-family: var(--serif);
+  font-size: 1.15rem; font-weight: 300;
+  color: var(--ink); margin-bottom: 0.35rem; line-height: 1.3;
+}
+.art-excerpt {
+  font-size: 12.5px; color: var(--ink-light);
+  font-weight: 300; line-height: 1.75;
+}
+.art-arrow {
+  font-size: 16px; color: var(--gold); align-self: center;
+  opacity: 0; transition: opacity 0.2s, transform 0.2s;
+  transform: translateX(-6px);
+}
+.article-row:hover .art-arrow { opacity: 1; transform: translateX(0); }
+
+/* ── HOTELS ── */
+#hotels { background: var(--white); }
+.hotels-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: var(--sand);
+  border-bottom: 1px solid var(--sand); margin-top: 1px;
+}
+.hotel-card {
+  background: var(--white);
+  display: grid; grid-template-columns: 200px 1fr;
+  cursor: pointer; transition: background 0.25s; min-height: 210px;
+}
+.hotel-card:hover { background: var(--parchment); }
+.hotel-img {
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 10px;
+}
+.hotel-img.a { background: linear-gradient(140deg, var(--linen), var(--sand)); }
+.hotel-img.b { background: linear-gradient(140deg, var(--sand), var(--stone)); }
+.hotel-img.c { background: linear-gradient(140deg, var(--parchment), var(--linen)); }
+.hotel-img.d { background: linear-gradient(140deg, var(--linen), var(--warm-gray)); }
+.hotel-body {
+  padding: 2.4rem 2.8rem;
+  border-left: 1px solid var(--sand);
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.hotel-stars { font-size: 10px; color: var(--gold); letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+.hotel-name {
+  font-family: var(--serif);
+  font-size: 1.3rem; font-weight: 400;
+  color: var(--ink); margin-bottom: 0.2rem; line-height: 1.3;
+}
+.hotel-area {
+  font-size: 10px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--warm-gray); margin-bottom: 0.9rem;
+}
+.hotel-desc {
+  font-size: 12.5px; color: var(--ink-light);
+  font-weight: 300; line-height: 1.8; flex: 1; margin-bottom: 1.1rem;
+}
+.hotel-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid var(--sand); padding-top: 0.9rem;
+}
+.hotel-price { display: flex; align-items: baseline; gap: 5px; }
+.price-from { font-size: 10px; color: var(--warm-gray); }
+.price-val { font-family: var(--serif); font-size: 1.45rem; font-weight: 300; color: var(--ink); }
+.price-night { font-size: 10px; color: var(--warm-gray); }
+.hotel-link {
+  font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold); display: flex; align-items: center;
+  gap: 8px; transition: gap 0.25s;
+}
+.hotel-link::after { content: '→'; }
+.hotel-link:hover { gap: 14px; }
+
+/* ── NIGHTCLUBS ── */
+#nightclubs { background: var(--ink); }
+#nightclubs .sec-header { border-bottom-color: rgba(255,255,255,0.08); }
+#nightclubs .sec-eyebrow { color: var(--gold-dim); }
+#nightclubs .sec-eyebrow::before { background: var(--gold-dim); }
+#nightclubs .sec-h { color: var(--parchment); }
+#nightclubs .sec-desc { color: rgba(248,245,239,0.42); }
+.clubs-list { padding: 0 4rem 8rem; }
+.club-row {
+  display: grid;
+  grid-template-columns: 70px 1fr 260px 130px;
+  gap: 2.5rem; align-items: center;
+  padding: 2rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  cursor: pointer; transition: background 0.2s;
+}
+.club-row:hover { background: rgba(255,255,255,0.03); }
+.club-num {
+  font-family: var(--serif); font-style: italic;
+  font-size: 1.05rem; color: rgba(200,191,176,0.3);
+}
+.club-name {
+  font-family: var(--serif);
+  font-size: 1.35rem; font-weight: 300;
+  color: var(--parchment); margin-bottom: 0.15rem;
+}
+.club-genre {
+  font-size: 9.5px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: rgba(200,191,176,0.4);
+}
+.club-desc {
+  font-size: 12px; color: rgba(248,245,239,0.35);
+  font-weight: 300; line-height: 1.7;
+}
+.club-tag {
+  font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+  border: 1px solid rgba(184,153,90,0.28); color: var(--gold-dim);
+  padding: 6px 14px; text-align: center; justify-self: end;
+  transition: border-color 0.25s;
+}
+.club-row:hover .club-tag { border-color: rgba(184,153,90,0.6); }
+
+/* ── FOOTER ── */
+footer {
+  background: #1e1c18;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 4rem 4rem 2.5rem;
+}
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid rgba(255,255,255,0.06); padding-top: 2rem; margin-top: 3rem;
+}
+.footer-logo {
+  font-family: var(--serif); font-size: 1.05rem; font-weight: 400;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--parchment); margin-bottom: 0.6rem;
+}
+.footer-logo span { color: var(--gold); }
+.footer-city { font-size: 11px; color: rgba(248,245,239,0.35); }
+.footer-copy { font-size: 10.5px; color: rgba(248,245,239,0.2); letter-spacing: 0.08em; }
+.footer-socials { display: flex; gap: 1rem; }
+.soc {
+  font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(248,245,239,0.3); border: 1px solid rgba(255,255,255,0.1);
+  padding: 6px 14px; transition: all 0.2s;
+}
+.soc:hover { color: var(--gold-dim); border-color: rgba(184,153,90,0.4); }
+
+/* ── HOTEL CARD → clickable ── */
+.hotel-card[data-hotel-trigger] { cursor: pointer; }
+.hotel-img {
+  position: relative; overflow: hidden;
+  min-height: 220px;
+}
+
+/* ── HOTEL MODAL ── */
+.hotel-modal {
+  display: none;
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(20,18,15,0.78);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  overflow-y: auto;
+  align-items: flex-start; justify-content: center;
+  padding: 4rem 2rem;
+}
+.hotel-modal.open { display: flex; }
+.hotel-modal-card {
+  background: var(--white);
+  max-width: 1080px; width: 100%;
+  position: relative;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+  border: 1px solid var(--sand);
+}
+.hotel-modal-close {
+  position: absolute; top: 1.4rem; right: 1.4rem;
+  width: 38px; height: 38px;
+  background: var(--white);
+  border: 1px solid var(--sand);
+  color: var(--ink);
+  font-size: 16px; font-weight: 300;
+  cursor: pointer; z-index: 5;
+  transition: background 0.2s, color 0.2s, transform 0.3s;
+  display: flex; align-items: center; justify-content: center;
+}
+.hotel-modal-close:hover { background: var(--ink); color: var(--parchment); transform: rotate(90deg); }
+.hotel-modal-hero {
+  width: 100%; aspect-ratio: 21/9;
+  background: var(--sand) center/cover no-repeat;
+  position: relative;
+}
+.hotel-modal-hero::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.65) 100%);
+}
+.hotel-modal-hero-text {
+  position: absolute; bottom: 2.5rem; left: 3rem; right: 3rem; z-index: 2;
+  color: var(--parchment);
+}
+.hotel-modal-eyebrow {
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--gold-dim); margin-bottom: 0.8rem;
+  display: flex; align-items: center; gap: 12px;
+}
+.hotel-modal-eyebrow::before {
+  content: ''; width: 20px; height: 1px;
+  background: var(--gold-dim); display: inline-block;
+}
+.hotel-modal-name {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 300; line-height: 1.05;
+  color: var(--parchment);
+}
+.hotel-modal-name em { font-style: italic; color: var(--gold); }
+.hotel-modal-body {
+  padding: 3rem 3rem 4rem;
+  display: grid; grid-template-columns: 1.3fr 1fr;
+  gap: 3.5rem;
+}
+.hotel-modal-text h3 {
+  font-family: var(--serif);
+  font-size: 1.35rem; font-weight: 400;
+  color: var(--ink); margin-bottom: 1rem;
+}
+.hotel-modal-text p {
+  font-size: 13.5px; color: var(--ink-light);
+  font-weight: 300; line-height: 1.95;
+  margin-bottom: 1.2rem;
+}
+.hotel-modal-text p em {
+  font-family: var(--serif); font-style: italic;
+  color: var(--ink-mid); font-weight: 400;
+}
+.hotel-modal-meta {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.2rem 1.8rem;
+  margin-top: 2rem; padding-top: 2rem;
+  border-top: 1px solid var(--sand);
+}
+.hotel-modal-meta-item {
+  font-size: 9px; letter-spacing: 0.24em;
+  text-transform: uppercase; color: var(--warm-gray);
+}
+.hotel-modal-meta-val {
+  font-family: var(--serif);
+  font-size: 1.05rem; font-weight: 400;
+  color: var(--ink); margin-top: 0.3rem;
+  letter-spacing: 0; text-transform: none;
+}
+.hotel-modal-gallery {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 6px; align-self: start;
+}
+.hotel-modal-gallery a {
+  display: block; overflow: hidden; position: relative;
+  aspect-ratio: 4/3;
+}
+.hotel-modal-gallery a:first-child {
+  grid-column: span 2;
+  aspect-ratio: 16/9;
+}
+.hotel-modal-gallery img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  transition: transform 0.5s;
+}
+.hotel-modal-gallery a:hover img { transform: scale(1.05); }
+.hotel-modal-reserve {
+  padding: 3rem 3rem 4rem;
+  background: var(--linen);
+  border-top: 1px solid var(--sand);
+}
+.hotel-modal-reserve-h {
+  font-family: var(--serif);
+  font-size: 1.7rem; font-weight: 300;
+  color: var(--ink); margin-bottom: 0.6rem;
+}
+.hotel-modal-reserve-h em { font-style: italic; color: var(--gold); }
+.hotel-modal-reserve-p {
+  font-size: 13px; color: var(--ink-light);
+  font-weight: 300; line-height: 1.9;
+  max-width: 540px; margin-bottom: 2rem;
+}
+.hotel-form {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.2rem 1.5rem;
+}
+.hotel-form .full { grid-column: span 2; }
+.hotel-form label {
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--warm-gray);
+  margin-bottom: 0.4rem; display: block;
+}
+.hotel-form input,
+.hotel-form select {
+  width: 100%;
+  background: transparent;
+  border: none; border-bottom: 1px solid var(--sand);
+  color: var(--ink);
+  font-family: var(--sans); font-size: 13px; font-weight: 300;
+  padding: 8px 0;
+  transition: border-bottom-color 0.2s;
+}
+.hotel-form input:focus,
+.hotel-form select:focus { border-bottom-color: var(--gold); outline: none; }
+.hotel-form select option { background: var(--white); color: var(--ink); }
+.hotel-submit {
+  grid-column: span 2;
+  justify-self: start;
+  margin-top: 1rem;
+  background: var(--ink); color: var(--parchment);
+  border: 1px solid var(--ink);
+  font-family: var(--sans);
+  font-size: 10px; font-weight: 300;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  padding: 14px 30px; cursor: pointer;
+  transition: background 0.25s, color 0.25s, gap 0.3s;
+  display: inline-flex; align-items: center; gap: 12px;
+}
+.hotel-submit::after { content: '→'; }
+.hotel-submit:hover { background: transparent; color: var(--ink); gap: 18px; }
+.hotel-msg {
+  grid-column: span 2;
+  margin-top: 1rem;
+  font-size: 12px; color: var(--ink-light);
+  font-style: italic;
+  font-family: var(--serif);
+  min-height: 1.2em;
+}
+.hotel-msg[data-state="ok"] { color: var(--gold); }
+.hotel-msg[data-state="error"] { color: #b54848; }
+
+/* Request-any-other-hotel section */
+.hotel-request {
+  background: var(--linen);
+  border-top: 1px solid var(--sand);
+  padding: 4.5rem 4rem 5rem;
+}
+.hotel-request-inner {
+  max-width: 980px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1.4fr;
+  gap: 4rem; align-items: start;
+}
+.hotel-request-eyebrow {
+  font-size: 9px; font-weight: 300;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 12px;
+}
+.hotel-request-eyebrow::before {
+  content: ''; width: 20px; height: 1px;
+  background: var(--gold); display: inline-block;
+}
+.hotel-request-h {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+  font-weight: 300; line-height: 1.2;
+  color: var(--ink); margin-bottom: 1.2rem;
+}
+.hotel-request-h em { font-style: italic; color: var(--gold); }
+.hotel-request-p {
+  font-size: 13px; color: var(--ink-light);
+  font-weight: 300; line-height: 1.9;
+  max-width: 380px;
+}
+.hotel-request .hotel-form {
+  background: var(--white);
+  padding: 2.2rem 2.2rem 2.5rem;
+  border: 1px solid var(--sand);
+}
+
+@media (max-width: 1100px) {
+  .hotel-modal-body { grid-template-columns: 1fr; gap: 2.5rem; }
+  .hotel-modal-gallery { max-width: 760px; margin: 0 auto; width: 100%; }
+}
+@media (max-width: 768px) {
+  .hotel-modal { padding: 1rem; }
+  .hotel-modal-hero { aspect-ratio: 16/10; }
+  .hotel-modal-hero-text { left: 1.5rem; right: 1.5rem; bottom: 1.5rem; }
+  .hotel-modal-body { padding: 2rem 1.5rem; }
+  .hotel-modal-reserve { padding: 2rem 1.5rem 3rem; }
+  .hotel-form { grid-template-columns: 1fr; }
+  .hotel-form .full,
+  .hotel-submit,
+  .hotel-msg { grid-column: auto; }
+  .hotel-request { padding: 3rem 1.5rem 3.5rem; }
+  .hotel-request-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+  .hotel-request .hotel-form { padding: 1.6rem 1.4rem 2rem; }
+}
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  nav { padding: 0 1.5rem; gap: 0; }
+  .nav-links { display: none; }
+  .nav-back { font-size: 9px; letter-spacing: 0.16em; }
+
+  .city-hero { grid-template-columns: 1fr; height: auto; min-height: 100svh; }
+  .city-hero-right { display: none; }
+  .city-hero-left { padding: 6rem 1.8rem 4rem; }
+  .city-eyebrow { left: 1.8rem; top: 2rem; }
+  .city-h1 { font-size: clamp(3.2rem, 14vw, 5rem); }
+  .city-tagline { max-width: 100%; }
+  .city-meta { gap: 1.5rem; }
+
+  .section-tabs { padding: 0 1.5rem; gap: 0; }
+  .tab-link { padding: 1rem 1.2rem; font-size: 9px; }
+
+  .sec-header { grid-template-columns: 1fr; gap: 1.2rem; padding: 4rem 1.8rem 2.5rem; }
+
+  .spots-filter { padding: 1.5rem 1.8rem; gap: 0.4rem; }
+  .filter-btn { padding: 7px 12px; font-size: 9px; }
+  .spots-grid { grid-template-columns: 1fr; }
+
+  .featured-article { grid-template-columns: 1fr; }
+  .feat-img { min-height: 240px; }
+  .feat-body { padding: 2rem 1.8rem; border-left: none; border-top: 1px solid var(--sand); }
+
+  .article-list { padding: 0 1.8rem 4rem; }
+  .article-row { grid-template-columns: 70px 1fr; }
+  .art-arrow { display: none; }
+
+  .hotels-grid { grid-template-columns: 1fr; }
+  .hotel-card { grid-template-columns: 1fr; }
+  .hotel-img { min-height: 180px; }
+  .hotel-body { border-left: none; border-top: 1px solid var(--sand); }
+
+  .clubs-list { padding: 0 1.8rem 4rem; }
+  .club-row { grid-template-columns: 40px 1fr; gap: 1rem; padding: 1.5rem 0; }
+  .club-desc { display: none; }
+  .club-tag { display: none; }
+
+  #about { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 1.8rem; }
+  .about-imgs { display: none; }
+
+  footer { padding: 3rem 1.8rem 2rem; }
+  .footer-bottom { flex-direction: column; gap: 1rem; }
+
+  .divider { margin: 2.5rem 0; padding: 0 1.8rem; }
+}
+
+@media (max-width: 768px) {
+  
+}
+
+</style>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16-v3.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32-v3.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192-v3.png">
+<link rel="icon" type="image/svg+xml" href="favicon-v3.svg">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-v3.png">
+<meta name="theme-color" content="#e9ddc7">
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="top-nav">
+  <a class="nav-logo" href="/">City <span>Archivist</span></a>
+  <ul class="nav-links">
+    <li><a href="/#home" data-i18n="nav.home">Home</a></li>
+    <li><a href="/#destinations" data-i18n="nav.destinations">Destinations</a></li>
+    <li><a href="/wonders" data-i18n="nav.wonders">Wonders</a></li>
+    <li><a href="/hotels" data-i18n="nav.hotels">Hotels</a></li>
+    <li><a href="/clubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
+    <li><a href="/#about" data-i18n="nav.about">About Us</a></li>
+  </ul>
+  <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
+    <span data-lang-current>EN</span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="city-hero">
+  <div class="city-hero-left">
+    <div class="city-eyebrow">Switzerland · Lake Geneva · City Guide</div>
+    <h1 class="city-h1"><em>Geneva</em></h1>
+    <p class="city-tagline">A small city with a wide horizon — the Jet d'Eau on the lake, the Alps behind it, and an old town of watchmakers, diplomats and quiet luxury.</p>
+  </div>
+  <div class="city-hero-right">
+    <div class="city-hero-img" style="background:none;">
+      <img src="genf-hero.jpg" alt="Geneva — Jet d'Eau on Lake Geneva" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;">
+    </div>
+  </div>
+</section>
+
+<!-- HIDDEN SPOTS -->
+<section id="spots">
+  <div class="sec-header">
+    <div>
+      <div class="sec-eyebrow" data-i18n="city.spots.eyebrow">Hidden Spots</div>
+      <h2 class="sec-h">Secret<br><em>Geneva</em></h2>
+    </div>
+    <p class="sec-desc">Discover Geneva beyond the conference halls — lakeside baths, old-town café-bars, specialty coffee and the bohemian corners of Carouge.</p>
+  </div>
+
+  <div class="spots-filter">
+    <button class="filter-btn active" data-filter="all" data-i18n="spots.filter.all">All</button>
+    <button class="filter-btn" data-filter="cafes" data-i18n="spots.filter.cafes">Cafés</button>
+    <button class="filter-btn" data-filter="bars" data-i18n="spots.filter.bars">Bars</button>
+    <button class="filter-btn" data-filter="parks" data-i18n="spots.filter.parks">Parks</button>
+    <button class="filter-btn" data-filter="culture" data-i18n="spots.filter.culture">Culture</button>
+    <button class="filter-btn" data-filter="shopping" data-i18n="spots.filter.shopping">Shopping</button>
+    <button class="filter-btn" data-filter="foodspots" data-i18n="spots.filter.foodspots">Foodspots</button>
+  </div>
+
+  <div class="spots-grid">
+    <div class="spot-card" data-cat="cafes">
+      <div class="spot-img a">
+        <span class="spot-cat">Cafés</span>
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">Boréal Coffee</span>
+      </div>
+      <div class="spot-body">
+        <div class="spot-title">Boréal Coffee Shop</div>
+        <p class="spot-desc">Geneva's home-grown specialty roaster — single-origin espresso, flat whites done properly, and a young Pâquis crowd that treats it as a second office.</p>
+        <div class="spot-footer">
+          <span class="spot-location">Pâquis</span>
+          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="spot-card" data-cat="bars">
+      <div class="spot-img b">
+        <span class="spot-cat">Bars</span>
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">La Clémence</span>
+      </div>
+      <div class="spot-body">
+        <div class="spot-title">La Clémence</div>
+        <p class="spot-desc">The café-bar that owns the Place du Bourg-de-Four — a couple of centuries of students, a short local wine list, and the best people-watching terrace in the old town.</p>
+        <div class="spot-footer">
+          <span class="spot-location">Vieille-Ville</span>
+          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="spot-card" data-cat="parks">
+      <div class="spot-img" style="background:none; position:relative; overflow:hidden;">
+        <img src="genf-waterfront.jpg" alt="Geneva lakeside" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+        <span class="spot-cat">Parks</span>
+      </div>
+      <div class="spot-body">
+        <div class="spot-title">Bains des Pâquis</div>
+        <p class="spot-desc">The city's beloved public baths jutting into the lake — swimming and sunbathing in summer, sauna and hot fondue in winter, and locals of every age all year round.</p>
+        <div class="spot-footer">
+          <span class="spot-location">Lac Léman</span>
+          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="spot-card" data-cat="culture">
+      <div class="spot-img d">
+        <span class="spot-cat">Culture</span>
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">MAMCO</span>
+      </div>
+      <div class="spot-body">
+        <div class="spot-title">MAMCO Genève</div>
+        <p class="spot-desc">Switzerland's largest contemporary-art museum, in a former factory in Plainpalais — four floors of installations that change often enough to reward the regulars.</p>
+        <div class="spot-footer">
+          <span class="spot-location">Plainpalais</span>
+          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="spot-card" data-cat="foodspots">
+      <div class="spot-img e">
+        <span class="spot-cat">Foodspots</span>
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">Chez ma Cousine</span>
+      </div>
+      <div class="spot-body">
+        <div class="spot-title">Chez ma Cousine</div>
+        <p class="spot-desc">“On y mange du poulet” — half a roast chicken, gratin and salad for the price of a sandwich, served fast in the old town since the students' parents were students.</p>
+        <div class="spot-footer">
+          <span class="spot-location">Vieille-Ville</span>
+          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="spot-card" data-cat="shopping">
+      <div class="spot-img f">
+        <span class="spot-cat">Shopping</span>
+        <div class="ph-frame">◎</div>
+        <span class="ph-label">Carouge</span>
+      </div>
+      <div class="spot-body">
+        <div class="spot-title">Carouge</div>
+        <p class="spot-desc">Geneva's “little Italy” across the Arve — a Sardinian-planned grid of arcaded courtyards, independent designers, record shops and a Saturday market worth the tram ride.</p>
+        <div class="spot-footer">
+          <span class="spot-location">Carouge</span>
+          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="divider"><div class="divider-line"></div><div class="divider-mark">✦</div><div class="divider-line"></div></div>
+
+<!-- READS / ARTICLES -->
+<section id="reads">
+  <div class="sec-header" style="background:var(--linen);">
+    <div>
+      <div class="sec-eyebrow" data-i18n="city.reads.eyebrow">Reads</div>
+      <h2 class="sec-h">about<br><em>Geneva</em></h2>
+    </div>
+    <p class="sec-desc">Geneva keeps its best stories quiet. These are the pieces that explain the city behind the banks and the UN — its lake, its kitchens, its two-hundred-year obsession with time.</p>
+  </div>
+
+  <div class="featured-article" style="background:var(--linen);">
+    <div class="feat-img" style="background:none; position:relative; overflow:hidden;">
+      <img src="genf-waterfront.jpg" alt="Geneva waterfront" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+      <div class="feat-badge" data-i18n="feat.featured">Featured Read</div>
+    </div>
+    <div class="feat-body" style="background:var(--linen);">
+      <div class="feat-meta">
+        <span class="feat-tag">Neighbourhoods</span>
+        <div class="feat-dot"></div>
+        <span class="feat-date">April, 2026</span>
+      </div>
+      <div class="feat-title">A neighbourhood-by-neighbourhood guide to Geneva.</div>
+      <p class="feat-excerpt">Pâquis for late-night bites and the baths, Eaux-Vives for the new lakefront, the Vieille-Ville for cobblestones and antiquaries, Plainpalais for the flea market, Carouge for the slow Saturday. A practical, opinionated walk across the city in six stops.</p>
+      <a class="feat-cta" data-i18n="feat.readmore">Read more</a>
+    </div>
+  </div>
+
+  <div class="article-list" style="background:var(--linen);">
+    <div class="article-row">
+      <div class="art-img a">◎</div>
+      <div>
+        <div class="art-tag">History · 2026</div>
+        <div class="art-title">The Jet d'Eau — a happy accident</div>
+        <p class="art-excerpt">It began in 1886 as a safety valve for the city's hydraulic power network. Today it throws 500 litres a second some 140 metres into the air — and became, almost by mistake, the symbol of Geneva.</p>
+      </div>
+      <div class="art-arrow">→</div>
+    </div>
+    <div class="article-row">
+      <div class="art-img b">◎</div>
+      <div>
+        <div class="art-tag">Cuisine · 2026</div>
+        <div class="art-title">Fondue, perch and the lake</div>
+        <p class="art-excerpt">Filets de perche from the lake, a moitié-moitié fondue in winter, longeole sausage and cardon from the local farms. A guide to eating in Geneva beyond the expense-account restaurants.</p>
+      </div>
+      <div class="art-arrow">→</div>
+    </div>
+    <div class="article-row">
+      <div class="art-img c">◎</div>
+      <div>
+        <div class="art-tag">Time · 2026</div>
+        <div class="art-title">Geneva and the art of watchmaking</div>
+        <p class="art-excerpt">From the Huguenot cabinotiers to Patek Philippe and the Grand Prix d'Horlogerie — why the world's finest watches are still made within a few kilometres of the lake.</p>
+      </div>
+      <div class="art-arrow">→</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOTELS -->
+<section id="hotels">
+  <div class="sec-header">
+    <div>
+      <div class="sec-eyebrow" data-i18n="city.hotels.eyebrow">Hotels</div>
+      <h2 class="sec-h" data-i18n="mu.hotels.h2">Where to<br><em>Stay</em></h2>
+    </div>
+    <p class="sec-desc">Four lakeside addresses — the family-owned grande dame, two palaces on the water and the newest arrival on the Rive Droite. We start with Beau-Rivage; the rest are on the way.</p>
+  </div>
+  <div class="hotels-grid">
+
+    <div class="hotel-card" data-hotel-trigger="beaurivage" tabindex="0" role="button" aria-label="Open Beau-Rivage details">
+      <div class="hotel-img" style="background:none;">
+        <img src="beaurivage-1.jpg" alt="Beau-Rivage Genève" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="hotel-body">
+        <div>
+          <div class="hotel-stars">★★★★★</div>
+          <div class="hotel-name">Beau-Rivage</div>
+          <div class="hotel-area">Quai du Mont-Blanc · Genève</div>
+          <p class="hotel-desc">Geneva's last family-owned grand hotel, on the lake since 1865 — a five-storey painted atrium, the Michelin-starred Chat-Botté, and suites that have hosted emperors, empresses and the odd exiled king.</p>
+        </div>
+        <div class="hotel-footer">
+          <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">CHF 800</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
+          <span class="hotel-link" data-i18n="hotel.discover">Discover</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hotel-card" data-hotel-trigger="desbergues" tabindex="0" role="button" aria-label="Open Four Seasons Hôtel des Bergues details">
+      <div class="hotel-img a"><div class="ph-frame">◎</div><span class="ph-label">Four Seasons des Bergues</span></div>
+      <div class="hotel-body">
+        <div>
+          <div class="hotel-stars">★★★★★</div>
+          <div class="hotel-name">Four Seasons Hôtel des Bergues</div>
+          <div class="hotel-area">Quai des Bergues · Genève</div>
+          <p class="hotel-desc">Geneva's oldest grand hotel, opened in 1834 and run today by Four Seasons — a Rive Droite address facing the water, Il Lago downstairs and the Izumi rooftop above.</p>
+        </div>
+        <div class="hotel-footer">
+          <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">CHF 900</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
+          <span class="hotel-link" data-i18n="hotel.discover">Discover</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hotel-card" data-hotel-trigger="woodward" tabindex="0" role="button" aria-label="Open The Woodward details">
+      <div class="hotel-img b"><div class="ph-frame">◎</div><span class="ph-label">The Woodward</span></div>
+      <div class="hotel-body">
+        <div>
+          <div class="hotel-stars">★★★★★</div>
+          <div class="hotel-name">The Woodward</div>
+          <div class="hotel-area">Quai Wilson · Genève</div>
+          <p class="hotel-desc">A 1901 Belle-Époque palace reborn as an all-suite Auberge Resorts hotel — a Guerlain spa, a Pierre Gagnaire restaurant and the most talked-about opening on the lake in years.</p>
+        </div>
+        <div class="hotel-footer">
+          <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">CHF 1.100</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
+          <span class="hotel-link" data-i18n="hotel.discover">Discover</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hotel-card" data-hotel-trigger="angleterre" tabindex="0" role="button" aria-label="Open Hôtel d'Angleterre details">
+      <div class="hotel-img c"><div class="ph-frame">◎</div><span class="ph-label">Hôtel d'Angleterre</span></div>
+      <div class="hotel-body">
+        <div>
+          <div class="hotel-stars">★★★★★</div>
+          <div class="hotel-name">Hôtel d'Angleterre</div>
+          <div class="hotel-area">Quai du Mont-Blanc · Genève</div>
+          <p class="hotel-desc">An intimate lakefront classic next door to Beau-Rivage — the Leopard Bar for live jazz, an English-house feel and one of the warmest welcomes in the city.</p>
+        </div>
+        <div class="hotel-footer">
+          <div class="hotel-price"><span class="price-from" data-i18n="hotel.from">from</span><span class="price-val">CHF 650</span><span class="price-night" data-i18n="hotel.night">/ night</span></div>
+          <span class="hotel-link" data-i18n="hotel.discover">Discover</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── Request any other hotel ── -->
+  <div class="hotel-request">
+    <div class="hotel-request-inner">
+      <div>
+        <div class="hotel-request-eyebrow" data-i18n="mu.req.eyebrow">Looking for something else?</div>
+        <h3 class="hotel-request-h">Request <em>any other</em> Geneva hotel.</h3>
+        <p class="hotel-request-p">Not one of the four featured? Tell us where you'd like to stay — La Réserve, Mandarin Oriental, Hôtel N'vY, The Ritz-Carlton Hotel de la Paix, or any other address — and we'll arrange the reservation for you.</p>
+      </div>
+      <form id="hotel-form-other" class="hotel-form" data-endpoint="https://formspree.io/f/myklrnro" novalidate>
+        <input type="hidden" name="_subject" value="Hotel reservation enquiry — Geneva (other)">
+        <input type="hidden" name="city" value="Geneva">
+
+        <div>
+          <label for="other-name" data-i18n="mu.hm.f.name">Your name</label>
+          <input id="other-name" type="text" name="name" autocomplete="name" required placeholder="Full name">
+        </div>
+        <div>
+          <label for="other-email" data-i18n="mu.hm.f.email">Email</label>
+          <input id="other-email" type="email" name="email" autocomplete="email" required placeholder="your@email.com">
+        </div>
+        <div class="full">
+          <label for="other-hotel" data-i18n="mu.req.f.hotel">Which hotel?</label>
+          <input id="other-hotel" type="text" name="hotel" required placeholder="e.g. La Réserve">
+        </div>
+        <div>
+          <label for="other-checkin" data-i18n="mu.hm.f.checkin">Check-in</label>
+          <input id="other-checkin" type="date" name="checkin" required>
+        </div>
+        <div>
+          <label for="other-checkout" data-i18n="mu.hm.f.checkout">Check-out</label>
+          <input id="other-checkout" type="date" name="checkout" required>
+        </div>
+        <div>
+          <label for="other-guests" data-i18n="mu.hm.f.guests">Guests</label>
+          <input id="other-guests" type="number" name="guests" min="1" max="10" required placeholder="2">
+        </div>
+        <div>
+          <label for="other-room" data-i18n="mu.req.f.preference">Room preference</label>
+          <input id="other-room" type="text" name="villa" placeholder="Suite, twin, view, …">
+        </div>
+        <div class="full">
+          <label for="other-note" data-i18n="mu.hm.f.note">Additional notes (optional)</label>
+          <input id="other-note" type="text" name="note" placeholder="Occasion, dietary requirements, transfers…">
+        </div>
+        <button class="hotel-submit" type="submit" data-i18n="mu.req.submit">Send request</button>
+
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;">
+        <input type="hidden" name="_form_loaded_at" value="">
+
+        <div id="hotel-msg-other" class="hotel-msg"></div>
+      </form>
+    </div>
+  </div>
+
+</section>
+
+<!-- DIVIDER -->
+<div class="divider"><div class="divider-line"></div><div class="divider-mark">✦</div><div class="divider-line"></div></div>
+
+<!-- NIGHTCLUBS -->
+<section id="nightclubs">
+  <div class="sec-header">
+    <div>
+      <div class="sec-eyebrow" data-i18n="city.nightclubs.eyebrow">Nightclubs</div>
+      <h2 class="sec-h">After<br><em>Dark</em></h2>
+    </div>
+    <p class="sec-desc">Geneva goes out later and smaller than you'd think — a cluster of serious electronic rooms by the river, and a scrappier scene across the water in Carouge.</p>
+  </div>
+  <div class="clubs-list">
+    <div class="club-row">
+      <div class="club-num">01</div>
+      <div><div class="club-name">La Gravière</div><div class="club-genre">Techno · House · Underground</div></div>
+      <p class="club-desc">A former gravel works on the Jonction, run as a non-profit — booking policy over bottle service, long queer-friendly nights and the closest thing Geneva has to Berlin.</p>
+      <div class="club-tag">La Jonction</div>
+    </div>
+    <div class="club-row">
+      <div class="club-num">02</div>
+      <div><div class="club-name">Audio Club</div><div class="club-genre">Techno · Electronic</div></div>
+      <p class="club-desc">The city-centre club on the Coulouvrenière — a proper sound system, international techno bookings and the room most Geneva nights end up in.</p>
+      <div class="club-tag">Coulouvrenière</div>
+    </div>
+    <div class="club-row">
+      <div class="club-num">03</div>
+      <div><div class="club-name">Motel Campo</div><div class="club-genre">Electronic · Live · Warehouse</div></div>
+      <p class="club-desc">A warehouse out at La Praille — two rooms, a garden, live acts and after-hours line-ups that run long past the last tram.</p>
+      <div class="club-tag">La Praille</div>
+    </div>
+    <div class="club-row">
+      <div class="club-num">04</div>
+      <div><div class="club-name">Chat Noir</div><div class="club-genre">Live · Eclectic · Late</div></div>
+      <p class="club-desc">A Carouge institution — live music upstairs, a cellar club below, everything from funk to house on a bill that changes nightly.</p>
+      <div class="club-tag">Carouge</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div style="display:flex; justify-content:space-between; align-items:start; margin-bottom:3rem;">
+    <div>
+      <div class="footer-logo">City <span>Archivist</span></div>
+      <div class="footer-city">Geneva City Guide</div>
+    </div>
+    <a href="/" style="font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(248,245,239,0.4); display:flex; align-items:center; gap:10px; transition:color 0.2s;">
+      ← All cities
+    </a>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 City Archivist — Geneva</span>
+    <div class="footer-socials">
+      <a class="soc">Instagram</a>
+      <a class="soc">TikTok</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.getAttribute('data-filter') || 'all';
+      document.querySelectorAll('.spot-card').forEach(card => {
+        const cat = card.getAttribute('data-cat');
+        card.style.display = (filter === 'all' || cat === filter) ? '' : 'none';
+      });
+    });
+  });
+  const tabs = document.querySelectorAll('.tab-link');
+  const sections = ['spots','reads','hotels','nightclubs'];
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 200) current = id;
+    });
+    tabs.forEach(t => {
+      t.classList.toggle('active', t.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+<!-- ════════════════════════════════════════════════
+     HOTEL MODALS — Geneva
+     ════════════════════════════════════════════════ -->
+
+<!-- BEAU-RIVAGE -->
+<div class="hotel-modal" id="hotel-modal-beaurivage" role="dialog" aria-modal="true" aria-labelledby="beaurivage-modal-title">
+  <div class="hotel-modal-card">
+    <button type="button" class="hotel-modal-close" data-hotel-close aria-label="Close">×</button>
+    <div class="hotel-modal-hero" style="background-image: url('beaurivage-1.jpg'); background-size: cover; background-position: center;">
+      <div class="hotel-modal-hero-text">
+        <div class="hotel-modal-eyebrow">Featured Hotel · Geneva</div>
+        <h2 class="hotel-modal-name" id="beaurivage-modal-title">Beau-<em>Rivage</em></h2>
+      </div>
+    </div>
+    <div class="hotel-modal-body">
+      <div class="hotel-modal-text">
+        <h3>The last of the family grand hotels.</h3>
+        <p>Opened in <em>1865</em> and still owned by the fifth generation of the Mayer family, Beau-Rivage is the rarest thing in modern hospitality — a genuine grand hotel that never became a chain. Its heart is a five-storey painted atrium, lit from a glass roof, that has barely changed in a century and a half.</p>
+        <p>History happened here: the Empress Sissi of Austria died in one of its rooms in 1898; the treaty that recognised Turkey was drafted under its ceilings. Today the Chat-Botté holds a Michelin star, the terrace looks straight onto the Jet d'Eau, and the suites keep their antique furniture and lake-facing balconies.</p>
+        <p>Small, personal and quietly grand — the address Geneva keeps for itself.</p>
+
+        <div class="hotel-modal-meta">
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.location">Location</div>
+            <div class="hotel-modal-meta-val">Quai du Mont-Blanc · Genève</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.opened">Founded</div>
+            <div class="hotel-modal-meta-val">1865</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.rooms">Rooms &amp; suites</div>
+            <div class="hotel-modal-meta-val">~90 rooms &amp; suites</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.from">From</div>
+            <div class="hotel-modal-meta-val">CHF 800 / night</div>
+          </div>
+        </div>
+      </div>
+      <div class="hotel-modal-gallery">
+        <a href="beaurivage-2.jpg" target="_blank" rel="noopener"><img src="beaurivage-2.jpg" alt="Beau-Rivage Genève" loading="lazy"></a>
+        <a href="beaurivage-3.jpg" target="_blank" rel="noopener"><img src="beaurivage-3.jpg" alt="Beau-Rivage Genève" loading="lazy"></a>
+        <a href="beaurivage-4.jpg" target="_blank" rel="noopener"><img src="beaurivage-4.jpg" alt="Beau-Rivage Genève" loading="lazy"></a>
+        <a href="beaurivage-5.jpg" target="_blank" rel="noopener"><img src="beaurivage-5.jpg" alt="Beau-Rivage Genève" loading="lazy"></a>
+        <a href="beaurivage-1.jpg" target="_blank" rel="noopener"><img src="beaurivage-1.jpg" alt="Beau-Rivage Genève" loading="lazy"></a>
+      </div>
+    </div>
+
+    <div class="hotel-modal-reserve">
+      <h3 class="hotel-modal-reserve-h" data-i18n="mu.hm.reserve.h">Request a <em>reservation</em></h3>
+      <p class="hotel-modal-reserve-p" data-i18n="mu.hm.reserve.p">Send a non-binding enquiry. We forward it directly to the hotel's reservations desk and reply within 24 hours.</p>
+      <form id="hotel-form-beaurivage" class="hotel-form" data-endpoint="https://formspree.io/f/myklrnro" novalidate>
+        <input type="hidden" name="_subject" value="Beau-Rivage reservation enquiry">
+        <input type="hidden" name="hotel" value="Beau-Rivage Genève">
+        <input type="hidden" name="city" value="Geneva">
+        <div><label for="beaurivage-name" data-i18n="mu.hm.f.name">Your name</label><input id="beaurivage-name" type="text" name="name" autocomplete="name" required placeholder="Full name"></div>
+        <div><label for="beaurivage-email" data-i18n="mu.hm.f.email">Email</label><input id="beaurivage-email" type="email" name="email" autocomplete="email" required placeholder="your@email.com"></div>
+        <div><label for="beaurivage-checkin" data-i18n="mu.hm.f.checkin">Check-in</label><input id="beaurivage-checkin" type="date" name="checkin" required></div>
+        <div><label for="beaurivage-checkout" data-i18n="mu.hm.f.checkout">Check-out</label><input id="beaurivage-checkout" type="date" name="checkout" required></div>
+        <div><label for="beaurivage-guests" data-i18n="mu.hm.f.guests">Guests</label><input id="beaurivage-guests" type="number" name="guests" min="1" max="10" required placeholder="2"></div>
+        <div><label for="beaurivage-villa" data-i18n="mu.hm.f.villa">Room type</label>
+          <select id="beaurivage-villa" name="villa" required>
+            <option value="" selected disabled>Choose</option>
+            <option value="lake-deluxe">Deluxe Lake View</option>
+            <option value="junior-suite">Junior Suite</option>
+            <option value="signature-suite">Signature Suite</option>
+            <option value="historic-suite">Historic Suite</option>
+            <option value="not-sure">Not sure yet</option>
+          </select>
+        </div>
+        <div class="full"><label for="beaurivage-note" data-i18n="mu.hm.f.note">Additional notes (optional)</label><input id="beaurivage-note" type="text" name="note" placeholder="Occasion, dietary requirements, transfers…"></div>
+        <button class="hotel-submit" type="submit" data-i18n="mu.hm.f.submit">Send enquiry</button>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;">
+        <input type="hidden" name="_form_loaded_at" value="">
+        <div id="hotel-msg-beaurivage" class="hotel-msg"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- FOUR SEASONS HÔTEL DES BERGUES -->
+<div class="hotel-modal" id="hotel-modal-desbergues" role="dialog" aria-modal="true" aria-labelledby="desbergues-modal-title">
+  <div class="hotel-modal-card">
+    <button type="button" class="hotel-modal-close" data-hotel-close aria-label="Close">×</button>
+    <div class="hotel-modal-hero" style="background-image: linear-gradient(135deg, #3a4a55, #1f2a30 60%, #0a1418 100%);">
+      <div class="hotel-modal-hero-text">
+        <div class="hotel-modal-eyebrow">Featured Hotel · Geneva</div>
+        <h2 class="hotel-modal-name" id="desbergues-modal-title">Four Seasons · <em>des Bergues</em></h2>
+      </div>
+    </div>
+    <div class="hotel-modal-body">
+      <div class="hotel-modal-text">
+        <h3>Geneva's oldest grand hotel.</h3>
+        <p>Opened in <em>1834</em> on the Quai des Bergues, this is the address that started Geneva's grand-hotel tradition — a Rive Droite façade looking across the water to the old town and the fountain.</p>
+        <p>Run today by Four Seasons: the lakeside Il Lago by Michelin-starred chefs, the Izumi Japanese rooftop with its terrace, and a spa tucked into the historic building.</p>
+        <p>The classic choice for the view back toward the Jet d'Eau.</p>
+
+        <div class="hotel-modal-meta">
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.location">Location</div>
+            <div class="hotel-modal-meta-val">Quai des Bergues · Genève</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.opened">Opened</div>
+            <div class="hotel-modal-meta-val">1834</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.rooms">Rooms &amp; suites</div>
+            <div class="hotel-modal-meta-val">115 rooms · 40 suites</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.from">From</div>
+            <div class="hotel-modal-meta-val">CHF 900 / night</div>
+          </div>
+        </div>
+      </div>
+      <div class="hotel-modal-gallery">
+        <a href="#" style="background:linear-gradient(150deg,#55707a,#0e161a); aspect-ratio:16/9; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#3a4a55,#060c0e); aspect-ratio:4/3; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#7a95a0,#1a2830); aspect-ratio:4/3; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#1f2a30,#08120f); aspect-ratio:4/3; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#60808a,#1a2428); aspect-ratio:4/3; display:block;"></a>
+      </div>
+    </div>
+
+    <div class="hotel-modal-reserve">
+      <h3 class="hotel-modal-reserve-h" data-i18n="mu.hm.reserve.h">Request a <em>reservation</em></h3>
+      <p class="hotel-modal-reserve-p" data-i18n="mu.hm.reserve.p">Send a non-binding enquiry. We forward it directly to the hotel's reservations desk and reply within 24 hours.</p>
+      <form id="hotel-form-desbergues" class="hotel-form" data-endpoint="https://formspree.io/f/myklrnro" novalidate>
+        <input type="hidden" name="_subject" value="Four Seasons des Bergues reservation enquiry">
+        <input type="hidden" name="hotel" value="Four Seasons Hôtel des Bergues">
+        <input type="hidden" name="city" value="Geneva">
+        <div><label for="desbergues-name" data-i18n="mu.hm.f.name">Your name</label><input id="desbergues-name" type="text" name="name" autocomplete="name" required placeholder="Full name"></div>
+        <div><label for="desbergues-email" data-i18n="mu.hm.f.email">Email</label><input id="desbergues-email" type="email" name="email" autocomplete="email" required placeholder="your@email.com"></div>
+        <div><label for="desbergues-checkin" data-i18n="mu.hm.f.checkin">Check-in</label><input id="desbergues-checkin" type="date" name="checkin" required></div>
+        <div><label for="desbergues-checkout" data-i18n="mu.hm.f.checkout">Check-out</label><input id="desbergues-checkout" type="date" name="checkout" required></div>
+        <div><label for="desbergues-guests" data-i18n="mu.hm.f.guests">Guests</label><input id="desbergues-guests" type="number" name="guests" min="1" max="10" required placeholder="2"></div>
+        <div><label for="desbergues-villa" data-i18n="mu.hm.f.villa">Room type</label>
+          <select id="desbergues-villa" name="villa" required>
+            <option value="" selected disabled>Choose</option>
+            <option value="superior">Superior Room</option>
+            <option value="lake-view">Lake View Room</option>
+            <option value="junior-suite">Junior Suite</option>
+            <option value="bergues-suite">Bergues Suite</option>
+            <option value="not-sure">Not sure yet</option>
+          </select>
+        </div>
+        <div class="full"><label for="desbergues-note" data-i18n="mu.hm.f.note">Additional notes (optional)</label><input id="desbergues-note" type="text" name="note" placeholder="Occasion, dietary requirements, transfers…"></div>
+        <button class="hotel-submit" type="submit" data-i18n="mu.hm.f.submit">Send enquiry</button>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;">
+        <input type="hidden" name="_form_loaded_at" value="">
+        <div id="hotel-msg-desbergues" class="hotel-msg"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- THE WOODWARD -->
+<div class="hotel-modal" id="hotel-modal-woodward" role="dialog" aria-modal="true" aria-labelledby="woodward-modal-title">
+  <div class="hotel-modal-card">
+    <button type="button" class="hotel-modal-close" data-hotel-close aria-label="Close">×</button>
+    <div class="hotel-modal-hero" style="background-image: linear-gradient(135deg, #4a3f2a, #2a2218 60%, #120e08 100%);">
+      <div class="hotel-modal-hero-text">
+        <div class="hotel-modal-eyebrow">Featured Hotel · Geneva</div>
+        <h2 class="hotel-modal-name" id="woodward-modal-title">The <em>Woodward</em></h2>
+      </div>
+    </div>
+    <div class="hotel-modal-body">
+      <div class="hotel-modal-text">
+        <h3>A Belle-Époque palace, reborn.</h3>
+        <p>Behind a protected <em>1901</em> façade on the Quai Wilson, The Woodward opened in 2021 as an all-suite Auberge Resorts hotel — the most talked-about arrival on the lake in a generation.</p>
+        <p>Every one of its 26 suites faces the water; downstairs is a Pierre Gagnaire restaurant, and below that a two-floor Guerlain spa with an indoor pool.</p>
+        <p>Old bones, entirely new luxury.</p>
+
+        <div class="hotel-modal-meta">
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.location">Location</div>
+            <div class="hotel-modal-meta-val">Quai Wilson · Genève</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.opened">Opened</div>
+            <div class="hotel-modal-meta-val">2021</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.rooms">Rooms &amp; suites</div>
+            <div class="hotel-modal-meta-val">26 all-suite</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.from">From</div>
+            <div class="hotel-modal-meta-val">CHF 1.100 / night</div>
+          </div>
+        </div>
+      </div>
+      <div class="hotel-modal-gallery">
+        <a href="#" style="background:linear-gradient(150deg,#6a5a35,#1a140e); aspect-ratio:16/9; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#4a3f2a,#0e0a06); aspect-ratio:4/3; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#8a7a55,#2a2218); aspect-ratio:4/3; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#2a2218,#120e08); aspect-ratio:4/3; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#7a6a45,#2a2418); aspect-ratio:4/3; display:block;"></a>
+      </div>
+    </div>
+
+    <div class="hotel-modal-reserve">
+      <h3 class="hotel-modal-reserve-h" data-i18n="mu.hm.reserve.h">Request a <em>reservation</em></h3>
+      <p class="hotel-modal-reserve-p" data-i18n="mu.hm.reserve.p">Send a non-binding enquiry. We forward it directly to the hotel's reservations desk and reply within 24 hours.</p>
+      <form id="hotel-form-woodward" class="hotel-form" data-endpoint="https://formspree.io/f/myklrnro" novalidate>
+        <input type="hidden" name="_subject" value="The Woodward reservation enquiry">
+        <input type="hidden" name="hotel" value="The Woodward">
+        <input type="hidden" name="city" value="Geneva">
+        <div><label for="woodward-name" data-i18n="mu.hm.f.name">Your name</label><input id="woodward-name" type="text" name="name" autocomplete="name" required placeholder="Full name"></div>
+        <div><label for="woodward-email" data-i18n="mu.hm.f.email">Email</label><input id="woodward-email" type="email" name="email" autocomplete="email" required placeholder="your@email.com"></div>
+        <div><label for="woodward-checkin" data-i18n="mu.hm.f.checkin">Check-in</label><input id="woodward-checkin" type="date" name="checkin" required></div>
+        <div><label for="woodward-checkout" data-i18n="mu.hm.f.checkout">Check-out</label><input id="woodward-checkout" type="date" name="checkout" required></div>
+        <div><label for="woodward-guests" data-i18n="mu.hm.f.guests">Guests</label><input id="woodward-guests" type="number" name="guests" min="1" max="10" required placeholder="2"></div>
+        <div><label for="woodward-villa" data-i18n="mu.hm.f.villa">Room type</label>
+          <select id="woodward-villa" name="villa" required>
+            <option value="" selected disabled>Choose</option>
+            <option value="deluxe-suite">Deluxe Suite</option>
+            <option value="lake-suite">Lake View Suite</option>
+            <option value="signature-suite">Signature Suite</option>
+            <option value="woodward-suite">Woodward Suite</option>
+            <option value="not-sure">Not sure yet</option>
+          </select>
+        </div>
+        <div class="full"><label for="woodward-note" data-i18n="mu.hm.f.note">Additional notes (optional)</label><input id="woodward-note" type="text" name="note" placeholder="Occasion, dietary requirements, transfers…"></div>
+        <button class="hotel-submit" type="submit" data-i18n="mu.hm.f.submit">Send enquiry</button>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;">
+        <input type="hidden" name="_form_loaded_at" value="">
+        <div id="hotel-msg-woodward" class="hotel-msg"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- HÔTEL D'ANGLETERRE -->
+<div class="hotel-modal" id="hotel-modal-angleterre" role="dialog" aria-modal="true" aria-labelledby="angleterre-modal-title">
+  <div class="hotel-modal-card">
+    <button type="button" class="hotel-modal-close" data-hotel-close aria-label="Close">×</button>
+    <div class="hotel-modal-hero" style="background-image: linear-gradient(135deg, #3a4535, #1f2a1f 60%, #0a1408 100%);">
+      <div class="hotel-modal-hero-text">
+        <div class="hotel-modal-eyebrow">Featured Hotel · Geneva</div>
+        <h2 class="hotel-modal-name" id="angleterre-modal-title">Hôtel <em>d'Angleterre</em></h2>
+      </div>
+    </div>
+    <div class="hotel-modal-body">
+      <div class="hotel-modal-text">
+        <h3>The intimate one on the lake.</h3>
+        <p>A few doors from Beau-Rivage on the Quai du Mont-Blanc, the <em>d'Angleterre</em> trades scale for warmth — 45 rooms with the feel of a private English house, all facing the water and the fountain.</p>
+        <p>The Leopard Bar is a Geneva evening in itself: live jazz most nights, a serious cocktail list and a fireplace for winter. Windows restaurant does the lake-view breakfast.</p>
+        <p>Small, personal, and perfectly placed.</p>
+
+        <div class="hotel-modal-meta">
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.location">Location</div>
+            <div class="hotel-modal-meta-val">Quai du Mont-Blanc · Genève</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.opened">Opened</div>
+            <div class="hotel-modal-meta-val">1872</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.rooms">Rooms &amp; suites</div>
+            <div class="hotel-modal-meta-val">45 rooms & suites</div>
+          </div>
+          <div>
+            <div class="hotel-modal-meta-item" data-i18n="mu.hm.label.from">From</div>
+            <div class="hotel-modal-meta-val">CHF 650 / night</div>
+          </div>
+        </div>
+      </div>
+      <div class="hotel-modal-gallery">
+        <a href="#" style="background:linear-gradient(150deg,#5a6a45,#0e1408); aspect-ratio:16/9; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#3a4a35,#080e04); aspect-ratio:4/3; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#7a8a60,#1a2410); aspect-ratio:4/3; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#1f2a1f,#08120a); aspect-ratio:4/3; display:block;"></a>
+        <a href="#" style="background:linear-gradient(150deg,#6a7a50,#1a2414); aspect-ratio:4/3; display:block;"></a>
+      </div>
+    </div>
+
+    <div class="hotel-modal-reserve">
+      <h3 class="hotel-modal-reserve-h" data-i18n="mu.hm.reserve.h">Request a <em>reservation</em></h3>
+      <p class="hotel-modal-reserve-p" data-i18n="mu.hm.reserve.p">Send a non-binding enquiry. We forward it directly to the hotel's reservations desk and reply within 24 hours.</p>
+      <form id="hotel-form-angleterre" class="hotel-form" data-endpoint="https://formspree.io/f/myklrnro" novalidate>
+        <input type="hidden" name="_subject" value="Hôtel d'Angleterre reservation enquiry">
+        <input type="hidden" name="hotel" value="Hôtel d'Angleterre">
+        <input type="hidden" name="city" value="Geneva">
+        <div><label for="angleterre-name" data-i18n="mu.hm.f.name">Your name</label><input id="angleterre-name" type="text" name="name" autocomplete="name" required placeholder="Full name"></div>
+        <div><label for="angleterre-email" data-i18n="mu.hm.f.email">Email</label><input id="angleterre-email" type="email" name="email" autocomplete="email" required placeholder="your@email.com"></div>
+        <div><label for="angleterre-checkin" data-i18n="mu.hm.f.checkin">Check-in</label><input id="angleterre-checkin" type="date" name="checkin" required></div>
+        <div><label for="angleterre-checkout" data-i18n="mu.hm.f.checkout">Check-out</label><input id="angleterre-checkout" type="date" name="checkout" required></div>
+        <div><label for="angleterre-guests" data-i18n="mu.hm.f.guests">Guests</label><input id="angleterre-guests" type="number" name="guests" min="1" max="10" required placeholder="2"></div>
+        <div><label for="angleterre-villa" data-i18n="mu.hm.f.villa">Room type</label>
+          <select id="angleterre-villa" name="villa" required>
+            <option value="" selected disabled>Choose</option>
+            <option value="classic">Classic Room</option>
+            <option value="lake-view">Lake View Room</option>
+            <option value="junior-suite">Junior Suite</option>
+            <option value="angleterre-suite">Angleterre Suite</option>
+            <option value="not-sure">Not sure yet</option>
+          </select>
+        </div>
+        <div class="full"><label for="angleterre-note" data-i18n="mu.hm.f.note">Additional notes (optional)</label><input id="angleterre-note" type="text" name="note" placeholder="Occasion, dietary requirements, transfers…"></div>
+        <button class="hotel-submit" type="submit" data-i18n="mu.hm.f.submit">Send enquiry</button>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;">
+        <input type="hidden" name="_form_loaded_at" value="">
+        <div id="hotel-msg-angleterre" class="hotel-msg"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="lang.js?v=45" defer></script>
+<script>
+  /* ── Hotel modals — Geneva ── */
+  (function () {
+    const triggers = document.querySelectorAll('[data-hotel-trigger]');
+    const modals = document.querySelectorAll('.hotel-modal');
+
+    function openModal(hotel) {
+      const m = document.getElementById('hotel-modal-' + hotel);
+      if (!m) return;
+      m.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      const stamp = m.querySelector('[name="_form_loaded_at"]');
+      if (stamp) stamp.value = Date.now().toString();
+    }
+    function closeModal(m) {
+      m.classList.remove('open');
+      document.body.style.overflow = '';
+      const msg = m.querySelector('.hotel-msg');
+      if (msg) { msg.textContent = ''; msg.removeAttribute('data-state'); }
+    }
+
+    triggers.forEach(el => {
+      const hotel = el.getAttribute('data-hotel-trigger');
+      el.addEventListener('click', e => {
+        if (e.target.closest('a')) return;
+        openModal(hotel);
+      });
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(hotel); }
+      });
+    });
+
+    modals.forEach(m => {
+      m.querySelectorAll('[data-hotel-close]').forEach(b => b.addEventListener('click', () => closeModal(m)));
+      m.addEventListener('click', e => { if (e.target === m) closeModal(m); });
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') modals.forEach(m => { if (m.classList.contains('open')) closeModal(m); });
+    });
+
+    /* Form submit handler */
+    document.querySelectorAll('form[id^="hotel-form-"]').forEach(form => {
+      const msg = form.querySelector('.hotel-msg');
+      if (!form.closest('.hotel-modal')) {
+        const initStamp = form.querySelector('[name="_form_loaded_at"]');
+        if (initStamp) initStamp.value = Date.now().toString();
+      }
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        msg.textContent = ''; msg.removeAttribute('data-state');
+
+        const hp = form.querySelector('[name="_gotcha"]');
+        const stamp = form.querySelector('[name="_form_loaded_at"]');
+        if (hp && hp.value && hp.value.trim() !== '') {
+          msg.textContent = 'Thank you — we will be in touch within 24 hours.'; msg.dataset.state='ok';
+          form.reset(); if (stamp) stamp.value = Date.now().toString(); return;
+        }
+        if (stamp && stamp.value && (Date.now() - parseInt(stamp.value, 10)) < 3000) {
+          msg.textContent = 'Thank you — we will be in touch within 24 hours.'; msg.dataset.state='ok';
+          form.reset(); stamp.value = Date.now().toString(); return;
+        }
+        try {
+          const KEY = 'cityArchivistRateLimit'; const now = Date.now();
+          let log = JSON.parse(localStorage.getItem(KEY) || '[]');
+          log = log.filter(t => (now - t) < 3600000);
+          if (log.length >= 3) {
+            msg.textContent = 'Too many requests. Please try again in an hour.'; msg.dataset.state='error'; return;
+          }
+          log.push(now); localStorage.setItem(KEY, JSON.stringify(log));
+        } catch (_) {}
+
+        const data = {
+          hotel:    form.hotel.value,
+          city:     form.city.value,
+          _subject: form._subject.value,
+          name:     form.name.value.trim().slice(0, 100).replace(/[<>]/g, ''),
+          email:    form.email.value.trim().slice(0, 200),
+          checkin:  form.checkin.value,
+          checkout: form.checkout.value,
+          guests:   form.guests.value,
+          villa:    form.villa.value,
+          note:     (form.note ? form.note.value.trim().slice(0, 500) : ''),
+        };
+        if (!data.name) { msg.textContent = 'Please enter your name.'; msg.dataset.state='error'; return; }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+          msg.textContent = 'Please enter a valid email address.'; msg.dataset.state='error'; return;
+        }
+        if (!data.checkin || !data.checkout) {
+          msg.textContent = 'Please choose check-in and check-out dates.'; msg.dataset.state='error'; return;
+        }
+        if (new Date(data.checkout) <= new Date(data.checkin)) {
+          msg.textContent = 'Check-out must be after check-in.'; msg.dataset.state='error'; return;
+        }
+        if (!data.guests || data.guests < 1) { msg.textContent = 'How many guests?'; msg.dataset.state='error'; return; }
+        if (!data.hotel || data.hotel.trim() === '') {
+          msg.textContent = 'Please tell us which hotel.'; msg.dataset.state='error'; return;
+        }
+        const villaInput = form.querySelector('[name="villa"]');
+        if (villaInput && villaInput.required && !data.villa) {
+          msg.textContent = 'Please pick a room type.'; msg.dataset.state='error'; return;
+        }
+
+        msg.textContent = 'Sending…';
+        try {
+          const res = await fetch(form.getAttribute('data-endpoint'), {
+            method: 'POST',
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+          if (res.ok) {
+            msg.textContent = 'Thank you — we will be in touch within 24 hours.'; msg.dataset.state='ok';
+            form.reset(); if (stamp) stamp.value = Date.now().toString();
+          } else {
+            msg.textContent = 'Something went wrong. Please try again or email us.'; msg.dataset.state='error';
+          }
+        } catch (_) {
+          msg.textContent = 'Network error. Please try again.'; msg.dataset.state='error';
+        }
+      });
+    });
+  })();
+</script>
+</body>
+</html>

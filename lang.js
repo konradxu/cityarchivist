@@ -145,6 +145,9 @@ const TRANSLATIONS = {
 
     'dest.eyebrow': 'Destinations',
     'dest.h2': 'Explore<br><em>the Cities</em>',
+    'dest.geneva.tag': 'Switzerland · Lake Geneva',
+    'dest.geneva.city': 'Geneva',
+    'dest.geneva.sub': 'A lake, the Alps and the world’s diplomats — Switzerland’s most cosmopolitan corner.',
     'dest.munich.tag': 'Germany · Bavaria',
     'dest.munich.city': 'Munich',
     'dest.munich.sub': 'Bavaria’s capital, where tradition, culture and lifestyle come together.',
@@ -816,6 +819,9 @@ const TRANSLATIONS = {
 
     'dest.eyebrow': 'Reiseziele',
     'dest.h2': 'Entdecke<br><em>die Städte</em>',
+    'dest.geneva.tag': 'Schweiz · Genfersee',
+    'dest.geneva.city': 'Genf',
+    'dest.geneva.sub': 'Ein See, die Alpen und die Diplomaten der Welt — die kosmopolitischste Ecke der Schweiz.',
     'dest.munich.tag': 'Deutschland · Bayern',
     'dest.munich.city': 'München',
     'dest.munich.sub': 'Bayerns Hauptstadt — wo Tradition, Kultur und Lebensgefühl zusammenkommen.',
@@ -1487,6 +1493,9 @@ const TRANSLATIONS = {
 
     'dest.eyebrow': '目的地',
     'dest.h2': '探索<br><em>城市</em>',
+    'dest.geneva.tag': '瑞士 · 日内瓦湖',
+    'dest.geneva.city': '日内瓦',
+    'dest.geneva.sub': '湖泊、阿尔卑斯山与世界各国的外交官 — 瑞士最国际化的一隅。',
     'dest.munich.tag': '德国 · 巴伐利亚',
     'dest.munich.city': '慕尼黑',
     'dest.munich.sub': '巴伐利亚的首府 — 传统、文化与生活方式在此交织。',
