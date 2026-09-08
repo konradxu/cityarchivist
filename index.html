@@ -175,19 +175,18 @@ html.nav-open .nav-overlay { opacity: 1; visibility: visible; }
 .dest-coming-title { font-family: var(--serif); font-weight: 300; font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--cream); }
 .dest-coming-sub { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-top: 0.7rem; }
 
-/* ══ PLANNER CTA ══ */
-.plan { position: relative; overflow: hidden; background: var(--bg2); }
-.plan-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(2.5rem, 6vw, 6rem); align-items: center; }
-.plan-eyebrow { margin-bottom: 2rem; }
-.plan-h { font-family: var(--serif); font-weight: 300; font-size: clamp(2.3rem, 5vw, 4rem); line-height: 1.06; color: var(--cream); }
-.plan-p { font-size: 14px; color: var(--muted); max-width: 46ch; margin: 1.8rem 0 2.4rem; line-height: 2; }
-.plan-link { font-size: 11px; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: var(--cream); padding-bottom: 8px; border-bottom: 1px solid var(--gold); display: inline-flex; gap: 12px; transition: gap 0.35s var(--ease); }
-.plan:hover .plan-link { gap: 22px; }
-.plan-media { display: flex; justify-content: center; }
-.plan-frame { background: var(--bg3); padding: 14px 14px 42px; box-shadow: 0 40px 90px -30px rgba(0,0,0,0.8); transform: rotate(-2.8deg); transition: transform 0.55s var(--ease); max-width: 360px; width: 100%; border: 1px solid var(--line); }
-.plan:hover .plan-frame { transform: rotate(0); }
-.plan-frame img { width: 100%; aspect-ratio: 4/5; object-fit: cover; image-orientation: none; }
-.plan-frame figcaption { font-family: var(--serif); font-style: italic; font-size: 1.1rem; color: var(--gold-2); text-align: center; padding-top: 15px; }
+/* ══ PLANNER CTA (immersive band) ══ */
+.plan { position: relative; min-height: 82vh; display: flex; align-items: center; justify-content: center; overflow: hidden; text-align: center; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.plan-bg { position: absolute; inset: 0; z-index: 0; }
+.plan-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center; transform: scale(1.06); image-orientation: none; }
+.plan-scrim { position: absolute; inset: 0; z-index: 1; background: radial-gradient(130% 100% at 50% 42%, rgba(13,11,8,0.55), rgba(13,11,8,0.88) 92%); }
+.plan-inner { position: relative; z-index: 2; width: min(720px, 100% - clamp(2.4rem, 12vw, 6rem)); margin-inline: auto; padding: clamp(4rem, 10vw, 7rem) 0; display: block; }
+.plan-eyebrow { margin-bottom: 1.9rem; }
+.plan-h { font-family: var(--serif); font-weight: 300; font-size: clamp(2.5rem, 6.4vw, 5rem); line-height: 1.02; letter-spacing: -0.015em; color: var(--cream); text-shadow: 0 2px 44px rgba(0,0,0,0.45); }
+.plan-cap { font-family: var(--serif); font-style: italic; font-size: clamp(1.15rem, 2.2vw, 1.6rem); color: var(--gold-2); margin-top: 1.1rem; }
+.plan-p { font-size: 14px; color: var(--cream-2); max-width: 46ch; margin: 1.7rem auto 2.6rem; line-height: 1.95; }
+.plan-btn { display: inline-flex; align-items: center; gap: 12px; background: var(--gold); color: var(--scrim); font-size: 11px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; padding: 17px 40px; transition: background 0.3s, gap 0.35s var(--ease); }
+.plan:hover .plan-btn { background: var(--gold-2); gap: 20px; }
 
 /* ══ COLLECTIONS ══ */
 .brandmark { display: flex; align-items: center; justify-content: center; gap: 1.4rem; margin-bottom: clamp(3rem, 6vw, 5rem); }
@@ -258,10 +257,11 @@ footer { background: #100d0a; color: var(--cream-2); padding: clamp(4rem, 8vw, 6
 
 /* ══ RESPONSIVE ══ */
 @media (max-width: 980px) {
-  .plan-grid { grid-template-columns: 1fr; } .plan-media { order: -1; }
+  .plan { min-height: 70vh; }
   .feature { grid-template-columns: 1fr; gap: 2rem; } .feature--rev .feature-media { order: -1; } .feature-media { aspect-ratio: 16/10; }
   .about-grid { grid-template-columns: 1fr; gap: 4rem; } .about-accent { width: 42%; right: 0; bottom: -8%; }
-  .foot-top { grid-template-columns: 1fr 1fr; }
+  .foot-top { grid-template-columns: 1fr 1fr; column-gap: 2rem; }
+  .foot-top > div:first-child { grid-column: 1 / -1; margin-bottom: 0.5rem; }
   .chapter-inner, .chapter:nth-child(even) .chapter-inner { text-align: left; }
   .chapter:nth-child(even) .chapter-meta, .chapter:nth-child(even) .chapter-name-row { justify-content: flex-start; }
   .chapter:nth-child(even) .chapter-sub { margin-left: 0; }
@@ -271,7 +271,7 @@ footer { background: #100d0a; color: var(--cream-2); padding: clamp(4rem, 8vw, 6
   .hero-scroll { display: none; }
   .chapter { min-height: 78vh; }
 }
-@media (max-width: 520px) { .foot-top { grid-template-columns: 1fr; gap: 2.4rem; } .cta-btn { border-left: none; flex-basis: 100%; } }
+@media (max-width: 520px) { .cta-btn { border-left: none; flex-basis: 100%; } }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -458,20 +458,15 @@ footer { background: #100d0a; color: var(--cream-2); padding: clamp(4rem, 8vw, 6
 </section>
 
 <!-- AI PLANNER CTA -->
-<section class="plan section">
-  <a class="plan-cta plan-grid wrap reveal" href="/planner" aria-label="Open the AI Trip Planner">
-    <div>
-      <div class="plan-cta-eyebrow plan-eyebrow eyebrow" data-i18n="tp.eyebrow">AI Trip Planner</div>
-      <h2 class="plan-cta-h plan-h" data-i18n="tp.cta.h">Plan your trip<br>with <em>AI</em></h2>
-      <p class="plan-cta-p plan-p" data-i18n="tp.cta.p">Tell our concierge the kind of trip you have in mind — a couples escape, a family holiday, a budget adventure — and get a day-by-day itinerary in seconds.</p>
-      <span class="plan-cta-btn plan-link" data-i18n="tp.cta.btn">Start planning →</span>
-    </div>
-    <div class="plan-cta-media plan-media">
-      <figure class="plan-cta-frame plan-frame">
-        <img src="postcard-china.jpg" alt="Paper parasols glowing at dusk" loading="lazy">
-        <figcaption data-i18n="tp.cta.cap">Somewhere worth going.</figcaption>
-      </figure>
-    </div>
+<section class="plan" id="planner-cta">
+  <div class="plan-bg" data-parallax data-speed="0.12"><img src="postcard-china.jpg" alt="" loading="lazy"></div>
+  <div class="plan-scrim"></div>
+  <a class="plan-cta plan-inner reveal" href="/planner" aria-label="Open the AI Trip Planner">
+    <div class="plan-cta-eyebrow plan-eyebrow eyebrow eyebrow--center" data-i18n="tp.eyebrow">AI Trip Planner</div>
+    <h2 class="plan-cta-h plan-h" data-i18n="tp.cta.h">Plan your trip<br>with <em>AI</em></h2>
+    <p class="plan-cap" data-i18n="tp.cta.cap">Somewhere worth going.</p>
+    <p class="plan-cta-p plan-p" data-i18n="tp.cta.p">Tell our concierge the kind of trip you have in mind — a couples escape, a family holiday, a budget adventure — and get a day-by-day itinerary in seconds.</p>
+    <span class="plan-cta-btn plan-btn" data-i18n="tp.cta.btn">Start planning →</span>
   </a>
 </section>
 
@@ -595,7 +590,6 @@ footer { background: #100d0a; color: var(--cream-2); padding: clamp(4rem, 8vw, 6
       <div>
         <div class="footer-col-title foot-col-title" data-i18n="footer.info">Info</div>
         <ul class="footer-links foot-links">
-          <li><a href="#about" data-i18n="footer.aboutLink">About Us</a></li>
           <li><a href="#" data-i18n="footer.newsletter">Newsletter</a></li>
           <li><a href="/impressum#kontakt" data-i18n="footer.contact">Contact</a></li>
           <li><a href="/impressum#imprint" data-i18n="footer.imprint">Imprint</a></li>
