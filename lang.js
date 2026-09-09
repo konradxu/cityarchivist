@@ -2464,6 +2464,54 @@ function injectPopupStyles() {
       animation: caFadeIn 0.4s ease;
     }
 
+    /* ── Language dropdown (nav pill) ── */
+    [data-lang-trigger] { position: relative; }
+    .ca-lang-caret {
+      display: inline-block; margin-left: 8px; width: 6px; height: 6px;
+      border-right: 1.4px solid currentColor; border-bottom: 1.4px solid currentColor;
+      transform: rotate(45deg) translate(-1px,-2px); opacity: 0.65;
+      transition: transform 0.35s cubic-bezier(0.22,0.61,0.24,1), opacity 0.2s;
+    }
+    [data-lang-trigger][aria-expanded="true"] .ca-lang-caret { transform: rotate(-135deg) translate(-1px,-1px); opacity: 1; }
+
+    .ca-lang-dd {
+      position: fixed; z-index: 99999; min-width: 210px;
+      background: rgba(22,19,14,0.97);
+      border: 1px solid rgba(204,168,106,0.28);
+      box-shadow: 0 26px 64px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      padding: 7px;
+      opacity: 0; transform: translateY(-10px) scale(0.97); transform-origin: top right;
+      transition: opacity 0.3s cubic-bezier(0.22,0.61,0.24,1), transform 0.3s cubic-bezier(0.22,0.61,0.24,1);
+      pointer-events: none;
+    }
+    .ca-lang-dd.open { opacity: 1; transform: none; pointer-events: auto; }
+    .ca-lang-dd-label {
+      font-family: 'Jost', sans-serif; font-size: 8.5px; font-weight: 400;
+      letter-spacing: 0.32em; text-transform: uppercase; color: rgba(212,188,138,0.85);
+      padding: 8px 14px 10px; border-bottom: 1px solid rgba(204,168,106,0.15); margin-bottom: 5px;
+    }
+    .ca-lang-opt {
+      display: flex; align-items: baseline; justify-content: space-between; gap: 1.6rem; width: 100%;
+      background: none; border: none; cursor: pointer; text-align: left; position: relative;
+      padding: 11px 14px;
+      font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.3rem; font-weight: 300; line-height: 1;
+      color: rgba(248,245,239,0.9);
+      transition: background 0.2s, color 0.2s, padding-left 0.28s cubic-bezier(0.22,0.61,0.24,1);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .ca-lang-opt .code {
+      font-family: 'Jost', sans-serif; font-size: 9px; font-weight: 400;
+      letter-spacing: 0.2em; text-transform: uppercase; color: rgba(154,146,132,0.9);
+    }
+    .ca-lang-opt:hover { background: rgba(204,168,106,0.1); color: #e6cf9a; padding-left: 20px; }
+    .ca-lang-opt.active { color: #e0c48c; }
+    .ca-lang-opt.active .code { color: #cca86a; }
+    .ca-lang-opt.active::before {
+      content: '✦'; position: absolute; left: 2px; top: 50%; transform: translateY(-50%);
+      font-size: 8px; color: #cca86a;
+    }
+
     @media (max-width: 480px) {
       .ca-modal-title { font-size: 1.7rem; }
       .ca-lang-list .native { font-size: 1.85rem; }
@@ -2471,6 +2519,7 @@ function injectPopupStyles() {
       .ca-coming-list { grid-template-columns: 1fr; gap: 1.2rem; }
       .ca-menu-panel { width: 88vw; padding: 5rem 2rem 2rem; }
       .ca-menu-item { font-size: 1.45rem; padding: 1rem 0; }
+      .ca-lang-dd { min-width: 62vw; }
     }
   `;
   document.head.appendChild(style);
@@ -2557,6 +2606,73 @@ function closeLangModal() {
   document.removeEventListener('keydown', escClose);
 }
 function escClose(e) { if (e.key === 'Escape') closeLangModal(); }
+
+/* ============================================================
+   Language dropdown (nav pill) — compact, elegant switcher
+   ============================================================ */
+let langDDTrigger = null;
+const LANG_ORDER = ['en', 'de', 'zh'];
+
+function positionLangDropdown(dd, trigger) {
+  const r = trigger.getBoundingClientRect();
+  dd.style.top = (r.bottom + 12) + 'px';
+  dd.style.right = Math.max(12, window.innerWidth - r.right) + 'px';
+}
+
+function openLangDropdown(trigger) {
+  injectPopupStyles();
+  closeLangDropdown();
+  const current = getCurrentLang() || 'en';
+  const dict = TRANSLATIONS[current] || TRANSLATIONS.en;
+  const label = (dict && dict['nav.language']) || 'Language';
+
+  const dd = document.createElement('div');
+  dd.id = 'ca-lang-dd';
+  dd.className = 'ca-lang-dd';
+  dd.setAttribute('role', 'menu');
+  dd.innerHTML = `<div class="ca-lang-dd-label">${label}</div>` + LANG_ORDER.map(l =>
+    `<button class="ca-lang-opt ${l === current ? 'active' : ''}" role="menuitem" data-lang-pick="${l}">
+       <span class="name">${LANG_LABELS[l].native}</span><span class="code">${LANG_LABELS[l].code}</span>
+     </button>`).join('');
+  document.body.appendChild(dd);
+  positionLangDropdown(dd, trigger);
+  requestAnimationFrame(() => dd.classList.add('open'));
+  trigger.setAttribute('aria-expanded', 'true');
+  langDDTrigger = trigger;
+
+  dd.querySelectorAll('[data-lang-pick]').forEach(b =>
+    b.addEventListener('click', () => { setLang(b.getAttribute('data-lang-pick')); closeLangDropdown(); }));
+
+  document.addEventListener('keydown', langDDEsc);
+  // Arm outside-click and scroll/resize dismissal one tick later, so the
+  // opening click and any open-time reflow don't instantly close the menu.
+  setTimeout(() => {
+    document.addEventListener('click', langDDOutside, true);
+    window.addEventListener('scroll', closeLangDropdown, { passive: true, once: true });
+    window.addEventListener('resize', closeLangDropdown, { once: true });
+  }, 60);
+}
+
+function langDDOutside(e) {
+  const dd = document.getElementById('ca-lang-dd');
+  if (!dd) return;
+  if (!dd.contains(e.target) && !e.target.closest('[data-lang-trigger]')) closeLangDropdown();
+}
+function langDDEsc(e) { if (e.key === 'Escape') closeLangDropdown(); }
+
+function closeLangDropdown() {
+  document.removeEventListener('click', langDDOutside, true);
+  document.removeEventListener('keydown', langDDEsc);
+  if (langDDTrigger) { langDDTrigger.setAttribute('aria-expanded', 'false'); langDDTrigger = null; }
+  const dd = document.getElementById('ca-lang-dd');
+  if (dd) { dd.classList.remove('open'); setTimeout(() => dd.remove(), 260); }
+}
+
+function toggleLangDropdown(e) {
+  e.preventDefault();
+  if (document.getElementById('ca-lang-dd')) closeLangDropdown();
+  else openLangDropdown(e.currentTarget);
+}
 
 /* ============================================================
    Coming Soon modal (more cities on the destinations section)
@@ -2843,9 +2959,17 @@ document.addEventListener('DOMContentLoaded', () => {
     document.documentElement.lang = lang;
   }
 
-  // Wire any language-trigger buttons
+  // Wire any language-trigger buttons → elegant nav dropdown
   document.querySelectorAll('[data-lang-trigger]').forEach(btn => {
-    btn.addEventListener('click', showLangModal);
+    if (!btn.querySelector('.ca-lang-caret')) {
+      const c = document.createElement('span');
+      c.className = 'ca-lang-caret';
+      c.setAttribute('aria-hidden', 'true');
+      btn.appendChild(c);
+    }
+    btn.setAttribute('aria-haspopup', 'true');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.addEventListener('click', toggleLangDropdown);
   });
 
   // Wire any "more cities" / Coming Soon triggers
