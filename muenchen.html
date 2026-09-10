@@ -268,7 +268,24 @@ footer { background: #100d0a; border-top: 1px solid var(--line); padding: clamp(
   .hero-bg { transform: none !important; }
   *, *::before, *::after { transition-duration: 0.001ms !important; }
 }
-</style>
+
+    /* ── Read-more detail modals ── */
+    .spot-read, .feat-cta { cursor: pointer; }
+    .article-row[data-read-open] { cursor: pointer; }
+    .article-row[data-read-open]:focus-visible { outline: 1px solid var(--gold); outline-offset: 6px; }
+    .read-modal { position: fixed; inset: 0; z-index: 520; display: none; align-items: flex-start; justify-content: center; padding: 6vh 4vw; background: rgba(8,6,4,0.82); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); overflow-y: auto; }
+    .read-modal.open { display: flex; }
+    .read-modal-card { position: relative; background: var(--bg2); border: 1px solid var(--line); max-width: 680px; width: 100%; padding: clamp(2rem,5vw,3.4rem); box-shadow: 0 50px 130px rgba(0,0,0,0.7); animation: rmIn 0.4s var(--ease); }
+    @keyframes rmIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+    .read-modal-close { position: absolute; top: 14px; right: 16px; background: rgba(13,11,8,0.5); border: 1px solid var(--line); color: var(--cream); width: 40px; height: 40px; border-radius: 50%; font-size: 1.3rem; line-height: 1; cursor: pointer; transition: all 0.2s; }
+    .read-modal-close:hover { background: var(--gold); color: var(--scrim); border-color: var(--gold); }
+    .read-modal-eyebrow { font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .read-modal-title { font-family: var(--serif); font-weight: 300; font-size: clamp(1.9rem,4vw,2.8rem); line-height: 1.06; color: var(--cream); margin-bottom: 1.5rem; }
+    .read-modal-title em { color: var(--gold-2); }
+    .read-modal-body { font-size: 14px; color: var(--cream-2); line-height: 1.95; margin-bottom: 1.1rem; }
+    .read-modal-link { display: inline-flex; align-items: center; gap: 12px; margin-top: 0.6rem; font-size: 11px; font-weight: 400; letter-spacing: 0.24em; text-transform: uppercase; color: var(--cream); padding-bottom: 8px; border-bottom: 1px solid var(--gold); transition: gap 0.35s var(--ease); }
+    .read-modal-link:hover { gap: 20px; }
+  </style>
 <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
@@ -314,7 +331,7 @@ footer { background: #100d0a; border-top: 1px solid var(--line); padding: clamp(
   <div class="hero-scrim"></div>
   <div class="hero-inner">
     <div class="hero-eyebrow eyebrow">Germany · Bavaria · City Guide</div>
-    <h1 class="hero-h1"><em>München</em></h1>
+    <h1 class="hero-h1"><em data-i18n="dest.munich.city">München</em></h1>
     <p class="hero-sub">Bavaria's calm, monumental capital — beer halls, Bauhaus modernism and a quietly cosmopolitan side that rewards the patient.</p>
     <div class="hero-meta">
       <div>48.14° N&nbsp;&nbsp;11.58° E</div>
@@ -347,72 +364,68 @@ footer { background: #100d0a; border-top: 1px solid var(--line); padding: clamp(
 
   <div class="spots-grid">
     <div class="spot-card" data-cat="cafes">
-      <div class="spot-img a">
+      <div class="spot-img" style="background:none; position:relative; overflow:hidden;">
+        <img src="muc-aroma.jpg" alt="Aroma Kaffeebar, Glockenbachviertel" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
         <span class="spot-cat" data-i18n="spots.filter.cafes">Cafés</span>
-        <div class="ph-frame">◎</div>
-        <span class="ph-label">Aroma Kaffeebar</span>
       </div>
       <div class="spot-body">
         <div class="spot-title" data-i18n="mu.spot.aroma.title">Aroma Kaffeebar</div>
         <p class="spot-desc" data-i18n="mu.spot.aroma.desc">One of the first proper specialty coffee bars in Munich — single origin pours, a small plate menu, and the Glockenbach crowd flowing through from morning to early evening.</p>
         <div class="spot-footer">
           <span class="spot-location">Glockenbachviertel</span>
-          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
+          <a class="spot-read" data-read-open="aroma" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
 
     <div class="spot-card" data-cat="bars">
-      <div class="spot-img b">
+      <div class="spot-img" style="background:none; position:relative; overflow:hidden;">
+        <img src="muc-goldene.jpg" alt="Goldene Bar, Haus der Kunst" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
         <span class="spot-cat" data-i18n="spots.filter.bars">Bars</span>
-        <div class="ph-frame">◎</div>
-        <span class="ph-label">Goldene Bar</span>
       </div>
       <div class="spot-body">
         <div class="spot-title" data-i18n="mu.spot.goldene.title">Goldene Bar</div>
         <p class="spot-desc" data-i18n="mu.spot.goldene.desc">Inside the Haus der Kunst — a 1937 saloon plated in 23-karat gold leaf, a terrace facing the Englischer Garten, and one of the better cocktail menus in town.</p>
         <div class="spot-footer">
           <span class="spot-location">Lehel</span>
-          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
+          <a class="spot-read" data-read-open="goldene" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
 
     <div class="spot-card" data-cat="parks">
-      <div class="spot-img c">
+      <div class="spot-img" style="background:none; position:relative; overflow:hidden;">
+        <img src="muc-eisbach.jpg" alt="Eisbach surfers, Englischer Garten" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
         <span class="spot-cat" data-i18n="spots.filter.parks">Parks</span>
-        <div class="ph-frame">◎</div>
-        <span class="ph-label">Eisbachwelle</span>
       </div>
       <div class="spot-body">
         <div class="spot-title" data-i18n="mu.spot.eisbach.title">Eisbach Surfing</div>
         <p class="spot-desc" data-i18n="mu.spot.eisbach.desc">A standing river wave at the southern edge of the Englischer Garten — surfed year-round by Munich locals in wetsuits, watched by everyone else from the bridge.</p>
         <div class="spot-footer">
           <span class="spot-location">Englischer Garten</span>
-          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
+          <a class="spot-read" data-read-open="eisbach" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
 
     <div class="spot-card" data-cat="culture">
-      <div class="spot-img d">
+      <div class="spot-img" style="background:none; position:relative; overflow:hidden;">
+        <img src="muc-brandhorst.jpg" alt="Museum Brandhorst" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
         <span class="spot-cat" data-i18n="spots.filter.culture">Culture</span>
-        <div class="ph-frame">◎</div>
-        <span class="ph-label">Museum Brandhorst</span>
       </div>
       <div class="spot-body">
         <div class="spot-title" data-i18n="mu.spot.brandhorst.title">Museum Brandhorst</div>
         <p class="spot-desc" data-i18n="mu.spot.brandhorst.desc">Sauerbruch Hutton's striped facade, 36,000 ceramic rods, and the most rigorous post-1960 collection in southern Germany — Twombly, Warhol, Polke, on permanent view.</p>
         <div class="spot-footer">
           <span class="spot-location">Maxvorstadt</span>
-          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
+          <a class="spot-read" data-read-open="brandhorst" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
 
     <div class="spot-card" data-cat="foodspots">
       <div class="spot-img" style="background:none; position:relative; overflow:hidden;">
-        <img src="muc-maibaum.jpg" alt="Viktualienmarkt Maibaum" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+        <img src="muc-frischhut.jpg" alt="Café Frischhut, Altstadt" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
         <span class="spot-cat" data-i18n="spots.filter.foodspots">Foodspots</span>
       </div>
       <div class="spot-body">
@@ -420,23 +433,22 @@ footer { background: #100d0a; border-top: 1px solid var(--line); padding: clamp(
         <p class="spot-desc" data-i18n="mu.spot.frischhut.desc">A two-room kitchen at the Viktualienmarkt that has been frying the same four pastries since 1973. Order an Auszogne and a Filterkaffee, sit at a stranger's table.</p>
         <div class="spot-footer">
           <span class="spot-location">Altstadt</span>
-          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
+          <a class="spot-read" data-read-open="frischhut" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
 
     <div class="spot-card" data-cat="shopping">
-      <div class="spot-img f">
+      <div class="spot-img" style="background:none; position:relative; overflow:hidden;">
+        <img src="muc-fuenf.jpg" alt="Fünf Höfe, Altstadt" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
         <span class="spot-cat" data-i18n="spots.filter.shopping">Shopping</span>
-        <div class="ph-frame">◎</div>
-        <span class="ph-label">Fünf Höfe</span>
       </div>
       <div class="spot-body">
         <div class="spot-title" data-i18n="mu.spot.fuenf.title">Fünf Höfe</div>
         <p class="spot-desc" data-i18n="mu.spot.fuenf.desc">Herzog & de Meuron's quiet masterpiece in the old centre — five connected courtyards with bronze passageways, hanging gardens and shops you'll want to walk slowly past.</p>
         <div class="spot-footer">
           <span class="spot-location">Altstadt</span>
-          <a class="spot-read" data-i18n="spot.readmore">Read more</a>
+          <a class="spot-read" data-read-open="fuenf" data-i18n="spot.readmore">Read more</a>
         </div>
       </div>
     </div>
@@ -469,12 +481,12 @@ footer { background: #100d0a; border-top: 1px solid var(--line); padding: clamp(
       </div>
       <div class="feat-title" data-i18n="mu.read.feat.title">A neighbourhood-by-neighbourhood guide to Munich.</div>
       <p class="feat-excerpt" data-i18n="mu.read.feat.excerpt">Maxvorstadt for art, Glockenbachviertel for nightlife, Schwabing for the long Sunday, Lehel for understated old money, Haidhausen for the perfect breakfast. A practical, opinionated walk across the city in eight stops.</p>
-      <a class="feat-cta" data-i18n="feat.readmore">Read more</a>
+      <a class="feat-cta" data-read-open="feat" data-i18n="feat.readmore">Read more</a>
     </div>
   </div>
 
   <div class="article-list">
-    <div class="article-row">
+    <div class="article-row" data-read-open="a1" role="button" tabindex="0">
       <div class="art-img a" style="background:none;overflow:hidden;"><img src="muc-arena.jpg" alt="Allianz Arena" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
       <div>
         <div class="art-tag" data-i18n="mu.read.a1.tag">Architecture · 2026</div>
@@ -483,8 +495,8 @@ footer { background: #100d0a; border-top: 1px solid var(--line); padding: clamp(
       </div>
       <div class="art-arrow">→</div>
     </div>
-    <div class="article-row">
-      <div class="art-img b">◎</div>
+    <div class="article-row" data-read-open="a2" role="button" tabindex="0">
+      <div class="art-img b" style="background:none;overflow:hidden;"><img src="muc-cuisine.jpg" alt="Bavarian cuisine" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
       <div>
         <div class="art-tag" data-i18n="mu.read.a2.tag">Cuisine · 2026</div>
         <div class="art-title" data-i18n="mu.read.a2.title">Bavarian beyond the Hofbräuhaus</div>
@@ -492,8 +504,8 @@ footer { background: #100d0a; border-top: 1px solid var(--line); padding: clamp(
       </div>
       <div class="art-arrow">→</div>
     </div>
-    <div class="article-row">
-      <div class="art-img c">◎</div>
+    <div class="article-row" data-read-open="a3" role="button" tabindex="0">
+      <div class="art-img c" style="background:none;overflow:hidden;"><img src="muc-nightlife.jpg" alt="Munich nightlife" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
       <div>
         <div class="art-tag" data-i18n="mu.read.a3.tag">Nightlife · 2026</div>
         <div class="art-title" data-i18n="mu.read.a3.title">Munich after dark — the small map</div>
@@ -1098,7 +1110,124 @@ footer { background: #100d0a; border-top: 1px solid var(--line); padding: clamp(
   </div>
 </div>
 
-<script src="lang.js?v=48" defer></script>
+
+<!-- ══ READ-MORE MODALS ══ -->
+<div class="read-modal" id="read-modal-aroma" role="dialog" aria-modal="true" aria-labelledby="rm-aroma-t">
+  <div class="read-modal-card">
+    <button type="button" class="read-modal-close" data-read-close aria-label="Close">×</button>
+    <div class="read-modal-eyebrow"><span data-i18n="city.spots.eyebrow">Hidden Spots</span> · Glockenbachviertel</div>
+    <h2 class="read-modal-title" id="rm-aroma-t" data-i18n="mu.spot.aroma.title">Aroma Kaffeebar</h2>
+    <p class="read-modal-body" data-i18n="mu.spot.aroma.desc">One of the first proper specialty coffee bars in Munich — single origin pours, a small plate menu, and the Glockenbach crowd flowing through from morning to early evening.</p>
+    <p class="read-modal-body" data-i18n="mu.spot.aroma.more">Come for the espresso, stay for the room. Aroma has anchored the Glockenbach's café culture for years — a mixed crowd of designers, students and long-lunchers, a compact menu that changes with the season, and a terrace that catches the afternoon sun. Go mid-morning on a weekday for a table.</p>
+    <a class="read-modal-link" href="https://www.google.com/maps/search/?api=1&amp;query=Aroma+Kaffeebar,+Munich" target="_blank" rel="noopener" data-i18n="spot.viewmap">View on Google Maps →</a>
+  </div>
+</div>
+<div class="read-modal" id="read-modal-goldene" role="dialog" aria-modal="true" aria-labelledby="rm-goldene-t">
+  <div class="read-modal-card">
+    <button type="button" class="read-modal-close" data-read-close aria-label="Close">×</button>
+    <div class="read-modal-eyebrow"><span data-i18n="city.spots.eyebrow">Hidden Spots</span> · Lehel</div>
+    <h2 class="read-modal-title" id="rm-goldene-t" data-i18n="mu.spot.goldene.title">Goldene Bar</h2>
+    <p class="read-modal-body" data-i18n="mu.spot.goldene.desc">Inside the Haus der Kunst — a 1937 saloon plated in 23-karat gold leaf, a terrace facing the Englischer Garten, and one of the better cocktail menus in town.</p>
+    <p class="read-modal-body" data-i18n="mu.spot.goldene.more">The setting does half the work: gilded 1937 murals, tall windows onto the Englischer Garten, and a long bar that turns from afternoon coffee to serious cocktails after dark. In summer the terrace is one of the best seats in the city.</p>
+    <a class="read-modal-link" href="https://www.google.com/maps/search/?api=1&amp;query=Goldene+Bar,+Haus+der+Kunst,+Munich" target="_blank" rel="noopener" data-i18n="spot.viewmap">View on Google Maps →</a>
+  </div>
+</div>
+<div class="read-modal" id="read-modal-eisbach" role="dialog" aria-modal="true" aria-labelledby="rm-eisbach-t">
+  <div class="read-modal-card">
+    <button type="button" class="read-modal-close" data-read-close aria-label="Close">×</button>
+    <div class="read-modal-eyebrow"><span data-i18n="city.spots.eyebrow">Hidden Spots</span> · Englischer Garten</div>
+    <h2 class="read-modal-title" id="rm-eisbach-t" data-i18n="mu.spot.eisbach.title">Eisbach Surfing</h2>
+    <p class="read-modal-body" data-i18n="mu.spot.eisbach.desc">A standing river wave at the southern edge of the Englischer Garten — surfed year-round by Munich locals in wetsuits, watched by everyone else from the bridge.</p>
+    <p class="read-modal-body" data-i18n="mu.spot.eisbach.more">The Eisbachwelle is a permanent, chest-high standing wave where the Eisbach enters the park — surfed since the 1970s, legalised in 2010, busy in every season. You don't need to surf to enjoy it: locals line the bridge to watch the queue take turns, day and night.</p>
+    <a class="read-modal-link" href="https://www.google.com/maps/search/?api=1&amp;query=Eisbachwelle,+Munich" target="_blank" rel="noopener" data-i18n="spot.viewmap">View on Google Maps →</a>
+  </div>
+</div>
+<div class="read-modal" id="read-modal-brandhorst" role="dialog" aria-modal="true" aria-labelledby="rm-brandhorst-t">
+  <div class="read-modal-card">
+    <button type="button" class="read-modal-close" data-read-close aria-label="Close">×</button>
+    <div class="read-modal-eyebrow"><span data-i18n="city.spots.eyebrow">Hidden Spots</span> · Maxvorstadt</div>
+    <h2 class="read-modal-title" id="rm-brandhorst-t" data-i18n="mu.spot.brandhorst.title">Museum Brandhorst</h2>
+    <p class="read-modal-body" data-i18n="mu.spot.brandhorst.desc">Sauerbruch Hutton's striped facade, 36,000 ceramic rods, and the most rigorous post-1960 collection in southern Germany — Twombly, Warhol, Polke, on permanent view.</p>
+    <p class="read-modal-body" data-i18n="mu.spot.brandhorst.more">Behind the 36,000-rod polychrome skin is one of Europe's sharpest collections of art after 1960. The Cy Twombly rooms are the reason many people come — purpose-built, top-lit galleries — but the rotating hang of Warhol, Polke and newer names rewards repeat visits. Quiet on weekday afternoons.</p>
+    <a class="read-modal-link" href="https://www.google.com/maps/search/?api=1&amp;query=Museum+Brandhorst,+Munich" target="_blank" rel="noopener" data-i18n="spot.viewmap">View on Google Maps →</a>
+  </div>
+</div>
+<div class="read-modal" id="read-modal-frischhut" role="dialog" aria-modal="true" aria-labelledby="rm-frischhut-t">
+  <div class="read-modal-card">
+    <button type="button" class="read-modal-close" data-read-close aria-label="Close">×</button>
+    <div class="read-modal-eyebrow"><span data-i18n="city.spots.eyebrow">Hidden Spots</span> · Altstadt</div>
+    <h2 class="read-modal-title" id="rm-frischhut-t" data-i18n="mu.spot.frischhut.title">Café Frischhut — Schmalznudel</h2>
+    <p class="read-modal-body" data-i18n="mu.spot.frischhut.desc">A two-room kitchen at the Viktualienmarkt that has been frying the same four pastries since 1973. Order an Auszogne and a Filterkaffee, sit at a stranger's table.</p>
+    <p class="read-modal-body" data-i18n="mu.spot.frischhut.more">Officially Café Frischhut, known to everyone as the Schmalznudel: a tiny corner by the Viktualienmarkt frying four kinds of lard pastry since 1973. Order the Auszogne — thin in the middle, crisp at the edge — with a filter coffee, and expect to share a table. Cash, mornings, no fuss.</p>
+    <a class="read-modal-link" href="https://www.google.com/maps/search/?api=1&amp;query=Cafe+Frischhut+Schmalznudel,+Munich" target="_blank" rel="noopener" data-i18n="spot.viewmap">View on Google Maps →</a>
+  </div>
+</div>
+<div class="read-modal" id="read-modal-fuenf" role="dialog" aria-modal="true" aria-labelledby="rm-fuenf-t">
+  <div class="read-modal-card">
+    <button type="button" class="read-modal-close" data-read-close aria-label="Close">×</button>
+    <div class="read-modal-eyebrow"><span data-i18n="city.spots.eyebrow">Hidden Spots</span> · Altstadt</div>
+    <h2 class="read-modal-title" id="rm-fuenf-t" data-i18n="mu.spot.fuenf.title">Fünf Höfe</h2>
+    <p class="read-modal-body" data-i18n="mu.spot.fuenf.desc">Herzog & de Meuron's quiet masterpiece in the old centre — five connected courtyards with bronze passageways, hanging gardens and shops you'll want to walk slowly past.</p>
+    <p class="read-modal-body" data-i18n="mu.spot.fuenf.more">The Fünf Höfe thread five courtyards and passages through a whole block of the Altstadt — Herzog & de Meuron's 2003 reworking of an old bank quarter. Come for the hanging garden and the light, stay for the bookshops and galleries; it's as much a shortcut and a shelter from the rain as a place to shop.</p>
+    <a class="read-modal-link" href="https://www.google.com/maps/search/?api=1&amp;query=Fuenf+Hoefe,+Munich" target="_blank" rel="noopener" data-i18n="spot.viewmap">View on Google Maps →</a>
+  </div>
+</div>
+<div class="read-modal" id="read-modal-feat" role="dialog" aria-modal="true" aria-labelledby="rm-feat-t">
+  <div class="read-modal-card">
+    <button type="button" class="read-modal-close" data-read-close aria-label="Close">×</button>
+    <div class="read-modal-eyebrow" data-i18n="mu.read.feat.tag">Neighbourhoods</div>
+    <h2 class="read-modal-title" id="rm-feat-t" data-i18n="mu.read.feat.title">A neighbourhood-by-neighbourhood guide to Munich.</h2>
+    <p class="read-modal-body" data-i18n="mu.read.feat.excerpt">Maxvorstadt for art, Glockenbachviertel for nightlife, Schwabing for the long Sunday, Lehel for understated old money, Haidhausen for the perfect breakfast. A practical, opinionated walk across the city in eight stops.</p>
+    <p class="read-modal-body" data-i18n="mu.read.feat.more">The full guide walks each district in turn: where to start your morning, which streets reward a slow wander, and the one café, bar or bench that makes each neighbourhood click. Less a checklist than a way of reading the city — built for a long weekend, or a second visit that goes deeper than the centre.</p>
+  </div>
+</div>
+<div class="read-modal" id="read-modal-a1" role="dialog" aria-modal="true" aria-labelledby="rm-a1-t">
+  <div class="read-modal-card">
+    <button type="button" class="read-modal-close" data-read-close aria-label="Close">×</button>
+    <div class="read-modal-eyebrow" data-i18n="mu.read.a1.tag">Architecture · 2026</div>
+    <h2 class="read-modal-title" id="rm-a1-t" data-i18n="mu.read.a1.title">Munich's quiet modernism</h2>
+    <p class="read-modal-body" data-i18n="mu.read.a1.excerpt">From Frei Otto's Olympic roof to Herzog & de Meuron's Allianz Arena — how postwar Munich quietly built the most consistently good architecture in Germany.</p>
+    <p class="read-modal-body" data-i18n="mu.read.a1.more">The argument runs from Theodor Fischer and the Deutscher Werkbund through Frei Otto's Olympic tent roof to today's museum quarter. Munich rarely shouts about its buildings, but the through-line — restraint, craft, daylight — is remarkably consistent. A reading list and a walking route are included.</p>
+  </div>
+</div>
+<div class="read-modal" id="read-modal-a2" role="dialog" aria-modal="true" aria-labelledby="rm-a2-t">
+  <div class="read-modal-card">
+    <button type="button" class="read-modal-close" data-read-close aria-label="Close">×</button>
+    <div class="read-modal-eyebrow" data-i18n="mu.read.a2.tag">Cuisine · 2026</div>
+    <h2 class="read-modal-title" id="rm-a2-t" data-i18n="mu.read.a2.title">Bavarian beyond the Hofbräuhaus</h2>
+    <p class="read-modal-body" data-i18n="mu.read.a2.excerpt">Schweinshaxe is only the beginning. A guide to the new Bavarian — Tantris, Mural, Werneckhof — and to the small kitchens that never made the headlines.</p>
+    <p class="read-modal-body" data-i18n="mu.read.a2.more">Beyond the pork knuckle: how a new generation of Munich kitchens is rewriting Bavarian cooking — lighter, more seasonal, still rooted in the region — alongside the market stalls, bakeries and beer gardens that never needed reinventing. With a short list of tables worth booking.</p>
+  </div>
+</div>
+<div class="read-modal" id="read-modal-a3" role="dialog" aria-modal="true" aria-labelledby="rm-a3-t">
+  <div class="read-modal-card">
+    <button type="button" class="read-modal-close" data-read-close aria-label="Close">×</button>
+    <div class="read-modal-eyebrow" data-i18n="mu.read.a3.tag">Nightlife · 2026</div>
+    <h2 class="read-modal-title" id="rm-a3-t" data-i18n="mu.read.a3.title">Munich after dark — the small map</h2>
+    <p class="read-modal-body" data-i18n="mu.read.a3.excerpt">Blitz, Harry Klein, Rote Sonne, Bahnwärter Thiel. A short list of where to actually listen, with an honest take on what each room sounds like.</p>
+    <p class="read-modal-body" data-i18n="mu.read.a3.more">A small, honest map of where Munich actually dances: what each room sounds like, when to arrive, and how strict the door really is. Not a ranking — a set of doors worth trying, from the Funktion-One rigour of Blitz to the open-air sprawl of Bahnwärter Thiel.</p>
+  </div>
+</div>
+
+<script>
+  /* ── Read-more detail modals ── */
+  (function () {
+    const modals = document.querySelectorAll('.read-modal');
+    function openM(id){ const m=document.getElementById('read-modal-'+id); if(!m) return; m.classList.add('open'); document.body.style.overflow='hidden'; }
+    function closeM(m){ m.classList.remove('open'); document.body.style.overflow=''; }
+    document.querySelectorAll('[data-read-open]').forEach(t => {
+      t.addEventListener('click', e => { e.preventDefault(); openM(t.getAttribute('data-read-open')); });
+      t.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openM(t.getAttribute('data-read-open')); } });
+    });
+    modals.forEach(m => {
+      m.querySelectorAll('[data-read-close]').forEach(b => b.addEventListener('click', () => closeM(m)));
+      m.addEventListener('click', e => { if(e.target===m) closeM(m); });
+    });
+    document.addEventListener('keydown', e => { if(e.key==='Escape') modals.forEach(m => { if(m.classList.contains('open')) closeM(m); }); });
+  })();
+</script>
+
+<script src="lang.js?v=49" defer></script>
 <script>
   /* ── Hotel modals — Munich ── */
   (function () {
