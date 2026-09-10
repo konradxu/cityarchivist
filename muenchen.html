@@ -285,6 +285,38 @@ footer { background: #100d0a; border-top: 1px solid var(--line); padding: clamp(
     .read-modal-body { font-size: 14px; color: var(--cream-2); line-height: 1.95; margin-bottom: 1.1rem; }
     .read-modal-link { display: inline-flex; align-items: center; gap: 12px; margin-top: 0.6rem; font-size: 11px; font-weight: 400; letter-spacing: 0.24em; text-transform: uppercase; color: var(--cream); padding-bottom: 8px; border-bottom: 1px solid var(--gold); transition: gap 0.35s var(--ease); }
     .read-modal-link:hover { gap: 20px; }
+  
+    /* ── ONE PERFECT DAY ── */
+    #perfect-day { background: var(--bg2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: clamp(5rem,10vw,8.5rem) 0; }
+    .day-wrap { width: min(var(--wrap), 100% - clamp(2.4rem,10vw,9rem)); margin-inline: auto; }
+    .day-intro { display: grid; grid-template-columns: 200px 1fr; gap: clamp(2rem,5vw,5rem); margin: clamp(1.5rem,3vw,2.5rem) 0 0; align-items: start; }
+    .day-intro-label { font-size: 10px; font-weight: 400; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); padding-top: 0.4rem; }
+    .day-intro-body p { font-size: 14px; color: var(--muted); line-height: 2; max-width: 620px; margin-bottom: 1.9rem; }
+    .day-toggle { display: inline-flex; align-items: center; gap: 12px; font-family: var(--sans); font-size: 10px; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: var(--cream); border: 1px solid var(--gold); background: transparent; padding: 14px 28px; cursor: pointer; transition: background 0.25s, color 0.25s, gap 0.3s; }
+    .day-toggle::after { content: '↓'; transition: transform 0.35s var(--ease); }
+    .day-toggle:hover { background: var(--gold); color: var(--scrim); gap: 18px; }
+    .day-toggle[aria-expanded="true"]::after { transform: rotate(180deg); }
+    .day-timeline { max-height: 0; overflow: hidden; transition: max-height 0.85s cubic-bezier(0.16,1,0.3,1); }
+    .day-timeline[data-open="true"] { max-height: 6500px; }
+    .day-track { position: relative; max-width: 900px; margin: clamp(2rem,4vw,3rem) auto 0; padding-left: 2rem; }
+    .day-track::before { content: ''; position: absolute; left: 5px; top: 14px; bottom: 14px; width: 1px; background: var(--line); }
+    .day-stop { position: relative; padding: 1.5rem 0 1.5rem 3rem; display: grid; grid-template-columns: 84px 1fr; gap: 2rem; align-items: start; }
+    .day-stop::before { content: ''; position: absolute; left: -2px; top: 1.9rem; width: 14px; height: 14px; background: var(--gold); border: 3px solid var(--bg2); border-radius: 50%; box-shadow: 0 0 0 1px var(--gold), 0 0 16px rgba(204,168,106,0.55); z-index: 2; }
+    .day-time { font-family: var(--serif); font-size: 1.15rem; font-weight: 500; color: var(--gold-2); letter-spacing: 0.02em; padding-top: 0.15rem; }
+    .day-stop-tag { font-size: 9px; font-weight: 400; letter-spacing: 0.26em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+    .day-stop-name { font-family: var(--serif); font-weight: 400; font-size: 1.5rem; color: var(--cream); line-height: 1.15; margin-bottom: 0.6rem; }
+    .day-stop-name em { font-style: italic; color: var(--gold-2); }
+    .day-stop-desc { font-size: 13px; color: var(--muted); line-height: 1.9; max-width: 56ch; }
+    .day-transit { position: relative; padding: 0.5rem 0 0.5rem 5.4rem; margin-left: 1rem; font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--faint); display: flex; align-items: center; gap: 10px; }
+    .day-transit::before { content: ''; position: absolute; left: 0.5rem; top: 0; bottom: 0; width: 1px; background: repeating-linear-gradient(to bottom, var(--line) 0 4px, transparent 4px 8px); }
+    .day-transit-icon { font-style: normal; color: var(--gold); font-size: 13px; font-family: var(--serif); }
+    @media (max-width: 768px) {
+      .day-intro { grid-template-columns: 1fr; gap: 1.2rem; }
+      .day-stop { grid-template-columns: 56px 1fr; gap: 1rem; padding-left: 1.8rem; }
+      .day-time { font-size: 0.95rem; }
+      .day-stop-name { font-size: 1.25rem; }
+      .day-transit { padding-left: 3.8rem; font-size: 8.5px; letter-spacing: 0.16em; }
+    }
   </style>
 <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
@@ -516,6 +548,132 @@ footer { background: #100d0a; border-top: 1px solid var(--line); padding: clamp(
   </div>
 </section>
 
+<!-- ONE PERFECT DAY -->
+<section id="perfect-day">
+  <div class="day-wrap">
+    <div class="sec-header reveal">
+      <div>
+        <div class="sec-eyebrow" data-i18n="mu.day.eyebrow">One Perfect Day</div>
+        <h2 class="sec-h" data-i18n="mu.day.h2">A day in <em>Munich</em></h2>
+      </div>
+      <p class="sec-desc" data-i18n="mu.day.desc">Breakfast at the Viktualienmarkt, art before noon, a beer garden and the surf wave, golden hour in the Glockenbach — then the night. One route, ten stops, one perfect day.</p>
+    </div>
+    <div class="day-intro reveal">
+      <div class="day-intro-label" data-i18n="mu.day.routeLabel">The Route</div>
+      <div class="day-intro-body">
+        <p data-i18n="mu.day.intro">A one-day itinerary built around the rhythm Munich actually keeps — slow mornings, long lunches in the open air, a golden-hour drink, and a night that ends well after the trams. Below: the full timeline, with how to get between each stop.</p>
+        <button type="button" class="day-toggle" data-day-toggle aria-expanded="false" aria-controls="mu-day-timeline" data-i18n="mu.day.toggle">Show the timeline</button>
+      </div>
+    </div>
+    <div class="day-timeline" id="mu-day-timeline" data-open="false">
+      <div class="day-track">
+      <div class="day-stop">
+        <div class="day-time">08:00</div>
+        <div class="day-stop-content">
+          <div class="day-stop-tag" data-i18n="mu.day.s1.tag">Breakfast</div>
+          <div class="day-stop-name" data-i18n="mu.day.s1.name">Café <em>Frischhut</em></div>
+          <p class="day-stop-desc" data-i18n="mu.day.s1.desc">Start with an Auszogne and a filter coffee at the Schmalznudel, standing at the counter before the Viktualienmarkt fully wakes up.</p>
+        </div>
+      </div>
+      <div class="day-transit"><span class="day-transit-icon">→</span> <span data-i18n="mu.day.t1">3 min · through the Viktualienmarkt to Marienplatz</span></div>
+      <div class="day-stop">
+        <div class="day-time">09:30</div>
+        <div class="day-stop-content">
+          <div class="day-stop-tag" data-i18n="mu.day.s2.tag">Old Town</div>
+          <div class="day-stop-name" data-i18n="mu.day.s2.name">Marienplatz &amp; the <em>Frauenkirche</em></div>
+          <p class="day-stop-desc" data-i18n="mu.day.s2.desc">The Neues Rathaus and its Glockenspiel, then climb the Frauenkirche's south tower for the rooftops-and-Alps view before the crowds arrive.</p>
+        </div>
+      </div>
+      <div class="day-transit"><span class="day-transit-icon">→</span> <span data-i18n="mu.day.t2">10 min · north through the Fünf Höfe</span></div>
+      <div class="day-stop">
+        <div class="day-time">11:00</div>
+        <div class="day-stop-content">
+          <div class="day-stop-tag" data-i18n="mu.day.s3.tag">Design</div>
+          <div class="day-stop-name" data-i18n="mu.day.s3.name"><em>Fünf Höfe</em></div>
+          <p class="day-stop-desc" data-i18n="mu.day.s3.desc">Cut through Herzog &amp; de Meuron's linked courtyards — the hanging garden, the galleries, a slow browse up toward Odeonsplatz.</p>
+        </div>
+      </div>
+      <div class="day-transit"><span class="day-transit-icon">→</span> <span data-i18n="mu.day.t3">12 min · tram 27 to the Kunstareal</span></div>
+      <div class="day-stop">
+        <div class="day-time">12:00</div>
+        <div class="day-stop-content">
+          <div class="day-stop-tag" data-i18n="mu.day.s4.tag">Art</div>
+          <div class="day-stop-name" data-i18n="mu.day.s4.name">Museum <em>Brandhorst</em></div>
+          <p class="day-stop-desc" data-i18n="mu.day.s4.desc">An hour with Twombly, Warhol and Polke behind the 36,000-rod facade — the sharpest post-1960 collection in the south.</p>
+        </div>
+      </div>
+      <div class="day-transit"><span class="day-transit-icon">→</span> <span data-i18n="mu.day.t4">15 min · walk into the Englischer Garten</span></div>
+      <div class="day-stop">
+        <div class="day-time">13:30</div>
+        <div class="day-stop-content">
+          <div class="day-stop-tag" data-i18n="mu.day.s5.tag">Lunch</div>
+          <div class="day-stop-name" data-i18n="mu.day.s5.name"><em>Chinesischer Turm</em> beer garden</div>
+          <p class="day-stop-desc" data-i18n="mu.day.s5.desc">A Maß, an Obatzda and a warm pretzel under the chestnut trees at the Englischer Garten's most famous beer garden.</p>
+        </div>
+      </div>
+      <div class="day-transit"><span class="day-transit-icon">→</span> <span data-i18n="mu.day.t5">8 min · downstream along the Eisbach</span></div>
+      <div class="day-stop">
+        <div class="day-time">15:00</div>
+        <div class="day-stop-content">
+          <div class="day-stop-tag" data-i18n="mu.day.s6.tag">The Wave</div>
+          <div class="day-stop-name" data-i18n="mu.day.s6.name">The <em>Eisbachwelle</em></div>
+          <p class="day-stop-desc" data-i18n="mu.day.s6.desc">Watch the wetsuited surfers take the standing wave where the Eisbach enters the park — the city's most improbable spectacle, free and year-round.</p>
+        </div>
+      </div>
+      <div class="day-transit"><span class="day-transit-icon">→</span> <span data-i18n="mu.day.t6">6 min · walk to Prinzregentenstraße</span></div>
+      <div class="day-stop">
+        <div class="day-time">16:30</div>
+        <div class="day-stop-content">
+          <div class="day-stop-tag" data-i18n="mu.day.s7.tag">Aperitivo</div>
+          <div class="day-stop-name" data-i18n="mu.day.s7.name"><em>Goldene Bar</em></div>
+          <p class="day-stop-desc" data-i18n="mu.day.s7.desc">Coffee turning to cocktails under the gilded 1937 ceilings of the Haus der Kunst, with a terrace onto the park.</p>
+        </div>
+      </div>
+      <div class="day-transit"><span class="day-transit-icon">→</span> <span data-i18n="mu.day.t7">18 min · tram back to the Glockenbachviertel</span></div>
+      <div class="day-stop">
+        <div class="day-time">18:30</div>
+        <div class="day-stop-content">
+          <div class="day-stop-tag" data-i18n="mu.day.s8.tag">Golden Hour</div>
+          <div class="day-stop-name" data-i18n="mu.day.s8.name"><em>Glockenbachviertel</em></div>
+          <p class="day-stop-desc" data-i18n="mu.day.s8.desc">Land in the Glockenbach as it fills — a spritz at Aroma, the corner tables spilling onto the pavement, the light at its best.</p>
+        </div>
+      </div>
+      <div class="day-transit"><span class="day-transit-icon">→</span> <span data-i18n="mu.day.t8">10 min · walk toward the Gärtnerplatz</span></div>
+      <div class="day-stop">
+        <div class="day-time">20:00</div>
+        <div class="day-stop-content">
+          <div class="day-stop-tag" data-i18n="mu.day.s9.tag">Dinner</div>
+          <div class="day-stop-name" data-i18n="mu.day.s9.name">Dinner at the <em>Gärtnerplatz</em></div>
+          <p class="day-stop-desc" data-i18n="mu.day.s9.desc">New-Bavarian small plates and a Franconian wine around the round square, windows open, the evening in no hurry.</p>
+        </div>
+      </div>
+      <div class="day-transit"><span class="day-transit-icon">→</span> <span data-i18n="mu.day.t9">12 min · taxi to the Museumsinsel</span></div>
+      <div class="day-stop">
+        <div class="day-time">23:00</div>
+        <div class="day-stop-content">
+          <div class="day-stop-tag" data-i18n="mu.day.s10.tag">Late-Night</div>
+          <div class="day-stop-name" data-i18n="mu.day.s10.name"><em>Blitz</em> Club</div>
+          <p class="day-stop-desc" data-i18n="mu.day.s10.desc">End on the Funktion-One floor of Blitz on the Museumsinsel — phones away, lights low, out well past sunrise if the night earns it.</p>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  (function(){
+    document.querySelectorAll('[data-day-toggle]').forEach(function(btn){
+      var panel=document.getElementById(btn.getAttribute('aria-controls'));
+      if(!panel) return;
+      btn.addEventListener('click',function(){
+        var open=panel.dataset.open==='true';
+        panel.dataset.open=open?'false':'true';
+        btn.setAttribute('aria-expanded',String(!open));
+      });
+    });
+  })();
+</script>
+
 <!-- HOTELS -->
 <section id="hotels">
   <div class="sec-header">
@@ -699,6 +857,7 @@ footer { background: #100d0a; border-top: 1px solid var(--line); padding: clamp(
     </div>
   </div>
 </section>
+
 
 <!-- FOOTER -->
 <footer>
@@ -1227,7 +1386,7 @@ footer { background: #100d0a; border-top: 1px solid var(--line); padding: clamp(
   })();
 </script>
 
-<script src="lang.js?v=49" defer></script>
+<script src="lang.js?v=50" defer></script>
 <script>
   /* ── Hotel modals — Munich ── */
   (function () {
