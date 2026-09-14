@@ -1,420 +1,341 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
 <meta charset="UTF-8">
-<!-- Security headers -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://formspree.io; script-src 'self' 'unsafe-inline'; frame-src https://www.google.com https://maps.google.com; form-action https://formspree.io 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://formspree.io https://*.workers.dev; script-src 'self' 'unsafe-inline'; frame-src https://www.google.com https://maps.google.com; form-action https://formspree.io 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=()">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nightclubs — City Archivist</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
-<style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --white:     #fdfcf9;
-  --parchment: #f8f5ef;
-  --linen:     #f2ede4;
-  --sand:      #e4ddd1;
-  --stone:     #c8bfb0;
-  --warm-gray: #9c9488;
-  --ink-light: #7a756e;
-  --ink:       #2a2620;
-  --ink-deep:  #1a1814;
-  --ink-night: #0e0c08;
-  --gold:      #b8995a;
-  --gold-dim:  #d4bc8a;
-  --serif: 'Cormorant Garamond', Georgia, serif;
-  --sans:  'Jost', sans-serif;
-}
-html { scroll-behavior: smooth; }
-body {
-  font-family: var(--sans);
-  background: var(--ink-night);
-  color: var(--parchment);
-  font-size: 14px; font-weight: 300; line-height: 1.8;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-a { text-decoration: none; color: inherit; cursor: pointer; }
-
-/* ── NAV ── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
-  height: 70px;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 4rem;
-  background: rgba(14,12,8,0.82);
-  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  transition: background 0.3s;
-}
-.nav-logo {
-  font-family: var(--serif);
-  font-size: 1.1rem; font-weight: 400;
-  letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--parchment);
-}
-.nav-logo span { color: var(--gold); }
-
-/* ── HERO ── */
-.page-hero {
-  padding-top: 70px;
-  min-height: 60vh;
-  display: flex; flex-direction: column; justify-content: flex-end;
-  padding-left: 4rem; padding-right: 4rem; padding-bottom: 5rem;
-  position: relative; overflow: hidden;
-  background:
-    radial-gradient(ellipse at 30% 30%, rgba(184,153,90,0.18), transparent 60%),
-    radial-gradient(ellipse at 80% 70%, rgba(212,188,138,0.10), transparent 50%),
-    linear-gradient(180deg, #0e0c08 0%, #1a1814 60%, #2a2620 100%);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-.page-eyebrow {
-  position: absolute; top: 6rem; left: 4rem;
-  font-size: 9px; font-weight: 300;
-  letter-spacing: 0.34em; text-transform: uppercase;
-  color: var(--gold-dim);
-  display: flex; align-items: center; gap: 14px;
-}
-.page-eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--gold-dim); }
-.page-h1 {
-  font-family: var(--serif);
-  font-size: clamp(3rem, 6vw, 6rem);
-  font-weight: 300; line-height: 1.05; color: var(--parchment);
-}
-.page-h1 em { font-style: italic; color: var(--gold); }
-.page-sub {
-  font-size: 13px; font-weight: 300;
-  color: rgba(248,245,239,0.55);
-  max-width: 540px; line-height: 1.95;
-  margin-top: 1.6rem;
-}
-
-/* ── CLUB CARDS GRID ── */
-.clubs-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 1px; background: rgba(255,255,255,0.06);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-.club-card {
-  background: var(--ink);
-  display: flex; flex-direction: column;
-  text-decoration: none; color: inherit;
-  cursor: pointer;
-  transition: background 0.3s;
-  position: relative;
-  overflow: hidden;
-}
-.club-card:hover { background: #221e18; }
-.club-card-img {
-  position: relative; overflow: hidden;
-  aspect-ratio: 16/10;
-  background: linear-gradient(150deg, #2a2620 0%, #1a1814 60%, #0e0c08 100%);
-  display: flex; align-items: center; justify-content: center;
-}
-.club-card-img img {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover; object-position: center;
-  transition: transform 0.7s ease, filter 0.5s;
-  filter: brightness(0.78) saturate(0.95);
-}
-.club-card:hover .club-card-img img {
-  transform: scale(1.04);
-  filter: brightness(1) saturate(1);
-}
-.club-card-num {
-  position: absolute; top: 1.2rem; left: 1.5rem;
-  font-family: var(--serif);
-  font-size: 1rem; font-weight: 400;
-  color: rgba(248,245,239,0.7);
-  z-index: 2; letter-spacing: 0.04em;
-}
-.club-card-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 55%);
-  z-index: 1;
-}
-.club-card-loc {
-  position: absolute; bottom: 1.2rem; left: 1.5rem;
-  font-size: 9px; letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: rgba(248,245,239,0.85);
-  z-index: 2;
-}
-.club-card-body {
-  padding: 1.5rem 1.6rem 1.6rem;
-  display: flex; flex-direction: column;
-  flex: 1;
-}
-.club-card-name {
-  font-family: var(--serif);
-  font-size: 1.35rem; font-weight: 300;
-  color: var(--parchment);
-  margin-bottom: 0.35rem;
-  line-height: 1.2;
-  transition: color 0.25s;
-}
-.club-card:hover .club-card-name { color: var(--gold-dim); }
-.club-card-genre {
-  font-size: 9px; letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--gold-dim); opacity: 0.7;
-  margin-bottom: 0.8rem;
-}
-.club-card-desc {
-  font-size: 12px; font-weight: 300;
-  color: rgba(248,245,239,0.48);
-  line-height: 1.8;
-  margin-bottom: 1rem;
-  flex: 1;
-}
-.club-card-cta {
-  font-size: 9px; letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: var(--gold-dim);
-  display: inline-flex; align-items: center; gap: 8px;
-  transition: gap 0.25s, color 0.25s;
-  align-self: flex-start;
-}
-.club-card-cta::after { content: '→'; }
-.club-card:hover .club-card-cta { gap: 14px; color: var(--gold); }
-
-/* ── NOTE ── */
-.bottom-note {
-  padding: 5rem 4rem;
-  display: grid; grid-template-columns: 220px 1fr;
-  gap: 6rem; align-items: start;
-}
-.note-label {
-  font-size: 9px; font-weight: 300;
-  letter-spacing: 0.32em; text-transform: uppercase;
-  color: var(--gold-dim); padding-top: 0.4rem;
-}
-.note-body p {
-  font-size: 13px; color: rgba(248,245,239,0.55);
-  font-weight: 300; line-height: 1.95; max-width: 580px;
-}
-
-/* ── FOOTER ── */
-footer {
-  background: #0a0805;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  padding: 3rem 4rem;
-  display: flex; justify-content: space-between; align-items: center;
-}
-.footer-logo {
-  font-family: var(--serif);
-  font-size: 1rem; font-weight: 400;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--parchment);
-}
-.footer-logo span { color: var(--gold); }
-.footer-copy { font-size: 10.5px; color: rgba(248,245,239,0.3); letter-spacing: 0.08em; }
-.footer-back {
-  font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase;
-  color: rgba(248,245,239,0.5);
-  border: 1px solid rgba(255,255,255,0.12);
-  padding: 7px 18px; transition: all 0.2s;
-  display: flex; align-items: center; gap: 8px;
-}
-.footer-back:hover { color: var(--gold-dim); border-color: rgba(184,153,90,0.4); }
-
-@media (max-width: 1024px) {
-  .clubs-grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (max-width: 768px) {
-  nav { padding: 0 1.5rem; }
-  .page-hero { padding: 5rem 1.8rem 3rem; min-height: 50vh; }
-  .page-eyebrow { left: 1.8rem; top: 5rem; }
-  .page-h1 { font-size: clamp(2.6rem, 12vw, 4.5rem); }
-  .clubs-grid { grid-template-columns: 1fr; }
-  .bottom-note { grid-template-columns: 1fr; gap: 1rem; padding: 3rem 1.8rem; }
-  footer { flex-direction: column; gap: 1.5rem; padding: 2.5rem 1.8rem; text-align: center; }
-}
-
-/* ── Nav links tabs (inlined to prevent FOUC) ── */
-nav .nav-links {
-  display: flex; gap: 2.5rem;
-  list-style: none; padding: 0; margin: 0;
-}
-nav .nav-links a {
-  font-size: 10px; font-weight: 300;
-  letter-spacing: 0.22em; text-transform: uppercase;
-  color: rgba(248,245,239,0.65);
-  text-decoration: none;
-  position: relative;
-  transition: color 0.25s;
-}
-nav .nav-links a:hover { color: var(--parchment); }
-nav .nav-links a::after {
-  content: ''; position: absolute;
-  bottom: -3px; left: 0;
-  width: 0; height: 1px;
-  background: var(--gold-dim); opacity: 0.7;
-  transition: width 0.3s;
-}
-nav .nav-links a:hover::after { width: 100%; }
-@media (max-width: 768px) {
-  nav .nav-links { display: none; }
-}
-
-/* Language trigger */
-.ca-lang-trigger {
-  background: transparent; border: 1px solid rgba(255,255,255,0.15);
-  color: rgba(248,245,239,0.7);
-  font-family: var(--sans);
-  font-size: 9.5px; letter-spacing: 0.24em; text-transform: uppercase;
-  padding: 7px 14px; cursor: pointer; transition: all 0.2s;
-  display: inline-flex; align-items: center; gap: 8px;
-}
-.ca-lang-trigger:hover { color: var(--gold-dim); border-color: rgba(184,153,90,0.4); }
-
-@media (max-width: 768px) {
-  
-}
-
-</style>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16-v3.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32-v3.png">
 <link rel="icon" type="image/png" sizes="192x192" href="favicon-192-v3.png">
 <link rel="icon" type="image/svg+xml" href="favicon-v3.svg">
-<link rel="shortcut icon" href="favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-v3.png">
-<meta name="theme-color" content="#e9ddc7">
+<meta name="theme-color" content="#16130f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<script>document.documentElement.className += ' js';</script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:#16130f; --bg2:#1e1a14; --bg3:#241f18;
+  --cream:#f4eee2; --cream-2:#cfc6b6; --muted:#9a9284; --faint:#6a6458;
+  --gold:#cca86a; --gold-2:#e0c48c;
+  --line:rgba(204,168,106,0.18); --line-2:rgba(244,238,226,0.10); --scrim:#0d0b08;
+  --serif:'Cormorant Garamond', Georgia, serif;
+  --sans:'Jost', -apple-system, BlinkMacSystemFont, sans-serif;
+  --wrap:1320px; --ease:cubic-bezier(0.22,0.61,0.24,1);
+}
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; background: var(--bg); }
+html.nav-open { overflow: hidden; }
+body { font-family: var(--sans); background: var(--bg); color: var(--cream); font-size: 14px; font-weight: 300; line-height: 1.85; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: hidden; }
+img { max-width: 100%; display: block; image-orientation: none; }
+a { text-decoration: none; color: inherit; cursor: pointer; }
+em { font-style: italic; color: var(--gold-2); }
+::selection { background: var(--gold); color: var(--scrim); }
+
+body::after { content:''; position:fixed; inset:0; z-index:9998; pointer-events:none; opacity:0.055; mix-blend-mode:overlay; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+#progress { position: fixed; top: 0; left: 0; height: 2px; width: 0; background: linear-gradient(90deg, var(--gold), var(--gold-2)); z-index: 400; }
+
+.eyebrow { font-size:10px; font-weight:400; letter-spacing:0.36em; text-transform:uppercase; color:var(--gold); display:inline-flex; align-items:center; gap:14px; }
+.eyebrow::before { content:''; width:34px; height:1px; background:var(--gold); display:inline-block; opacity:0.7; }
+.eyebrow--center { justify-content:center; }
+.eyebrow--center::after { content:''; width:34px; height:1px; background:var(--gold); display:inline-block; opacity:0.7; }
+.js .reveal { opacity:0; transform:translateY(40px); transition:opacity 1.15s var(--ease), transform 1.15s var(--ease); }
+.js .reveal.in { opacity:1; transform:none; }
+
+/* nav */
+nav { position:fixed; top:0; left:0; right:0; z-index:300; height:82px; display:flex; align-items:center; background:transparent; border-bottom:1px solid transparent; transition:background 0.5s var(--ease), border-color 0.5s, height 0.4s; }
+nav.scrolled { background:rgba(16,13,10,0.86); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border-bottom-color:var(--line); height:70px; }
+.nav-inner { width:min(var(--wrap), 100% - clamp(2.4rem,10vw,9rem)); margin-inline:auto; display:flex; align-items:center; justify-content:space-between; }
+.nav-logo { font-family:var(--serif); font-size:1.3rem; font-weight:500; letter-spacing:0.28em; text-transform:uppercase; color:var(--cream); }
+.nav-logo span { color:var(--gold); }
+.nav-links { display:flex; gap:clamp(1.6rem,2.6vw,2.9rem); list-style:none; }
+.nav-links a { font-size:10px; font-weight:300; letter-spacing:0.24em; text-transform:uppercase; color:var(--cream-2); position:relative; transition:color 0.25s; }
+.nav-links a::after { content:''; position:absolute; bottom:-6px; left:0; width:0; height:1px; background:var(--gold); transition:width 0.35s var(--ease); }
+.nav-links a:hover { color:var(--cream); } .nav-links a:hover::after { width:100%; }
+.nav-right { display:flex; align-items:center; gap:1.2rem; }
+.ca-lang-trigger { background:none; border:1px solid var(--line); border-radius:999px; padding:7px 15px; font-family:var(--sans); font-size:10px; font-weight:400; letter-spacing:0.2em; text-transform:uppercase; color:var(--cream-2); cursor:pointer; transition:border-color 0.25s, color 0.25s; }
+.ca-lang-trigger:hover { border-color:var(--gold); color:var(--cream); }
+.nav-menu-btn { display:none; background:none; border:none; flex-direction:column; gap:5px; cursor:pointer; padding:6px 2px; }
+.nav-menu-btn span { width:24px; height:1px; background:var(--cream); display:block; }
+.nav-overlay { position:fixed; inset:0; z-index:290; background:var(--bg); display:flex; flex-direction:column; justify-content:center; align-items:center; gap:1.5rem; opacity:0; visibility:hidden; transition:opacity 0.4s var(--ease), visibility 0.4s; }
+html.nav-open .nav-overlay { opacity:1; visibility:visible; }
+.nav-overlay a { font-family:var(--serif); font-size:2.1rem; font-weight:300; color:var(--cream); }
+
+/* hero */
+.page-hero { position:relative; min-height:100svh; display:flex; align-items:flex-end; overflow:hidden; }
+.hero-bg { position:absolute; inset:0; z-index:0; }
+.hero-bg img { width:100%; height:100%; object-fit:cover; object-position:center; transform:scale(1.05); animation:kenburns 26s ease-in-out infinite alternate; }
+@keyframes kenburns { from{transform:scale(1.05);} to{transform:scale(1.15);} }
+.hero-scrim { position:absolute; inset:0; z-index:1; background:linear-gradient(to top, rgba(13,11,8,0.92) 0%, rgba(13,11,8,0.28) 45%, rgba(13,11,8,0.1) 70%, rgba(13,11,8,0.5) 100%), radial-gradient(120% 80% at 15% 100%, rgba(13,11,8,0.6), transparent 60%); }
+.hero-inner { position:relative; z-index:2; width:min(var(--wrap), 100% - clamp(2.4rem,10vw,9rem)); margin-inline:auto; padding-bottom:clamp(3rem,8vh,6rem); }
+.page-eyebrow { margin-bottom:1.8rem; }
+.page-h1 { font-family:var(--serif); font-weight:300; font-size:clamp(3rem,9vw,7.5rem); line-height:0.96; letter-spacing:-0.02em; color:var(--cream); text-shadow:0 2px 50px rgba(0,0,0,0.45); }
+.page-h1 em { color:var(--gold-2); }
+.page-sub { font-size:clamp(13px,1.5vw,16px); color:var(--cream-2); max-width:40ch; margin:1.8rem 0 0; line-height:1.9; }
+.hero-meta { display:flex; gap:clamp(1.6rem,4vw,3rem); margin-top:clamp(2.4rem,6vh,3.6rem); font-size:9.5px; letter-spacing:0.3em; text-transform:uppercase; color:var(--muted); border-top:1px solid var(--line-2); padding-top:1.6rem; }
+.hero-meta div:first-child { color:var(--gold); }
+.hero-scroll { position:absolute; right:clamp(1.5rem,6vw,4rem); bottom:clamp(2rem,6vh,4rem); z-index:2; writing-mode:vertical-rl; font-size:9.5px; letter-spacing:0.36em; text-transform:uppercase; color:var(--cream-2); display:flex; align-items:center; gap:14px; }
+.hero-scroll::after { content:''; width:1px; height:56px; background:linear-gradient(var(--gold), transparent); animation:scrolldrop 2.2s var(--ease) infinite; }
+@keyframes scrolldrop { 0%{transform:scaleY(0);transform-origin:top;} 45%{transform:scaleY(1);transform-origin:top;} 55%{transform:scaleY(1);transform-origin:bottom;} 100%{transform:scaleY(0);transform-origin:bottom;} }
+.js .page-eyebrow, .js .page-h1, .js .page-sub, .js .hero-meta { opacity:0; transform:translateY(32px); animation:heroin 1.3s var(--ease) forwards; }
+.js .page-h1 { animation-delay:0.14s; } .js .page-sub { animation-delay:0.32s; } .js .hero-meta { animation-delay:0.5s; }
+@keyframes heroin { to { opacity:1; transform:none; } }
+
+/* chain chapters */
+.chapter { position:relative; display:flex; align-items:flex-end; min-height:clamp(560px,90vh,880px); overflow:hidden; border-top:1px solid var(--line); }
+.chapter-bg { position:absolute; left:0; right:0; top:-14%; height:128%; z-index:0; will-change:transform; }
+.chapter-bg img { width:100%; height:100%; object-fit:cover; object-position:center; }
+.chapter-scrim { position:absolute; inset:0; z-index:1; background:linear-gradient(to top, rgba(13,11,8,0.9) 0%, rgba(13,11,8,0.3) 45%, rgba(13,11,8,0.15) 100%), linear-gradient(to right, rgba(13,11,8,0.72), transparent 55%); }
+.chapter:nth-child(even) .chapter-scrim { background:linear-gradient(to top, rgba(13,11,8,0.9) 0%, rgba(13,11,8,0.3) 45%, rgba(13,11,8,0.15) 100%), linear-gradient(to left, rgba(13,11,8,0.72), transparent 55%); }
+.chapter-inner { position:relative; z-index:2; width:min(var(--wrap), 100% - clamp(2.4rem,10vw,9rem)); margin-inline:auto; padding:clamp(3rem,8vh,6rem) 0; max-width:none; }
+.chapter-inner-box { max-width:min(620px,92%); }
+.chapter:nth-child(even) .chapter-inner-box { margin-left:auto; text-align:right; }
+.chapter:nth-child(even) .chapter-meta { justify-content:flex-end; }
+.chapter:nth-child(even) .chapter-sub { margin-left:auto; }
+.chapter-no { font-family:var(--serif); font-style:italic; font-size:clamp(1rem,1.6vw,1.3rem); color:var(--gold); margin-bottom:0.8rem; }
+.chapter-name { font-family:var(--serif); font-weight:300; font-size:clamp(3rem,9vw,7rem); line-height:0.94; letter-spacing:-0.02em; color:var(--cream); text-shadow:0 2px 50px rgba(0,0,0,0.5); transition:color 0.4s; display:block; }
+.chapter:hover .chapter-name { color:var(--gold-2); }
+.chapter-meta { display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-top:1.3rem; font-size:10px; letter-spacing:0.24em; text-transform:uppercase; color:var(--cream-2); }
+.chapter-origin { color:var(--gold); letter-spacing:0.18em; }
+.chapter-dot { width:3px; height:3px; border-radius:50%; background:var(--gold); opacity:0.6; }
+.chapter-sub { font-size:14px; color:var(--cream-2); max-width:44ch; margin:1.3rem 0 1.9rem; line-height:1.85; }
+.chapter-go { display:inline-flex; align-items:center; gap:11px; font-size:11px; font-weight:400; letter-spacing:0.28em; text-transform:uppercase; color:var(--cream); padding-bottom:8px; border-bottom:1px solid var(--gold); transition:gap 0.35s var(--ease); }
+.chapter:hover .chapter-go { gap:20px; }
+
+/* note */
+.note { padding:clamp(5rem,11vw,9rem) 0; text-align:center; }
+.note-inner { width:min(720px, 100% - clamp(2.4rem,12vw,6rem)); margin-inline:auto; }
+.note-label { margin-bottom:1.8rem; }
+.note p { font-family:var(--serif); font-weight:300; font-size:clamp(1.6rem,3.4vw,2.6rem); line-height:1.32; color:var(--cream); }
+.note p em { font-style:italic; }
+
+/* footer */
+footer { background:#100d0a; border-top:1px solid var(--line); padding:clamp(3rem,6vw,4.5rem) 0; }
+.foot-inner { width:min(var(--wrap), 100% - clamp(2.4rem,10vw,9rem)); margin-inline:auto; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; }
+.footer-logo { font-family:var(--serif); font-size:1.35rem; font-weight:500; letter-spacing:0.24em; text-transform:uppercase; color:var(--cream); }
+.footer-logo span { color:var(--gold); }
+.footer-copy { font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--faint); }
+.footer-back { font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--cream-2); transition:color 0.25s; }
+.footer-back:hover { color:var(--gold-2); }
+
+@media (max-width:820px) {
+  .nav-links { display:none; } .nav-menu-btn { display:flex; }
+  .hero-scroll { display:none; }
+  .chapter { min-height:74vh; }
+  .chapter-inner-box, .chapter:nth-child(even) .chapter-inner-box { text-align:left; margin-left:0; max-width:100%; }
+  .chapter:nth-child(even) .chapter-meta { justify-content:flex-start; }
+  .chapter:nth-child(even) .chapter-sub { margin-left:0; }
+  .foot-inner { flex-direction:column; align-items:flex-start; gap:1.2rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior:auto; }
+  .js .reveal, .js .page-eyebrow, .js .page-h1, .js .page-sub, .js .hero-meta { opacity:1 !important; transform:none !important; animation:none !important; }
+  .hero-bg img { animation:none; transform:scale(1.08); } .hero-scroll::after { animation:none; }
+  .chapter-bg { transform:none !important; }
+  *, *::before, *::after { transition-duration:0.001ms !important; }
+}
+
+    /* ── Nightclub light flicker (subtle) ── */
+    .club-lights { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+    .club-lights span { position: absolute; border-radius: 50%; filter: blur(70px); mix-blend-mode: screen; will-change: transform, opacity; }
+    .club-lights .l1 { width: 46vw; height: 46vw; left: -8%; top: -18%; background: radial-gradient(circle, rgba(196,74,214,0.5), transparent 66%); animation: cl-drift1 17s ease-in-out infinite alternate, cl-flick1 6.5s ease-in-out infinite; }
+    .club-lights .l2 { width: 42vw; height: 42vw; right: -6%; top: 8%; background: radial-gradient(circle, rgba(74,152,232,0.46), transparent 66%); animation: cl-drift2 21s ease-in-out infinite alternate, cl-flick2 5.2s ease-in-out infinite; }
+    .club-lights .l3 { width: 38vw; height: 38vw; left: 32%; bottom: -22%; background: radial-gradient(circle, rgba(232,186,96,0.42), transparent 66%); animation: cl-drift3 24s ease-in-out infinite alternate, cl-flick3 7.8s ease-in-out infinite; }
+    @keyframes cl-drift1 { from { transform: translate(0,0); } to { transform: translate(14%,12%); } }
+    @keyframes cl-drift2 { from { transform: translate(0,0); } to { transform: translate(-12%,10%); } }
+    @keyframes cl-drift3 { from { transform: translate(0,0); } to { transform: translate(8%,-12%); } }
+    @keyframes cl-flick1 { 0%,100% { opacity: .34; } 42% { opacity: .5; } 44% { opacity: .3; } 46% { opacity: .48; } 70% { opacity: .4; } }
+    @keyframes cl-flick2 { 0%,100% { opacity: .3; } 30% { opacity: .44; } 32% { opacity: .26; } 55% { opacity: .42; } }
+    @keyframes cl-flick3 { 0%,100% { opacity: .28; } 50% { opacity: .4; } 52% { opacity: .24; } 80% { opacity: .36; } }
+    .chapter .chapter-name { animation: cl-neon 7.5s ease-in-out infinite; }
+    @keyframes cl-neon { 0%,100% { text-shadow: 0 2px 50px rgba(0,0,0,0.5); } 47% { text-shadow: 0 2px 50px rgba(0,0,0,0.5), 0 0 24px rgba(224,196,140,0.28); } 49% { text-shadow: 0 2px 50px rgba(0,0,0,0.5); } }
+    @media (prefers-reduced-motion: reduce) { .club-lights span { animation: none; opacity: .26; } .chapter .chapter-name { animation: none; } }
+  </style>
+<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
 
+<div id="progress"></div>
+
+<!-- NAV -->
 <nav id="top-nav">
-  <a class="nav-logo" href="/">City <span>Archivist</span></a>
-  <ul class="nav-links">
-    <li><a href="/#home" data-i18n="nav.home">Home</a></li>
-    <li><a href="/#destinations" data-i18n="nav.destinations">Destinations</a></li>
-    <li><a href="/wonders" data-i18n="nav.wonders">Wonders</a></li>
-    <li><a href="/hotels" data-i18n="nav.hotels">Hotels</a></li>
-    <li><a href="/clubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
-    <li><a href="/#about" data-i18n="nav.about">About Us</a></li>
-  </ul>
-  <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
-    <span data-lang-current>EN</span>
-  </button>
+  <div class="nav-inner">
+    <a class="nav-logo" href="/">City <span>Archivist</span></a>
+    <ul class="nav-links">
+      <li><a href="/#home" data-i18n="nav.home">Home</a></li>
+      <li><a href="/#destinations" data-i18n="nav.destinations">Destinations</a></li>
+      <li><a href="/wonders" data-i18n="nav.wonders">Wonders</a></li>
+      <li><a href="/hotels" data-i18n="nav.hotels">Hotels</a></li>
+      <li><a href="/clubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
+      <li><a href="/#about" data-i18n="nav.about">About Us</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
+        <span data-lang-current>EN</span>
+      </button>
+      <button class="nav-menu-btn" type="button" id="nav-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-overlay">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
 </nav>
 
-<div class="page-hero">
-  <div class="page-eyebrow" data-i18n="clubsPage.eyebrow">The Club Archive</div>
-  <h1 class="page-h1" data-i18n="clubsPage.h1">After<br><em>Dark</em></h1>
-  <p class="page-sub" data-i18n="clubs.desc">Explore the world's top nightclubs for unmatched beats and unforgettable nights.</p>
+<!-- MOBILE MENU OVERLAY -->
+<div class="nav-overlay" id="nav-overlay">
+  <a href="/#home" data-nav-close data-i18n="nav.home">Home</a>
+  <a href="/#destinations" data-nav-close data-i18n="nav.destinations">Destinations</a>
+  <a href="/wonders" data-i18n="nav.wonders">Wonders</a>
+  <a href="/hotels" data-i18n="nav.hotels">Hotels</a>
+  <a href="/clubs" data-i18n="nav.nightclubs">Nightclubs</a>
+  <a href="/#about" data-nav-close data-i18n="nav.about">About Us</a>
 </div>
 
-<div class="clubs-grid">
-  <a href="/hi-ibiza" class="club-card">
-    <div class="club-card-img">
-      <img src="hiibiza1.png" alt="Hï Ibiza">
-      <div class="club-card-overlay"></div>
-      <span class="club-card-num">01</span>
-      <span class="club-card-loc">Ibiza · Spain</span>
+<!-- HERO -->
+<section class="page-hero" id="home">
+  <div class="hero-bg" data-parallax data-speed="0.22"><img src="hiibiza1.png" alt="Nightclub lights"></div>
+  <div class="club-lights"><span class="l1"></span><span class="l2"></span><span class="l3"></span></div>
+  <div class="hero-scrim"></div>
+  <div class="hero-inner">
+    <div class="page-eyebrow eyebrow" data-i18n="clubsPage.eyebrow">The Club Archive</div>
+    <h1 class="page-h1" data-i18n="clubsPage.h1">After<br><em>Dark</em></h1>
+    <p class="page-sub" data-i18n="clubs.desc">Explore the world's top nightclubs for unmatched beats and unforgettable nights.</p>
+    <div class="hero-meta">
+      <div>EST. MMXXVI</div>
+      <div>6 Rooms</div>
+      <div>Vol. I</div>
     </div>
-    <div class="club-card-body">
-      <div class="club-card-name" data-i18n="clubs.hi.name">Hï Ibiza</div>
-      <div class="club-card-genre">Techno · House · EDM</div>
-      <p class="club-card-desc" data-i18n="clubs.hi.desc">Voted №1 club in the world multiple times — futuristic design, two main rooms and the most in-demand DJs of the decade.</p>
-      <span class="club-card-cta" data-i18n="dest.explore">Explore</span>
-    </div>
-  </a>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
 
-  <a href="/echostage" class="club-card">
-    <div class="club-card-img">
-      <img src="echostage1.png" alt="Echostage">
-      <div class="club-card-overlay"></div>
-      <span class="club-card-num">02</span>
-      <span class="club-card-loc">Washington · USA</span>
-    </div>
-    <div class="club-card-body">
-      <div class="club-card-name" data-i18n="clubs.echo.name">Echostage</div>
-      <div class="club-card-genre">House · Trance · Bass</div>
-      <p class="club-card-desc" data-i18n="clubs.echo.desc">North America's largest concert venue dedicated to electronic music — vast warehouse space, immersive light shows, headline residencies.</p>
-      <span class="club-card-cta" data-i18n="dest.explore">Explore</span>
-    </div>
-  </a>
+<!-- NIGHTCLUBS — CINEMATIC CHAPTERS -->
 
-  <a href="/berghain" class="club-card">
-    <div class="club-card-img">
-      <img src="berghain.png" alt="Berghain">
-      <div class="club-card-overlay"></div>
-      <span class="club-card-num">03</span>
-      <span class="club-card-loc">Berlin · Germany</span>
+<a href="/hi-ibiza" class="club-row chapter">
+  <div class="chapter-bg" data-parallax data-speed="0.16"><img src="hiibiza1.png" alt="Hï Ibiza" loading="lazy"></div>
+  <div class="club-lights"><span class="l1"></span><span class="l2"></span><span class="l3"></span></div>
+  <div class="chapter-scrim"></div>
+  <div class="chapter-inner"><div class="chapter-inner-box">
+    <div class="chapter-no">No. 01</div>
+    <span class="chapter-name" data-i18n="clubs.hi.name">Hï Ibiza</span>
+    <div class="chapter-meta">
+      <span>Techno · House · EDM</span>
+      <span class="chapter-dot"></span>
+      <span class="chapter-origin">Ibiza · Spain</span>
     </div>
-    <div class="club-card-body">
-      <div class="club-card-name" data-i18n="clubs.berg.name">Berghain</div>
-      <div class="club-card-genre">Techno · Industrial</div>
-      <p class="club-card-desc" data-i18n="clubs.berg.desc">A former power plant turned temple of techno. Famous for its uncompromising door, marathon sets and a sound system that defines the genre.</p>
-      <span class="club-card-cta" data-i18n="dest.explore">Explore</span>
-    </div>
-  </a>
+    <p class="chapter-sub" data-i18n="clubs.hi.desc">Voted №1 club in the world multiple times — futuristic design, two main rooms and the most in-demand DJs of the decade.</p>
+    <span class="chapter-go"><span data-i18n="dest.explore">Explore</span>&nbsp;→</span>
+  </div></div>
+</a>
 
-  <a href="/fabric" class="club-card">
-    <div class="club-card-img">
-      <img src="fabric.jpg" alt="Fabric">
-      <div class="club-card-overlay"></div>
-      <span class="club-card-num">04</span>
-      <span class="club-card-loc">London · UK</span>
+<a href="/echostage" class="club-row chapter">
+  <div class="chapter-bg" data-parallax data-speed="0.16"><img src="echostage1.png" alt="Echostage" loading="lazy"></div>
+  <div class="club-lights"><span class="l1"></span><span class="l2"></span><span class="l3"></span></div>
+  <div class="chapter-scrim"></div>
+  <div class="chapter-inner"><div class="chapter-inner-box">
+    <div class="chapter-no">No. 02</div>
+    <span class="chapter-name" data-i18n="clubs.echo.name">Echostage</span>
+    <div class="chapter-meta">
+      <span>House · Trance · Bass</span>
+      <span class="chapter-dot"></span>
+      <span class="chapter-origin">Washington · USA</span>
     </div>
-    <div class="club-card-body">
-      <div class="club-card-name" data-i18n="clubs.fab.name">Fabric</div>
-      <div class="club-card-genre">House · Techno · Drum &amp; Bass</div>
-      <p class="club-card-desc" data-i18n="clubs.fab.desc">Three rooms beneath Smithfield Market and a bodysonic dancefloor that moves with the bass — a London institution for over two decades.</p>
-      <span class="club-card-cta" data-i18n="dest.explore">Explore</span>
-    </div>
-  </a>
+    <p class="chapter-sub" data-i18n="clubs.echo.desc">North America's largest concert venue dedicated to electronic music — vast warehouse space, immersive light shows, headline residencies.</p>
+    <span class="chapter-go"><span data-i18n="dest.explore">Explore</span>&nbsp;→</span>
+  </div></div>
+</a>
 
-  <a href="/pacha" class="club-card">
-    <div class="club-card-img">
-      <img src="pacha.jpg" alt="Pacha">
-      <div class="club-card-overlay"></div>
-      <span class="club-card-num">05</span>
-      <span class="club-card-loc">Ibiza · Spain</span>
+<a href="/berghain" class="club-row chapter">
+  <div class="chapter-bg" data-parallax data-speed="0.16"><img src="berghain.png" alt="Berghain" loading="lazy"></div>
+  <div class="club-lights"><span class="l1"></span><span class="l2"></span><span class="l3"></span></div>
+  <div class="chapter-scrim"></div>
+  <div class="chapter-inner"><div class="chapter-inner-box">
+    <div class="chapter-no">No. 03</div>
+    <span class="chapter-name" data-i18n="clubs.berg.name">Berghain</span>
+    <div class="chapter-meta">
+      <span>Techno · Industrial</span>
+      <span class="chapter-dot"></span>
+      <span class="chapter-origin">Berlin · Germany</span>
     </div>
-    <div class="club-card-body">
-      <div class="club-card-name" data-i18n="clubs.pacha.name">Pacha</div>
-      <div class="club-card-genre">House · Disco · Open Format</div>
-      <p class="club-card-desc" data-i18n="clubs.pacha.desc">The cherry-logo legend. Open since 1973, Pacha turned Ibiza into the global capital of nightlife — glamour, history and endless summers.</p>
-      <span class="club-card-cta" data-i18n="dest.explore">Explore</span>
-    </div>
-  </a>
+    <p class="chapter-sub" data-i18n="clubs.berg.desc">A former power plant turned temple of techno. Famous for its uncompromising door, marathon sets and a sound system that defines the genre.</p>
+    <span class="chapter-go"><span data-i18n="dest.explore">Explore</span>&nbsp;→</span>
+  </div></div>
+</a>
 
-  <a href="/unvrs" class="club-card">
-    <div class="club-card-img">
-      <img src="unvrs.jpg" alt="UNVRS">
-      <div class="club-card-overlay"></div>
-      <span class="club-card-num">06</span>
-      <span class="club-card-loc">Ibiza · Spain</span>
+<a href="/fabric" class="club-row chapter">
+  <div class="chapter-bg" data-parallax data-speed="0.16"><img src="fabric.jpg" alt="Fabric" loading="lazy"></div>
+  <div class="club-lights"><span class="l1"></span><span class="l2"></span><span class="l3"></span></div>
+  <div class="chapter-scrim"></div>
+  <div class="chapter-inner"><div class="chapter-inner-box">
+    <div class="chapter-no">No. 04</div>
+    <span class="chapter-name" data-i18n="clubs.fab.name">Fabric</span>
+    <div class="chapter-meta">
+      <span>House · Techno · Drum &amp; Bass</span>
+      <span class="chapter-dot"></span>
+      <span class="chapter-origin">London · UK</span>
     </div>
-    <div class="club-card-body">
-      <div class="club-card-name" data-i18n="clubs.unvrs.name">UNVRS</div>
-      <div class="club-card-genre">Techno · House · EDM</div>
-      <p class="club-card-desc" data-i18n="clubs.unvrs.desc">Opened summer 2025 on the legendary Privilege site — a multi-room mega-venue with the world's first 360° open-air club stage and the most ambitious production on the island.</p>
-      <span class="club-card-cta" data-i18n="dest.explore">Explore</span>
-    </div>
-  </a>
-</div>
+    <p class="chapter-sub" data-i18n="clubs.fab.desc">Three rooms beneath Smithfield Market and a bodysonic dancefloor that moves with the bass — a London institution for over two decades.</p>
+    <span class="chapter-go"><span data-i18n="dest.explore">Explore</span>&nbsp;→</span>
+  </div></div>
+</a>
 
-<div class="bottom-note">
-  <div class="note-label" data-i18n="clubsPage.note.label">A Note</div>
-  <div class="note-body">
+<a href="/pacha" class="club-row chapter">
+  <div class="chapter-bg" data-parallax data-speed="0.16"><img src="pacha.jpg" alt="Pacha" loading="lazy"></div>
+  <div class="club-lights"><span class="l1"></span><span class="l2"></span><span class="l3"></span></div>
+  <div class="chapter-scrim"></div>
+  <div class="chapter-inner"><div class="chapter-inner-box">
+    <div class="chapter-no">No. 05</div>
+    <span class="chapter-name" data-i18n="clubs.pacha.name">Pacha</span>
+    <div class="chapter-meta">
+      <span>House · Disco · Open Format</span>
+      <span class="chapter-dot"></span>
+      <span class="chapter-origin">Ibiza · Spain</span>
+    </div>
+    <p class="chapter-sub" data-i18n="clubs.pacha.desc">The cherry-logo legend. Open since 1973, Pacha turned Ibiza into the global capital of nightlife — glamour, history and endless summers.</p>
+    <span class="chapter-go"><span data-i18n="dest.explore">Explore</span>&nbsp;→</span>
+  </div></div>
+</a>
+
+<a href="/unvrs" class="club-row chapter">
+  <div class="chapter-bg" data-parallax data-speed="0.16"><img src="unvrs.jpg" alt="UNVRS" loading="lazy"></div>
+  <div class="club-lights"><span class="l1"></span><span class="l2"></span><span class="l3"></span></div>
+  <div class="chapter-scrim"></div>
+  <div class="chapter-inner"><div class="chapter-inner-box">
+    <div class="chapter-no">No. 06</div>
+    <span class="chapter-name" data-i18n="clubs.unvrs.name">UNVRS</span>
+    <div class="chapter-meta">
+      <span>Techno · House · EDM</span>
+      <span class="chapter-dot"></span>
+      <span class="chapter-origin">Ibiza · Spain</span>
+    </div>
+    <p class="chapter-sub" data-i18n="clubs.unvrs.desc">Opened summer 2025 on the legendary Privilege site — a multi-room mega-venue with the world's first 360° open-air club stage and the most ambitious production on the island.</p>
+    <span class="chapter-go"><span data-i18n="dest.explore">Explore</span>&nbsp;→</span>
+  </div></div>
+</a>
+
+<!-- NOTE -->
+<section class="note">
+  <div class="note-inner reveal">
+    <div class="note-label eyebrow eyebrow--center" data-i18n="clubsPage.note.label">A Note</div>
     <p data-i18n="clubsPage.note.p">These are not the loudest clubs nor the largest — they are the ones that shaped electronic music culture. From Berlin's industrial cathedrals to Ibiza's eternal summer, every name on this list is a destination in itself.</p>
   </div>
-</div>
+</section>
 
+<!-- FOOTER -->
 <footer>
-  <div class="footer-logo">City <span>Archivist</span></div>
-  <span class="footer-copy" data-i18n="footer.copy">© 2026 City Archivist</span>
-  <a class="footer-back" href="/" data-i18n="nav.back">← Back to Home</a>
+  <div class="foot-inner">
+    <div class="footer-logo">City <span>Archivist</span></div>
+    <span class="footer-copy" data-i18n="footer.copy">© 2026 City Archivist</span>
+    <a class="footer-back" href="/" data-i18n="nav.back">← Back to Home</a>
+  </div>
 </footer>
 
-<script src="lang.js?v=24" defer></script>
+<script src="lang.js?v=50" defer></script>
+
 </body>
 </html>
