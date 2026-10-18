@@ -1,354 +1,406 @@
-<title>Konzept 1 – Portal-Design</title>
+<title>BEATWINGS Konzept 1</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=Sora:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  /* Design-Kit 1:1 aus booking.beatwings.com */
   :root{
-    --kit-green:#E3FF87; --kit-orange:#FF9F3A; --kit-grey:#464646; --kit-black:#000;
-    --bg:#F7F7F7; --card:#FFFFFF; --border:#E3E3E3; --text:#464646; --head:#2E2E2E; --muted:#8C8C8C;
-    --chip:#F0F0F0; --shadow:0 1px 2px rgba(0,0,0,.04), 0 10px 28px -20px rgba(0,0,0,.35);
+    --paper:#FFFFFF; --panel:#F3F5F3; --ink:#0F1110; --mute:#737874; --line:#E4E7E4;
+    --deep:#101312; --lime:#E3FF87;
+    --ratio:4/5;
+    --ease:cubic-bezier(.22,.68,.26,1);
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --bg:#0B0B0B; --card:#1A1A1A; --border:#333333; --text:#D6D6D6; --head:#F2F2F2; --muted:#8F8F8F;
-      --chip:#262626; --shadow:0 1px 2px rgba(0,0,0,.5), 0 14px 30px -20px rgba(0,0,0,.9);
+      --paper:#0C0E0D; --panel:#141716; --ink:#F1F3F1; --mute:#8B918C; --line:#242928; --deep:#070908;
     }
   }
   :root[data-theme="dark"]{
-    --bg:#0B0B0B; --card:#1A1A1A; --border:#333333; --text:#D6D6D6; --head:#F2F2F2; --muted:#8F8F8F;
-    --chip:#262626; --shadow:0 1px 2px rgba(0,0,0,.5), 0 14px 30px -20px rgba(0,0,0,.9);
+    --paper:#0C0E0D; --panel:#141716; --ink:#F1F3F1; --mute:#8B918C; --line:#242928; --deep:#070908;
   }
 
   *{box-sizing:border-box;}
-  body{margin:0; background:var(--bg); color:var(--text); font-family:'Inter',system-ui,sans-serif; padding:28px 16px 60px; font-size:14px;}
-  .wrap{max-width:1240px; margin:0 auto;}
-  h1,h2,h3,h4{font-family:'Montserrat',sans-serif; font-weight:800; color:var(--head); margin:0; letter-spacing:-.01em; text-wrap:balance;}
-  .eyebrow{font-family:'Montserrat',sans-serif; font-weight:700; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted);}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:'Onest',system-ui,sans-serif; font-size:15px; line-height:1.65;}
+  a{color:inherit; text-decoration:none;}
+  img{display:block; max-width:100%;}
+  .pad{padding-inline:clamp(18px,4.5vw,56px);}
+  .disp{font-family:'Sora',system-ui,sans-serif; font-weight:600; letter-spacing:-.03em; line-height:1.02;}
+  .lbl{font-family:'Sora',sans-serif; font-weight:500; font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--mute);}
 
-  .viewhead{margin:0 0 14px;}
-  .viewhead:last-of-type{margin-top:48px;}
-  .viewhead h2{font-size:10px; letter-spacing:.16em; text-transform:uppercase; font-weight:700; color:var(--muted);}
+  /* ---------- gemeinsames Bildsystem ---------- */
+  .frame{position:relative; aspect-ratio:var(--ratio); overflow:hidden; border-radius:3px; background:var(--panel);}
+  .frame img{width:100%; height:100%; object-fit:cover; filter:saturate(.95) contrast(1.05);
+             transition:transform .7s var(--ease);}
+  a:hover .frame img{transform:scale(1.04);}
 
-  /* ===== shared components (Portal-Stil) ===== */
-  .logo{display:flex; align-items:center; gap:8px;}
-  .logo svg{width:26px; height:26px;}
-  .logo .wm{font-family:'Montserrat',sans-serif; font-weight:800; font-size:10px; letter-spacing:.16em; color:var(--head);}
-  .pill{background:var(--card); border:1px solid var(--border); border-radius:8px; font-size:12px; font-weight:600; color:var(--text); padding:6px 10px; display:inline-flex; align-items:center; gap:5px;}
-  .acct{font-size:12.5px; font-weight:600; color:var(--text); text-decoration:none; white-space:nowrap;}
+  /* ---------- Scroll-Animationen ---------- */
+  .anim .reveal{opacity:0; transform:translateY(34px);}
+  .anim .reveal.in{opacity:1; transform:none;
+    transition:opacity .75s var(--ease) var(--d,0ms), transform .85s var(--ease) var(--d,0ms);}
+  /* Bilder fliegen leicht versetzt mit und zoomen zurück */
+  .anim .reveal .frame img{transform:scale(1.1);}
+  .anim .reveal.in .frame img{transform:scale(1); transition:transform 1.15s var(--ease) var(--d,0ms);}
+  .anim .reveal.in:hover .frame img{transform:scale(1.04); transition:transform .7s var(--ease);}
+  /* Text beim Laden gestaffelt */
+  .anim .rise{opacity:0; transform:translateY(18px); animation:rise .8s var(--ease) forwards; animation-delay:var(--d,0ms);}
+  @keyframes rise{to{opacity:1; transform:none;}}
 
-  .navpills{display:flex; gap:7px; overflow-x:auto; scrollbar-width:none;}
-  .navpills::-webkit-scrollbar{display:none;}
-  .navpills a{flex:none; background:var(--card); border:1px solid var(--border); border-radius:8px; font-size:12px; font-weight:600; color:var(--muted); padding:7px 12px; text-decoration:none;}
-  .navpills a.on{color:var(--head); border-color:var(--head);}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .anim .reveal, .anim .reveal.in, .anim .rise{opacity:1 !important; transform:none !important; animation:none !important; transition:none !important;}
+    .anim .reveal .frame img, .anim .reveal.in .frame img{transform:none !important; transition:none !important;}
+  }
 
-  .card{background:var(--card); border:1px solid var(--border); border-radius:16px; box-shadow:var(--shadow);}
+  /* ---------- header ---------- */
+  header{position:sticky; top:0; z-index:20; background:color-mix(in srgb, var(--paper) 86%, transparent);
+         backdrop-filter:blur(16px); border-bottom:1px solid transparent; transition:border-color .3s var(--ease), box-shadow .3s var(--ease);}
+  header.stuck{border-bottom-color:var(--line); box-shadow:0 10px 30px -24px rgba(0,0,0,.4);}
+  .bar{display:flex; align-items:center; justify-content:space-between; gap:18px; padding-block:14px;}
+  .brand{display:flex; align-items:center; gap:9px;}
+  .brand svg{width:24px; height:24px;}
+  .brand span{font-family:'Sora',sans-serif; font-weight:600; font-size:11.5px; letter-spacing:.26em; text-transform:uppercase;}
+  nav.top{display:flex; gap:26px;}
+  nav.top a{font-size:13px; color:var(--mute); position:relative; transition:color .25s var(--ease);}
+  nav.top a::after{content:""; position:absolute; left:0; right:100%; bottom:-4px; height:2px; background:var(--lime);
+                   transition:right .35s var(--ease);}
+  nav.top a:hover{color:var(--ink);}
+  nav.top a:hover::after{right:0;}
+  .book{font-family:'Sora',sans-serif; font-weight:500; font-size:12.5px; background:var(--ink); color:var(--paper);
+        padding:10px 18px; border-radius:3px; white-space:nowrap; transition:transform .25s var(--ease), opacity .25s var(--ease);}
+  .book:hover{transform:translateY(-1px); opacity:.88;}
+  @media (max-width:880px){ nav.top{display:none;} }
 
-  .badge{font-size:11px; font-weight:700; border-radius:999px; padding:5px 11px; display:inline-block;}
-  .badge.go{background:var(--kit-green); color:#000;}
-  .badge.warn{background:var(--kit-orange); color:#000;}
-  .badge.off{background:var(--chip); color:var(--muted);}
+  /* ---------- news ---------- */
+  .news{padding-block:clamp(26px,4vw,40px) clamp(34px,5vw,56px); border-bottom:1px solid var(--line);}
+  .news .head{display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:20px; flex-wrap:wrap;}
+  .news .head h2{font-size:13px; font-family:'Sora',sans-serif; font-weight:600; letter-spacing:.04em; margin:0; display:flex; align-items:center; gap:10px;}
+  .news .head h2 i{width:7px; height:7px; border-radius:50%; background:var(--lime); flex:none;
+                   box-shadow:0 0 0 0 color-mix(in srgb, var(--lime) 70%, transparent); animation:ping 2.4s ease-out infinite;}
+  @keyframes ping{0%{box-shadow:0 0 0 0 color-mix(in srgb, var(--lime) 70%, transparent);} 70%{box-shadow:0 0 0 9px transparent;} 100%{box-shadow:0 0 0 0 transparent;}}
+  @media (prefers-reduced-motion: reduce){ .news .head h2 i{animation:none;} }
+  .news .head .more{font-size:12.5px; color:var(--mute);}
 
-  .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; background:var(--kit-green); color:#000; font-family:'Montserrat',sans-serif; font-weight:800; font-size:14px; border-radius:12px; padding:13px 20px; text-decoration:none; border:none; cursor:pointer;}
-  .btn.dark{background:#000; color:#fff;}
-  .btn small{font-family:'Inter'; font-weight:500; font-size:10.5px; opacity:.6;}
-  .ghostlink{font-size:12.5px; font-weight:600; color:var(--text); text-decoration:none; border-bottom:2px solid var(--kit-green); padding-bottom:2px;}
+  .newsview{overflow:hidden;}
+  .newstrack{display:flex; gap:clamp(12px,1.6vw,20px); will-change:transform;}
+  .newstrack.glide{transition:transform .9s var(--ease);}
+  .item{flex:0 0 calc((100% - 3 * clamp(12px,1.6vw,20px)) / 4);}
+  @media (max-width:980px){ .item{flex-basis:calc((100% - clamp(12px,1.6vw,20px)) / 2);} }
+  @media (max-width:560px){ .item{flex-basis:78%;} }
 
-  .update{display:grid; grid-template-columns:8px 1fr auto; gap:11px; align-items:baseline; padding:12px 0; border-bottom:1px solid var(--border); text-decoration:none; color:var(--text);}
-  .update:last-child{border-bottom:none;}
-  .update .dot{width:8px; height:8px; border-radius:50%;}
-  .update b{font-family:'Montserrat',sans-serif; font-weight:700; font-size:12.5px; color:var(--head); display:block;}
-  .update small{font-size:11.5px; color:var(--muted); display:block; margin-top:2px; line-height:1.45;}
-  .update .arr{font-size:12px; color:var(--muted);}
+  .item .tagline{display:flex; align-items:center; gap:9px; margin-top:12px;}
+  .item .tag{font-family:'Sora',sans-serif; font-weight:500; font-size:9.5px; letter-spacing:.14em; text-transform:uppercase;
+             background:var(--panel); color:var(--mute); padding:4px 8px; border-radius:2px;}
+  .item .tag.live{background:var(--lime); color:#1C2306;}
+  .item .date{font-size:11.5px; color:var(--mute);}
+  .item h3{margin:7px 0 0; font-size:15px; font-family:'Sora',sans-serif; font-weight:500; letter-spacing:-.01em; line-height:1.35;}
+  .item p{margin:5px 0 0; font-size:12.5px; color:var(--mute); line-height:1.5;}
+  .item .play{position:absolute; left:12px; bottom:12px; width:36px; height:36px; border-radius:50%; background:var(--lime);
+              border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; z-index:2;
+              transition:transform .25s var(--ease);}
+  .item .play:hover{transform:scale(1.08);}
+  .item .play svg{width:12px; height:12px;}
+  .item .mute{position:absolute; top:11px; right:11px; z-index:2; font-family:'Sora',sans-serif; font-size:9px;
+              letter-spacing:.16em; text-transform:uppercase; color:#fff; background:rgba(8,10,9,.55); padding:4px 7px; border-radius:2px;}
 
-  .clip{flex:none; position:relative; overflow:hidden; border-radius:12px; border:1px solid var(--border); background:var(--chip);}
-  .clip svg.bg{position:absolute; inset:0; width:100%; height:100%;}
-  .clip .snd{position:absolute; top:7px; right:7px; background:rgba(255,255,255,.92); color:#464646; font-size:9px; font-weight:700; letter-spacing:.06em; padding:3px 6px; border-radius:999px; z-index:2;}
-  .clip .pp{position:absolute; left:7px; bottom:7px; width:28px; height:28px; border-radius:50%; background:var(--kit-green); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; z-index:2;}
-  .clip .pp svg{width:11px; height:11px;}
-  .clip .cap{position:absolute; left:41px; right:7px; bottom:10px; color:#fff; font-size:10px; font-weight:600; line-height:1.25; z-index:2; text-shadow:0 1px 4px rgba(0,0,0,.6);}
+  .dots{display:flex; gap:7px; margin-top:20px;}
+  .dots button{width:22px; height:3px; border:none; padding:0; border-radius:99px; background:var(--line); cursor:pointer;
+               transition:background .3s var(--ease), width .3s var(--ease);}
+  .dots button.on{background:var(--ink); width:34px;}
 
-  .trip{display:block; text-decoration:none; color:var(--text); background:var(--card); border:1px solid var(--border); border-radius:16px; overflow:hidden; box-shadow:var(--shadow);}
-  .trip .img{position:relative;}
-  .trip .img svg{width:100%; height:100%; display:block;}
-  .trip .img .badge{position:absolute; top:10px; left:10px;}
-  .trip .body{padding:14px 16px 16px;}
-  .trip h4{font-size:15px; margin-bottom:5px;}
-  .trip .meta{font-size:11.5px; color:var(--muted); line-height:1.5;}
-  .trip .row{display:flex; align-items:flex-end; justify-content:space-between; gap:10px; margin-top:12px;}
-  .trip .price{font-family:'Montserrat',sans-serif; font-weight:800; font-size:20px; color:var(--head);}
-  .trip .price span{display:block; font-family:'Inter'; font-weight:500; font-size:10.5px; color:var(--muted);}
-  .trip .open{font-size:10.5px; color:var(--muted); text-align:right;}
-  .trip .open b{color:var(--head); font-weight:600;}
+  /* ---------- hero ---------- */
+  .hero{display:grid; grid-template-columns:1fr .78fr; gap:clamp(28px,5vw,74px); align-items:center;
+        padding-block:clamp(48px,7vw,96px);}
+  @media (max-width:880px){ .hero{grid-template-columns:1fr; gap:28px;} }
+  .hero h1{margin:16px 0 0; font-size:clamp(34px,5.6vw,66px); max-width:14ch;}
+  .hero h1 em{font-style:normal; color:var(--mute);}
+  .hero p{margin:20px 0 0; max-width:44ch; color:var(--mute); font-size:15px;}
+  .hero .act{display:flex; gap:14px; align-items:center; margin-top:30px; flex-wrap:wrap;}
+  .cta{display:inline-flex; align-items:center; gap:9px; background:var(--lime); color:#1C2306; font-family:'Sora',sans-serif;
+       font-weight:600; font-size:13px; padding:14px 22px; border-radius:3px;
+       transition:transform .25s var(--ease), box-shadow .25s var(--ease);}
+  .cta:hover{transform:translateY(-2px); box-shadow:0 12px 26px -16px rgba(0,0,0,.55);}
+  .cta.line{background:transparent; color:var(--ink); border:1px solid var(--line);}
 
-  .ticks{display:grid; gap:9px;}
-  .tickrow{display:flex; gap:9px; align-items:flex-start; font-size:12.5px; line-height:1.45;}
-  .tickrow i{width:17px; height:17px; border-radius:50%; background:var(--kit-green); color:#000; font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center; flex:none; font-style:normal; margin-top:1px;}
+  /* ---------- trips ---------- */
+  .trips{padding-block:clamp(44px,6vw,80px); border-top:1px solid var(--line);}
+  .trips .head{display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:24px; flex-wrap:wrap;}
+  .trips .head h2{margin:0; font-size:clamp(20px,2.6vw,30px); font-family:'Sora',sans-serif; font-weight:600; letter-spacing:-.02em;}
+  .tripgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(14px,2vw,26px);}
+  @media (max-width:880px){ .tripgrid{grid-template-columns:1fr; max-width:460px;} }
+  .trip .state{display:flex; align-items:center; gap:8px; margin-top:14px; font-family:'Sora',sans-serif; font-weight:500;
+               font-size:10.5px; letter-spacing:.16em; text-transform:uppercase;}
+  .trip .state i{width:6px; height:6px; border-radius:50%; background:var(--lime);}
+  .trip .state.soon i{background:var(--mute);}
+  .trip h3{margin:9px 0 0; font-size:21px; font-family:'Sora',sans-serif; font-weight:600; letter-spacing:-.02em;}
+  .trip .when{margin:7px 0 0; font-size:13px; color:var(--mute);}
+  .trip .foot{display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-top:14px;
+              padding-top:13px; border-top:1px solid var(--line);}
+  .trip .price{font-family:'Sora',sans-serif; font-weight:600; font-size:17px;}
+  .trip .price span{font-family:'Onest'; font-weight:400; font-size:11.5px; color:var(--mute); margin-left:5px;}
+  .trip .go{font-family:'Sora',sans-serif; font-weight:500; font-size:12px; color:var(--ink);}
+  .trip .go::after{content:" ↗"; display:inline-block; transition:transform .3s var(--ease);}
+  .trip:hover .go::after{transform:translate(3px,-3px);}
 
-  .join h4{font-size:17px; margin-bottom:8px;}
-  .join p{margin:0 0 14px; font-size:12.5px; line-height:1.55; color:var(--muted);}
+  /* ---------- waitlist ---------- */
+  .wait{background:var(--deep); color:#fff; border-radius:4px; padding:clamp(34px,5vw,62px);
+        display:grid; grid-template-columns:1fr auto; gap:26px; align-items:center; margin-block:clamp(10px,2vw,20px);}
+  @media (max-width:760px){ .wait{grid-template-columns:1fr;} }
+  .wait .lbl{color:rgba(255,255,255,.5);}
+  .wait h2{margin:14px 0 0; font-size:clamp(22px,3.2vw,36px); font-family:'Sora',sans-serif; font-weight:600; letter-spacing:-.02em; max-width:20ch;}
+  .wait p{margin:12px 0 0; color:rgba(255,255,255,.6); font-size:13.5px; max-width:46ch;}
 
-  .sfoot{display:flex; flex-wrap:wrap; gap:12px; font-size:10.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--muted);}
-
-  /* ===== PHONE ===== */
-  .phone{background:#111; border-radius:42px; padding:11px; margin:0 auto; max-width:380px; position:relative; box-shadow:0 26px 60px -34px rgba(0,0,0,.65);}
-  .phone::before{content:""; position:absolute; top:11px; left:50%; transform:translateX(-50%); width:88px; height:21px; background:#111; border-radius:0 0 14px 14px; z-index:4;}
-  .screen{background:var(--bg); border-radius:32px; overflow:hidden;}
-  .sbar{display:flex; justify-content:space-between; padding:13px 20px 4px; font-size:11px; font-weight:600; color:var(--head);}
-  .m-head{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:8px 16px 12px; background:var(--card); border-bottom:1px solid var(--border);}
-  .m-head .right{display:flex; align-items:center; gap:9px;}
-  .m-nav{padding:12px 16px 0;}
-  .m-sec{padding:18px 16px 0;}
-  .m-sec .eyebrow{display:block; margin-bottom:9px;}
-  .m-clips{display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; margin-top:10px;}
-  .m-clips::-webkit-scrollbar{display:none;}
-  .m-clips .clip{width:116px; aspect-ratio:4/5;}
-  .m-hero{padding:22px 16px 0;}
-  .m-hero h1{font-size:30px; line-height:1.08; margin:8px 0 10px;}
-  .m-hero p{margin:0 0 16px; font-size:13px; line-height:1.6; color:var(--muted);}
-  .m-trips{display:grid; gap:12px;}
-  .m-trips .img{height:112px;}
-  .m-foot{padding:22px 16px 20px;}
-
-  /* ===== DESKTOP ===== */
-  .browser{border:1px solid var(--border); border-radius:14px; overflow:hidden; box-shadow:var(--shadow); background:var(--card);}
-  .chrome{display:flex; align-items:center; gap:10px; padding:10px 14px; background:var(--chip); border-bottom:1px solid var(--border);}
-  .chrome i{width:10px;height:10px;border-radius:50%;background:var(--border); display:block;}
-  .chrome .url{flex:1; background:var(--card); border:1px solid var(--border); border-radius:999px; font-size:11.5px; padding:5px 12px; color:var(--muted);}
-  .dscroll{overflow-x:auto;}
-  .dpage{min-width:1080px; background:var(--bg);}
-
-  .d-head{display:flex; align-items:center; justify-content:space-between; gap:20px; padding:16px 36px; background:var(--card); border-bottom:1px solid var(--border);}
-  .d-head .right{display:flex; align-items:center; gap:16px;}
-  .d-inner{padding:26px 36px 0;}
-  .d-now{display:grid; grid-template-columns:1.15fr 1fr; gap:18px; align-items:start;}
-  .d-now .card{padding:18px 20px;}
-  .d-clips{display:flex; gap:9px; margin-top:12px;}
-  .d-clips .clip{flex:1; aspect-ratio:4/5;}
-  .d-hero{display:grid; grid-template-columns:1.1fr 1fr; gap:28px; align-items:center; padding:34px 0 10px;}
-  .d-hero h1{font-size:46px; line-height:1.04; margin:10px 0 14px;}
-  .d-hero p{margin:0 0 20px; font-size:14px; line-height:1.65; color:var(--muted); max-width:46ch;}
-  .d-hero .row{display:flex; gap:18px; align-items:center; flex-wrap:wrap;}
-  .d-hero .shot{border-radius:16px; overflow:hidden; border:1px solid var(--border); aspect-ratio:4/3; position:relative;}
-  .d-hero .shot svg{position:absolute; inset:0; width:100%; height:100%;}
-  .d-sec{padding:30px 36px 0;}
-  .d-sec .shead{display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:16px;}
-  .d-sec .shead h3{font-size:22px;}
-  .d-trips{display:grid; grid-template-columns:repeat(4,1fr); gap:16px;}
-  .d-trips .img{height:126px;}
-  .d-bottom{display:grid; grid-template-columns:1fr 1fr; gap:16px; padding:30px 36px 0;}
-  .d-bottom .card{padding:22px;}
-  .d-foot{display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; padding:26px 36px; margin-top:30px; background:var(--card); border-top:1px solid var(--border);}
+  footer{padding-block:30px; margin-top:clamp(30px,4vw,54px); border-top:1px solid var(--line);
+         display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; align-items:center;}
+  footer nav{display:flex; gap:20px; flex-wrap:wrap;}
+  footer a{font-size:12px; color:var(--mute);}
+  footer small{font-size:12px; color:var(--mute);}
 </style>
 
-<style>
-  body{padding:0 !important; margin:0;}
-  .dpage{min-width:1080px; max-width:1500px; margin:0 auto;}
-  html{overflow-x:auto;}
-  .concept-back{position:fixed; left:14px; bottom:14px; z-index:99; background:rgba(20,20,20,.9); color:#fff;
-    font:600 12px/1 system-ui,sans-serif; padding:11px 16px; border-radius:999px; text-decoration:none;
-    box-shadow:0 6px 20px rgba(0,0,0,.3);}
-  .concept-back:hover{background:#000;}
-</style>
+<header class="pad" id="top">
+  <div class="bar">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 48 48" fill="none">
+        <path d="M24 26c-3.5-9-12.5-12.5-18-9 1.5 7 8.5 12.5 18 9Z" fill="var(--lime)" stroke="var(--ink)" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M24 26c3.5-9 12.5-12.5 18-9-1.5 7-8.5 12.5-18 9Z" fill="var(--lime)" stroke="var(--ink)" stroke-width="1.5" stroke-linejoin="round"/>
+        <circle cx="24" cy="14" r="3.2" fill="var(--ink)"/>
+        <path d="M24 17.4v16M20.6 33.4h7" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      <span>Beatwings</span>
+    </a>
+    <nav class="top">
+      <a href="#news">News</a>
+      <a href="#trips">Trips</a>
+      <a href="#waitlist">Waitlist</a>
+      <a href="#">FAQ</a>
+    </nav>
+    <a class="book" href="https://booking.beatwings.com" target="_blank" rel="noopener">Booking ↗</a>
+  </div>
+</header>
 
-<div class="dpage">
+<!-- ========== NEWS ganz oben, rotiert automatisch ========== -->
+<section class="pad news" id="news">
+  <div class="head">
+    <h2 class="rise"><i></i>News · 18 October</h2>
+    <a class="more rise" style="--d:80ms" href="#">All updates →</a>
+  </div>
 
-        <div class="d-head">
-          <span class="logo">
-            <svg viewBox="0 0 48 48" fill="none" style="width:32px;height:32px;">
-              <path d="M24 26c-3.5-9-12.5-12.5-18-9 1.5 7 8.5 12.5 18 9Z" fill="var(--kit-green)" stroke="var(--head)" stroke-width="1.6" stroke-linejoin="round"/>
-              <path d="M24 26c3.5-9 12.5-12.5 18-9-1.5 7-8.5 12.5-18 9Z" fill="var(--kit-green)" stroke="var(--head)" stroke-width="1.6" stroke-linejoin="round"/>
-              <circle cx="24" cy="14" r="3.4" fill="var(--head)"/>
-              <path d="M24 17.5v16M20.5 33.5h7" stroke="var(--head)" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
-            <span class="wm" style="font-size:11px;">BEATWINGS</span>
-          </span>
-          <nav class="navpills" style="flex:1; justify-content:center; max-width:560px;">
-            <a class="on" href="#">Right now</a>
-            <a href="#">Trips</a>
-            <a href="#">What's included</a>
-            <a href="#">Waitlist</a>
-            <a href="#">Partner</a>
-            <a href="#">FAQ</a>
-          </nav>
-          <span class="right">
-            <span class="pill">EN ⌄</span>
-            <a class="acct" href="#">My Account →</a>
-          </span>
+  <div class="newsview">
+    <div class="newstrack" id="track">
+
+      <a class="item rise" style="--d:120ms" href="https://booking.beatwings.com" target="_blank" rel="noopener">
+        <div class="frame"><img src="bw/tml.jpg" alt="Tomorrowland Thailand"></div>
+        <div class="tagline"><span class="tag live">Booking</span><span class="date">18 Oct</span></div>
+        <h3>Core. tickets are still available</h3>
+        <p>Basic., Relax. and Adventure. are sold out for December.</p>
+      </a>
+
+      <a class="item rise" style="--d:200ms" href="https://beatwings.com/edc-thailand-2026/" target="_blank" rel="noopener">
+        <div class="frame"><img src="bw/island.jpg" alt="EDC Thailand, Phuket"></div>
+        <div class="tagline"><span class="tag">Waitlist</span><span class="date">12 Oct</span></div>
+        <h3>EDC Thailand opens its waitlist</h3>
+        <p>Phuket, 18–20 December. Booking starts in February.</p>
+      </a>
+
+      <a class="item rise" style="--d:280ms" href="#">
+        <div class="frame">
+          <img src="bw/songkran.jpg" alt="Songkran">
+          <span class="mute">Muted</span>
+          <button class="play" aria-pressed="false" aria-label="Play"><svg viewBox="0 0 24 24" fill="#1C2306"><path d="M8 5v14l11-7z"/></svg></button>
         </div>
+        <div class="tagline"><span class="tag">Video</span><span class="date">5 Oct</span></div>
+        <h3>Songkran, in three minutes</h3>
+        <p>The water festival as our last group experienced it.</p>
+      </a>
 
-        <div class="d-inner">
-          <!-- RIGHT NOW -->
-          <div class="d-now">
-            <div class="card" style="padding:6px 20px;">
-              <a class="update" href="https://booking.beatwings.com" target="_blank" rel="noopener">
-                <span class="dot" style="background:var(--kit-green);"></span>
-                <span><b>Tomorrowland Thailand: Core. 899 € available</b><small>Basic. 1.790 € · Relax. 3.999 € · Adventure. 4.799 € sold out · incl. Full Madness Pass = 433,00 €</small></span>
-                <span class="arr">→</span>
-              </a>
-              <a class="update" href="https://beatwings.com/edc-thailand-2026/" target="_blank" rel="noopener">
-                <span class="dot" style="background:var(--kit-orange);"></span>
-                <span><b>EDC Thailand 2026: Waitlist live</b><small>Phuket · 18th – 20th of December · Booking February–March · Ticket Partner FUTURE VIBES</small></span>
-                <span class="arr">→</span>
-              </a>
-              <a class="update" href="https://beatwings.com/partner/" target="_blank" rel="noopener">
-                <span class="dot" style="background:#464646;"></span>
-                <span><b>Lufthansa Group: save up to 10 %</b><small>Austrian, Lufthansa &amp; SWISS · 270 global destinations · 28 weekly flights to Bangkok</small></span>
-                <span class="arr">→</span>
-              </a>
-            </div>
-            <div>
-              <span class="eyebrow">Right now · muted</span>
-              <div class="d-clips">
-                <div class="clip">
-                  <svg class="bg" viewBox="0 0 116 145" preserveAspectRatio="xMidYMid slice"><rect width="116" height="145" fill="#464646"/><circle cx="86" cy="34" r="24" fill="#E3FF87"/><g fill="#2E2E2E" opacity=".75"><circle cx="24" cy="112" r="18"/></g></svg>
-                  <span class="snd">MUTE</span>
-                  <button class="pp" aria-pressed="false" aria-label="Play"><svg viewBox="0 0 24 24" fill="#000"><path d="M8 5v14l11-7z"/></svg></button>
-                </div>
-                <div class="clip">
-                  <svg class="bg" viewBox="0 0 116 145" preserveAspectRatio="xMidYMid slice"><rect width="116" height="145" fill="#FF9F3A"/><g fill="#2E2E2E" opacity=".3"><circle cx="88" cy="110" r="34"/><circle cx="26" cy="30" r="20"/></g></svg>
-                  <span class="snd">MUTE</span>
-                  <button class="pp" aria-pressed="false" aria-label="Play"><svg viewBox="0 0 24 24" fill="#000"><path d="M8 5v14l11-7z"/></svg></button>
-                </div>
-                <div class="clip">
-                  <svg class="bg" viewBox="0 0 116 145" preserveAspectRatio="xMidYMid slice"><rect width="116" height="145" fill="#E3FF87"/><g fill="#464646" opacity=".55"><rect x="0" y="98" width="116" height="47"/><circle cx="84" cy="36" r="22"/></g></svg>
-                  <span class="snd">MUTE</span>
-                  <button class="pp" aria-pressed="false" aria-label="Play"><svg viewBox="0 0 24 24" fill="#000"><path d="M8 5v14l11-7z"/></svg></button>
-                </div>
-                <div class="clip">
-                  <svg class="bg" viewBox="0 0 116 145" preserveAspectRatio="xMidYMid slice"><rect width="116" height="145" fill="#2E2E2E"/><g fill="#E3FF87" opacity=".5"><circle cx="58" cy="72" r="38"/></g></svg>
-                  <span class="snd">MUTE</span>
-                  <button class="pp" aria-pressed="false" aria-label="Play"><svg viewBox="0 0 24 24" fill="#000"><path d="M8 5v14l11-7z"/></svg></button>
-                </div>
-              </div>
-            </div>
-          </div>
+      <a class="item rise" style="--d:360ms" href="https://beatwings.com/partner/" target="_blank" rel="noopener">
+        <div class="frame"><img src="bw/sky.jpg" alt="Bangkok"></div>
+        <div class="tagline"><span class="tag">Partner</span><span class="date">28 Sep</span></div>
+        <h3>Lufthansa Group fares, up to 10 % off</h3>
+        <p>28 weekly flights to Bangkok with Lufthansa, Austrian and SWISS.</p>
+      </a>
 
-          <!-- HERO -->
-          <div class="d-hero">
-            <div>
-              <span class="eyebrow">Join the Adventure.</span>
-              <h1>Where music becomes a journey</h1>
-              <p>Curated festival journeys to iconic music events worldwide — bringing together official access, smooth travel, and a vibrant community of music lovers.</p>
-              <div class="row">
-                <a class="btn" href="https://booking.beatwings.com" target="_blank" rel="noopener">Book Now <small>booking.beatwings.com</small></a>
-                <a class="ghostlink" href="#">Join the waitlist</a>
-              </div>
-              <p style="font-size:12px; margin:16px 0 0;">Official travel partner of Tomorrowland Thailand for Germany &amp; Austria.</p>
-            </div>
-            <div class="shot">
-              <svg viewBox="0 0 460 345" preserveAspectRatio="xMidYMid slice">
-                <rect width="460" height="345" fill="#464646"/>
-                <circle cx="330" cy="96" r="62" fill="#E3FF87"/>
-                <g fill="#2E2E2E">
-                  <rect x="48" y="150" width="7" height="120"/>
-                  <path d="M51 150c-22 6-29 29-24 52 17-10 27-29 24-52Z"/><path d="M51 150c22 6 29 29 24 52-17-10-27-29-24-52Z"/>
-                  <rect x="404" y="176" width="6" height="100"/>
-                  <path d="M407 176c-18 5-24 24-20 43 14-8 22-24 20-43Z"/><path d="M407 176c18 5 24 24 20 43-14-8-22-24-20-43Z"/>
-                </g>
-                <g fill="#2E2E2E"><path d="M0 250c54-12 88 16 144-4s74 12 116-6 84 10 116-10v115H0z"/></g>
-                <g fill="#1E1E1E">
-                  <circle cx="44" cy="296" r="12"/><circle cx="90" cy="306" r="12"/><circle cx="136" cy="292" r="12"/><circle cx="184" cy="304" r="12"/><circle cx="232" cy="294" r="12"/><circle cx="280" cy="306" r="12"/><circle cx="328" cy="293" r="12"/><circle cx="376" cy="304" r="12"/><circle cx="422" cy="295" r="12"/>
-                </g>
-                <g stroke="#FF9F3A" stroke-width="2.4" opacity=".85"><line x1="170" y1="28" x2="182" y2="152"/><line x1="268" y1="16" x2="276" y2="146"/></g>
-              </svg>
-            </div>
-          </div>
-
-          <!-- TRIPS -->
-          <div class="d-sec" style="padding-left:0; padding-right:0;">
-            <div class="shead">
-              <h3>Upcoming BEATWINGS trips.</h3>
-              <span class="eyebrow">Music. Travel. Connected. — click an image → booking.beatwings.com</span>
-            </div>
-            <div class="d-trips">
-
-              <a class="trip" href="https://booking.beatwings.com" target="_blank" rel="noopener">
-                <div class="img">
-                  <svg viewBox="0 0 260 130" preserveAspectRatio="xMidYMid slice"><rect width="260" height="130" fill="#464646"/><circle cx="208" cy="32" r="30" fill="#E3FF87"/><g fill="#2E2E2E"><circle cx="34" cy="114" r="12"/><circle cx="78" cy="122" r="12"/><circle cx="122" cy="112" r="12"/><circle cx="166" cy="122" r="12"/></g></svg>
-                  <span class="badge go">Tickets Available</span>
-                </div>
-                <div class="body">
-                  <h4>Tomorrowland Thailand</h4>
-                  <div class="meta">8 Nights · 05/12/2026<br>Bangkok &amp; Wisdom Valley, Pattaya</div>
-                  <div class="row"><span class="price">899 €<span>Core. · per person</span></span><span class="open">→ <b>booking</b></span></div>
-                </div>
-              </a>
-
-              <a class="trip" href="https://booking.beatwings.com" target="_blank" rel="noopener">
-                <div class="img">
-                  <svg viewBox="0 0 260 130" preserveAspectRatio="xMidYMid slice"><rect width="260" height="130" fill="#FF9F3A"/><g fill="#2E2E2E" opacity=".3"><circle cx="206" cy="96" r="52"/><circle cx="54" cy="28" r="30"/></g></svg>
-                  <span class="badge warn">Filling Fast</span>
-                </div>
-                <div class="body">
-                  <h4>SIAM Songkran · 11 Days</h4>
-                  <div class="meta">Bangkok &amp; Pattaya<br>11th – 21st of April</div>
-                  <div class="row"><span class="price">1.999 €<span>Early Bird · per person</span></span><span class="open">→ <b>booking</b></span></div>
-                </div>
-              </a>
-
-              <a class="trip" href="https://booking.beatwings.com" target="_blank" rel="noopener">
-                <div class="img">
-                  <svg viewBox="0 0 260 130" preserveAspectRatio="xMidYMid slice"><rect width="260" height="130" fill="#E3FF87"/><g fill="#464646" opacity=".5"><circle cx="212" cy="36" r="40"/><rect x="0" y="104" width="260" height="26"/></g></svg>
-                  <span class="badge warn">5-Days VIP</span>
-                </div>
-                <div class="body">
-                  <h4>SIAM Songkran · 5 Days</h4>
-                  <div class="meta">Bangkok<br>10th – 14th of April</div>
-                  <div class="row"><span class="price">849 €<span>DBL/TWN · per person</span></span><span class="open">→ <b>booking</b></span></div>
-                </div>
-              </a>
-
-              <a class="trip" href="https://beatwings.com/edc-thailand-2026/" target="_blank" rel="noopener">
-                <div class="img">
-                  <svg viewBox="0 0 260 130" preserveAspectRatio="xMidYMid slice"><rect width="260" height="130" fill="#2E2E2E"/><circle cx="198" cy="98" r="46" fill="#E3FF87" opacity=".5"/><circle cx="58" cy="32" r="22" fill="#FF9F3A" opacity=".8"/></svg>
-                  <span class="badge off">Waitlist Live</span>
-                </div>
-                <div class="body">
-                  <h4>EDC Thailand 2026</h4>
-                  <div class="meta">Phuket<br>18th – 20th of December</div>
-                  <div class="row"><span class="price">tba.<span>Booking Feb–Mar</span></span><span class="open">→ <b>edc 2026</b></span></div>
-                </div>
-              </a>
-
-            </div>
-          </div>
+      <a class="item" href="#">
+        <div class="frame">
+          <img src="bw/rooftop.jpg" alt="Rooftop">
+          <span class="mute">Muted</span>
+          <button class="play" aria-pressed="false" aria-label="Play"><svg viewBox="0 0 24 24" fill="#1C2306"><path d="M8 5v14l11-7z"/></svg></button>
         </div>
+        <div class="tagline"><span class="tag">Video</span><span class="date">21 Sep</span></div>
+        <h3>The rooftop welcome party</h3>
+        <p>How every BEATWINGS trip starts in Bangkok.</p>
+      </a>
 
-        <!-- INCLUDED + WAITLIST -->
-        <div class="d-bottom">
-          <div class="card">
-            <span class="eyebrow">What's included</span>
-            <div class="ticks" style="margin-top:14px;">
-              <div class="tickrow"><i>✓</i><span>Curated travel packages from selected premium partners</span></div>
-              <div class="tickrow"><i>✓</i><span>Official travel partner for festivals worldwide — packages include tickets</span></div>
-              <div class="tickrow"><i>✓</i><span>Selected hotels and the best locations</span></div>
-              <div class="tickrow"><i>✓</i><span>Transfers and roundtrips are included</span></div>
-            </div>
-          </div>
-          <div class="card join">
-            <span class="eyebrow">Waitlist</span>
-            <h4 style="margin-top:10px;">Be the first to discover BEATWINGS festival journeys.</h4>
-            <p>Early access to booking · Priority on the best packages · Exclusive discounts · Festival &amp; Destination reveals · Zero commitment.</p>
-            <button class="btn">Join Now</button>
-          </div>
-        </div>
+      <a class="item" href="#">
+        <div class="frame"><img src="bw/siam2.jpg" alt="Siam Songkran"></div>
+        <div class="tagline"><span class="tag">Gallery</span><span class="date">14 Sep</span></div>
+        <h3>Four nights at Siam Songkran</h3>
+        <p>Photos by Ewald Geerdink and Michiel Ton.</p>
+      </a>
 
-        <div class="d-foot">
-          <div class="sfoot"><span>Home</span><span>FAQ</span><span>Imprint</span><span>Terms</span><span>Privacy Policy</span></div>
-          <div class="sfoot"><span>©2026 BEATWINGS</span><span>Tiktok</span><span>Instagram</span><span>Youtube</span></div>
-        </div>
+    </div>
+  </div>
 
-      </div>
-<a class="concept-back" href="index.html">← Übersicht</a>
+  <div class="dots" id="dots" aria-label="News durchblättern"></div>
+</section>
+
+<!-- ========== HERO ========== -->
+<section class="pad hero">
+  <div>
+    <span class="lbl reveal">Thailand · December — April</span>
+    <h1 class="disp reveal" style="--d:60ms">Pick the festival. <em>We take care of everything else.</em></h1>
+    <p class="reveal" style="--d:140ms">Curated festival journeys to iconic music events — official tickets, hotels and transfers handled by our partners, and a community that travels with you.</p>
+    <div class="act reveal" style="--d:220ms">
+      <a class="cta" href="https://booking.beatwings.com" target="_blank" rel="noopener">Book a trip ↗</a>
+      <a class="cta line" href="#trips">See the trips</a>
+    </div>
+  </div>
+  <div class="reveal" style="--d:120ms">
+    <div class="frame"><img src="bw/fairy.jpg" alt="BEATWINGS"></div>
+  </div>
+</section>
+
+<!-- ========== TRIPS ========== -->
+<section class="pad trips" id="trips">
+  <div class="head">
+    <h2 class="disp reveal">Upcoming trips</h2>
+    <span class="lbl reveal" style="--d:60ms">Music. Travel. Connected.</span>
+  </div>
+  <div class="tripgrid">
+
+    <a class="trip reveal" href="https://booking.beatwings.com" target="_blank" rel="noopener">
+      <div class="frame"><img src="bw/hero.jpg" alt="Tomorrowland Thailand"></div>
+      <span class="state"><i></i>Tickets available</span>
+      <h3>Tomorrowland Thailand</h3>
+      <p class="when">5 – 15 December 2026 · Bangkok &amp; Pattaya</p>
+      <div class="foot"><span class="price">899 €<span>per person</span></span><span class="go">Book</span></div>
+    </a>
+
+    <a class="trip reveal" style="--d:120ms" href="https://booking.beatwings.com" target="_blank" rel="noopener">
+      <div class="frame"><img src="bw/siam1.jpg" alt="Siam Songkran"></div>
+      <span class="state"><i></i>Filling fast</span>
+      <h3>Siam Songkran</h3>
+      <p class="when">11 – 21 April · Bangkok &amp; Pattaya</p>
+      <div class="foot"><span class="price">849 €<span>per person</span></span><span class="go">Book</span></div>
+    </a>
+
+    <a class="trip reveal" style="--d:240ms" href="https://beatwings.com/edc-thailand-2026/" target="_blank" rel="noopener">
+      <div class="frame"><img src="bw/beach.jpg" alt="EDC Thailand"></div>
+      <span class="state soon"><i></i>Waitlist open</span>
+      <h3>EDC Thailand</h3>
+      <p class="when">18 – 20 December · Phuket</p>
+      <div class="foot"><span class="price">Soon<span>booking in February</span></span><span class="go">Waitlist</span></div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ========== WAITLIST ========== -->
+<section class="pad" id="waitlist">
+  <div class="wait reveal">
+    <div>
+      <span class="lbl">Waitlist</span>
+      <h2>Be the first to know where we go next.</h2>
+      <p>Early access, exclusive discounts and festival reveals. Free, and it takes twenty seconds.</p>
+    </div>
+    <a class="cta" href="#">Join now ↗</a>
+  </div>
+</section>
+
+<footer class="pad">
+  <nav><a href="#">Home</a><a href="#">FAQ</a><a href="#">Imprint</a><a href="#">Terms</a><a href="#">Privacy</a></nav>
+  <small>©2026 BEATWINGS · community@beatwings.com</small>
+</footer>
+
 <script>
-  document.querySelectorAll('.clip .pp').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var playing = btn.getAttribute('aria-pressed') === 'true';
-      btn.setAttribute('aria-pressed', String(!playing));
-      btn.innerHTML = playing
-        ? '<svg viewBox="0 0 24 24" fill="#000"><path d="M8 5v14l11-7z"/></svg>'
-        : '<svg viewBox="0 0 24 24" fill="#000"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.documentElement.classList.add('anim');
+
+  /* ---- Einflug beim Scrollen ---- */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
     });
+  }, {rootMargin:'0px 0px -12% 0px', threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  /* ---- Header-Zustand ---- */
+  var head = document.querySelector('header');
+  var onScroll = function(){ head.classList.toggle('stuck', window.scrollY > 8); };
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  /* ---- News-Rotation ---- */
+  var track = document.getElementById('track');
+  var dots  = document.getElementById('dots');
+  var items = Array.prototype.slice.call(track.children);
+  var count = items.length;
+  var index = 0, timer = null, paused = false;
+
+  items.slice(0, 4).forEach(function(n){
+    var c = n.cloneNode(true);
+    c.setAttribute('aria-hidden','true');
+    c.querySelectorAll('button').forEach(function(b){ b.tabIndex = -1; });
+    c.tabIndex = -1;
+    track.appendChild(c);
   });
+
+  for(var i=0;i<count;i++){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('aria-label','News ' + (i+1));
+    (function(n){ b.addEventListener('click', function(){ go(n, true); restart(); }); })(i);
+    dots.appendChild(b);
+  }
+  var dotEls = Array.prototype.slice.call(dots.children);
+
+  function step(){
+    var first = track.children[0];
+    var gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap) || 0;
+    return first.getBoundingClientRect().width + gap;
+  }
+  function paint(){
+    dotEls.forEach(function(d,i){ d.classList.toggle('on', i === index % count); });
+  }
+  function go(n, animate){
+    index = n;
+    track.classList.toggle('glide', animate !== false && !reduce);
+    track.style.transform = 'translateX(' + (-index * step()) + 'px)';
+    paint();
+  }
+  function next(){
+    if(index + 1 > count){ return; }
+    go(index + 1, true);
+    if(index === count){
+      setTimeout(function(){
+        track.classList.remove('glide');
+        index = 0;
+        track.style.transform = 'translateX(0px)';
+        paint();
+      }, 950);
+    }
+  }
+  function restart(){
+    if(reduce) return;
+    clearInterval(timer);
+    timer = setInterval(function(){ if(!paused) next(); }, 4200);
+  }
+
+  paint();
+  window.addEventListener('resize', function(){ go(index % count, false); });
+  ['mouseenter','focusin'].forEach(function(ev){ track.addEventListener(ev, function(){ paused = true; }); });
+  ['mouseleave','focusout'].forEach(function(ev){ track.addEventListener(ev, function(){ paused = false; }); });
+  restart();
+
+  /* ---- stumme Clips abspielen / pausieren ---- */
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest ? e.target.closest('.play') : null;
+    if(!btn) return;
+    e.preventDefault();
+    var playing = btn.getAttribute('aria-pressed') === 'true';
+    btn.setAttribute('aria-pressed', String(!playing));
+    btn.innerHTML = playing
+      ? '<svg viewBox="0 0 24 24" fill="#1C2306"><path d="M8 5v14l11-7z"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="#1C2306"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
+  });
+})();
 </script>

@@ -1,397 +1,296 @@
-<title>Konzept 3 – Veranstalter-Design</title>
+<title>BEATWINGS Konzept 3</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --navy:#0E2A47; --navy-2:#17456F; --paper:#FFFFFF; --canvas:#F5F7F9; --line:#E2E7EC;
-    --text:#495A6B; --head:#0E2A47; --mute:#8696A6; --lime:#E3FF87; --amber:#FF9F3A;
-    --shadow:0 1px 2px rgba(14,42,71,.05), 0 12px 28px -18px rgba(14,42,71,.35);
+    --paper:#F7F5F1; --stone:#EDE9E2; --ink:#2B2825; --soft:#6F675F; --mute:#948B81;
+    --line:#E2DCD3; --deep:#22201B; --lime:#C9E06A;
+    --ease:cubic-bezier(.22,.68,.26,1);
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --navy:#0A1C2F; --navy-2:#17456F; --paper:#0C1620; --canvas:#111E2A; --line:#223242;
-      --text:#A9BACA; --head:#EAF1F7; --mute:#7C8DA0;
-      --shadow:0 1px 2px rgba(0,0,0,.5), 0 14px 30px -20px rgba(0,0,0,.9);
+      --paper:#141311; --stone:#1C1A17; --ink:#EDE9E2; --soft:#B3ABA1; --mute:#8E867C;
+      --line:#2A2723; --deep:#0E0D0B;
     }
   }
   :root[data-theme="dark"]{
-    --navy:#0A1C2F; --navy-2:#17456F; --paper:#0C1620; --canvas:#111E2A; --line:#223242;
-    --text:#A9BACA; --head:#EAF1F7; --mute:#7C8DA0;
-    --shadow:0 1px 2px rgba(0,0,0,.5), 0 14px 30px -20px rgba(0,0,0,.9);
+    --paper:#141311; --stone:#1C1A17; --ink:#EDE9E2; --soft:#B3ABA1; --mute:#8E867C;
+    --line:#2A2723; --deep:#0E0D0B;
   }
 
   *{box-sizing:border-box;}
-  body{margin:0; background:var(--canvas); color:var(--text); font-family:'Plus Jakarta Sans',system-ui,sans-serif; font-size:14px; padding:28px 16px 60px;}
-  .wrap{max-width:1240px; margin:0 auto;}
-  h1,h2,h3,h4{font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; color:var(--head); margin:0; letter-spacing:-.02em; text-wrap:balance;}
-  .mono{font-family:'IBM Plex Mono',ui-monospace,monospace; font-variant-numeric:tabular-nums;}
-  .over{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--mute); font-weight:500;}
-  img{max-width:100%; display:block;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:'Jost',system-ui,sans-serif;
+       font-weight:300; font-size:15px; line-height:1.85;}
+  a{color:inherit; text-decoration:none;}
+  img{display:block; max-width:100%;}
+  .pad{padding-inline:clamp(20px,6vw,96px);}
+  .serif{font-family:'Cormorant Garamond',Georgia,serif; font-weight:300; line-height:1.14; letter-spacing:.005em;}
+  .lbl{font-size:10px; letter-spacing:.38em; text-transform:uppercase; color:var(--mute); font-weight:400;}
+  .rule{height:1px; background:var(--line); transform:scaleX(0); transform-origin:left;}
+  .rule.in{transform:none; transition:transform 1.4s var(--ease);}
 
-  .viewhead{margin:0 0 14px;}
-  .viewhead:last-of-type{margin-top:48px;}
-  .viewhead h2{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.18em; text-transform:uppercase; font-weight:500; color:var(--mute);}
+  /* einheitliches Bildsystem */
+  .plate{position:relative; aspect-ratio:3/2; overflow:hidden; background:var(--stone);}
+  .plate img{width:100%; height:100%; object-fit:cover; filter:saturate(.86) contrast(1.02) brightness(1.01);
+             transition:transform 1.6s var(--ease);}
+  a:hover .plate img{transform:scale(1.035);}
 
-  /* --- shared --- */
-  .util{background:var(--navy); color:#D7E6F3; font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.07em; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:7px 16px;}
-  .util b{color:var(--lime); font-weight:500;}
-  .logo{display:flex; align-items:center; gap:8px;}
-  .logo svg{width:23px; height:23px;}
-  .logo span{font-weight:800; font-size:13px; letter-spacing:.11em; color:var(--head);}
-  .nav{display:flex; gap:16px; flex-wrap:wrap;}
-  .nav a{font-size:12px; font-weight:600; color:var(--mute); text-decoration:none;}
-  .nav a.on{color:var(--head); border-bottom:2px solid var(--lime); padding-bottom:2px;}
+  /* ---------- Animationen: langsam und leise ---------- */
+  .anim .up{opacity:0; transform:translateY(22px);}
+  .anim .up.in{opacity:1; transform:none; transition:opacity 1.3s var(--ease) var(--d,0ms), transform 1.3s var(--ease) var(--d,0ms);}
+  .anim .wide{opacity:0; letter-spacing:.22em;}
+  .anim .wide.in{opacity:1; letter-spacing:.005em;
+    transition:opacity 1.6s var(--ease) var(--d,0ms), letter-spacing 1.8s var(--ease) var(--d,0ms);}
+  .anim .slow .plate img{transform:scale(1.09);}
+  .anim .slow.in .plate img{transform:scale(1); transition:transform 2.4s var(--ease) var(--d,0ms);}
+  .anim .slow.in:hover .plate img{transform:scale(1.035); transition:transform 1.6s var(--ease);}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .anim .up,.anim .wide,.anim .rule,.anim .slow .plate img{opacity:1 !important; transform:none !important; letter-spacing:normal !important; transition:none !important;}
+  }
 
-  .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; background:var(--navy); color:#fff; font-weight:700; font-size:13px; padding:12px 20px; border-radius:6px; text-decoration:none; border:none; cursor:pointer;}
-  .btn.lime{background:var(--lime); color:var(--navy);}
-  .btn small{font-family:'IBM Plex Mono',monospace; font-weight:400; font-size:9.5px; opacity:.65; letter-spacing:.05em;}
-  .btn.out{background:transparent; border:1px solid var(--line); color:var(--head);}
+  /* ---------- header ---------- */
+  header{position:sticky; top:0; z-index:30; background:color-mix(in srgb, var(--paper) 90%, transparent);
+         backdrop-filter:blur(12px); transition:box-shadow .5s var(--ease);}
+  header.stuck{box-shadow:0 1px 0 var(--line);}
+  .bar{display:flex; align-items:center; justify-content:space-between; gap:20px; padding-block:22px;}
+  .brand{display:flex; align-items:center; gap:11px;}
+  .brand svg{width:24px; height:24px;}
+  .brand span{font-size:11px; letter-spacing:.42em; text-transform:uppercase; font-weight:400;}
+  nav.top{display:flex; gap:38px;}
+  nav.top a{font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:var(--soft); position:relative; padding-bottom:3px;}
+  nav.top a::after{content:""; position:absolute; left:0; right:100%; bottom:0; height:1px; background:var(--ink); transition:right .6s var(--ease);}
+  nav.top a:hover::after{right:0;}
+  .reserve{font-size:11px; letter-spacing:.24em; text-transform:uppercase; border-bottom:1px solid var(--line); padding-bottom:4px; white-space:nowrap;}
+  .reserve:hover{border-color:var(--ink);}
+  @media (max-width:900px){ nav.top{display:none;} }
 
-  /* status board */
-  .board{background:var(--paper); border:1px solid var(--line); border-radius:8px; overflow:hidden;}
-  .board .hd{display:grid; background:var(--canvas); border-bottom:1px solid var(--line); font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--mute); padding:8px 14px;}
-  .board a.rw{display:grid; gap:10px; align-items:center; padding:11px 14px; border-bottom:1px solid var(--line); text-decoration:none; color:var(--text);}
-  .board a.rw:last-child{border-bottom:none;}
-  .board .ev{font-weight:700; color:var(--head); font-size:12.5px;}
-  .board .dt{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--text);}
-  .pill{font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.08em; text-transform:uppercase; padding:4px 8px; border-radius:4px; white-space:nowrap; display:inline-block;}
-  .pill.ok{background:var(--lime); color:var(--navy);}
-  .pill.hot{background:var(--amber); color:#331800;}
-  .pill.wait{background:var(--canvas); color:var(--mute); border:1px solid var(--line);}
-  .pill.out{background:var(--canvas); color:var(--mute); text-decoration:line-through;}
+  /* ---------- journal / news ---------- */
+  .journal{padding-block:clamp(26px,3.6vw,44px) clamp(34px,4.6vw,60px);}
+  .journal .head{display:flex; align-items:baseline; justify-content:space-between; gap:18px; margin-bottom:26px; flex-wrap:wrap;}
+  .jgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(20px,3.4vw,52px);}
+  @media (max-width:860px){ .jgrid{grid-template-columns:1fr; max-width:460px;} }
+  .entry{position:relative;}
+  .entry .plate{aspect-ratio:3/2;}
+  .entry .meta{display:flex; align-items:center; gap:14px; margin-top:16px;}
+  .entry .meta .dot{width:5px; height:5px; border-radius:50%; background:var(--lime); opacity:0; transition:opacity .8s var(--ease);}
+  .entry.live .meta .dot{opacity:1;}
+  .entry .date{font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:var(--mute);}
+  .entry h3{margin:10px 0 0; font-size:clamp(19px,2vw,23px); font-family:'Cormorant Garamond',serif; font-weight:300; line-height:1.2;}
+  .entry p{margin:8px 0 0; font-size:13.5px; color:var(--soft); line-height:1.75;}
+  .entry .mute{position:absolute; top:14px; right:14px; z-index:2; font-size:9px; letter-spacing:.24em; text-transform:uppercase;
+               color:var(--paper); background:rgba(25,23,20,.5); padding:5px 10px;}
+  .entry .play{position:absolute; left:14px; bottom:14px; z-index:2; width:42px; height:42px; border-radius:50%;
+               background:var(--paper); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center;
+               padding:0; transition:transform .6s var(--ease);}
+  .entry .play:hover{transform:scale(1.08);}
+  .entry .play svg{width:12px; height:12px;}
 
-  .clip{flex:none; position:relative; overflow:hidden; border-radius:6px; background:var(--navy);}
-  .clip img{width:100%; height:100%; object-fit:cover;}
-  .clip .mt{position:absolute; top:7px; right:7px; background:rgba(14,42,71,.8); color:#D7E6F3; font-family:'IBM Plex Mono',monospace; font-size:8px; letter-spacing:.1em; padding:3px 6px; border-radius:3px; z-index:2;}
-  .clip .pl{position:absolute; left:7px; bottom:7px; width:26px; height:26px; border-radius:4px; background:var(--lime); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; z-index:2;}
-  .clip .pl svg{width:10px; height:10px;}
-  .clip .cp{position:absolute; left:39px; right:7px; bottom:10px; color:#fff; font-size:9.5px; font-weight:600; line-height:1.2; z-index:2; text-shadow:0 1px 5px rgba(0,0,0,.8);}
+  /* ---------- hero ---------- */
+  .hero{position:relative; overflow:hidden; min-height:clamp(480px,78vh,820px); display:flex; align-items:center; justify-content:center; text-align:center;}
+  .hero img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:58% 32%;
+            filter:saturate(.84) brightness(.84);}
+  .hero .in{position:relative; color:#FBFAF7; padding-block:clamp(70px,10vw,130px); max-width:30ch;}
+  .hero .lbl{color:rgba(251,250,247,.72);}
+  .hero h1{margin:26px 0 0; font-size:clamp(34px,5.6vw,72px);}
+  .hero p{margin:24px auto 0; font-size:14px; color:rgba(251,250,247,.82); max-width:34ch;}
+  .hero .enq{display:inline-block; margin-top:36px; font-size:11px; letter-spacing:.28em; text-transform:uppercase;
+             color:#FBFAF7; border-bottom:1px solid rgba(251,250,247,.5); padding-bottom:5px; transition:border-color .5s var(--ease);}
+  .hero .enq:hover{border-color:#FBFAF7;}
 
-  /* trip card: Foto + Spec-Tabelle */
-  .card{display:block; background:var(--paper); border:1px solid var(--line); border-radius:8px; overflow:hidden; text-decoration:none; color:var(--text); box-shadow:var(--shadow);}
-  .card .ph{position:relative;}
-  .card .ph img{width:100%; height:100%; object-fit:cover;}
-  .card .ph .pill{position:absolute; top:10px; left:10px;}
-  .card .bd{padding:13px 15px 6px;}
-  .card h4{font-size:15px; margin-bottom:3px;}
-  .card .sub{font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--mute); letter-spacing:.04em;}
-  .specs{margin:11px 0 0; border-top:1px solid var(--line);}
-  .specs div{display:flex; justify-content:space-between; gap:10px; padding:6px 0; border-bottom:1px solid var(--line); font-size:11px;}
-  .specs div:last-child{border-bottom:none;}
-  .specs dt{font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--mute);}
-  .specs dd{margin:0; font-weight:600; color:var(--head); text-align:right;}
-  .card .ft{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:11px 15px 14px; border-top:1px solid var(--line); margin-top:8px;}
-  .card .price{font-size:18px; font-weight:800; color:var(--head);}
-  .card .price span{display:block; font-family:'IBM Plex Mono',monospace; font-size:9px; font-weight:400; color:var(--mute); letter-spacing:.06em; margin-top:2px;}
-  .card .arrow{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--navy-2); font-weight:600;}
+  /* ---------- claim ---------- */
+  .claim{text-align:center; padding-block:clamp(66px,10vw,136px);}
+  .claim h2{margin:24px auto 0; font-size:clamp(25px,3.4vw,42px); max-width:22ch;}
+  .claim p{margin:26px auto 0; max-width:46ch; color:var(--soft); font-size:14.5px;}
 
-  /* trust */
-  .trust{display:grid; gap:0; background:var(--paper); border:1px solid var(--line); border-radius:8px;}
-  .trust div{display:flex; gap:11px; align-items:flex-start; padding:12px 15px; border-bottom:1px solid var(--line);}
-  .trust div:last-child{border-bottom:none;}
-  .trust .ic{width:20px; height:20px; border-radius:4px; background:var(--canvas); color:var(--navy-2); display:flex; align-items:center; justify-content:center; flex:none;}
-  .trust .ic svg{width:12px; height:12px;}
-  .trust b{display:block; font-size:12px; color:var(--head); font-weight:700;}
-  .trust small{display:block; font-size:10.5px; color:var(--mute); margin-top:2px; line-height:1.45;}
+  /* ---------- journeys ---------- */
+  .journeys{padding-bottom:clamp(40px,6vw,80px);}
+  .journey{display:grid; grid-template-columns:1fr; gap:0; margin-bottom:clamp(54px,8vw,120px);}
+  .journey .plate{aspect-ratio:21/9;}
+  @media (max-width:760px){ .journey .plate{aspect-ratio:3/2;} }
+  .journey .caption{display:grid; grid-template-columns:auto 1fr auto; gap:clamp(18px,4vw,60px); align-items:baseline;
+                    padding-top:22px; margin-top:22px; border-top:1px solid var(--line);}
+  @media (max-width:760px){ .journey .caption{grid-template-columns:1fr; gap:10px;} }
+  .journey h3{margin:0; font-size:clamp(26px,3.4vw,40px); font-family:'Cormorant Garamond',serif; font-weight:300; white-space:nowrap;}
+  .journey .where{font-size:13.5px; color:var(--soft);}
+  .journey .where em{font-style:normal; display:block; font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:var(--mute); margin-bottom:6px;}
+  .journey .price{font-size:13.5px; color:var(--soft); white-space:nowrap;}
+  .journey .enq{display:inline-block; margin-top:14px; font-size:10.5px; letter-spacing:.28em; text-transform:uppercase;
+                border-bottom:1px solid var(--line); padding-bottom:5px; transition:border-color .5s var(--ease);}
+  .journey:hover .enq{border-color:var(--ink);}
 
-  .joinbox{background:var(--navy); color:#D7E6F3; border-radius:8px; padding:20px;}
-  .joinbox h4{color:#fff; margin:9px 0 10px;}
-  .joinbox ul{margin:0 0 15px; padding:0; list-style:none; display:grid; gap:5px;}
-  .joinbox li{font-size:11.5px; opacity:.82; padding-left:15px; position:relative;}
-  .joinbox li::before{content:"✓"; position:absolute; left:0; color:var(--lime);}
+  /* ---------- waitlist ---------- */
+  .wait{background:var(--stone); text-align:center; padding-block:clamp(64px,9vw,124px);}
+  .wait h2{margin:24px auto 0; font-size:clamp(24px,3.2vw,40px); max-width:20ch;}
+  .wait p{margin:22px auto 0; max-width:42ch; color:var(--soft); font-size:14px;}
+  .wait .enq{display:inline-block; margin-top:34px; font-size:11px; letter-spacing:.28em; text-transform:uppercase;
+             border-bottom:1px solid var(--line); padding-bottom:5px;}
+  .wait .enq:hover{border-color:var(--ink);}
 
-  .imprint{font-family:'IBM Plex Mono',monospace; font-size:9.5px; line-height:1.7; color:var(--mute); letter-spacing:.03em;}
-  .fnav{display:flex; flex-wrap:wrap; gap:14px; font-size:10.5px; font-weight:600; color:var(--mute);}
-
-  /* --- PHONE --- */
-  .phone{background:#1A1A1A; border-radius:42px; padding:11px; margin:0 auto; max-width:380px; position:relative; box-shadow:0 26px 60px -34px rgba(14,42,71,.6);}
-  .phone::before{content:""; position:absolute; top:11px; left:50%; transform:translateX(-50%); width:88px; height:21px; background:#1A1A1A; border-radius:0 0 14px 14px; z-index:5;}
-  .screen{background:var(--canvas); border-radius:32px; overflow:hidden;}
-  .sbar{display:flex; justify-content:space-between; padding:13px 20px 6px; font-size:10.5px; font-weight:600; color:var(--head); background:var(--paper);}
-  .m-head{display:flex; align-items:center; justify-content:space-between; padding:6px 16px 12px; background:var(--paper);}
-  .m-nav{padding:0 16px 12px; background:var(--paper); border-bottom:1px solid var(--line); overflow-x:auto; scrollbar-width:none;}
-  .m-nav::-webkit-scrollbar{display:none;}
-  .m-nav .nav{flex-wrap:nowrap; white-space:nowrap;}
-  .m-sec{padding:18px 16px 0;}
-  .m-sec .over{display:block; margin-bottom:9px;}
-  .m-board .hd{grid-template-columns:1fr auto;}
-  .m-board a.rw{grid-template-columns:1fr auto;}
-  .m-clips{display:flex; gap:7px; overflow-x:auto; scrollbar-width:none; margin-top:10px;}
-  .m-clips::-webkit-scrollbar{display:none;}
-  .m-clips .clip{width:108px; aspect-ratio:1/1;}
-  .m-hero{margin-top:18px; background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
-  .m-hero .ph{aspect-ratio:16/10; overflow:hidden;}
-  .m-hero .ph img{width:100%; height:100%; object-fit:cover;}
-  .m-hero .tx{padding:18px 16px 20px;}
-  .m-hero h1{font-size:27px; line-height:1.15; margin:8px 0 10px;}
-  .m-hero p{margin:0 0 16px; font-size:12.5px; line-height:1.6;}
-  .m-cards{display:grid; gap:12px;}
-  .m-cards .ph{height:120px;}
-  .m-foot{background:var(--paper); border-top:1px solid var(--line); padding:20px 16px; margin-top:22px;}
-
-  /* --- DESKTOP --- */
-  .browser{border:1px solid var(--line); border-radius:10px; overflow:hidden; background:var(--paper); box-shadow:var(--shadow);}
-  .chrome{display:flex; align-items:center; gap:10px; padding:10px 14px; background:var(--canvas); border-bottom:1px solid var(--line);}
-  .chrome i{width:9px;height:9px;border-radius:50%;background:var(--line); display:block;}
-  .chrome .url{flex:1; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--mute); background:var(--paper); border:1px solid var(--line); border-radius:4px; padding:4px 11px;}
-  .dscroll{overflow-x:auto;}
-  .dpage{min-width:1080px; background:var(--canvas);}
-
-  .d-head{display:flex; align-items:center; justify-content:space-between; gap:24px; padding:15px 32px; background:var(--paper); border-bottom:1px solid var(--line);}
-  .d-head .right{display:flex; align-items:center; gap:16px;}
-  .d-now{display:grid; grid-template-columns:1.5fr 1fr; gap:22px; padding:22px 32px 0; align-items:start;}
-  .d-board .hd{grid-template-columns:1.4fr 1fr .8fr auto;}
-  .d-board a.rw{grid-template-columns:1.4fr 1fr .8fr auto;}
-  .d-clips{display:flex; gap:8px; margin-top:9px;}
-  .d-clips .clip{flex:1; aspect-ratio:1/1;}
-  .d-hero{display:grid; grid-template-columns:1fr 1.05fr; background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line); margin-top:24px;}
-  .d-hero .tx{padding:40px 32px; display:flex; flex-direction:column; justify-content:center;}
-  .d-hero h1{font-size:38px; line-height:1.12; margin:10px 0 14px;}
-  .d-hero p{margin:0 0 20px; font-size:13.5px; line-height:1.7; max-width:46ch;}
-  .d-hero .row{display:flex; gap:12px; align-items:center; flex-wrap:wrap;}
-  .d-hero .ph{position:relative; min-height:360px; overflow:hidden;}
-  .d-hero .ph img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
-  .d-sec{padding:26px 32px 0;}
-  .d-sec .sh{display:flex; align-items:baseline; justify-content:space-between; gap:18px; margin-bottom:14px;}
-  .d-sec .sh h3{font-size:20px;}
-  .d-cards{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
-  .d-cards .ph{height:132px;}
-  .d-bottom{display:grid; grid-template-columns:1fr 1fr; gap:18px; padding:26px 32px 0; align-items:start;}
-  .d-foot{background:var(--paper); border-top:1px solid var(--line); padding:22px 32px; margin-top:28px; display:grid; grid-template-columns:1.3fr 1fr; gap:24px;}
+  footer{padding-block:46px; text-align:center;}
+  footer nav{display:flex; gap:30px; justify-content:center; flex-wrap:wrap; margin-bottom:18px;}
+  footer a{font-size:10px; letter-spacing:.28em; text-transform:uppercase; color:var(--mute);}
+  footer small{font-size:10px; letter-spacing:.24em; text-transform:uppercase; color:var(--mute);}
 </style>
 
-<style>
-  body{padding:0 !important; margin:0;}
-  .dpage{min-width:1080px; max-width:1500px; margin:0 auto;}
-  html{overflow-x:auto;}
-  .concept-back{position:fixed; left:14px; bottom:14px; z-index:99; background:rgba(20,20,20,.9); color:#fff;
-    font:600 12px/1 system-ui,sans-serif; padding:11px 16px; border-radius:999px; text-decoration:none;
-    box-shadow:0 6px 20px rgba(0,0,0,.3);}
-  .concept-back:hover{background:#000;}
-</style>
+<header class="pad" id="top">
+  <div class="bar">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 48 48" fill="none">
+        <path d="M24 26c-3.5-9-12.5-12.5-18-9 1.5 7 8.5 12.5 18 9Z" fill="none" stroke="var(--ink)" stroke-width="1.3" stroke-linejoin="round"/>
+        <path d="M24 26c3.5-9 12.5-12.5 18-9-1.5 7-8.5 12.5-18 9Z" fill="none" stroke="var(--ink)" stroke-width="1.3" stroke-linejoin="round"/>
+        <circle cx="24" cy="14" r="3" fill="var(--ink)"/>
+        <path d="M24 17.2v16M20.8 33.2h6.4" stroke="var(--ink)" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+      <span>Beatwings</span>
+    </a>
+    <nav class="top">
+      <a href="#journal">Journal</a>
+      <a href="#journeys">Journeys</a>
+      <a href="#waitlist">Waitlist</a>
+      <a href="#">Enquiries</a>
+    </nav>
+    <a class="reserve" href="https://booking.beatwings.com" target="_blank" rel="noopener">Reservations</a>
+  </div>
+</header>
 
-<div class="dpage">
+<!-- ========== JOURNAL (News) ========== -->
+<section class="pad journal" id="journal">
+  <div class="head">
+    <span class="lbl up">Journal — October</span>
+    <a class="lbl up" style="--d:80ms" href="#">All entries</a>
+  </div>
+  <div class="rule" id="r1"></div>
 
-        <div class="util">
-          <span>Official travel partner of <b>Tomorrowland Thailand</b> for Germany &amp; Austria</span>
-          <span>community@beatwings.com · WhatsApp +66 64 235 2858</span>
-        </div>
+  <div class="jgrid" style="margin-top:clamp(24px,3vw,40px);" id="jgrid">
 
-        <div class="d-head">
-          <span class="logo">
-            <svg viewBox="0 0 48 48" fill="none" style="width:28px;height:28px;">
-              <path d="M24 26c-3.5-9-12.5-12.5-18-9 1.5 7 8.5 12.5 18 9Z" fill="var(--lime)" stroke="var(--head)" stroke-width="1.5" stroke-linejoin="round"/>
-              <path d="M24 26c3.5-9 12.5-12.5 18-9-1.5 7-8.5 12.5-18 9Z" fill="var(--lime)" stroke="var(--head)" stroke-width="1.5" stroke-linejoin="round"/>
-              <circle cx="24" cy="14" r="3.2" fill="var(--head)"/>
-              <path d="M24 17.4v16M20.6 33.4h7" stroke="var(--head)" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
-            <span style="font-size:15px;">BEATWINGS</span>
-          </span>
-          <nav class="nav">
-            <a class="on" href="#">Right now</a>
-            <a href="#">Trips</a>
-            <a href="#">What's included</a>
-            <a href="#">Waitlist</a>
-            <a href="#">Partner</a>
-            <a href="#">FAQ</a>
-          </nav>
-          <span class="right">
-            <span class="over">EN</span>
-            <a class="btn lime" style="padding:10px 16px; font-size:12.5px;" href="https://booking.beatwings.com" target="_blank" rel="noopener">Book Now</a>
-          </span>
-        </div>
+    <a class="entry up slow" href="https://booking.beatwings.com" target="_blank" rel="noopener">
+      <div class="plate"><img src="bw/tml.jpg" alt="Tomorrowland Thailand"></div>
+      <div class="meta"><span class="dot"></span><span class="date">18 October</span></div>
+      <h3>Core. remains available for December</h3>
+      <p>The remaining packages for Tomorrowland Thailand have sold out.</p>
+    </a>
 
-        <!-- RIGHT NOW -->
-        <div class="d-now">
-          <div>
-            <span class="over" style="display:block; margin-bottom:9px;">Right now · 18 October 2026</span>
-            <div class="board d-board">
-              <div class="hd"><span>Festival / Package</span><span>Dates</span><span>Price from</span><span>Status</span></div>
-              <a class="rw" href="https://booking.beatwings.com" target="_blank" rel="noopener">
-                <span class="ev">Tomorrowland Thailand — Core.</span>
-                <span class="dt">05.12.–15.12.2026</span>
-                <span class="dt">899 €</span>
-                <span class="pill ok">Available</span>
-              </a>
-              <a class="rw" href="https://booking.beatwings.com" target="_blank" rel="noopener">
-                <span class="ev">Basic. · Relax. · Adventure.</span>
-                <span class="dt">05.12.–15.12.2026</span>
-                <span class="dt">1.790 € – 4.799 €</span>
-                <span class="pill out">Sold out</span>
-              </a>
-              <a class="rw" href="https://booking.beatwings.com" target="_blank" rel="noopener">
-                <span class="ev">SIAM Songkran — 11 Days</span>
-                <span class="dt">11.–21.04.</span>
-                <span class="dt">1.999 €</span>
-                <span class="pill hot">Filling fast</span>
-              </a>
-              <a class="rw" href="https://beatwings.com/edc-thailand-2026/" target="_blank" rel="noopener">
-                <span class="ev">EDC Thailand 2026 — Phuket</span>
-                <span class="dt">18.–20.12.</span>
-                <span class="dt">tba.</span>
-                <span class="pill wait">Waitlist</span>
-              </a>
-            </div>
-          </div>
-          <div>
-            <span class="over" style="display:block; margin-bottom:9px;">On screen — sound off</span>
-            <div class="d-clips" style="margin-top:0;">
-              <div class="clip">
-                <img src="bw/songkran.jpg" alt="Songkran">
-                <span class="mt">MUTED</span>
-                <button class="pl" aria-pressed="false" aria-label="Play"><svg viewBox="0 0 24 24" fill="#0E2A47"><path d="M8 5v14l11-7z"/></svg></button>
-                <span class="cp">Songkran</span>
-              </div>
-              <div class="clip">
-                <img src="bw/rooftop.jpg" alt="Rooftop">
-                <span class="mt">MUTED</span>
-                <button class="pl" aria-pressed="false" aria-label="Play"><svg viewBox="0 0 24 24" fill="#0E2A47"><path d="M8 5v14l11-7z"/></svg></button>
-                <span class="cp">SIN Rooftop</span>
-              </div>
-              <div class="clip">
-                <img src="bw/sky.jpg" alt="Bangkok">
-                <span class="mt">MUTED</span>
-                <button class="pl" aria-pressed="false" aria-label="Play"><svg viewBox="0 0 24 24" fill="#0E2A47"><path d="M8 5v14l11-7z"/></svg></button>
-                <span class="cp">Bangkok</span>
-              </div>
-            </div>
-            <p class="imprint" style="margin:9px 0 0;">Live status is pulled from the booking system · updated 18 Oct, 20:14</p>
-          </div>
-        </div>
-
-        <!-- HERO -->
-        <div class="d-hero">
-          <div class="tx">
-            <span class="over">Join the Adventure.</span>
-            <h1>Where music becomes a journey</h1>
-            <p>Curated festival journeys to iconic music events worldwide — bringing together official access, smooth travel, and a vibrant community of music lovers.</p>
-            <div class="row">
-              <a class="btn lime" href="https://booking.beatwings.com" target="_blank" rel="noopener">Book Now <small>booking.beatwings.com</small></a>
-              <a class="btn out" href="#">Join the waitlist</a>
-            </div>
-            <p class="imprint" style="margin:18px 0 0;">Package travel by Dialog-Travel GmbH · 30 % deposit · insolvency cover included</p>
-          </div>
-          <div class="ph"><img src="bw/hero.jpg" alt="Tomorrowland Thailand"></div>
-        </div>
-
-        <!-- TRIPS -->
-        <div class="d-sec">
-          <div class="sh">
-            <h3>Upcoming BEATWINGS trips.</h3>
-            <span class="over">Music. Travel. Connected. — click an image → booking.beatwings.com</span>
-          </div>
-          <div class="d-cards">
-
-            <a class="card" href="https://booking.beatwings.com" target="_blank" rel="noopener">
-              <div class="ph"><img src="bw/tml.jpg" alt="Tomorrowland Thailand"><span class="pill ok">Tickets available</span></div>
-              <div class="bd">
-                <h4>Tomorrowland Thailand</h4>
-                <span class="sub">Partner: Tomorrowland Thailand</span>
-                <dl class="specs">
-                  <div><dt>Airport</dt><dd>Munich &amp; Bangkok</dd></div>
-                  <div><dt>Days</dt><dd>10</dd></div>
-                  <div><dt>Location</dt><dd>Bangkok &amp; Chon Buri</dd></div>
-                  <div><dt>Period</dt><dd>05.12.–15.12.26</dd></div>
-                </dl>
-              </div>
-              <div class="ft"><span class="price">899 €<span>Core. · p. p.</span></span><span class="arrow">Book →</span></div>
-            </a>
-
-            <a class="card" href="https://booking.beatwings.com" target="_blank" rel="noopener">
-              <div class="ph"><img src="bw/siam1.jpg" alt="Siam Songkran 11 Days"><span class="pill hot">Filling fast</span></div>
-              <div class="bd">
-                <h4>SIAM Songkran · 11 Days</h4>
-                <span class="sub">Partner: IASIA Official</span>
-                <dl class="specs">
-                  <div><dt>Arrival</dt><dd>April 11th</dd></div>
-                  <div><dt>Days</dt><dd>11</dd></div>
-                  <div><dt>Location</dt><dd>Bangkok &amp; Pattaya</dd></div>
-                  <div><dt>Dates</dt><dd>11.–21. April</dd></div>
-                </dl>
-              </div>
-              <div class="ft"><span class="price">1.999 €<span>Early bird · p. p.</span></span><span class="arrow">Book →</span></div>
-            </a>
-
-            <a class="card" href="https://booking.beatwings.com" target="_blank" rel="noopener">
-              <div class="ph"><img src="bw/siam2.jpg" alt="Siam Songkran 5 Days"><span class="pill hot">5-Days VIP</span></div>
-              <div class="bd">
-                <h4>SIAM Songkran · 5 Days</h4>
-                <span class="sub">Partner: IASIA Official</span>
-                <dl class="specs">
-                  <div><dt>Arrival</dt><dd>April 10th</dd></div>
-                  <div><dt>Days</dt><dd>5</dd></div>
-                  <div><dt>Location</dt><dd>Bangkok</dd></div>
-                  <div><dt>Dates</dt><dd>10.–14. April</dd></div>
-                </dl>
-              </div>
-              <div class="ft"><span class="price">849 €<span>DBL/TWN · p. p.</span></span><span class="arrow">Book →</span></div>
-            </a>
-
-            <a class="card" href="https://beatwings.com/edc-thailand-2026/" target="_blank" rel="noopener">
-              <div class="ph"><img src="bw/beach.jpg" alt="EDC Thailand"><span class="pill wait">Waitlist live</span></div>
-              <div class="bd">
-                <h4>EDC Thailand 2026</h4>
-                <span class="sub">Partner: FUTURE VIBES</span>
-                <dl class="specs">
-                  <div><dt>Arrival</dt><dd>Dec. 17th</dd></div>
-                  <div><dt>Days</dt><dd>5</dd></div>
-                  <div><dt>Location</dt><dd>Phuket</dd></div>
-                  <div><dt>Dates</dt><dd>18.–20. December</dd></div>
-                </dl>
-              </div>
-              <div class="ft"><span class="price">tba.<span>Booking Feb–Mar</span></span><span class="arrow">Waitlist →</span></div>
-            </a>
-
-          </div>
-        </div>
-
-        <!-- TRUST + WAITLIST -->
-        <div class="d-bottom">
-          <div>
-            <span class="over" style="display:block; margin-bottom:10px;">What's included</span>
-            <div class="trust">
-              <div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Curated travel packages from selected premium partners</b><small>Official travel partner for festivals worldwide — packages include tickets.</small></span></div>
-              <div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg></span><span><b>Selected hotels and the best locations</b><small>Transfers and roundtrips are included.</small></span></div>
-              <div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg></span><span><b>Package travel protection</b><small>Insolvency cover under German package travel law · organiser Dialog-Travel GmbH, Münster.</small></span></div>
-            </div>
-            <p class="imprint" style="margin-top:14px;">Partners: Lufthansa Group · IASIA Official · Tomorrowland Thailand · SIAM Songkran · Yona Beach · Tichuca Rooftop Bar · The One at Khao San · Residents Only · stylink</p>
-          </div>
-          <div class="joinbox">
-            <span class="over" style="color:var(--lime);">Waitlist</span>
-            <h4 style="font-size:23px;">Be the first to discover BEATWINGS festival journeys.</h4>
-            <ul>
-              <li>Early access to booking</li>
-              <li>Priority on the best packages — first pick of hotel categories, room types and add-ons</li>
-              <li>Exclusive discounts</li>
-              <li>Festival &amp; Destination reveals</li>
-              <li>Zero commitment — free, takes 20 seconds</li>
-            </ul>
-            <button class="btn lime">Join Now</button>
-          </div>
-        </div>
-
-        <div class="d-foot">
-          <div>
-            <div class="fnav" style="margin-bottom:12px;"><span>Home</span><span>FAQ</span><span>Imprint</span><span>Terms</span><span>Privacy Policy</span></div>
-            <p class="imprint" style="margin:0;">BEATWINGS GmbH · Hafenweg 16, 48155 Münster, Germany · Registergericht Münster HRB 23224<br>info@beatwings.com · +49 251 5355680017 · ©2026 BEATWINGS</p>
-          </div>
-          <div>
-            <span class="over" style="display:block; margin-bottom:8px;">Support</span>
-            <p class="imprint" style="margin:0;">Need help or have a question about tickets, travel, or your booking?<br>community@beatwings.com · WhatsApp +66 64 235 2858<br>Tiktok · Instagram · Youtube</p>
-          </div>
-        </div>
-
+    <a class="entry up slow" style="--d:140ms" href="#">
+      <div class="plate">
+        <img src="bw/songkran.jpg" alt="Songkran">
+        <span class="mute">Sound off</span>
+        <button class="play" aria-pressed="false" aria-label="Play"><svg viewBox="0 0 24 24" fill="#2B2825"><path d="M8 5v14l11-7z"/></svg></button>
       </div>
-<a class="concept-back" href="index.html">← Übersicht</a>
+      <div class="meta"><span class="dot"></span><span class="date">5 October</span></div>
+      <h3>Songkran, in three minutes</h3>
+      <p>The water festival in Bangkok, as our last group experienced it.</p>
+    </a>
+
+    <a class="entry up slow" style="--d:280ms" href="https://beatwings.com/edc-thailand-2026/" target="_blank" rel="noopener">
+      <div class="plate"><img src="bw/island.jpg" alt="Phuket"></div>
+      <div class="meta"><span class="dot"></span><span class="date">12 October</span></div>
+      <h3>Phuket opens for December 2026</h3>
+      <p>The waitlist for EDC Thailand is now open; booking follows in February.</p>
+    </a>
+
+  </div>
+</section>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <img src="bw/fairy.jpg" alt="BEATWINGS">
+  <div class="pad in">
+    <span class="lbl up">Thailand</span>
+    <h1 class="serif wide" style="--d:120ms">Where music becomes a journey</h1>
+    <p class="up" style="--d:420ms">Three journeys a year, each one planned from the first flight to the last encore.</p>
+    <a class="enq up" style="--d:560ms" href="https://booking.beatwings.com" target="_blank" rel="noopener">Reserve a place</a>
+  </div>
+</section>
+
+<!-- ========== CLAIM ========== -->
+<section class="pad claim">
+  <span class="lbl up">The idea</span>
+  <h2 class="serif up" style="--d:100ms">Pick the festival. We take care of everything else.</h2>
+  <p class="up" style="--d:220ms">Official tickets, hotels in the right places, every transfer arranged, and a small group of people who travel the way you do.</p>
+</section>
+
+<!-- ========== JOURNEYS ========== -->
+<section class="pad journeys" id="journeys">
+
+  <a class="journey slow up" href="https://booking.beatwings.com" target="_blank" rel="noopener">
+    <div class="plate"><img src="bw/hero.jpg" alt="Tomorrowland Thailand"></div>
+    <div class="caption">
+      <h3>Tomorrowland Thailand</h3>
+      <span class="where"><em>Bangkok &amp; Pattaya</em>5 – 15 December 2026 · ten days<br><span class="enq">Reserve</span></span>
+      <span class="price">From 899 €</span>
+    </div>
+  </a>
+
+  <a class="journey slow up" href="https://booking.beatwings.com" target="_blank" rel="noopener">
+    <div class="plate"><img src="bw/siam1.jpg" alt="Siam Songkran"></div>
+    <div class="caption">
+      <h3>Siam Songkran</h3>
+      <span class="where"><em>Bangkok &amp; Pattaya</em>11 – 21 April · eleven days<br><span class="enq">Reserve</span></span>
+      <span class="price">From 849 €</span>
+    </div>
+  </a>
+
+  <a class="journey slow up" href="https://beatwings.com/edc-thailand-2026/" target="_blank" rel="noopener">
+    <div class="plate"><img src="bw/beach.jpg" alt="EDC Thailand"></div>
+    <div class="caption">
+      <h3>EDC Thailand</h3>
+      <span class="where"><em>Phuket</em>18 – 20 December · five days<br><span class="enq">Join the waitlist</span></span>
+      <span class="price">Booking in February</span>
+    </div>
+  </a>
+
+</section>
+
+<!-- ========== WAITLIST ========== -->
+<section class="pad wait" id="waitlist">
+  <span class="lbl up">Waitlist</span>
+  <h2 class="serif up" style="--d:100ms">Be the first to know where we go next</h2>
+  <p class="up" style="--d:200ms">Early access to each journey, before it is announced anywhere else.</p>
+  <a class="enq up" style="--d:300ms" href="#">Join the waitlist</a>
+</section>
+
+<footer class="pad">
+  <nav><a href="#">Home</a><a href="#">Enquiries</a><a href="#">Imprint</a><a href="#">Terms</a><a href="#">Privacy</a></nav>
+  <small>©2026 Beatwings</small>
+</footer>
+
 <script>
-  document.querySelectorAll('.clip .pl').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var playing = btn.getAttribute('aria-pressed') === 'true';
-      btn.setAttribute('aria-pressed', String(!playing));
-      btn.innerHTML = playing
-        ? '<svg viewBox="0 0 24 24" fill="#0E2A47"><path d="M8 5v14l11-7z"/></svg>'
-        : '<svg viewBox="0 0 24 24" fill="#0E2A47"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
-    });
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.documentElement.classList.add('anim');
+
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {rootMargin:'0px 0px -8% 0px', threshold:.08});
+  document.querySelectorAll('.up,.wide,.slow,.rule').forEach(function(el){ io.observe(el); });
+
+  var head = document.querySelector('header');
+  addEventListener('scroll', function(){ head.classList.toggle('stuck', scrollY > 6); }, {passive:true});
+
+  /* Journal: ein Eintrag nach dem anderen wird leise hervorgehoben */
+  var entries = Array.prototype.slice.call(document.querySelectorAll('.entry'));
+  if(!reduce && entries.length){
+    var i = 0, t;
+    var mark = function(){ entries.forEach(function(e,n){ e.classList.toggle('live', n === i); }); };
+    var tick = function(){ i = (i + 1) % entries.length; mark(); };
+    mark(); t = setInterval(tick, 4600);
+    var grid = document.getElementById('jgrid');
+    grid.addEventListener('mouseenter', function(){ clearInterval(t); });
+    grid.addEventListener('mouseleave', function(){ t = setInterval(tick, 4600); });
+  }
+
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest && e.target.closest('.play');
+    if(!btn) return;
+    e.preventDefault();
+    var playing = btn.getAttribute('aria-pressed') === 'true';
+    btn.setAttribute('aria-pressed', String(!playing));
+    btn.innerHTML = playing
+      ? '<svg viewBox="0 0 24 24" fill="#2B2825"><path d="M8 5v14l11-7z"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="#2B2825"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
   });
+})();
 </script>
