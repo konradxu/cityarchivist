@@ -1,0 +1,332 @@
+<title>Konzept 2 – Foto-Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0E0E0E; --paper:#FFFFFF; --soft:#F4F4F2; --line:#E6E6E2; --mute:#767672;
+    --lime:#E3FF87; --amber:#FF9F3A;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#F2F2EE; --paper:#0E0E0E; --soft:#1A1A18; --line:#2C2C28; --mute:#908F8A;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#F2F2EE; --paper:#0E0E0E; --soft:#1A1A18; --line:#2C2C28; --mute:#908F8A;
+  }
+
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:'Archivo',system-ui,sans-serif; font-size:14px; padding:28px 16px 60px;}
+  .wrap{max-width:1240px; margin:0 auto;}
+  .black{font-family:'Archivo Black',Impact,sans-serif; font-weight:400; text-transform:uppercase; line-height:.94; letter-spacing:-.02em;}
+  .kick{font-size:10px; letter-spacing:.2em; text-transform:uppercase; font-weight:700; color:var(--mute);}
+  img{max-width:100%; display:block;}
+
+  .viewhead{margin:0 0 14px;}
+  .viewhead:last-of-type{margin-top:48px;}
+  .viewhead h2{font-size:10px; letter-spacing:.2em; text-transform:uppercase; font-weight:700; color:var(--mute); margin:0;}
+
+  /* --- shared --- */
+  .logo{display:flex; align-items:center; gap:8px;}
+  .logo svg{width:22px; height:22px;}
+  .logo span{font-family:'Archivo Black',sans-serif; font-size:13px; letter-spacing:.02em; text-transform:uppercase;}
+  .navtext{display:flex; gap:14px; flex-wrap:wrap;}
+  .navtext a{font-size:11.5px; font-weight:600; color:var(--mute); text-decoration:none;}
+  .navtext a.on{color:var(--ink); position:relative;}
+  .navtext a.on::after{content:""; position:absolute; left:0; right:0; bottom:-5px; height:3px; background:var(--lime);}
+
+  .now{display:grid; grid-template-columns:auto 1fr auto; gap:10px; align-items:baseline; padding:10px 0; border-bottom:1px solid var(--line); text-decoration:none; color:var(--ink);}
+  .now .k{font-family:'Archivo Black',sans-serif; font-size:9px; letter-spacing:.1em; padding:3px 7px; background:var(--lime); color:#1B2300;}
+  .now .k.b{background:var(--amber); color:#2A1500;}
+  .now .k.c{background:var(--soft); color:var(--mute);}
+  .now p{margin:0; font-size:12.5px; font-weight:600; line-height:1.35;}
+  .now small{display:block; font-weight:400; color:var(--mute); font-size:11px; margin-top:2px;}
+  .now .ar{color:var(--mute); font-size:12px;}
+
+  .clip{flex:none; position:relative; overflow:hidden; border-radius:14px; background:#000;}
+  .clip img{width:100%; height:100%; object-fit:cover; opacity:.92;}
+  .clip .mt{position:absolute; top:8px; right:8px; background:rgba(14,14,14,.72); color:#fff; font-size:8.5px; font-weight:700; letter-spacing:.1em; padding:3px 6px; border-radius:999px; z-index:2;}
+  .clip .pl{position:absolute; left:8px; bottom:8px; width:28px; height:28px; border-radius:50%; background:var(--lime); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0; z-index:2;}
+  .clip .pl svg{width:11px; height:11px;}
+  .clip .cp{position:absolute; left:42px; right:8px; bottom:11px; color:#fff; font-size:10px; font-weight:700; line-height:1.2; z-index:2; text-shadow:0 1px 6px rgba(0,0,0,.8);}
+
+  .trip{display:block; position:relative; overflow:hidden; border-radius:18px; text-decoration:none; color:#fff; background:#000;}
+  .trip img{width:100%; height:100%; object-fit:cover;}
+  .trip .scrim{position:absolute; inset:0; background:linear-gradient(to top, rgba(10,10,10,.92) 0%, rgba(10,10,10,.45) 42%, rgba(10,10,10,.12) 100%);}
+  .trip .st{position:absolute; top:12px; left:12px; font-family:'Archivo Black',sans-serif; font-size:9px; letter-spacing:.1em; padding:5px 9px; border-radius:999px;}
+  .st.go{background:var(--lime); color:#1B2300;}
+  .st.hot{background:var(--amber); color:#2A1500;}
+  .st.wait{background:rgba(255,255,255,.18); color:#fff; backdrop-filter:blur(6px);}
+  .trip .info{position:absolute; left:0; right:0; bottom:0; padding:14px;}
+  .trip h4{margin:0 0 5px;}
+  .trip .meta{font-size:10.5px; color:rgba(255,255,255,.78); line-height:1.45;}
+  .trip .pr{display:flex; align-items:flex-end; justify-content:space-between; gap:10px; margin-top:10px;}
+  .trip .amt{font-family:'Archivo Black',sans-serif; font-size:20px;}
+  .trip .amt span{display:block; font-family:'Archivo'; font-weight:500; font-size:9.5px; color:rgba(255,255,255,.7); letter-spacing:.06em; margin-top:3px; text-transform:none;}
+  .trip .go2{font-size:9.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--lime); text-align:right;}
+
+  .cta{display:inline-flex; align-items:center; justify-content:center; gap:9px; background:var(--lime); color:#1B2300; font-family:'Archivo Black',sans-serif; font-size:13px; letter-spacing:.02em; text-transform:uppercase; padding:14px 22px; border-radius:999px; text-decoration:none; border:none; cursor:pointer;}
+  .cta small{font-family:'Archivo'; font-weight:500; font-size:9.5px; opacity:.6; letter-spacing:.04em; text-transform:none;}
+  .cta.ghost{background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,.5);}
+  .linkline{font-size:11.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink); text-decoration:none; border-bottom:3px solid var(--lime); padding-bottom:3px;}
+
+  .incl{display:grid; gap:0;}
+  .incl div{display:flex; gap:10px; align-items:flex-start; padding:11px 0; border-bottom:1px solid var(--line); font-size:12.5px; line-height:1.45;}
+  .incl div:last-child{border-bottom:none;}
+  .incl i{font-style:normal; font-family:'Archivo Black',sans-serif; font-size:9px; color:var(--mute); padding-top:3px;}
+
+  .join{background:var(--ink); color:var(--paper); border-radius:18px; padding:20px;}
+  .join .kick{color:var(--lime);}
+  .join h4{margin:10px 0 10px;}
+  .join p{margin:0 0 16px; font-size:12px; line-height:1.6; opacity:.72;}
+
+  .fo{display:flex; flex-wrap:wrap; gap:12px; font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--mute);}
+
+  /* --- PHONE --- */
+  .phone{background:#111; border-radius:42px; padding:11px; margin:0 auto; max-width:380px; position:relative; box-shadow:0 26px 60px -34px rgba(0,0,0,.6);}
+  .phone::before{content:""; position:absolute; top:11px; left:50%; transform:translateX(-50%); width:88px; height:21px; background:#111; border-radius:0 0 14px 14px; z-index:5;}
+  .screen{background:var(--paper); border-radius:32px; overflow:hidden;}
+  .sbar{display:flex; justify-content:space-between; padding:13px 20px 6px; font-size:10.5px; font-weight:600; color:var(--mute);}
+  .m-head{display:flex; align-items:center; justify-content:space-between; padding:4px 16px 10px;}
+  .m-head .en{font-size:10px; font-weight:700; letter-spacing:.14em; color:var(--mute);}
+  .m-nav{padding:0 16px 14px; border-bottom:1px solid var(--line);}
+  .m-sec{padding:18px 16px 0;}
+  .m-sec .kick{display:block; margin-bottom:10px;}
+  .m-clips{display:flex; gap:8px; overflow-x:auto; scrollbar-width:none;}
+  .m-clips::-webkit-scrollbar{display:none;}
+  .m-clips .clip{width:116px; aspect-ratio:9/14;}
+  .m-hero{position:relative; margin:16px 16px 0; border-radius:20px; overflow:hidden; aspect-ratio:3/4;}
+  .m-hero img{width:100%; height:100%; object-fit:cover;}
+  .m-hero .scrim{position:absolute; inset:0; background:linear-gradient(to top, rgba(10,10,10,.94) 2%, rgba(10,10,10,.35) 48%, rgba(10,10,10,.1) 100%);}
+  .m-hero .copy{position:absolute; left:0; right:0; bottom:0; padding:18px 16px 20px; color:#fff;}
+  .m-hero h1{font-size:33px; margin:8px 0 10px;}
+  .m-hero p{margin:0 0 16px; font-size:11.5px; line-height:1.55; color:rgba(255,255,255,.82);}
+  .m-trips{display:grid; gap:12px;}
+  .m-trips .trip{aspect-ratio:4/3;}
+  .m-foot{padding:22px 16px 20px; margin-top:22px; border-top:1px solid var(--line);}
+
+  /* --- DESKTOP --- */
+  .browser{border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--paper);}
+  .chrome{display:flex; align-items:center; gap:10px; padding:10px 14px; background:var(--soft); border-bottom:1px solid var(--line);}
+  .chrome i{width:9px;height:9px;border-radius:50%;background:var(--line); display:block;}
+  .chrome .url{flex:1; font-size:11px; color:var(--mute); background:var(--paper); border:1px solid var(--line); border-radius:999px; padding:4px 12px;}
+  .dscroll{overflow-x:auto;}
+  .dpage{min-width:1080px; background:var(--paper);}
+
+  .d-head{display:flex; align-items:center; justify-content:space-between; gap:24px; padding:18px 34px;}
+  .d-head .right{display:flex; align-items:center; gap:18px;}
+  .d-now{display:grid; grid-template-columns:1.25fr 1fr; gap:34px; padding:0 34px 20px; align-items:start;}
+  .d-clips{display:flex; gap:9px;}
+  .d-clips .clip{flex:1; aspect-ratio:9/14;}
+  .d-hero{position:relative; margin:0 34px; border-radius:22px; overflow:hidden; aspect-ratio:21/9;}
+  .d-hero img{width:100%; height:100%; object-fit:cover;}
+  .d-hero .scrim{position:absolute; inset:0; background:linear-gradient(100deg, rgba(10,10,10,.9) 0%, rgba(10,10,10,.55) 46%, rgba(10,10,10,.08) 100%);}
+  .d-hero .copy{position:absolute; left:0; top:0; bottom:0; width:60%; padding:40px 38px; display:flex; flex-direction:column; justify-content:center; color:#fff;}
+  .d-hero h1{font-size:52px; margin:10px 0 14px; max-width:14ch;}
+  .d-hero p{margin:0 0 20px; font-size:13px; line-height:1.6; color:rgba(255,255,255,.82); max-width:44ch;}
+  .d-hero .row{display:flex; gap:14px; align-items:center; flex-wrap:wrap;}
+  .d-sec{padding:28px 34px 0;}
+  .d-sec .sh{display:flex; align-items:baseline; justify-content:space-between; gap:18px; margin-bottom:14px;}
+  .d-sec .sh h3{font-family:'Archivo Black',sans-serif; text-transform:uppercase; font-size:24px; letter-spacing:-.02em; margin:0;}
+  .d-trips{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
+  .d-trips .trip{aspect-ratio:3/4;}
+  .d-bottom{display:grid; grid-template-columns:1fr 1fr; gap:22px; padding:30px 34px 0; align-items:start;}
+  .d-foot{display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; padding:22px 34px; margin-top:30px; border-top:1px solid var(--line);}
+</style>
+
+<style>
+  body{padding:0 !important; margin:0;}
+  .dpage{min-width:1080px; max-width:1500px; margin:0 auto;}
+  html{overflow-x:auto;}
+  .concept-back{position:fixed; left:14px; bottom:14px; z-index:99; background:rgba(20,20,20,.9); color:#fff;
+    font:600 12px/1 system-ui,sans-serif; padding:11px 16px; border-radius:999px; text-decoration:none;
+    box-shadow:0 6px 20px rgba(0,0,0,.3);}
+  .concept-back:hover{background:#000;}
+</style>
+
+<div class="dpage">
+
+        <div class="d-head">
+          <span class="logo">
+            <svg viewBox="0 0 48 48" fill="none" style="width:28px;height:28px;">
+              <path d="M24 26c-3.5-9-12.5-12.5-18-9 1.5 7 8.5 12.5 18 9Z" fill="var(--lime)" stroke="var(--ink)" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M24 26c3.5-9 12.5-12.5 18-9-1.5 7-8.5 12.5-18 9Z" fill="var(--lime)" stroke="var(--ink)" stroke-width="1.5" stroke-linejoin="round"/>
+              <circle cx="24" cy="14" r="3.2" fill="var(--ink)"/>
+              <path d="M24 17.4v16M20.6 33.4h7" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+            <span style="font-size:16px;">Beatwings</span>
+          </span>
+          <nav class="navtext">
+            <a class="on" href="#">Right now</a>
+            <a href="#">Trips</a>
+            <a href="#">What's included</a>
+            <a href="#">Waitlist</a>
+            <a href="#">Partner</a>
+            <a href="#">FAQ</a>
+          </nav>
+          <span class="right">
+            <span class="kick">EN</span>
+            <a class="cta" style="padding:11px 18px; font-size:12px;" href="https://booking.beatwings.com" target="_blank" rel="noopener">Book Now</a>
+          </span>
+        </div>
+
+        <!-- RIGHT NOW -->
+        <div class="d-now">
+          <div>
+            <span class="kick" style="display:block; margin-bottom:8px;">Right now</span>
+            <a class="now" href="https://booking.beatwings.com" target="_blank" rel="noopener">
+              <span class="k">Live</span>
+              <p>Tomorrowland Thailand: Core. 899 € available<small>Basic. 1.790 € · Relax. 3.999 € · Adventure. 4.799 € sold out · incl. Full Madness Pass = 433,00 €</small></p>
+              <span class="ar">→</span>
+            </a>
+            <a class="now" href="https://beatwings.com/edc-thailand-2026/" target="_blank" rel="noopener">
+              <span class="k b">New</span>
+              <p>EDC Thailand 2026: Waitlist live<small>Phuket · 18th – 20th of December · Booking February–March · Ticket Partner FUTURE VIBES</small></p>
+              <span class="ar">→</span>
+            </a>
+            <a class="now" href="https://beatwings.com/partner/" target="_blank" rel="noopener">
+              <span class="k c">Deal</span>
+              <p>Lufthansa Group: save up to 10 %<small>Austrian, Lufthansa &amp; SWISS · 270 global destinations · 28 weekly flights to Bangkok</small></p>
+              <span class="ar">→</span>
+            </a>
+          </div>
+          <div>
+            <span class="kick" style="display:block; margin-bottom:8px;">On screen — sound off</span>
+            <div class="d-clips">
+              <div class="clip">
+                <img src="bw/songkran.jpg" alt="Songkran">
+                <span class="mt">MUTED</span>
+                <button class="pl" aria-pressed="false" aria-label="Play"><svg viewBox="0 0 24 24" fill="#1B2300"><path d="M8 5v14l11-7z"/></svg></button>
+                <span class="cp">Songkran</span>
+              </div>
+              <div class="clip">
+                <img src="bw/rooftop.jpg" alt="Rooftop">
+                <span class="mt">MUTED</span>
+                <button class="pl" aria-pressed="false" aria-label="Play"><svg viewBox="0 0 24 24" fill="#1B2300"><path d="M8 5v14l11-7z"/></svg></button>
+                <span class="cp">SIN Rooftop</span>
+              </div>
+              <div class="clip">
+                <img src="bw/sky.jpg" alt="Bangkok">
+                <span class="mt">MUTED</span>
+                <button class="pl" aria-pressed="false" aria-label="Play"><svg viewBox="0 0 24 24" fill="#1B2300"><path d="M8 5v14l11-7z"/></svg></button>
+                <span class="cp">Bangkok</span>
+              </div>
+              <div class="clip">
+                <img src="bw/beach.jpg" alt="Beach Club">
+                <span class="mt">MUTED</span>
+                <button class="pl" aria-pressed="false" aria-label="Play"><svg viewBox="0 0 24 24" fill="#1B2300"><path d="M8 5v14l11-7z"/></svg></button>
+                <span class="cp">Cave Beach Club</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- HERO -->
+        <div class="d-hero">
+          <img src="bw/hero.jpg" alt="Tomorrowland Thailand">
+          <span class="scrim"></span>
+          <div class="copy">
+            <span class="kick" style="color:var(--lime);">Join the Adventure.</span>
+            <h1 class="black">Where music becomes a journey</h1>
+            <p>Curated festival journeys to iconic music events worldwide — bringing together official access, smooth travel, and a vibrant community of music lovers.</p>
+            <div class="row">
+              <a class="cta" href="https://booking.beatwings.com" target="_blank" rel="noopener">Book Now <small>booking.beatwings.com</small></a>
+              <a class="cta ghost" href="#">Join the waitlist</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- TRIPS -->
+        <div class="d-sec">
+          <div class="sh">
+            <h3>Upcoming BEATWINGS trips.</h3>
+            <span class="kick">Music. Travel. Connected. — click an image → booking.beatwings.com</span>
+          </div>
+          <div class="d-trips">
+
+            <a class="trip" href="https://booking.beatwings.com" target="_blank" rel="noopener">
+              <img src="bw/tml.jpg" alt="Tomorrowland Thailand">
+              <span class="scrim"></span>
+              <span class="st go">Tickets available</span>
+              <div class="info">
+                <h4 class="black" style="font-size:18px;">Tomorrowland Thailand</h4>
+                <div class="meta">8 Nights · 05/12/2026<br>Bangkok &amp; Wisdom Valley, Pattaya</div>
+                <div class="pr"><span class="amt">899 €<span>Core. · per person</span></span><span class="go2">Book →</span></div>
+              </div>
+            </a>
+
+            <a class="trip" href="https://booking.beatwings.com" target="_blank" rel="noopener">
+              <img src="bw/siam1.jpg" alt="Siam Songkran 11 Days">
+              <span class="scrim"></span>
+              <span class="st hot">Filling fast</span>
+              <div class="info">
+                <h4 class="black" style="font-size:18px;">Siam Songkran · 11 Days</h4>
+                <div class="meta">Bangkok &amp; Pattaya<br>11th – 21st of April</div>
+                <div class="pr"><span class="amt">1.999 €<span>Early bird · per person</span></span><span class="go2">Book →</span></div>
+              </div>
+            </a>
+
+            <a class="trip" href="https://booking.beatwings.com" target="_blank" rel="noopener">
+              <img src="bw/siam2.jpg" alt="Siam Songkran 5 Days">
+              <span class="scrim"></span>
+              <span class="st hot">5-Days VIP</span>
+              <div class="info">
+                <h4 class="black" style="font-size:18px;">Siam Songkran · 5 Days</h4>
+                <div class="meta">Bangkok<br>10th – 14th of April</div>
+                <div class="pr"><span class="amt">849 €<span>DBL/TWN · per person</span></span><span class="go2">Book →</span></div>
+              </div>
+            </a>
+
+            <a class="trip" href="https://beatwings.com/edc-thailand-2026/" target="_blank" rel="noopener">
+              <img src="bw/beach.jpg" alt="EDC Thailand Phuket">
+              <span class="scrim"></span>
+              <span class="st wait">Waitlist live</span>
+              <div class="info">
+                <h4 class="black" style="font-size:18px;">EDC Thailand 2026</h4>
+                <div class="meta">Phuket<br>18th – 20th of December</div>
+                <div class="pr"><span class="amt">tba.<span>Booking Feb–Mar</span></span><span class="go2">Waitlist →</span></div>
+              </div>
+            </a>
+
+          </div>
+        </div>
+
+        <!-- INCLUDED + WAITLIST -->
+        <div class="d-bottom">
+          <div>
+            <span class="kick" style="display:block; margin-bottom:10px;">What's included</span>
+            <div class="incl">
+              <div><i>01</i><span>Curated travel packages from selected premium partners</span></div>
+              <div><i>02</i><span>Official travel partner for festivals worldwide — packages include tickets</span></div>
+              <div><i>03</i><span>Selected hotels and the best locations</span></div>
+              <div><i>04</i><span>Transfers and roundtrips are included</span></div>
+            </div>
+            <p style="font-size:11.5px; color:var(--mute); line-height:1.6; margin-top:14px;">Partners: Lufthansa Group · IASIA Official · Tomorrowland Thailand · SIAM Songkran · Yona Beach · Tichuca Rooftop Bar · The One at Khao San · Residents Only · stylink</p>
+          </div>
+          <div class="join">
+            <span class="kick">Waitlist</span>
+            <h4 class="black" style="font-size:26px;">Be the first to discover BEATWINGS festival journeys.</h4>
+            <p>Early access to booking · Priority on the best packages · Exclusive discounts · Festival &amp; Destination reveals · Zero commitment.</p>
+            <button class="cta">Join Now</button>
+          </div>
+        </div>
+
+        <div class="d-foot">
+          <div class="fo"><span>Home</span><span>FAQ</span><span>Imprint</span><span>Terms</span><span>Privacy Policy</span></div>
+          <div class="fo"><span>©2026 Beatwings</span><span>Tiktok</span><span>Instagram</span><span>Youtube</span></div>
+        </div>
+
+      </div>
+<a class="concept-back" href="index.html">← Übersicht</a>
+<script>
+  document.querySelectorAll('.clip .pl').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var playing = btn.getAttribute('aria-pressed') === 'true';
+      btn.setAttribute('aria-pressed', String(!playing));
+      btn.innerHTML = playing
+        ? '<svg viewBox="0 0 24 24" fill="#1B2300"><path d="M8 5v14l11-7z"/></svg>'
+        : '<svg viewBox="0 0 24 24" fill="#1B2300"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
+    });
+  });
+</script>
