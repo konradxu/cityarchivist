@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://formspree.io https://*.workers.dev; script-src 'self' 'unsafe-inline'; frame-src https://www.google.com https://maps.google.com; form-action https://formspree.io 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=()">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Archivist Score — City Archivist</title>
+<meta name="description" content="How City Archivist scores a hotel: four criteria — service, design, F&B and location — each 1–10, averaged into the Archivist Score. Independent, from a hotelier.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://cityarchivist.com/score">
+<link rel="alternate" hreflang="en" href="https://cityarchivist.com/score?lang=en">
+<link rel="alternate" hreflang="de" href="https://cityarchivist.com/score?lang=de">
+<link rel="alternate" hreflang="zh" href="https://cityarchivist.com/score?lang=zh">
+<link rel="alternate" hreflang="x-default" href="https://cityarchivist.com/score">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="City Archivist">
+<meta property="og:title" content="The Archivist Score — City Archivist">
+<meta property="og:description" content="How a hotelier scores a hotel — four criteria, 1–10, independent.">
+<meta property="og:url" content="https://cityarchivist.com/score">
+<meta property="og:image" content="https://cityarchivist.com/og-cover.jpg">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/svg+xml" href="favicon-v3.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-v3.png">
+<meta name="theme-color" content="#f4eee2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#17130d" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Jost:wght@200;300;400;500&family=Noto+Sans+SC:wght@300;400&family=Noto+Serif+SC:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ca.css?v=5">
+<script>document.documentElement.className += ' js';</script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="wordmark" href="/">City <span>Archivist</span></a>
+    <ul class="nav-links">
+      <li><a href="/" data-i18n="nav.home">Home</a></li>
+      <li><a href="/hotels" data-i18n="nav.reviews">Hotel Reviews</a></li>
+      <li><a href="/#destinations" data-i18n="nav.cities">Cities</a></li>
+      <li><a href="/score" aria-current="page" data-i18n="nav.score">The Score</a></li>
+      <li><a href="/#about" data-i18n="nav.about">About</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="nav-lang" type="button" data-lang-trigger aria-label="Change language"><span data-lang-current>EN</span></button>
+      <button class="nav-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-overlay"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<nav class="nav-overlay" id="nav-overlay" aria-label="Mobile">
+  <a href="/" data-i18n="nav.home">Home</a>
+  <a href="/hotels" data-i18n="nav.reviews">Hotel Reviews</a>
+  <a href="/#destinations" data-i18n="nav.cities">Cities</a>
+  <a href="/score" data-i18n="nav.score">The Score</a>
+  <a href="/#about" data-i18n="nav.about">About</a>
+</nav>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero section-sm">
+    <div class="wrap">
+      <div class="label label--accent rv" data-i18n="score.eyebrow">The Archivist Score</div>
+      <div class="rv-mask" style="--rv-d:.08s"><h1 class="display" data-i18n="score.h1">How I score<br>a <b>hotel</b>.</h1></div>
+      <p class="lead hero-sub rv" style="--rv-d:.22s" data-i18n="score.sub">Four criteria, each from one to ten, averaged into a single number. No weighting, no sponsored scores — the same yardstick for every hotel.</p>
+    </div>
+  </section>
+
+  <!-- THE FOUR CRITERIA -->
+  <section class="section-sm">
+    <div class="wrap">
+      <div class="sec-head rv rv-line"><h2 class="h2" data-i18n="score.criteria.label">The four criteria</h2></div>
+
+      <!-- TODO KONRAD: finale Texte je Kriterium (unten je ein Formulierungsvorschlag). -->
+      <div class="rv-group" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s-7) var(--s-6);margin-top:var(--s-5)">
+        <div>
+          <h3 class="rev-name" style="margin-bottom:var(--s-3)"><span data-i18n="rp.score.service">Service</span></h3>
+          <p class="prose muted" data-i18n="score.service.desc">How a hotel treats you when nothing goes wrong — and how it recovers when something does. Arrival, anticipation, and the small unscripted moments that training alone can't fake.</p>
+        </div>
+        <div>
+          <h3 class="rev-name" style="margin-bottom:var(--s-3)"><span data-i18n="rp.score.design">Design</span></h3>
+          <p class="prose muted" data-i18n="score.design.desc">Whether the architecture, rooms and public spaces feel specific to the place or merely generic luxury — light, materials, acoustics, and how the building actually lives.</p>
+        </div>
+        <div>
+          <h3 class="rev-name" style="margin-bottom:var(--s-3)"><span data-i18n="rp.score.fnb">Food &amp; Drink</span></h3>
+          <p class="prose muted" data-i18n="score.fnb.desc">Breakfast first — the hardest meal to get right — then the bar and restaurant. Quality, consistency, and whether it's somewhere you'd return to even without a room.</p>
+        </div>
+        <div>
+          <h3 class="rev-name" style="margin-bottom:var(--s-3)"><span data-i18n="rp.score.location">Location</span></h3>
+          <p class="prose muted" data-i18n="score.location.desc">Not just the address, but how the hotel sits in its neighbourhood — what's walkable, what's worth leaving for, and how easily you arrive.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE SCALE -->
+  <section class="section-sm">
+    <div class="wrap">
+      <div class="sec-head rv rv-line"><h2 class="h2" data-i18n="score.scale.title">The scale</h2></div>
+      <div class="prose rv">
+        <p data-i18n="score.scale.p">Each criterion is scored from 1 to 10. The overall Archivist Score is simply their average — no weighting, no rounding in a hotel's favour. A 9 is rare and means genuinely exceptional; a 6 is a decent stay with real compromises.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- INDEPENDENCE -->
+  <section class="section-sm">
+    <div class="wrap">
+      <div class="sec-head rv rv-line"><h2 class="h2" data-i18n="score.independence.title">Independence</h2></div>
+      <!-- TODO KONRAD: finaler Transparenz-Text (Vorschlag unten). -->
+      <div class="prose rv">
+        <p data-i18n="score.independence.p">Wherever possible I pay for my own stays. When a hotel hosts me, I say so in the review — and it never changes the score. No paid placements, no affiliate links, no scores in exchange for access.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO'S BEHIND IT -->
+  <section class="section-sm">
+    <div class="wrap">
+      <div class="sec-head rv rv-line"><h2 class="h2" data-i18n="score.about.title">Who's behind the score</h2></div>
+      <div class="prose rv">
+        <p data-i18n="score.about.p">I'm Konrad Xu — trained inside hotels (Le Méridien Munich, Aman Shanghai) and heading to EHL Lausanne. The score reflects that training: the view from behind the desk, not just in front of it.</p>
+        <p style="margin-top:var(--s-4)"><a class="lk" href="/#about" data-i18n="score.about.link">More about me</a></p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="wordmark">City <span>Archivist</span></div>
+        <p class="foot-tag" data-i18n="footer.tag">The hotelier's guide to Europe's finest hotels and hidden places — for international and Chinese travellers.</p>
+        <div class="foot-social">
+          <a href="#" rel="me">Instagram</a>
+          <a href="#" rel="me">小红书</a>
+          <a href="#" rel="me">WeChat</a>
+        </div>
+      </div>
+      <div>
+        <div class="foot-col-title" data-i18n="footer.nav">Navigation</div>
+        <ul class="foot-links">
+          <li><a href="/" data-i18n="nav.home">Home</a></li>
+          <li><a href="/hotels" data-i18n="nav.reviews">Hotel Reviews</a></li>
+          <li><a href="/score" data-i18n="nav.score">The Score</a></li>
+          <li><a href="/#about" data-i18n="nav.about">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-col-title" data-i18n="footer.info">Info</div>
+        <ul class="foot-links">
+          <li><a href="/impressum#kontakt" data-i18n="footer.contact">Contact</a></li>
+          <li><a href="/impressum#imprint" data-i18n="footer.imprint">Imprint</a></li>
+          <li><a href="/impressum#datenschutz" data-i18n="footer.privacy">Privacy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom"><span class="foot-copy" data-i18n="footer.copy">© 2026 City Archivist</span></div>
+  </div>
+</footer>
+
+<script src="lang.js?v=53" defer></script>
+<script src="ca.js?v=3" defer></script>
+</body>
+</html>

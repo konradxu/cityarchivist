@@ -12,17 +12,19 @@
   --s-5: 40px; --s-6: 64px; --s-7: 96px; --s-8: 160px;
 
   /* Colour — cool stone, charcoal ink, one muted bronze accent */
-  --stone:     #f7f6f2;   /* page background                 */
-  --stone-2:   #efede5;   /* insets / hovers                 */
-  --stone-3:   #e6e3d9;   /* placeholders                    */
-  --char:      #1c1c19;   /* primary text — 13:1 on stone    */
-  --char-soft: #6c6a62;   /* secondary text — 4.7:1 (AA)     */
-  --char-faint:#9a988f;   /* tertiary / hairline labels      */
-  --bronze:    #7c6a4e;   /* accent — 4.9:1 on stone (AA)    */
-  --bronze-2:  #917c5a;   /* accent hover                    */
-  --line:      rgba(28,28,25,0.13);
-  --line-2:    rgba(28,28,25,0.07);
-  --focus:     #7c6a4e;
+  /* Warm paper (Direction A) on Direction B's architecture — the hybrid */
+  --stone:     #f4eee2;   /* warm paper background            */
+  --stone-2:   #ede4d4;   /* insets / hovers                 */
+  --stone-3:   #e4dac6;   /* placeholders                    */
+  --char:      #2a2520;   /* warm ink — 11:1 on paper        */
+  --char-soft: #6a6157;   /* secondary text — 4.6:1 (AA)     */
+  --char-faint:#9a9082;   /* tertiary / hairline labels      */
+  --bronze:    #8a6a2f;   /* warm gold — 4.8:1 on paper (AA) */
+  --bronze-2:  #a07d38;   /* gold hover                      */
+  --line:      rgba(42,37,32,0.16);
+  --line-2:    rgba(42,37,32,0.08);
+  --focus:     #8a6a2f;
+  --header-bg: rgba(244,238,226,0.88);
 
   /* Type */
   --sans:  'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -40,6 +42,26 @@
 :root[lang="zh"] {
   --sans:  'Jost', 'Noto Sans SC', -apple-system, sans-serif;
   --serif: 'Cormorant Garamond', 'Noto Serif SC', Georgia, serif;
+}
+
+/* ── Dark mode — follows the device setting (prefers-color-scheme) ──
+   Same warm hybrid, inverted: espresso paper, cream ink, brighter gold.
+   Everything is tokenised, so only these values change. ── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --stone:     #17130d;   /* warm near-black background       */
+    --stone-2:   #1f1a13;
+    --stone-3:   #2a231a;
+    --char:      #f1e9db;   /* cream — ~15:1 on stone           */
+    --char-soft: #b2a893;   /* secondary — ~8:1                 */
+    --char-faint:#7e715d;
+    --bronze:    #cca86a;   /* brighter gold for dark — ~7:1    */
+    --bronze-2:  #e0c48c;
+    --line:      rgba(224,196,140,0.16);
+    --line-2:    rgba(241,233,219,0.08);
+    --focus:     #cca86a;
+    --header-bg: rgba(23,19,13,0.86);
+  }
 }
 
 /* ── Reset / base ───────────────────────────────────────────────────── */
@@ -64,10 +86,10 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .skip-link:focus { left: var(--s-3); top: var(--s-3); }
 
 /* ── Typography ─────────────────────────────────────────────────────── */
-.display { font-family: var(--sans); font-weight: 200; font-size: clamp(2.4rem, 5.2vw, 4.3rem); line-height: 1.1; letter-spacing: 0.005em; }
-.display b, .display strong { font-weight: 500; }
+.display { font-family: var(--serif); font-weight: 500; font-size: clamp(2.8rem, 6vw, 5rem); line-height: 1.05; letter-spacing: -0.01em; }
+.display b, .display strong { font-weight: 500; font-style: italic; color: var(--bronze); }
 .h1 { font-family: var(--sans); font-weight: 300; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.12; }
-.h2 { font-family: var(--sans); font-weight: 300; font-size: clamp(1.5rem, 2.6vw, 2rem); line-height: 1.18; letter-spacing: 0.01em; }
+.h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(1.7rem, 2.8vw, 2.3rem); line-height: 1.12; letter-spacing: 0; }
 .h3 { font-family: var(--sans); font-weight: 400; font-size: 1.3rem; line-height: 1.2; letter-spacing: 0.01em; }
 .lead { font-size: 1.1rem; line-height: 1.75; color: var(--char-soft); max-width: var(--measure); font-weight: 300; }
 .body { max-width: var(--measure); }
@@ -108,10 +130,10 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .rule { height: 1px; background: var(--line); border: 0; }
 
 /* ── Header / nav ───────────────────────────────────────────────────── */
-.site-header { position: sticky; top: 0; z-index: 40; background: rgba(247,246,242,0.88); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line-2); }
+.site-header { position: sticky; top: 0; z-index: 40; background: var(--header-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line-2); }
 .nav { display: flex; align-items: center; justify-content: space-between; height: var(--header-h); }
-.wordmark { font-family: var(--sans); font-size: 1rem; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase; white-space: nowrap; }
-.wordmark span { color: var(--char-soft); }
+.wordmark { font-family: var(--serif); font-size: 1.35rem; font-weight: 600; letter-spacing: 0.02em; white-space: nowrap; }
+.wordmark span { color: var(--bronze); }
 .nav-links { display: flex; gap: var(--s-6); list-style: none; }
 .nav-links a { position: relative; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--char-soft); transition: color .25s; }
 .nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--char); }
@@ -140,6 +162,12 @@ html.nav-open .nav-overlay { opacity: 1; visibility: visible; }
 .hero-figure img { width: 100%; aspect-ratio: 21/9; object-fit: cover; border: 1px solid var(--line); }
 .figcap { margin-top: var(--s-3); display: flex; justify-content: space-between; gap: var(--s-4); }
 
+/* ── Split: editorial text + image (reused on reviews & city pages) ── */
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(var(--s-5), 6vw, var(--s-7)); align-items: center; }
+.split .media img { width: 100%; aspect-ratio: 4/5; object-fit: cover; border: 1px solid var(--line); background: var(--stone-3); }
+.split--rev { grid-template-columns: 1.1fr 0.9fr; }
+@media (max-width: 820px) { .split { grid-template-columns: 1fr; gap: var(--s-5); } .split .media { order: -1; } .split .media img { aspect-ratio: 16/10; } }
+
 /* ── Section header ─────────────────────────────────────────────────── */
 .sec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--s-4); padding-bottom: var(--s-4); border-bottom: 1px solid var(--char); margin-bottom: var(--s-2); }
 .sec-head--center { flex-direction: column; align-items: center; text-align: center; border: 0; gap: var(--s-3); margin-bottom: var(--s-6); }
@@ -150,7 +178,7 @@ html.nav-open .nav-overlay { opacity: 1; visibility: visible; }
 .rev-index { font-family: var(--serif); font-size: 1.4rem; color: var(--bronze); }
 .rev-media img { width: 150px; height: 100px; object-fit: cover; border: 1px solid var(--line); background: var(--stone-3); }
 .rev-loc { margin-bottom: var(--s-2); }
-.rev-name { font-family: var(--sans); font-weight: 400; font-size: 1.3rem; line-height: 1.2; }
+.rev-name { font-family: var(--serif); font-weight: 500; font-size: 1.55rem; line-height: 1.15; }
 .rev-verdict { color: var(--char-soft); font-size: 1rem; max-width: 46ch; margin-top: var(--s-2); }
 
 /* ── Review GRID cards (for homepage "Latest Reviews") ──────────────── */
@@ -206,10 +234,106 @@ html.nav-open .nav-overlay { opacity: 1; visibility: visible; }
 .foot-bottom { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); flex-wrap: wrap; margin-top: var(--s-7); padding-top: var(--s-4); border-top: 1px solid var(--line); }
 .foot-copy { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--char-faint); }
 
-/* ── Reveal (subtle, slow, reduced-motion safe) ─────────────────────── */
-.rv { opacity: 0; transform: translateY(14px); transition: opacity 1.1s var(--ease), transform 1.1s var(--ease); }
+/* ── Review page ────────────────────────────────────────────────────── */
+.breadcrumb { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--char-soft); padding: var(--s-5) 0 0; }
+.review-hero { padding: var(--s-5) 0 var(--s-6); }
+.review-hero .label { margin-bottom: var(--s-3); }
+.review-hero .display { margin-bottom: var(--s-3); }
+.review-meta { color: var(--char-soft); font-size: 0.95rem; letter-spacing: 0.02em; }
+.review-figure { margin-top: var(--s-5); }
+.review-figure img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border: 1px solid var(--line); background: var(--stone-3); }
+.banner { border: 1px solid var(--line); background: var(--stone-2); padding: var(--s-4) var(--s-5); text-align: center; color: var(--char-soft); font-size: 0.95rem; }
+
+.score-head { display: flex; align-items: baseline; gap: var(--s-4); margin-bottom: var(--s-5); }
+.score-head .score-num { font-size: 3.4rem; }
+.facts { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--s-5); border-top: 1px solid var(--char); border-bottom: 1px solid var(--char); padding: var(--s-5) 0; }
+.fact .k { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--char-soft); margin-bottom: var(--s-2); }
+.fact .v { font-family: var(--serif); font-size: 1.3rem; color: var(--char); }
+@media (max-width: 820px) { .facts { grid-template-columns: repeat(2, 1fr); gap: var(--s-4); } }
+
+.prose { max-width: var(--measure); }
+.prose p + p { margin-top: var(--s-4); }
+
+.ideal { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-6); }
+.ideal ul { list-style: none; display: grid; gap: var(--s-3); margin-top: var(--s-3); }
+.ideal li { padding-left: var(--s-4); position: relative; color: var(--char-soft); }
+.ideal li::before { content: ''; position: absolute; left: 0; top: 0.7em; width: 10px; height: 1px; background: var(--bronze); }
+.ideal .not li::before { background: var(--char-faint); }
+@media (max-width: 820px) { .ideal { grid-template-columns: 1fr; gap: var(--s-5); } }
+
+.cn { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-5) var(--s-6); }
+.cn .k { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--bronze); margin-bottom: var(--s-2); }
+.cn .v { color: var(--char); }
+.pay { display: flex; gap: var(--s-2); flex-wrap: wrap; }
+.pay span { font-size: 11px; letter-spacing: 0.06em; border: 1px solid var(--line); padding: 5px 12px; color: var(--char-soft); }
+@media (max-width: 820px) { .cn { grid-template-columns: 1fr; } }
+
+.gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-2); }
+.gallery img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border: 1px solid var(--line); background: var(--stone-3); }
+@media (max-width: 820px) { .gallery { grid-template-columns: repeat(2, 1fr); } }
+
+.map-embed { width: 100%; aspect-ratio: 16/9; border: 1px solid var(--line); background: var(--stone-3); }
+.prevnext { display: flex; justify-content: space-between; gap: var(--s-4); border-top: 1px solid var(--line); padding-top: var(--s-5); }
+.prevnext a { display: flex; flex-direction: column; gap: var(--s-1); max-width: 45%; }
+.prevnext .dir { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--char-soft); }
+.prevnext .nm { font-family: var(--serif); font-size: 1.15rem; color: var(--char); }
+.prevnext .next { text-align: right; align-items: flex-end; }
+
+/* ── Motion ─────────────────────────────────────────────────────────
+   Slow, restrained, editorial. Every effect is driven by one `.in` class
+   added by ca.js on scroll, and every one of them is switched off under
+   prefers-reduced-motion (block at the end of this file).
+   `--rv-d` is an optional per-element delay set by JS for stagger. ── */
+
+/* 1 · Base reveal — content rises quietly into place */
+.rv { opacity: 0; transform: translateY(18px); transition: opacity 1.1s var(--ease), transform 1.1s var(--ease); transition-delay: var(--rv-d, 0s); }
 .rv.in { opacity: 1; transform: none; }
-html:not(.js) .rv { opacity: 1; transform: none; }
+
+/* 2 · Stagger — direct children come in one after another */
+.rv-group > * { opacity: 0; transform: translateY(16px); transition: opacity 1s var(--ease), transform 1s var(--ease); transition-delay: var(--rv-d, 0s); }
+.rv-group.in > * { opacity: 1; transform: none; }
+
+/* 3 · Mask reveal — the headline rises out of a clipped edge */
+.rv-mask { overflow: hidden; padding-bottom: 0.14em; margin-bottom: -0.14em; }
+.rv-mask > * { opacity: 0; transform: translateY(105%); transition: opacity 1.25s var(--ease), transform 1.25s var(--ease); transition-delay: var(--rv-d, 0s); }
+.rv-mask.in > * { opacity: 1; transform: none; }
+
+/* 4 · Image reveal — settles from a slight overscale */
+.rv-img { overflow: hidden; }
+.rv-img img { opacity: 0; transform: scale(1.06); transition: opacity 1.2s var(--ease), transform 1.7s var(--ease); transition-delay: var(--rv-d, 0s); }
+.rv-img.in img { opacity: 1; transform: none; }
+
+/* 5 · Hairline that draws itself from the left */
+.rv-line { position: relative; border-bottom-color: transparent !important; }
+.rv-line::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--char); transform: scaleX(0); transform-origin: left; transition: transform 1.3s var(--ease); transition-delay: var(--rv-d, 0.1s); }
+.rv-line.in::after { transform: scaleX(1); }
+
+/* 6 · Header settles once you leave the top */
+.site-header { transition: box-shadow .45s var(--ease), background .45s var(--ease); }
+.site-header.is-scrolled { box-shadow: 0 1px 0 0 var(--line); }
+
+/* 7 · Mobile menu links stagger in */
+.nav-overlay a { opacity: 0; transform: translateY(14px); transition: opacity .55s var(--ease), transform .55s var(--ease); }
+html.nav-open .nav-overlay a { opacity: 1; transform: none; }
+html.nav-open .nav-overlay a:nth-child(1) { transition-delay: .06s; }
+html.nav-open .nav-overlay a:nth-child(2) { transition-delay: .12s; }
+html.nav-open .nav-overlay a:nth-child(3) { transition-delay: .18s; }
+html.nav-open .nav-overlay a:nth-child(4) { transition-delay: .24s; }
+html.nav-open .nav-overlay a:nth-child(5) { transition-delay: .30s; }
+
+/* 8 · Review row — quiet hover detail */
+.rev-row .rev-index { transition: transform .5s var(--ease), color .35s var(--ease); }
+.rev-row:hover .rev-index { transform: translateX(3px); color: var(--bronze-2); }
+.rev-row .rev-name { transition: color .35s var(--ease); }
+.rev-row:hover .rev-name { color: var(--bronze); }
+
+/* No-JS safety: show everything in its final state */
+html:not(.js) .rv,
+html:not(.js) .rv-group > *,
+html:not(.js) .rv-mask > *,
+html:not(.js) .rv-img img,
+html:not(.js) .nav-overlay a { opacity: 1; transform: none; }
+html:not(.js) .rv-line::after { transform: scaleX(1); }
 
 /* ── Responsive ─────────────────────────────────────────────────────── */
 @media (max-width: 820px) {
@@ -231,7 +355,14 @@ html:not(.js) .rv { opacity: 1; transform: none; }
 /* ── Motion preference ──────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .rv { opacity: 1; transform: none; transition: none; }
+  .rv,
+  .rv-group > *,
+  .rv-mask > *,
+  .rv-img img,
+  .nav-overlay a { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .rv-line::after { transform: scaleX(1) !important; transition: none !important; }
+  .rv-mask { overflow: visible; }
+  .site-header.is-scrolled { box-shadow: none; }
   .rev-card .media img { transition: none; }
   * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
 }
