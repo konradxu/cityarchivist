@@ -2,685 +2,333 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<!-- Security headers -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://formspree.io https://*.workers.dev; script-src 'self' 'unsafe-inline'; frame-src https://www.google.com https://maps.google.com; form-action https://formspree.io 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=()">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>City Archivist</title>
+<title>City Archivist — Europe's finest hotels, reviewed by a hotelier</title>
+<meta name="description" content="Honest, first-hand reviews of Europe's luxury hotels — scored by a hotelier on service, design, F&B and location. Starting with Munich. For international and Chinese travellers.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://cityarchivist.com/">
+<link rel="alternate" hreflang="en" href="https://cityarchivist.com/?lang=en">
+<link rel="alternate" hreflang="de" href="https://cityarchivist.com/?lang=de">
+<link rel="alternate" hreflang="zh" href="https://cityarchivist.com/?lang=zh">
+<link rel="alternate" hreflang="x-default" href="https://cityarchivist.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="City Archivist">
+<meta property="og:title" content="City Archivist — Europe's finest hotels, reviewed by a hotelier">
+<meta property="og:description" content="Honest, first-hand reviews of Europe's luxury hotels, scored by a hotelier.">
+<meta property="og:url" content="https://cityarchivist.com/">
+<meta property="og:image" content="https://cityarchivist.com/og-cover.jpg"><!-- TODO KONRAD: og-cover.jpg 1200×630 anlegen -->
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="de_DE">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="City Archivist — Europe's finest hotels, reviewed by a hotelier">
+<meta name="twitter:description" content="Honest, first-hand reviews of Europe's luxury hotels, scored by a hotelier.">
+<meta name="twitter:image" content="https://cityarchivist.com/og-cover.jpg">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16-v3.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32-v3.png">
 <link rel="icon" type="image/png" sizes="192x192" href="favicon-192-v3.png">
 <link rel="icon" type="image/svg+xml" href="favicon-v3.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-v3.png">
-<meta name="theme-color" content="#16130f">
+<meta name="theme-color" content="#f4eee2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#17130d" media="(prefers-color-scheme: dark)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Jost:wght@200;300;400;500&family=Noto+Sans+SC:wght@300;400&family=Noto+Serif+SC:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ca.css?v=5">
 <script>document.documentElement.className += ' js';</script>
-<style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --bg:      #16130f;
-  --bg2:     #1e1a14;
-  --bg3:     #241f18;
-  --cream:   #f4eee2;
-  --cream-2: #cfc6b6;
-  --muted:   #9a9284;
-  --faint:   #6a6458;
-  --gold:    #cca86a;
-  --gold-2:  #e0c48c;
-  --gold-dim: rgba(224,196,140,0.5);
-  --line:    rgba(204,168,106,0.18);
-  --line-2:  rgba(244,238,226,0.10);
-  --scrim:   #0d0b08;
-  --serif: 'Cormorant Garamond', Georgia, serif;
-  --sans:  'Jost', -apple-system, BlinkMacSystemFont, sans-serif;
-  --wrap: 1320px;
-  --ease: cubic-bezier(0.22, 0.61, 0.24, 1);
-}
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; background: var(--bg); }
-html.nav-open { overflow: hidden; }
-body {
-  font-family: var(--sans);
-  background: var(--bg);
-  color: var(--cream);
-  font-size: 14px; font-weight: 300; line-height: 1.85;
-  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
-  overflow-x: hidden;
-}
-img { max-width: 100%; display: block; }
-a { text-decoration: none; color: inherit; cursor: pointer; }
-em { font-style: italic; color: var(--gold-2); }
-::selection { background: var(--gold); color: var(--scrim); }
-
-/* film grain */
-body::after {
-  content: ''; position: fixed; inset: 0; z-index: 9998; pointer-events: none;
-  opacity: 0.055; mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* scroll progress */
-#progress { position: fixed; top: 0; left: 0; height: 2px; width: 0; background: linear-gradient(90deg, var(--gold), var(--gold-2)); z-index: 400; transition: width 0.1s linear; }
-
-.wrap { width: min(var(--wrap), 100% - clamp(2.4rem, 10vw, 9rem)); margin-inline: auto; }
-.section { padding: clamp(5.5rem, 12vw, 10rem) 0; }
-
-/* type atoms */
-.eyebrow { font-size: 10px; font-weight: 400; letter-spacing: 0.36em; text-transform: uppercase; color: var(--gold); display: inline-flex; align-items: center; gap: 14px; }
-.eyebrow::before { content: ''; width: 34px; height: 1px; background: var(--gold); display: inline-block; opacity: 0.7; }
-.eyebrow--center { justify-content: center; }
-.eyebrow--center::after { content: ''; width: 34px; height: 1px; background: var(--gold); display: inline-block; opacity: 0.7; }
-
-.sec-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; flex-wrap: wrap; margin-bottom: clamp(2.5rem, 5vw, 4.5rem); }
-.sec-title { font-family: var(--serif); font-weight: 300; font-size: clamp(2.6rem, 6vw, 5rem); line-height: 1.02; letter-spacing: -0.015em; margin-top: 1.4rem; color: var(--cream); }
-.sec-meta { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); padding-bottom: 0.6rem; }
-
-/* reveal */
-.js .reveal { opacity: 0; transform: translateY(42px); transition: opacity 1.2s var(--ease), transform 1.2s var(--ease); }
-.js .reveal.in { opacity: 1; transform: none; }
-.js .reveal.d1 { transition-delay: 0.1s; } .js .reveal.d2 { transition-delay: 0.2s; } .js .reveal.d3 { transition-delay: 0.3s; }
-
-/* ══ NAV ══ */
-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 300; height: 82px; display: flex; align-items: center; background: transparent; border-bottom: 1px solid transparent; transition: background 0.5s var(--ease), border-color 0.5s, height 0.4s; }
-nav.scrolled { background: rgba(16,13,10,0.86); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom-color: var(--line); height: 70px; }
-.nav-inner { width: min(var(--wrap), 100% - clamp(2.4rem, 10vw, 9rem)); margin-inline: auto; display: flex; align-items: center; justify-content: space-between; }
-.nav-logo { font-family: var(--serif); font-size: 1.3rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: var(--cream); }
-.nav-logo span { color: var(--gold); }
-.nav-links { display: flex; gap: clamp(1.6rem, 2.6vw, 2.9rem); list-style: none; }
-.nav-links a { font-size: 10px; font-weight: 300; letter-spacing: 0.24em; text-transform: uppercase; color: var(--cream-2); position: relative; transition: color 0.25s; }
-.nav-links a::after { content: ''; position: absolute; bottom: -6px; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.35s var(--ease); }
-.nav-links a:hover { color: var(--cream); } .nav-links a:hover::after { width: 100%; }
-.nav-right { display: flex; align-items: center; gap: 1.2rem; }
-.ca-lang-trigger { background: none; border: 1px solid var(--line); border-radius: 999px; padding: 7px 15px; font-family: var(--sans); font-size: 10px; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream-2); cursor: pointer; transition: border-color 0.25s, color 0.25s; }
-.ca-lang-trigger:hover { border-color: var(--gold); color: var(--cream); }
-.nav-menu-btn { display: none; background: none; border: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px 2px; }
-.nav-menu-btn span { width: 24px; height: 1px; background: var(--cream); display: block; }
-.nav-overlay { position: fixed; inset: 0; z-index: 290; background: var(--bg); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 1.5rem; opacity: 0; visibility: hidden; transition: opacity 0.4s var(--ease), visibility 0.4s; }
-html.nav-open .nav-overlay { opacity: 1; visibility: visible; }
-.nav-overlay a { font-family: var(--serif); font-size: 2.1rem; font-weight: 300; color: var(--cream); }
-.nav-overlay a em { font-style: italic; }
-
-/* ══ HERO ══ */
-.hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; overflow: hidden; }
-.hero-bg { position: absolute; inset: 0; z-index: 0; }
-.hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center; image-orientation: none; transform: scale(1.05); animation: kenburns 26s ease-in-out infinite alternate; }
-@keyframes kenburns { from { transform: scale(1.05); } to { transform: scale(1.16); } }
-.hero-scrim { position: absolute; inset: 0; z-index: 1; background:
-  linear-gradient(to top, rgba(13,11,8,0.92) 0%, rgba(13,11,8,0.35) 42%, rgba(13,11,8,0.12) 68%, rgba(13,11,8,0.55) 100%),
-  radial-gradient(120% 80% at 20% 100%, rgba(13,11,8,0.6), transparent 60%); }
-.hero-inner { position: relative; z-index: 2; width: min(var(--wrap), 100% - clamp(2.4rem, 10vw, 9rem)); margin-inline: auto; padding-bottom: clamp(3rem, 8vh, 6rem); }
-.hero-eyebrow { margin-bottom: 1.8rem; }
-.hero-h1 { font-family: var(--serif); font-weight: 300; font-size: clamp(3.2rem, 9.5vw, 8.5rem); line-height: 0.94; letter-spacing: -0.02em; color: var(--cream); text-shadow: 0 2px 40px rgba(0,0,0,0.4); }
-.hero-h1 em { color: var(--gold-2); }
-.hero-sub { font-size: clamp(13px, 1.5vw, 16px); font-weight: 300; color: var(--cream-2); max-width: 34ch; margin: 2rem 0 2.6rem; line-height: 1.9; }
-.hero-cta { align-self: flex-start; font-size: 11px; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: var(--cream); padding-bottom: 9px; border-bottom: 1px solid var(--gold); display: inline-flex; align-items: center; gap: 12px; transition: gap 0.35s var(--ease); }
-.hero-cta:hover { gap: 22px; }
-.hero-meta { display: flex; gap: clamp(1.6rem, 4vw, 3rem); margin-top: clamp(2.5rem, 6vh, 4rem); font-size: 9.5px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); border-top: 1px solid var(--line-2); padding-top: 1.6rem; }
-.hero-meta b { color: var(--gold); font-weight: 400; }
-.hero-scroll { position: absolute; right: clamp(1.5rem, 6vw, 4rem); bottom: clamp(2rem, 6vh, 4rem); z-index: 2; writing-mode: vertical-rl; font-size: 9.5px; letter-spacing: 0.36em; text-transform: uppercase; color: var(--cream-2); display: flex; align-items: center; gap: 14px; }
-.hero-scroll::after { content: ''; width: 1px; height: 56px; background: linear-gradient(var(--gold), transparent); animation: scrolldrop 2.2s var(--ease) infinite; }
-@keyframes scrolldrop { 0% { transform: scaleY(0); transform-origin: top; } 45% { transform: scaleY(1); transform-origin: top; } 55% { transform: scaleY(1); transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
-
-.js .hero-eyebrow, .js .hero-h1, .js .hero-sub, .js .hero-cta, .js .hero-meta { opacity: 0; transform: translateY(34px); animation: heroin 1.3s var(--ease) forwards; }
-.js .hero-h1 { animation-delay: 0.14s; } .js .hero-sub { animation-delay: 0.34s; } .js .hero-cta { animation-delay: 0.48s; } .js .hero-meta { animation-delay: 0.62s; }
-@keyframes heroin { to { opacity: 1; transform: none; } }
-
-/* ══ MARQUEE ══ */
-.marquee { overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: clamp(1.6rem, 3vw, 2.6rem) 0; background: var(--bg2); }
-.marquee-track { display: inline-flex; align-items: center; gap: 3.5rem; white-space: nowrap; will-change: transform; animation: marq 34s linear infinite; }
-.marquee-track span { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: clamp(2.2rem, 6vw, 5rem); color: transparent; -webkit-text-stroke: 1px var(--gold-dim, rgba(224,196,140,0.5)); -webkit-text-stroke: 1px rgba(224,196,140,0.45); }
-.marquee-track span.fill { color: var(--gold-2); -webkit-text-stroke: 0; }
-.marquee-track em { font-style: normal; color: var(--faint); -webkit-text-stroke: 0; font-size: 0.5em; vertical-align: middle; }
-@keyframes marq { to { transform: translateX(-50%); } }
-
-/* ══ MANIFESTO ══ */
-.manifesto { text-align: center; }
-.manifesto .eyebrow { margin-bottom: 2.6rem; }
-.manifesto-h { font-family: var(--serif); font-weight: 300; font-size: clamp(2.2rem, 5.4vw, 4.4rem); line-height: 1.18; max-width: 18ch; margin: 0 auto; color: var(--cream); }
-.manifesto-p { font-size: 14px; color: var(--muted); max-width: 54ch; margin: 2.4rem auto 0; line-height: 2; }
-
-/* ══ DESTINATIONS — CINEMATIC CHAPTERS ══ */
-.dest-intro { text-align: center; padding: clamp(5rem, 10vw, 8rem) 0 clamp(3rem, 6vw, 5rem); }
-.dest-intro .eyebrow { margin-bottom: 1.8rem; }
-.dest-intro h2 { font-family: var(--serif); font-weight: 300; font-size: clamp(2.6rem, 6vw, 5rem); line-height: 1.02; color: var(--cream); }
-.chapter { position: relative; display: flex; align-items: flex-end; min-height: clamp(600px, 94vh, 940px); overflow: hidden; border-top: 1px solid var(--line); }
-.chapter-bg { position: absolute; left: 0; right: 0; top: -14%; height: 128%; z-index: 0; will-change: transform; }
-.chapter-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center; image-orientation: none; }
-.chapter-scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(13,11,8,0.9) 0%, rgba(13,11,8,0.3) 45%, rgba(13,11,8,0.15) 100%), linear-gradient(to right, rgba(13,11,8,0.7), transparent 55%); }
-.chapter:nth-child(even) .chapter-scrim { background: linear-gradient(to top, rgba(13,11,8,0.9) 0%, rgba(13,11,8,0.3) 45%, rgba(13,11,8,0.15) 100%), linear-gradient(to left, rgba(13,11,8,0.7), transparent 55%); }
-.chapter-inner { position: relative; z-index: 2; width: min(var(--wrap), 100% - clamp(2.4rem, 10vw, 9rem)); margin-inline: auto; padding: clamp(3rem, 8vh, 6rem) 0; }
-.chapter:nth-child(even) .chapter-inner { text-align: right; margin-left: auto; }
-.chapter:nth-child(even) .chapter-meta, .chapter:nth-child(even) .chapter-name-row { justify-content: flex-end; }
-.chapter:nth-child(even) .chapter-sub { margin-left: auto; }
-.chapter-no { font-family: var(--serif); font-style: italic; font-size: clamp(1rem, 1.6vw, 1.3rem); color: var(--gold); margin-bottom: 0.8rem; }
-.chapter-name { font-family: var(--serif); font-weight: 300; font-size: clamp(3.4rem, 11vw, 9rem); line-height: 0.92; letter-spacing: -0.02em; color: var(--cream); text-shadow: 0 2px 50px rgba(0,0,0,0.5); transition: color 0.4s; }
-.chapter:hover .chapter-name { color: var(--gold-2); }
-.chapter-meta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 1.4rem; font-size: 10.5px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--cream-2); }
-.chapter-coord { color: var(--gold); letter-spacing: 0.18em; }
-.chapter-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--gold); opacity: 0.6; }
-.chapter-sub { font-size: 14px; font-weight: 300; color: var(--cream-2); max-width: 42ch; margin: 1.4rem 0 2rem; line-height: 1.85; }
-.chapter-go { display: inline-flex; align-items: center; gap: 12px; font-size: 11px; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: var(--cream); padding-bottom: 8px; border-bottom: 1px solid var(--gold); transition: gap 0.35s var(--ease); }
-.chapter:hover .chapter-go { gap: 22px; }
-
-.dest-readmore { text-align: center; padding: clamp(4rem, 8vw, 6rem) 0 0; }
-#destinations > .wrap:last-child { padding-bottom: clamp(4.5rem, 9vw, 7rem); }
-.dest-more-btn { background: none; border: 1px solid var(--line); border-radius: 999px; padding: 14px 34px; font-family: var(--sans); font-size: 10px; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: var(--cream-2); cursor: pointer; transition: border-color 0.25s, color 0.25s, background 0.25s; }
-.dest-more-btn:hover { border-color: var(--gold); color: var(--scrim); background: var(--gold); }
-.dest-coming-panel { max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.6s var(--ease), opacity 0.5s, margin 0.5s; text-align: center; }
-.dest-coming-panel[data-open="true"] { max-height: 260px; opacity: 1; margin-top: 2.6rem; }
-.dest-coming-mark { color: var(--gold); font-size: 14px; letter-spacing: 0.3em; margin-bottom: 1rem; }
-.dest-coming-title { font-family: var(--serif); font-weight: 300; font-size: clamp(1.8rem, 3vw, 2.4rem); color: var(--cream); }
-.dest-coming-sub { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-top: 0.7rem; }
-
-/* ══ PLANNER CTA (immersive band) ══ */
-.plan { position: relative; min-height: 82vh; display: flex; align-items: center; justify-content: center; overflow: hidden; text-align: center; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.plan-bg { position: absolute; inset: 0; z-index: 0; }
-.plan-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center; transform: scale(1.06); image-orientation: none; }
-.plan-scrim { position: absolute; inset: 0; z-index: 1; background: radial-gradient(130% 100% at 50% 42%, rgba(13,11,8,0.55), rgba(13,11,8,0.88) 92%); }
-.plan-inner { position: relative; z-index: 2; width: min(720px, 100% - clamp(2.4rem, 12vw, 6rem)); margin-inline: auto; padding: clamp(4rem, 10vw, 7rem) 0; display: block; }
-.plan-eyebrow { margin-bottom: 1.9rem; }
-.plan-h { font-family: var(--serif); font-weight: 300; font-size: clamp(2.5rem, 6.4vw, 5rem); line-height: 1.02; letter-spacing: -0.015em; color: var(--cream); text-shadow: 0 2px 44px rgba(0,0,0,0.45); }
-.plan-cap { font-family: var(--serif); font-style: italic; font-size: clamp(1.15rem, 2.2vw, 1.6rem); color: var(--gold-2); margin-top: 1.1rem; }
-.plan-p { font-size: 14px; color: var(--cream-2); max-width: 46ch; margin: 1.7rem auto 2.6rem; line-height: 1.95; }
-.plan-btn { display: inline-flex; align-items: center; gap: 12px; background: var(--gold); color: var(--scrim); font-size: 11px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; padding: 17px 40px; transition: background 0.3s, gap 0.35s var(--ease); }
-.plan:hover .plan-btn { background: var(--gold-2); gap: 20px; }
-
-/* ══ COLLECTIONS ══ */
-.brandmark { display: flex; align-items: center; justify-content: center; gap: 1.4rem; margin-bottom: clamp(3rem, 6vw, 5rem); }
-.brandmark span { color: var(--gold); font-size: 11px; letter-spacing: 0.34em; text-transform: uppercase; }
-.brandmark .bm-line { width: min(140px, 22vw); height: 1px; background: var(--line); }
-.feature { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 6vw, 6rem); align-items: center; padding: clamp(3rem, 6vw, 5rem) 0; }
-.feature + .feature { border-top: 1px solid var(--line); }
-.feature--rev .feature-media { order: 2; }
-.feature-media { position: relative; overflow: hidden; aspect-ratio: 4/3; background: var(--bg3); border: 1px solid var(--line); }
-.feature-media img { width: 100%; height: 100%; object-fit: cover; image-orientation: none; transition: transform 1.5s var(--ease); }
-.feature:hover .feature-media img { transform: scale(1.06); }
-.feature-eyebrow { margin-bottom: 1.6rem; }
-.feature-title { font-family: var(--serif); font-weight: 300; font-size: clamp(2rem, 4.2vw, 3.3rem); line-height: 1.08; color: var(--cream); }
-.feature-text { font-size: 14px; color: var(--muted); max-width: 48ch; margin: 1.5rem 0 2rem; line-height: 2; }
-.feature-link { font-size: 11px; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: var(--cream); padding-bottom: 7px; border-bottom: 1px solid var(--gold); display: inline-flex; gap: 12px; transition: gap 0.35s var(--ease); }
-.feature:hover .feature-link { gap: 20px; }
-.wonders-mosaic { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); aspect-ratio: 4/3; }
-.wonders-tile { background: var(--bg2); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(0.9rem, 1.8vw, 1.35rem); color: var(--cream-2); transition: background 0.4s, color 0.4s; text-align: center; padding: 0.4rem; }
-.feature:hover .wonders-tile { background: var(--bg3); }
-.wonders-tile--gold { background: var(--gold); color: var(--scrim); font-style: normal; letter-spacing: 0.2em; }
-.feature:hover .wonders-tile--gold { background: var(--gold-2); }
-.wonders-tile--img { background: var(--bg3); color: var(--gold); font-style: normal; letter-spacing: 0.12em; font-size: clamp(0.75rem,1.5vw,1.05rem); }
-
-/* ══ ABOUT ══ */
-.about-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(2.5rem, 6vw, 6rem); align-items: center; }
-.about-media { position: relative; }
-.about-main { aspect-ratio: 3/4; overflow: hidden; background: var(--bg3); border: 1px solid var(--line); }
-.about-main img { width: 100%; height: 100%; object-fit: cover; image-orientation: none; }
-.about-accent { position: absolute; right: -8%; bottom: -12%; width: 52%; aspect-ratio: 3/4; overflow: hidden; background: var(--bg3); border: 6px solid var(--bg); box-shadow: 0 30px 70px -30px rgba(0,0,0,0.9); }
-.about-accent img { width: 100%; height: 100%; object-fit: cover; image-orientation: none; }
-.about-eyebrow { margin-bottom: 1.8rem; }
-.about-h { font-family: var(--serif); font-weight: 300; font-size: clamp(2.1rem, 4.4vw, 3.4rem); line-height: 1.12; color: var(--cream); text-transform: none; }
-.about-p { font-size: 14px; color: var(--muted); line-height: 2; margin-top: 1.8rem; max-width: 52ch; }
-.about-why { margin-top: 2.8rem; padding-top: 2.4rem; border-top: 1px solid var(--line); }
-.about-why-label { font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
-.about-why-h { font-family: var(--serif); font-weight: 300; font-size: clamp(1.5rem, 2.8vw, 2.2rem); line-height: 1.2; color: var(--cream); }
-.about-why-p { font-size: 13.5px; color: var(--muted); line-height: 2; margin-top: 1.2rem; max-width: 56ch; }
-.about-why-p em { color: var(--cream-2); font-style: italic; }
-.about-sign { font-family: var(--serif); font-style: italic; font-size: 1.6rem; color: var(--gold-2); margin-top: 1.8rem; }
-
-/* ══ NEWSLETTER ══ */
-.news { position: relative; overflow: hidden; background: var(--bg2); border-top: 1px solid var(--line); }
-.news-inner { text-align: center; max-width: 640px; margin-inline: auto; position: relative; z-index: 2; }
-.news-eyebrow { margin-bottom: 1.8rem; }
-.news-h { font-family: var(--serif); font-weight: 300; font-size: clamp(2.4rem, 5.4vw, 4rem); line-height: 1.04; color: var(--cream); }
-.news-p { font-size: 14px; color: var(--muted); margin: 1.4rem auto 2.6rem; max-width: 46ch; line-height: 1.95; }
-.cta-form { display: flex; gap: 0; flex-wrap: wrap; justify-content: center; border-bottom: 1px solid var(--line); max-width: 520px; margin-inline: auto; }
-.cta-input { flex: 1; min-width: 160px; background: none; border: none; padding: 15px 8px; font-family: var(--sans); font-size: 13px; font-weight: 300; color: var(--cream); }
-.cta-input::placeholder { color: var(--faint); letter-spacing: 0.04em; }
-.cta-input:focus { outline: none; }
-.cta-btn { background: none; border: none; border-left: 1px solid var(--line); padding: 15px 24px; font-family: var(--sans); font-size: 10px; font-weight: 400; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); cursor: pointer; transition: color 0.25s; }
-.cta-btn:hover { color: var(--cream); }
-.cta-msg { font-size: 12px; letter-spacing: 0.05em; color: var(--muted); margin-top: 1.4rem; min-height: 1em; }
-
-/* ══ FOOTER ══ */
-footer { background: #100d0a; color: var(--cream-2); padding: clamp(4rem, 8vw, 6.5rem) 0 2.6rem; border-top: 1px solid var(--line); }
-.foot-top { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 3rem; padding-bottom: 3.5rem; border-bottom: 1px solid var(--line-2); }
-.foot-logo { font-family: var(--serif); font-size: 1.6rem; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase; color: var(--cream); }
-.foot-logo span { color: var(--gold); }
-.foot-tag { font-size: 12.5px; line-height: 1.95; color: var(--muted); max-width: 34ch; margin-top: 1.4rem; }
-.foot-col-title { font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.4rem; }
-.foot-links { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
-.foot-links a { font-size: 12.5px; letter-spacing: 0.04em; color: var(--cream-2); transition: color 0.25s; }
-.foot-links a:hover { color: var(--gold-2); }
-.foot-bottom { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; padding-top: 2.2rem; flex-wrap: wrap; }
-.foot-copy { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--faint); }
-.foot-mark { color: var(--gold); opacity: 0.5; font-size: 13px; letter-spacing: 0.3em; }
-
-/* ══ RESPONSIVE ══ */
-@media (max-width: 980px) {
-  .plan { min-height: 70vh; }
-  .feature { grid-template-columns: 1fr; gap: 2rem; } .feature--rev .feature-media { order: -1; } .feature-media { aspect-ratio: 16/10; }
-  .about-grid { grid-template-columns: 1fr; gap: 4rem; } .about-accent { width: 42%; right: 0; bottom: -8%; }
-  .foot-top { grid-template-columns: 1fr 1fr; column-gap: 2rem; }
-  .foot-top > div:first-child { grid-column: 1 / -1; margin-bottom: 0.5rem; }
-  .chapter-inner, .chapter:nth-child(even) .chapter-inner { text-align: left; }
-  .chapter:nth-child(even) .chapter-meta, .chapter:nth-child(even) .chapter-name-row { justify-content: flex-start; }
-  .chapter:nth-child(even) .chapter-sub { margin-left: 0; }
-}
-@media (max-width: 820px) {
-  .nav-links { display: none; } .nav-menu-btn { display: flex; }
-  .hero-scroll { display: none; }
-  .chapter { min-height: 78vh; }
-}
-@media (max-width: 520px) { .cta-btn { border-left: none; flex-basis: 100%; } }
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .js .reveal, .js .hero-eyebrow, .js .hero-h1, .js .hero-sub, .js .hero-cta, .js .hero-meta { opacity: 1 !important; transform: none !important; animation: none !important; }
-  .hero-bg img { animation: none; transform: scale(1.08); }
-  .marquee-track { animation: none; } .hero-scroll::after { animation: none; }
-  .chapter-bg { transform: none !important; }
-  *, *::before, *::after { transition-duration: 0.001ms !important; }
-}
-</style>
-<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
 
-<div id="progress"></div>
+<a class="skip-link" href="#main">Skip to content</a>
 
-<!-- NAV -->
-<nav id="top-nav">
-  <div class="nav-inner">
-    <a class="nav-logo" href="#home">City <span>Archivist</span></a>
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="wordmark" href="/">City <span>Archivist</span></a>
     <ul class="nav-links">
-      <li><a href="#home" data-i18n="nav.home">Home</a></li>
-      <li><a href="#destinations" data-i18n="nav.destinations">Destinations</a></li>
-      <li><a href="/wonders" data-i18n="nav.wonders">Wonders</a></li>
-      <li><a href="/hotels" data-i18n="nav.hotels">Hotels</a></li>
-      <li><a href="/clubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
-      <li><a href="/planner" data-i18n="nav.planner">Trip Planner</a></li>
-      <li><a href="#about" data-i18n="nav.about">About Us</a></li>
+      <li><a href="/" aria-current="page" data-i18n="nav.home">Home</a></li>
+      <li><a href="/hotels" data-i18n="nav.reviews">Hotel Reviews</a></li>
+      <li><a href="#destinations" data-i18n="nav.cities">Cities</a></li>
+      <li><a href="/score" data-i18n="nav.score">The Score</a></li>
+      <li><a href="#about" data-i18n="nav.about">About</a></li>
     </ul>
     <div class="nav-right">
-      <button class="ca-lang-trigger" type="button" data-lang-trigger aria-label="Change language">
-        <span data-lang-current>EN</span>
-      </button>
-      <button class="nav-menu-btn" type="button" id="nav-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-overlay">
-        <span></span><span></span>
-      </button>
+      <button class="nav-lang" type="button" data-lang-trigger aria-label="Change language"><span data-lang-current>EN</span></button>
+      <button class="nav-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-overlay"><span></span><span></span></button>
     </div>
   </div>
+</header>
+<nav class="nav-overlay" id="nav-overlay" aria-label="Mobile">
+  <a href="/" data-i18n="nav.home">Home</a>
+  <a href="/hotels" data-i18n="nav.reviews">Hotel Reviews</a>
+  <a href="#destinations" data-i18n="nav.cities">Cities</a>
+  <a href="/score" data-i18n="nav.score">The Score</a>
+  <a href="#about" data-i18n="nav.about">About</a>
 </nav>
 
-<!-- MOBILE MENU OVERLAY -->
-<div class="nav-overlay" id="nav-overlay">
-  <a href="#home" data-nav-close data-i18n="nav.home">Home</a>
-  <a href="#destinations" data-nav-close data-i18n="nav.destinations">Destinations</a>
-  <a href="/wonders" data-i18n="nav.wonders">Wonders</a>
-  <a href="/hotels" data-i18n="nav.hotels">Hotels</a>
-  <a href="/clubs" data-i18n="nav.nightclubs">Nightclubs</a>
-  <a href="/planner" data-i18n="nav.planner">Trip Planner</a>
-  <a href="#about" data-nav-close data-i18n="nav.about">About Us</a>
-</div>
+<main id="main">
 
-<!-- HERO -->
-<section class="hero" id="home">
-  <div class="hero-bg" data-parallax data-speed="0.25"><img src="hero-img.png" alt="City Archivist"></div>
-  <div class="hero-scrim"></div>
-  <div class="hero-inner">
-    <div class="hero-eyebrow eyebrow" data-i18n="hero.eyebrow">The Urban Archive</div>
-    <h1 class="hero-h1" data-i18n="hero.h1">Discover<br>the <em>Hidden</em><br>City</h1>
-    <p class="hero-sub" data-i18n="hero.sub">Go beyond the familiar. Discover what others miss.</p>
-    <a href="#destinations" class="hero-cta" data-i18n="hero.cta">Explore Now</a>
-    <div class="hero-meta">
-      <div>EST. <b>MMXXVI</b></div>
-      <div><b>5</b> Cities</div>
-      <div>Vol. <b>I</b></div>
-    </div>
-  </div>
-  <div class="hero-scroll">Scroll</div>
-</section>
-
-<!-- MARQUEE -->
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span>München</span><em>✦</em><span class="fill">Genève</span><em>✦</em><span>Shanghai</span><em>✦</em><span class="fill">London</span><em>✦</em><span>Tokyo</span><em>✦</em>
-    <span>München</span><em>✦</em><span class="fill">Genève</span><em>✦</em><span>Shanghai</span><em>✦</em><span class="fill">London</span><em>✦</em><span>Tokyo</span><em>✦</em>
-  </div>
-</div>
-
-<!-- MANIFESTO -->
-<section class="section">
-  <div class="wrap manifesto reveal">
-    <div class="intro-label eyebrow eyebrow--center" data-i18n="intro.label">The Archive</div>
-    <h2 class="manifesto-h" data-i18n="intro.h2">A collection of <em>hidden places.</em> </h2>
-    <p class="manifesto-p" data-i18n="intro.p">handpicked hotels, hidden gems and destinations across the Globe, chosen for their character, atmosphere and uniqueness.</p>
-  </div>
-</section>
-
-<!-- DESTINATIONS — CINEMATIC CHAPTERS -->
-<section id="destinations">
-  <div class="wrap dest-intro reveal">
-    <div class="sec-eyebrow eyebrow eyebrow--center" data-i18n="dest.eyebrow">Destinations</div>
-    <h2 class="sec-h" data-i18n="dest.h2">Explore<br><em>the Cities</em></h2>
-  </div>
-
-  <a href="/muenchen" class="dest-panel chapter">
-    <div class="chapter-bg" data-parallax data-speed="0.16"><img src="muenchen_bild.png" alt="Munich" loading="lazy"></div>
-    <div class="chapter-scrim"></div>
-    <div class="chapter-inner">
-      <div class="chapter-no">No. 01</div>
-      <div class="chapter-name-row"><span class="chapter-name dest-city" data-i18n="dest.munich.city">Munich</span></div>
-      <div class="chapter-meta">
-        <span class="dest-tag" data-i18n="dest.munich.tag">Germany · Bavaria</span>
-        <span class="chapter-dot"></span>
-        <span class="chapter-coord">48.14° N&nbsp;&nbsp;11.58° E</span>
+  <!-- HERO -->
+  <section class="hero section-sm" id="home">
+    <div class="wrap">
+      <div class="label label--accent rv" data-i18n="home.hero.label">Luxury hotels in Europe</div>
+      <div class="rv-mask" style="--rv-d:.08s"><h1 class="display" data-i18n="home.hero.h1">Europe's finest hotels,<br>reviewed by a <b>hotelier</b>.</h1></div>
+      <p class="lead hero-sub rv" style="--rv-d:.22s" data-i18n="home.hero.sub">Not a guest ticking off amenities — someone trained inside hotels, scoring service, design, food and location the way the industry measures itself. Starting with Munich.</p>
+      <div class="hero-actions rv" style="--rv-d:.30s">
+        <a class="btn" href="/hotels" data-i18n="home.hero.cta">Read the reviews</a>
+        <a class="lk" href="/score" data-i18n="rev.howScore">How I score</a>
       </div>
-      <p class="chapter-sub dest-city-sub" data-i18n="dest.munich.sub">Bavaria’s capital, where tradition, culture, and lifestyle come together.</p>
-      <span class="chapter-go" data-i18n="dest.explore">Explore →</span>
     </div>
-  </a>
+    <div class="wrap">
+      <figure class="hero-figure rv-img" style="--rv-d:.12s">
+        <!-- TODO KONRAD: Stockfoto — durch ein eigenes Hotel-Foto ersetzen (21:9). -->
+        <img src="hero-img.png" alt="A luxury hotel terrace at dusk" loading="eager">
+        <figcaption class="figcap"><span class="label" data-i18n="home.cities.volume">Vol. I · München</span><span class="label label--accent" data-i18n="home.hero.by">Reviews by Konrad Xu</span></figcaption>
+      </figure>
+    </div>
+  </section>
 
-  <a href="/geneva" class="dest-panel chapter">
-    <div class="chapter-bg" data-parallax data-speed="0.16"><img src="geneva-hero.jpg" alt="Geneva" loading="lazy"></div>
-    <div class="chapter-scrim"></div>
-    <div class="chapter-inner">
-      <div class="chapter-no">No. 02</div>
-      <div class="chapter-name-row"><span class="chapter-name dest-city" data-i18n="dest.geneva.city">Geneva</span></div>
-      <div class="chapter-meta">
-        <span class="dest-tag" data-i18n="dest.geneva.tag">Switzerland · Lake Geneva</span>
-        <span class="chapter-dot"></span>
-        <span class="chapter-coord">46.20° N&nbsp;&nbsp;6.14° E</span>
+  <!-- LATEST REVIEWS -->
+  <section class="section-sm">
+    <div class="wrap">
+      <div class="sec-head rv rv-line">
+        <h2 class="h2" data-i18n="home.latest.title">Latest reviews</h2>
+        <a class="lk" href="/hotels" data-i18n="home.latest.all">All reviews</a>
       </div>
-      <p class="chapter-sub dest-city-sub" data-i18n="dest.geneva.sub">A lake, the Alps and the world’s diplomats — Switzerland’s most cosmopolitan corner.</p>
-      <span class="chapter-go" data-i18n="dest.explore">Explore →</span>
+      <div class="rev-grid" id="home-reviews" style="margin-top:var(--s-6)"></div>
     </div>
-  </a>
+  </section>
 
-  <a href="/shanghai" class="dest-panel chapter">
-    <div class="chapter-bg" data-parallax data-speed="0.16"><img src="shanghai.png" alt="Shanghai" loading="lazy"></div>
-    <div class="chapter-scrim"></div>
-    <div class="chapter-inner">
-      <div class="chapter-no">No. 03</div>
-      <div class="chapter-name-row"><span class="chapter-name dest-city" data-i18n="dest.shanghai.city">Shanghai</span></div>
-      <div class="chapter-meta">
-        <span class="dest-tag" data-i18n="dest.shanghai.tag">China · East Asia</span>
-        <span class="chapter-dot"></span>
-        <span class="chapter-coord">31.23° N&nbsp;&nbsp;121.47° E</span>
+  <!-- ABOUT — trust first -->
+  <section class="section-sm" id="about">
+    <div class="wrap split">
+      <div class="body rv">
+        <div class="label label--accent" style="margin-bottom:var(--s-3)" data-i18n="home.about.label">About</div>
+        <h2 class="h2" style="margin-bottom:var(--s-4)" data-i18n="home.about.h">An insider's guide, written by a hotelier.</h2>
+        <p class="muted" data-i18n="home.about.p">I'm Konrad Xu. My fascination with hotels began at twelve and became a calling: understanding how great houses turn a stay into a memory. City Archivist is where I write it down — the hotels worth the journey, and the hidden corners of the cities around them.</p>
+
+        <div class="about-cred">
+          <div class="about-cred-label" data-i18n="home.about.cred">Training &amp; Background</div>
+          <ul class="about-cred-list">
+            <li>
+              <span class="cred-house">Le Méridien Munich</span>
+              <span class="cred-detail" data-i18n="home.cred.meridien">Marriott Bonvoy · 6-month rotation — Front Office, Housekeeping, Breakfast &amp; Banquet</span>
+            </li>
+            <li>
+              <span class="cred-house">Aman Shanghai</span>
+              <span class="cred-detail" data-i18n="home.cred.aman">Internship</span>
+            </li>
+            <li>
+              <span class="cred-house">EHL Hospitality Business School, Lausanne</span>
+              <span class="cred-detail" data-i18n="home.cred.ehl">From 2027</span>
+            </li>
+          </ul>
+        </div>
+
+        <p class="muted about-focus" data-i18n="home.about.focus">Europe is the focus — the perspective is international. My own path runs through Munich, Shanghai and soon Lausanne, and City Archivist is written for travellers from everywhere, with particular care for guests from China.</p>
+
+        <!-- TODO KONRAD: echte Profil-URLs (Instagram / Xiaohongshu / WeChat) -->
+        <div class="about-social" aria-label="Social profiles">
+          <a href="#" class="about-soc" rel="me">Instagram</a>
+          <a href="#" class="about-soc" rel="me">小红书 · Xiaohongshu</a>
+          <a href="#" class="about-soc" rel="me">WeChat</a>
+        </div>
       </div>
-      <p class="chapter-sub dest-city-sub" data-i18n="dest.shanghai.sub">China’s largest city, defined by skyline, culture, and nonstop energy.</p>
-      <span class="chapter-go" data-i18n="dest.explore">Explore →</span>
-    </div>
-  </a>
-
-  <a href="/london" class="dest-panel chapter">
-    <div class="chapter-bg" data-parallax data-speed="0.16"><img src="london.jpg" alt="London" loading="lazy"></div>
-    <div class="chapter-scrim"></div>
-    <div class="chapter-inner">
-      <div class="chapter-no">No. 04</div>
-      <div class="chapter-name-row"><span class="chapter-name dest-city" data-i18n="dest.london.city">London</span></div>
-      <div class="chapter-meta">
-        <span class="dest-tag" data-i18n="dest.london.tag">United Kingdom · England</span>
-        <span class="chapter-dot"></span>
-        <span class="chapter-coord">51.51° N&nbsp;&nbsp;0.13° W</span>
+      <div class="media rv-img">
+        <!-- TODO KONRAD: Porträtfoto von dir (Hochformat). Platzhalter = deine Bund-Aufnahme. -->
+        <img src="aboutus2.jpg" alt="Konrad Xu, founder of City Archivist" loading="lazy">
       </div>
-      <p class="chapter-sub dest-city-sub" data-i18n="dest.london.sub">A capital of layers — royal pageantry, underground sound and quiet corners between.</p>
-      <span class="chapter-go" data-i18n="dest.explore">Explore →</span>
     </div>
-  </a>
+  </section>
 
-  <a href="/tokyo" class="dest-panel chapter">
-    <div class="chapter-bg" data-parallax data-speed="0.16"><img src="tokyo.jpg" alt="Tokyo" loading="lazy"></div>
-    <div class="chapter-scrim"></div>
-    <div class="chapter-inner">
-      <div class="chapter-no">No. 05</div>
-      <div class="chapter-name-row"><span class="chapter-name dest-city" data-i18n="dest.tokyo.city">Tokyo</span></div>
-      <div class="chapter-meta">
-        <span class="dest-tag" data-i18n="dest.tokyo.tag">Japan · Kantō</span>
-        <span class="chapter-dot"></span>
-        <span class="chapter-coord">35.68° N&nbsp;&nbsp;139.65° E</span>
+  <!-- THE SCORE -->
+  <section class="section-sm">
+    <div class="wrap">
+      <div class="sec-head rv rv-line">
+        <h2 class="h2" data-i18n="home.score.title">The Archivist Score</h2>
+        <a class="lk" href="/score" data-i18n="rev.howScore">How I score</a>
       </div>
-      <p class="chapter-sub dest-city-sub" data-i18n="dest.tokyo.sub">Where neon and ritual coexist — a city of small streets and immense scale.</p>
-      <span class="chapter-go" data-i18n="dest.explore">Explore →</span>
+      <div class="score-grid rv-group" style="margin-top:var(--s-5)">
+        <div class="score-crit"><div class="n">1–10</div><div class="k" data-i18n="rp.score.service">Service</div></div>
+        <div class="score-crit"><div class="n">1–10</div><div class="k" data-i18n="rp.score.design">Design</div></div>
+        <div class="score-crit"><div class="n">1–10</div><div class="k" data-i18n="rp.score.fnb">Food &amp; Drink</div></div>
+        <div class="score-crit"><div class="n">1–10</div><div class="k" data-i18n="rp.score.location">Location</div></div>
+      </div>
+      <p class="prose muted rv" style="margin-top:var(--s-5)" data-i18n="home.score.p">Four criteria, each from one to ten, averaged into a single number. No weighting, no sponsored scores — the same yardstick for every hotel.</p>
     </div>
-  </a>
+  </section>
 
+  <!-- CITIES -->
+  <section class="section-sm" id="destinations">
+    <div class="wrap">
+      <div class="sec-head rv rv-line">
+        <h2 class="h2" data-i18n="home.cities.title">Cities</h2>
+      </div>
+      <p class="lead rv" style="margin-top:var(--s-4)" data-i18n="home.cities.sub">München is the first city covered end to end. The others are being written.</p>
+
+      <div class="rev-grid rv-group" style="margin-top:var(--s-6)">
+        <a class="rev-card" href="/muenchen">
+          <div class="media"><img src="muenchen_bild.png" alt="Munich" loading="lazy"></div>
+          <div class="label label--accent" data-i18n="home.cities.volume">Vol. I · München</div>
+          <div class="rev-name" data-i18n="dest.munich.city">Munich</div>
+          <p class="rev-verdict" data-i18n="dest.munich.sub">Bavaria's capital, where tradition, culture and lifestyle come together.</p>
+        </a>
+        <a class="rev-card" href="/geneva">
+          <div class="media"><img src="geneva-hero.jpg" alt="Geneva" loading="lazy"></div>
+          <div class="label" data-i18n="home.cities.progress">In progress</div>
+          <div class="rev-name" data-i18n="dest.geneva.city">Geneva</div>
+          <p class="rev-verdict" data-i18n="dest.geneva.sub">A lake, the Alps and the world's diplomats.</p>
+        </a>
+        <a class="rev-card" href="/shanghai">
+          <div class="media"><img src="shanghai.png" alt="Shanghai" loading="lazy"></div>
+          <div class="label" data-i18n="home.cities.progress">In progress</div>
+          <div class="rev-name" data-i18n="dest.shanghai.city">Shanghai</div>
+          <p class="rev-verdict" data-i18n="dest.shanghai.sub">China's largest city, defined by skyline, culture and nonstop energy.</p>
+        </a>
+      </div>
+
+      <div class="rev-grid rv-group" style="margin-top:var(--s-5)">
+        <a class="rev-card" href="/london">
+          <div class="media"><img src="london.jpg" alt="London" loading="lazy"></div>
+          <div class="label" data-i18n="home.cities.progress">In progress</div>
+          <div class="rev-name" data-i18n="dest.london.city">London</div>
+        </a>
+        <a class="rev-card" href="/tokyo">
+          <div class="media"><img src="tokyo.jpg" alt="Tokyo" loading="lazy"></div>
+          <div class="label" data-i18n="home.cities.progress">In progress</div>
+          <div class="rev-name" data-i18n="dest.tokyo.city">Tokyo</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="news section-sm">
+    <div class="wrap news-inner rv">
+      <div class="label label--accent" data-i18n="news.eyebrow">Newsletter</div>
+      <h2 class="h2" style="margin-top:var(--s-3)" data-i18n="news.teaser.h">Every Sunday: one hotel, one hidden spot.</h2>
+      <p class="muted" style="margin-top:var(--s-3)" data-i18n="news.p">New reviews and city notes — straight to your inbox.</p>
+      <form id="newsletter-form" class="news-form" data-endpoint="https://formspree.io/f/myklrnro" novalidate>
+        <input class="news-input" type="email" name="email" autocomplete="email" required data-i18n-placeholder="news.emailPlaceholder" placeholder="your@email.com">
+        <button type="submit" class="btn btn--solid" data-i18n="news.button">Subscribe</button>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;">
+        <input type="hidden" name="_form_loaded_at" value="">
+      </form>
+      <div id="newsletter-msg" class="news-msg" role="status" aria-live="polite"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
   <div class="wrap">
-    <div class="dest-readmore reveal">
-      <button type="button" class="dest-more-btn" id="dest-more-btn" aria-expanded="false" aria-controls="dest-coming-panel" data-i18n="dest.readmore">More cities</button>
-    </div>
-    <div class="dest-coming-panel" id="dest-coming-panel" data-open="false">
-      <div class="dest-coming-mark">✦</div>
-      <div class="dest-coming-title" data-i18n="dest.comingsoon.title">Coming <em>Soon</em></div>
-      <p class="dest-coming-sub" data-i18n="dest.comingsoon.sub">More cities arriving in the archive</p>
-    </div>
-  </div>
-</section>
-
-<!-- AI PLANNER CTA -->
-<section class="plan" id="planner-cta">
-  <div class="plan-bg" data-parallax data-speed="0.12"><img src="postcard-china.jpg" alt="" loading="lazy"></div>
-  <div class="plan-scrim"></div>
-  <a class="plan-cta plan-inner reveal" href="/planner" aria-label="Open the AI Trip Planner">
-    <div class="plan-cta-eyebrow plan-eyebrow eyebrow eyebrow--center" data-i18n="tp.eyebrow">AI Trip Planner</div>
-    <h2 class="plan-cta-h plan-h" data-i18n="tp.cta.h">Plan your trip<br>with <em>AI</em></h2>
-    <p class="plan-cap" data-i18n="tp.cta.cap">Somewhere worth going.</p>
-    <p class="plan-cta-p plan-p" data-i18n="tp.cta.p">Tell our concierge the kind of trip you have in mind — a couples escape, a family holiday, a budget adventure — and get a day-by-day itinerary in seconds.</p>
-    <span class="plan-cta-btn plan-btn" data-i18n="tp.cta.btn">Start planning →</span>
-  </a>
-</section>
-
-<!-- COLLECTIONS -->
-<section class="section">
-  <div class="wrap">
-    <div class="brandmark reveal"><span class="bm-line"></span><span>✦ Collections</span><span class="bm-line"></span></div>
-
-    <div id="wonders" aria-label="Seven Wonders">
-      <a href="/wonders" class="wonders-feature feature reveal">
-        <div class="wonders-feature-art feature-media" aria-hidden="true">
-          <div class="wonders-mosaic">
-            <div class="wonders-tile">Petra</div>
-            <div class="wonders-tile">Christ</div>
-            <div class="wonders-tile wonders-tile--img wonders-tile-img">Great Wall</div>
-            <div class="wonders-tile">Taj</div>
-            <div class="wonders-tile wonders-tile--gold">VII</div>
-            <div class="wonders-tile">Machu</div>
-            <div class="wonders-tile">Roma</div>
-            <div class="wonders-tile">Itzá</div>
-            <div class="wonders-tile wonders-tile--gold">★</div>
-          </div>
-        </div>
-        <div class="wonders-feature-body feature-body">
-          <div class="wonders-feature-eyebrow feature-eyebrow eyebrow" data-i18n="wonders.eyebrow">Seven Wonders</div>
-          <h2 class="wonders-feature-title feature-title" data-i18n="wondersFeature.title">Seven Wonders of the <em>World</em></h2>
-          <p class="wonders-feature-text feature-text" data-i18n="wondersFeature.text">The new seven wonders, voted by millions worldwide — a curated archive of the places that shaped humankind's imagination.</p>
-          <span class="wonders-feature-cta feature-link" data-i18n="wonders.cta">Explore the Seven →</span>
-        </div>
-      </a>
-    </div>
-
-    <div id="hotels" class="hotels-teaser">
-      <a href="/hotels" class="hotels-feature feature feature--rev reveal">
-        <div class="hotels-feature-img feature-media">
-          <img src="hotelpng.png" alt="Top hotel chains" loading="lazy">
-        </div>
-        <div class="hotels-feature-body feature-body">
-          <div class="hotels-feature-eyebrow feature-eyebrow eyebrow" data-i18n="hotelsFeature.eyebrow">Hotels</div>
-          <h2 class="hotels-feature-title feature-title" data-i18n="hotelsFeature.title">Top Hotel Chains on the <em>Globe</em></h2>
-          <p class="hotels-feature-text feature-text" data-i18n="hotelsFeature.text">From legendary heritage houses to remote sanctuaries — a curated selection of the names that define what luxury hospitality means today.</p>
-          <span class="hotels-feature-cta feature-link" data-i18n="hotelsFeature.cta">Discover the Chains →</span>
-        </div>
-      </a>
-    </div>
-
-    <div id="nightclubs">
-      <a href="/clubs" class="clubs-feature feature reveal">
-        <div class="clubs-feature-img feature-media">
-          <img src="hiibiza1.png" alt="Top nightclubs on the globe" loading="lazy">
-        </div>
-        <div class="clubs-feature-body feature-body">
-          <div class="clubs-feature-eyebrow feature-eyebrow eyebrow" data-i18n="clubs.eyebrow">Nightclubs</div>
-          <h2 class="clubs-feature-title feature-title" data-i18n="clubsFeature.title">Best Nightclubs on the <em>Globe</em></h2>
-          <p class="clubs-feature-text feature-text" data-i18n="clubsFeature.text">From Berlin's industrial cathedrals to Ibiza's eternal summer — a curated archive of the rooms that shaped electronic music culture.</p>
-          <span class="clubs-feature-cta feature-link" data-i18n="clubs.cta">Explore the Clubs →</span>
-        </div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about" class="section">
-  <div class="wrap about-grid">
-    <div class="about-imgs about-media reveal">
-      <div class="about-img-main about-main"><img src="aboutus1.jpg" alt="" loading="lazy"></div>
-      <div class="about-img-accent about-accent"><img src="aboutus2.jpg" alt="" loading="lazy"></div>
-    </div>
-    <div class="about-content about-body reveal d1">
-      <div class="about-eyebrow eyebrow" data-i18n="about.eyebrow">About Us</div>
-      <h2 class="about-h" data-i18n="about.h">built from passion for <em>hospitality and tourism.</em></h2>
-      <p class="about-p" data-i18n="about.p">Hi, I’m Konrad Xu. My passion for hotels and hospitality started when I was just 12 years old, and over time it grew into a deep interest in how places can create truly memorable experiences.</p>
-      <div class="about-why">
-        <div class="about-why-label" data-i18n="about.why.label">The Origin</div>
-        <h3 class="about-why-h" data-i18n="about.why.h">Why <em>City Archivist</em> exists.</h3>
-        <p class="about-why-p" data-i18n="about.why.p1">During my internship at <em>Le Méridien Munich</em> — part of Marriott Bonvoy — I spent two weeks working in breakfast service. Day after day, I noticed the same thing: guests would ask not about the famous monuments, but about <em>what else</em> there is to a city — the corners that don't make it into guidebooks, the places locals actually go.</p>
-        <p class="about-why-p" data-i18n="about.why.p2">That gap is what I set out to fill. <em>City Archivist</em> is a quiet act of curation — for travellers who want to look beyond the queue lines and find the city that the city actually lives in.</p>
-        <div class="about-sign">— Konrad Xu</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- NEWSLETTER -->
-<section class="news section">
-  <div class="wrap cta-strip news-inner reveal">
-    <div class="cta-eyebrow news-eyebrow eyebrow eyebrow--center" data-i18n="news.eyebrow">Newsletter</div>
-    <h2 class="cta-h news-h" data-i18n="news.h">Stay in <em>the Archive.</em></h2>
-    <p class="news-p" data-i18n="news.p">Get new destinations, hotel features and city guides — straight to your inbox.</p>
-    <form id="newsletter-form" class="cta-form" data-endpoint="https://formspree.io/f/myklrnro" novalidate>
-      <input class="cta-input" type="text" name="name" autocomplete="name" required data-i18n-placeholder="news.namePlaceholder" placeholder="Your name">
-      <input class="cta-input" type="email" name="email" autocomplete="email" required data-i18n-placeholder="news.emailPlaceholder" placeholder="your@email.com">
-      <button type="submit" class="cta-btn" data-i18n="news.button">Subscribe</button>
-      <!-- Honeypot: bots fill it, humans don't see it -->
-      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;">
-      <input type="hidden" name="_form_loaded_at" value="">
-    </form>
-    <div id="newsletter-msg" class="cta-msg"></div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="wrap">
-    <div class="footer-top foot-top">
+    <div class="foot-grid">
       <div>
-        <div class="footer-logo foot-logo">City <span>Archivist</span></div>
-        <p class="footer-about foot-tag">A quiet archive of hidden places — hotels, cities and corners chosen for their character, not their fame.</p>
+        <div class="wordmark">City <span>Archivist</span></div>
+        <p class="foot-tag" data-i18n="footer.tag">The hotelier's guide to Europe's finest hotels and hidden places — for international and Chinese travellers.</p>
+        <!-- TODO KONRAD: echte Profil-URLs (Instagram / Xiaohongshu / WeChat + QR) -->
+        <div class="foot-social">
+          <a href="#" rel="me">Instagram</a>
+          <a href="#" rel="me">小红书</a>
+          <a href="#" rel="me">WeChat</a>
+        </div>
       </div>
       <div>
-        <div class="footer-col-title foot-col-title" data-i18n="footer.nav">Navigation</div>
-        <ul class="footer-links foot-links">
-          <li><a href="#home" data-i18n="nav.home">Home</a></li>
-          <li><a href="#destinations" data-i18n="nav.destinations">Destinations</a></li>
-          <li><a href="/hotels" data-i18n="nav.hotels">Hotels</a></li>
-          <li><a href="/clubs" data-i18n="nav.nightclubs">Nightclubs</a></li>
-          <li><a href="#about" data-i18n="nav.about">About Us</a></li>
+        <div class="foot-col-title" data-i18n="footer.nav">Navigation</div>
+        <ul class="foot-links">
+          <li><a href="/hotels" data-i18n="nav.reviews">Hotel Reviews</a></li>
+          <li><a href="#destinations" data-i18n="nav.cities">Cities</a></li>
+          <li><a href="/score" data-i18n="nav.score">The Score</a></li>
+          <li><a href="#about" data-i18n="nav.about">About</a></li>
         </ul>
       </div>
       <div>
-        <div class="footer-col-title foot-col-title" data-i18n="footer.info">Info</div>
-        <ul class="footer-links foot-links">
-          <li><a href="#" data-i18n="footer.newsletter">Newsletter</a></li>
+        <div class="foot-col-title" data-i18n="footer.info">Info</div>
+        <ul class="foot-links">
           <li><a href="/impressum#kontakt" data-i18n="footer.contact">Contact</a></li>
           <li><a href="/impressum#imprint" data-i18n="footer.imprint">Imprint</a></li>
           <li><a href="/impressum#datenschutz" data-i18n="footer.privacy">Privacy</a></li>
         </ul>
       </div>
     </div>
-    <div class="footer-bottom foot-bottom">
-      <span class="footer-copy foot-copy" data-i18n="footer.copy">© 2026 City Archivist — All rights reserved</span>
-      <span class="foot-mark">✦</span>
-    </div>
+    <div class="foot-bottom"><span class="foot-copy" data-i18n="footer.copy">© 2026 City Archivist</span></div>
   </div>
 </footer>
 
-<script src="lang.js?v=53" defer></script>
+<!-- Localised strings for the Latest-Reviews renderer -->
+<span class="vh" id="t-nameTbd" data-i18n="rp.tbd">In preparation</span>
+<span class="vh" id="t-verdictTbd" data-i18n="rp.verdictTbd">Review in progress</span>
+<span class="vh" id="t-scoreLabel" data-i18n="rev.score">Archivist Score</span>
+
+<script src="lang.js?v=54" defer></script>
+<script src="ca.js?v=3" defer></script>
 <script>
-  // Scroll progress + nav state
-  (function () {
-    const nav = document.getElementById('top-nav');
-    const bar = document.getElementById('progress');
-    let ticking = false;
-    function update() {
-      const h = document.documentElement;
-      const max = h.scrollHeight - h.clientHeight;
-      const p = max > 0 ? (h.scrollTop || window.scrollY) / max : 0;
-      if (bar) bar.style.width = (p * 100) + '%';
-      nav.classList.toggle('scrolled', (window.scrollY || h.scrollTop) > 60);
-      ticking = false;
-    }
-    window.addEventListener('scroll', () => { if (!ticking) { requestAnimationFrame(update); ticking = true; } }, { passive: true });
-    update();
-  })();
+/* Latest reviews — newest published hotels from hotels.json (falls back to
+   the scaffolds while nothing is published yet). Trilingual, re-renders on
+   language change. */
+(function () {
+  var wrap = document.getElementById('home-reviews');
+  if (!wrap) return;
+  var DATA = null;
 
-  // Parallax layers
-  (function () {
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const layers = Array.prototype.slice.call(document.querySelectorAll('[data-parallax]'));
-    if (reduce || !layers.length) return;
-    let ticking = false;
-    function apply() {
-      const vh = window.innerHeight;
-      for (const l of layers) {
-        const host = l.parentElement;
-        const r = host.getBoundingClientRect();
-        if (r.bottom < -100 || r.top > vh + 100) continue;
-        const speed = parseFloat(l.getAttribute('data-speed')) || 0.16;
-        const offset = ((r.top + r.height / 2) - vh / 2) * -speed;
-        l.style.transform = 'translate3d(0,' + offset.toFixed(1) + 'px,0)';
-      }
-      ticking = false;
-    }
-    window.addEventListener('scroll', () => { if (!ticking) { requestAnimationFrame(apply); ticking = true; } }, { passive: true });
-    window.addEventListener('resize', apply);
-    apply();
-  })();
+  function lang() { var l = document.documentElement.lang; return (l === 'de' || l === 'zh') ? l : 'en'; }
+  function loc(o) { if (!o) return ''; return o[lang()] || o.en || ''; }
+  function t(id) { var e = document.getElementById(id); return e ? e.textContent : ''; }
+  function cityName(k) { var c = (DATA.cities || []).find(function (x) { return x.key === k; }); return c ? loc(c.name) : k; }
 
-  // Mobile menu overlay
-  (function () {
-    const btn = document.getElementById('nav-menu-btn');
-    const root = document.documentElement;
-    if (!btn) return;
-    const close = () => { root.classList.remove('nav-open'); btn.setAttribute('aria-expanded', 'false'); };
-    btn.addEventListener('click', () => { const open = root.classList.toggle('nav-open'); btn.setAttribute('aria-expanded', String(open)); });
-    document.querySelectorAll('[data-nav-close], .nav-overlay a').forEach(a => a.addEventListener('click', close));
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
-  })();
+  function pick() {
+    var all = DATA.hotels || [];
+    var pub = all.filter(function (h) { return h.published && h.overall != null; })
+                 .sort(function (a, b) { return String(b.visitDate || '').localeCompare(String(a.visitDate || '')); });
+    return (pub.length ? pub : all).slice(0, 3);
+  }
 
-  // More cities → Coming Soon
-  document.addEventListener('DOMContentLoaded', () => {
-    const btn = document.getElementById('dest-more-btn');
-    const panel = document.getElementById('dest-coming-panel');
-    if (btn && panel) {
-      btn.addEventListener('click', () => {
-        const open = panel.dataset.open === 'true';
-        panel.dataset.open = open ? 'false' : 'true';
-        btn.setAttribute('aria-expanded', String(!open));
-      });
-    }
-  });
+  function card(h) {
+    var pubd = h.published && h.overall != null;
+    var a = document.createElement('a');
+    a.className = 'rev-card';
+    a.href = '/hotels/' + h.slug;
 
-  // Reveal on scroll
-  (function () {
-    const els = document.querySelectorAll('.reveal');
-    if (!('IntersectionObserver' in window) || !els.length) { els.forEach(el => el.classList.add('in')); return; }
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-    els.forEach(el => io.observe(el));
-  })();
+    var media = document.createElement('div'); media.className = 'media';
+    if (pubd && h.heroImage) { var im = document.createElement('img'); im.src = h.heroImage; im.alt = h.name || ''; im.loading = 'lazy'; media.appendChild(im); }
+    else { var ph = document.createElement('div'); ph.style.cssText = 'aspect-ratio:3/2;background:var(--stone-3);'; media.appendChild(ph); }
+
+    var locEl = document.createElement('div'); locEl.className = 'label';
+    locEl.textContent = cityName(h.city) + (loc(h.neighborhood) ? ' · ' + loc(h.neighborhood) : '');
+    var nm = document.createElement('div'); nm.className = 'rev-name';
+    nm.textContent = pubd ? h.name : (h.name || t('t-nameTbd'));
+    var vd = document.createElement('p'); vd.className = 'rev-verdict';
+    vd.textContent = pubd ? loc(h.verdict) : t('t-verdictTbd');
+
+    var row = document.createElement('div'); row.className = 'score-row';
+    var num = document.createElement('div'); num.className = 'score-num';
+    if (pubd) { num.innerHTML = Number(h.overall).toFixed(1) + '<small>/10</small>'; }
+    else { num.className += ' is-tbd'; num.textContent = '–'; }
+    var lb = document.createElement('div'); lb.className = 'score-label'; lb.textContent = t('t-scoreLabel');
+    row.appendChild(num); row.appendChild(lb);
+
+    a.appendChild(media); a.appendChild(locEl); a.appendChild(nm); a.appendChild(vd); a.appendChild(row);
+    return a;
+  }
+
+  function render() {
+    if (!DATA) return;
+    wrap.innerHTML = '';
+    pick().forEach(function (h) { wrap.appendChild(card(h)); });
+    if (window.caReveal) window.caReveal(wrap.parentNode);
+  }
+
+  fetch('hotels.json').then(function (r) { return r.json(); }).then(function (d) {
+    DATA = d; render();
+    new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+  }).catch(function () {});
+})();
 </script>
-
 </body>
 </html>
