@@ -9,7 +9,7 @@
   var slug = mainEl ? mainEl.getAttribute('data-slug') : null;
   var DATA = null, H = null;
 
-  function lang() { var l = document.documentElement.lang; return (l === 'de' || l === 'zh') ? l : 'en'; }
+  function lang() { var l = String(document.documentElement.lang || ''); if (l.indexOf('zh') === 0) return 'zh'; return l === 'de' ? 'de' : 'en'; }
   function loc(o) { if (o == null) return ''; if (typeof o === 'string') return o; return o[lang()] || o.en || ''; }
   function t(id) { var e = document.getElementById(id); return e ? e.textContent : ''; }
   function q(s) { return document.querySelector(s); }
@@ -120,6 +120,22 @@
 
     setRev('address', H.address || '–');
     setRev('visitDate', H.visitDate || '–');
+
+    /* ── Transparency: how this review came about ──
+       Only appears once the fields are actually filled, so an unfinished
+       review never implies a disclosure that was not made. */
+    setRev('t-type',   H.stayType === 'stay'  ? t('t-stay') : H.stayType === 'visit'   ? t('t-visitOnly') : '–');
+    setRev('t-cost',   H.paidBy   === 'self'  ? t('t-self') : H.paidBy   === 'invited' ? t('t-invited')   : '–');
+    setRev('t-notice', H.announced === true   ? t('t-announced') : H.announced === false ? t('t-anonymous') : '–');
+    var tBox = q('[data-rev-transparency]');
+    if (tBox) tBox.hidden = !(H.visitDate && H.stayType && H.paidBy && H.announced !== null);
+
+    /* ── Booking / availability: only when a URL is configured ── */
+    var book = q('[data-rev-booking]');
+    if (book) {
+      if (H.bookingUrl && /^https?:\/\//.test(H.bookingUrl)) { book.href = H.bookingUrl; book.hidden = false; }
+      else { book.removeAttribute('href'); book.hidden = true; }
+    }
     fillGallery(H.gallery);
     fillMap();
     fillPrevNext();
@@ -133,7 +149,7 @@
   }
 
   if (!slug) return;
-  fetch('/hotels.json').then(function (r) { return r.json(); }).then(function (d) {
+  fetch('/hotels.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (d) {
     DATA = d; H = (d.hotels || []).find(function (h) { return h.slug === slug; });
     if (!H) { var b = q('[data-rev-banner]'); if (b) { b.hidden = false; b.textContent = 'Hotel not found.'; } return; }
     render();

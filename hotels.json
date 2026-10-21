@@ -1,41 +1,123 @@
 {
-  "_README": "Central hotel data for City Archivist reviews. Overview (/hotels) and each review page (/hotels/<slug>) read from this file. See README-hotels.md for how to add a hotel. Localised text fields are objects {en,de,zh}. Leave real values empty/null until you have them — the UI shows tasteful placeholders and Schema.org markup only switches on when scores + verdict exist. Do NOT invent scores.",
-
+  "_README": "Central hotel data for City Archivist reviews. Overview (/hotels) and each review page (/hotels/<slug>) read from this file. See README-hotels.md. Localised text fields are objects {en,de,zh}. NOTHING appears publicly until \"published\": true AND real scores exist — drafts stay completely hidden. Transparency fields are mandatory before publishing: stayType ('stay' = overnight, 'visit' = lobby/bar/restaurant only), paidBy ('self' or 'invited'), announced (true = hotel knew, false = anonymous). Do NOT invent scores.",
   "cities": [
-    { "key": "muenchen", "name": { "en": "Munich",  "de": "München", "zh": "慕尼黑" }, "active": true  },
-    { "key": "geneva",   "name": { "en": "Geneva",  "de": "Genf",     "zh": "日内瓦" }, "active": false },
-    { "key": "shanghai", "name": { "en": "Shanghai","de": "Shanghai", "zh": "上海"   }, "active": false },
-    { "key": "london",   "name": { "en": "London",  "de": "London",   "zh": "伦敦"   }, "active": false },
-    { "key": "tokyo",    "name": { "en": "Tokyo",   "de": "Tokio",    "zh": "东京"   }, "active": false }
+    {
+      "key": "muenchen",
+      "name": {
+        "en": "Munich",
+        "de": "München",
+        "zh": "慕尼黑"
+      },
+      "active": true
+    },
+    {
+      "key": "geneva",
+      "name": {
+        "en": "Geneva",
+        "de": "Genf",
+        "zh": "日内瓦"
+      },
+      "active": false
+    },
+    {
+      "key": "shanghai",
+      "name": {
+        "en": "Shanghai",
+        "de": "Shanghai",
+        "zh": "上海"
+      },
+      "active": false
+    },
+    {
+      "key": "london",
+      "name": {
+        "en": "London",
+        "de": "London",
+        "zh": "伦敦"
+      },
+      "active": false
+    },
+    {
+      "key": "tokyo",
+      "name": {
+        "en": "Tokyo",
+        "de": "Tokio",
+        "zh": "东京"
+      },
+      "active": false
+    }
   ],
-
   "hotels": [
     {
       "slug": "muenchen-hotel-1",
       "published": false,
       "city": "muenchen",
       "name": "",
-      "neighborhood": { "en": "", "de": "", "zh": "" },
-      "category":     { "en": "", "de": "", "zh": "" },
+      "neighborhood": {
+        "en": "",
+        "de": "",
+        "zh": ""
+      },
+      "category": {
+        "en": "",
+        "de": "",
+        "zh": ""
+      },
       "price": "",
       "rooms": null,
       "address": "",
-      "coords": { "lat": null, "lng": null },
+      "coords": {
+        "lat": null,
+        "lng": null
+      },
       "visitDate": "",
+      "stayType": "",
+      "paidBy": "",
+      "announced": null,
+      "bookingUrl": "",
       "heroImage": "",
       "gallery": [],
-      "scores": { "service": null, "design": null, "fnb": null, "location": null },
+      "scores": {
+        "service": null,
+        "design": null,
+        "fnb": null,
+        "location": null
+      },
       "overall": null,
-      "verdict":     { "en": "", "de": "", "zh": "" },
-      "idealFor":    { "en": [], "de": [], "zh": [] },
-      "notIdealFor": { "en": [], "de": [], "zh": [] },
-      "insiderView": { "en": "", "de": "", "zh": "" },
+      "verdict": {
+        "en": "",
+        "de": "",
+        "zh": ""
+      },
+      "idealFor": {
+        "en": [],
+        "de": [],
+        "zh": []
+      },
+      "notIdealFor": {
+        "en": [],
+        "de": [],
+        "zh": []
+      },
+      "insiderView": {
+        "en": "",
+        "de": "",
+        "zh": ""
+      },
       "chineseGuests": {
         "mandarinStaff": null,
         "payment": [],
         "chineseBreakfast": null,
-        "shopping": { "en": "", "de": "", "zh": "" },
-        "airport":  { "en": "", "de": "", "zh": "" }
+        "shopping": {
+          "en": "",
+          "de": "",
+          "zh": ""
+        },
+        "airport": {
+          "en": "",
+          "de": "",
+          "zh": ""
+        }
       }
     },
     {
@@ -43,27 +125,71 @@
       "published": false,
       "city": "muenchen",
       "name": "",
-      "neighborhood": { "en": "", "de": "", "zh": "" },
-      "category":     { "en": "", "de": "", "zh": "" },
+      "neighborhood": {
+        "en": "",
+        "de": "",
+        "zh": ""
+      },
+      "category": {
+        "en": "",
+        "de": "",
+        "zh": ""
+      },
       "price": "",
       "rooms": null,
       "address": "",
-      "coords": { "lat": null, "lng": null },
+      "coords": {
+        "lat": null,
+        "lng": null
+      },
       "visitDate": "",
+      "stayType": "",
+      "paidBy": "",
+      "announced": null,
+      "bookingUrl": "",
       "heroImage": "",
       "gallery": [],
-      "scores": { "service": null, "design": null, "fnb": null, "location": null },
+      "scores": {
+        "service": null,
+        "design": null,
+        "fnb": null,
+        "location": null
+      },
       "overall": null,
-      "verdict":     { "en": "", "de": "", "zh": "" },
-      "idealFor":    { "en": [], "de": [], "zh": [] },
-      "notIdealFor": { "en": [], "de": [], "zh": [] },
-      "insiderView": { "en": "", "de": "", "zh": "" },
+      "verdict": {
+        "en": "",
+        "de": "",
+        "zh": ""
+      },
+      "idealFor": {
+        "en": [],
+        "de": [],
+        "zh": []
+      },
+      "notIdealFor": {
+        "en": [],
+        "de": [],
+        "zh": []
+      },
+      "insiderView": {
+        "en": "",
+        "de": "",
+        "zh": ""
+      },
       "chineseGuests": {
         "mandarinStaff": null,
         "payment": [],
         "chineseBreakfast": null,
-        "shopping": { "en": "", "de": "", "zh": "" },
-        "airport":  { "en": "", "de": "", "zh": "" }
+        "shopping": {
+          "en": "",
+          "de": "",
+          "zh": ""
+        },
+        "airport": {
+          "en": "",
+          "de": "",
+          "zh": ""
+        }
       }
     },
     {
@@ -71,27 +197,71 @@
       "published": false,
       "city": "muenchen",
       "name": "",
-      "neighborhood": { "en": "", "de": "", "zh": "" },
-      "category":     { "en": "", "de": "", "zh": "" },
+      "neighborhood": {
+        "en": "",
+        "de": "",
+        "zh": ""
+      },
+      "category": {
+        "en": "",
+        "de": "",
+        "zh": ""
+      },
       "price": "",
       "rooms": null,
       "address": "",
-      "coords": { "lat": null, "lng": null },
+      "coords": {
+        "lat": null,
+        "lng": null
+      },
       "visitDate": "",
+      "stayType": "",
+      "paidBy": "",
+      "announced": null,
+      "bookingUrl": "",
       "heroImage": "",
       "gallery": [],
-      "scores": { "service": null, "design": null, "fnb": null, "location": null },
+      "scores": {
+        "service": null,
+        "design": null,
+        "fnb": null,
+        "location": null
+      },
       "overall": null,
-      "verdict":     { "en": "", "de": "", "zh": "" },
-      "idealFor":    { "en": [], "de": [], "zh": [] },
-      "notIdealFor": { "en": [], "de": [], "zh": [] },
-      "insiderView": { "en": "", "de": "", "zh": "" },
+      "verdict": {
+        "en": "",
+        "de": "",
+        "zh": ""
+      },
+      "idealFor": {
+        "en": [],
+        "de": [],
+        "zh": []
+      },
+      "notIdealFor": {
+        "en": [],
+        "de": [],
+        "zh": []
+      },
+      "insiderView": {
+        "en": "",
+        "de": "",
+        "zh": ""
+      },
       "chineseGuests": {
         "mandarinStaff": null,
         "payment": [],
         "chineseBreakfast": null,
-        "shopping": { "en": "", "de": "", "zh": "" },
-        "airport":  { "en": "", "de": "", "zh": "" }
+        "shopping": {
+          "en": "",
+          "de": "",
+          "zh": ""
+        },
+        "airport": {
+          "en": "",
+          "de": "",
+          "zh": ""
+        }
       }
     },
     {
@@ -99,27 +269,71 @@
       "published": false,
       "city": "muenchen",
       "name": "",
-      "neighborhood": { "en": "", "de": "", "zh": "" },
-      "category":     { "en": "", "de": "", "zh": "" },
+      "neighborhood": {
+        "en": "",
+        "de": "",
+        "zh": ""
+      },
+      "category": {
+        "en": "",
+        "de": "",
+        "zh": ""
+      },
       "price": "",
       "rooms": null,
       "address": "",
-      "coords": { "lat": null, "lng": null },
+      "coords": {
+        "lat": null,
+        "lng": null
+      },
       "visitDate": "",
+      "stayType": "",
+      "paidBy": "",
+      "announced": null,
+      "bookingUrl": "",
       "heroImage": "",
       "gallery": [],
-      "scores": { "service": null, "design": null, "fnb": null, "location": null },
+      "scores": {
+        "service": null,
+        "design": null,
+        "fnb": null,
+        "location": null
+      },
       "overall": null,
-      "verdict":     { "en": "", "de": "", "zh": "" },
-      "idealFor":    { "en": [], "de": [], "zh": [] },
-      "notIdealFor": { "en": [], "de": [], "zh": [] },
-      "insiderView": { "en": "", "de": "", "zh": "" },
+      "verdict": {
+        "en": "",
+        "de": "",
+        "zh": ""
+      },
+      "idealFor": {
+        "en": [],
+        "de": [],
+        "zh": []
+      },
+      "notIdealFor": {
+        "en": [],
+        "de": [],
+        "zh": []
+      },
+      "insiderView": {
+        "en": "",
+        "de": "",
+        "zh": ""
+      },
       "chineseGuests": {
         "mandarinStaff": null,
         "payment": [],
         "chineseBreakfast": null,
-        "shopping": { "en": "", "de": "", "zh": "" },
-        "airport":  { "en": "", "de": "", "zh": "" }
+        "shopping": {
+          "en": "",
+          "de": "",
+          "zh": ""
+        },
+        "airport": {
+          "en": "",
+          "de": "",
+          "zh": ""
+        }
       }
     },
     {
@@ -127,27 +341,71 @@
       "published": false,
       "city": "muenchen",
       "name": "",
-      "neighborhood": { "en": "", "de": "", "zh": "" },
-      "category":     { "en": "", "de": "", "zh": "" },
+      "neighborhood": {
+        "en": "",
+        "de": "",
+        "zh": ""
+      },
+      "category": {
+        "en": "",
+        "de": "",
+        "zh": ""
+      },
       "price": "",
       "rooms": null,
       "address": "",
-      "coords": { "lat": null, "lng": null },
+      "coords": {
+        "lat": null,
+        "lng": null
+      },
       "visitDate": "",
+      "stayType": "",
+      "paidBy": "",
+      "announced": null,
+      "bookingUrl": "",
       "heroImage": "",
       "gallery": [],
-      "scores": { "service": null, "design": null, "fnb": null, "location": null },
+      "scores": {
+        "service": null,
+        "design": null,
+        "fnb": null,
+        "location": null
+      },
       "overall": null,
-      "verdict":     { "en": "", "de": "", "zh": "" },
-      "idealFor":    { "en": [], "de": [], "zh": [] },
-      "notIdealFor": { "en": [], "de": [], "zh": [] },
-      "insiderView": { "en": "", "de": "", "zh": "" },
+      "verdict": {
+        "en": "",
+        "de": "",
+        "zh": ""
+      },
+      "idealFor": {
+        "en": [],
+        "de": [],
+        "zh": []
+      },
+      "notIdealFor": {
+        "en": [],
+        "de": [],
+        "zh": []
+      },
+      "insiderView": {
+        "en": "",
+        "de": "",
+        "zh": ""
+      },
       "chineseGuests": {
         "mandarinStaff": null,
         "payment": [],
         "chineseBreakfast": null,
-        "shopping": { "en": "", "de": "", "zh": "" },
-        "airport":  { "en": "", "de": "", "zh": "" }
+        "shopping": {
+          "en": "",
+          "de": "",
+          "zh": ""
+        },
+        "airport": {
+          "en": "",
+          "de": "",
+          "zh": ""
+        }
       }
     }
   ]

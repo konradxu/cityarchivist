@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://formspree.io https://*.workers.dev; script-src 'self' 'unsafe-inline'; frame-src https://www.google.com https://maps.google.com; form-action https://formspree.io 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
@@ -28,13 +28,13 @@
 <meta name="theme-color" content="#17130d" media="(prefers-color-scheme: dark)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Jost:wght@200;300;400;500&family=Noto+Sans+SC:wght@300;400&family=Noto+Serif+SC:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/ca.css?v=5">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/ca.css?v=8">
 <script>document.documentElement.className += ' js';</script>
 </head>
 <body>
 
-<a class="skip-link" href="#main">Skip to content</a>
+<a class="skip-link" href="#main" data-i18n="a11y.skip">Skip to content</a>
 
 <header class="site-header">
   <div class="wrap nav">
@@ -47,7 +47,7 @@
       <li><a href="/#about" data-i18n="nav.about">About</a></li>
     </ul>
     <div class="nav-right">
-      <button class="nav-lang" type="button" data-lang-trigger aria-label="Change language"><span data-lang-current>EN</span></button>
+      <button class="nav-lang" type="button" data-lang-trigger><span class="vh" data-i18n="nav.language">Language</span><span data-lang-current>EN</span></button>
       <button class="nav-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-overlay"><span></span><span></span></button>
     </div>
   </div>
@@ -106,6 +106,15 @@
         <div class="score-crit"><div class="n" data-rev-score="fnb">–</div><div class="k" data-i18n="rp.score.fnb">Food &amp; Drink</div></div>
         <div class="score-crit"><div class="n" data-rev-score="location">–</div><div class="k" data-i18n="rp.score.location">Location</div></div>
       </div>
+
+      <!-- Transparency — how this review came about. Only shown once the
+           fields are filled in hotels.json (stayType / paidBy / announced). -->
+      <div class="transparency rv" data-rev-transparency hidden>
+        <div class="ti"><span class="tk" data-i18n="rp.visited">Visited</span><span class="tv" data-rev="visitDate">–</span></div>
+        <div class="ti"><span class="tk" data-i18n="rp.t.type">Type of visit</span><span class="tv" data-rev="t-type">–</span></div>
+        <div class="ti"><span class="tk" data-i18n="rp.t.cost">Cost</span><span class="tv" data-rev="t-cost">–</span></div>
+        <div class="ti"><span class="tk" data-i18n="rp.t.notice">Notice</span><span class="tv" data-rev="t-notice">–</span></div>
+      </div>
     </section>
 
     <!-- INSIDER VIEW -->
@@ -152,6 +161,8 @@
       </div>
       <div class="rv" style="margin-top:var(--s-5)">
         <a class="btn" data-rev-request href="mailto:hello@cityarchivist.com?subject=Request" data-i18n="rp.request">Request this hotel</a>
+        <!-- TODO KONRAD: bookingUrl in hotels.json setzen -> dieser Button erscheint automatisch -->
+        <a class="btn btn--solid" data-rev-booking hidden rel="noopener" target="_blank" data-i18n="rp.availability">Check availability</a>
       </div>
     </section>
 
@@ -167,13 +178,17 @@
     <div class="wrap news-inner rv">
       <div class="label label--accent" data-i18n="news.eyebrow">Newsletter</div>
       <h2 class="h2" style="margin-top:var(--s-3)" data-i18n="news.teaser.h">Every Sunday: one hotel, one hidden spot.</h2>
-      <form id="newsletter-form" class="news-form" data-endpoint="https://formspree.io/f/myklrnro" novalidate>
+      <form id="newsletter-form" class="news-form" novalidate>
         <input class="news-input" type="email" name="email" autocomplete="email" required data-i18n-placeholder="news.emailPlaceholder" placeholder="your@email.com">
         <button type="submit" class="btn btn--solid" data-i18n="news.button">Subscribe</button>
         <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;">
         <input type="hidden" name="_form_loaded_at" value="">
       </form>
       <div id="newsletter-msg" class="news-msg" role="status" aria-live="polite"></div>
+      <p class="news-fine">
+        <span data-i18n="news.optin">You will receive a confirmation email — the subscription only starts once you confirm it (double opt-in). Unsubscribe any time.</span>
+        <a class="lk lk--plain" href="/impressum#datenschutz" data-i18n="news.privacy">Privacy policy</a>
+      </p>
     </div>
   </section>
 
@@ -185,11 +200,7 @@
       <div>
         <div class="wordmark">City <span>Archivist</span></div>
         <p class="foot-tag" data-i18n="footer.tag">The hotelier's guide to Europe's finest hotels and hidden places — for international and Chinese travellers.</p>
-        <div class="foot-social">
-          <a href="#" rel="me">Instagram</a>
-          <a href="#" rel="me">小红书</a>
-          <a href="#" rel="me">WeChat</a>
-        </div>
+        <div class="foot-social" data-social hidden></div>
       </div>
       <div>
         <div class="foot-col-title" data-i18n="footer.nav">Navigation</div>
@@ -219,9 +230,15 @@
 <span class="vh" id="t-comingText" data-i18n="rp.comingText">The insider's view will appear here once the review is published.</span>
 <span class="vh" id="t-yes" data-i18n="rp.yes">Yes</span>
 <span class="vh" id="t-no" data-i18n="rp.no">No</span>
+<span class="vh" id="t-stay" data-i18n="rp.t.stay">Overnight stay</span>
+<span class="vh" id="t-visitOnly" data-i18n="rp.t.visitOnly">Visit (lobby, bar, restaurant)</span>
+<span class="vh" id="t-self" data-i18n="rp.t.self">Paid for myself</span>
+<span class="vh" id="t-invited" data-i18n="rp.t.invited">Hosted by the hotel</span>
+<span class="vh" id="t-announced" data-i18n="rp.t.announced">Announced</span>
+<span class="vh" id="t-anonymous" data-i18n="rp.t.anonymous">Anonymous</span>
 
-<script src="/lang.js?v=53" defer></script>
-<script src="/ca.js?v=3" defer></script>
-<script src="/review.js?v=3" defer></script>
+<script src="/lang.js?v=57" defer></script>
+<script src="/ca.js?v=5" defer></script>
+<script src="/review.js?v=5" defer></script>
 </body>
 </html>

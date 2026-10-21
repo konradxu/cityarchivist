@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://formspree.io https://*.workers.dev; script-src 'self' 'unsafe-inline'; frame-src https://www.google.com https://maps.google.com; form-action https://formspree.io 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
@@ -28,13 +28,13 @@
 <meta name="theme-color" content="#17130d" media="(prefers-color-scheme: dark)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Jost:wght@200;300;400;500&family=Noto+Sans+SC:wght@300;400&family=Noto+Serif+SC:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="ca.css?v=5">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ca.css?v=8">
 <script>document.documentElement.className += ' js';</script>
 </head>
 <body>
 
-<a class="skip-link" href="#main">Skip to content</a>
+<a class="skip-link" href="#main" data-i18n="a11y.skip">Skip to content</a>
 
 <header class="site-header">
   <div class="wrap nav">
@@ -47,7 +47,7 @@
       <li><a href="/#about" data-i18n="nav.about">About</a></li>
     </ul>
     <div class="nav-right">
-      <button class="nav-lang" type="button" data-lang-trigger aria-label="Change language"><span data-lang-current>EN</span></button>
+      <button class="nav-lang" type="button" data-lang-trigger><span class="vh" data-i18n="nav.language">Language</span><span data-lang-current>EN</span></button>
       <button class="nav-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-overlay"><span></span><span></span></button>
     </div>
   </div>
@@ -138,11 +138,7 @@
       <div>
         <div class="wordmark">City <span>Archivist</span></div>
         <p class="foot-tag" data-i18n="footer.tag">The hotelier's guide to Europe's finest hotels and hidden places — for international and Chinese travellers.</p>
-        <div class="foot-social">
-          <a href="#" rel="me">Instagram</a>
-          <a href="#" rel="me">小红书</a>
-          <a href="#" rel="me">WeChat</a>
-        </div>
+        <div class="foot-social" data-social hidden></div>
       </div>
       <div>
         <div class="foot-col-title" data-i18n="footer.nav">Navigation</div>
@@ -166,7 +162,7 @@
   </div>
 </footer>
 
-<script src="lang.js?v=53" defer></script>
-<script src="ca.js?v=3" defer></script>
+<script src="lang.js?v=57" defer></script>
+<script src="ca.js?v=5" defer></script>
 </body>
 </html>

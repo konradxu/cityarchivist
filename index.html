@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://formspree.io https://*.workers.dev; script-src 'self' 'unsafe-inline'; frame-src https://www.google.com https://maps.google.com; form-action https://formspree.io 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
@@ -40,13 +40,13 @@
 <meta name="theme-color" content="#17130d" media="(prefers-color-scheme: dark)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Jost:wght@200;300;400;500&family=Noto+Sans+SC:wght@300;400&family=Noto+Serif+SC:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="ca.css?v=5">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ca.css?v=8">
 <script>document.documentElement.className += ' js';</script>
 </head>
 <body>
 
-<a class="skip-link" href="#main">Skip to content</a>
+<a class="skip-link" href="#main" data-i18n="a11y.skip">Skip to content</a>
 
 <header class="site-header">
   <div class="wrap nav">
@@ -59,7 +59,7 @@
       <li><a href="#about" data-i18n="nav.about">About</a></li>
     </ul>
     <div class="nav-right">
-      <button class="nav-lang" type="button" data-lang-trigger aria-label="Change language"><span data-lang-current>EN</span></button>
+      <button class="nav-lang" type="button" data-lang-trigger><span class="vh" data-i18n="nav.language">Language</span><span data-lang-current>EN</span></button>
       <button class="nav-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-overlay"><span></span><span></span></button>
     </div>
   </div>
@@ -86,16 +86,35 @@
       </div>
     </div>
     <div class="wrap">
+      <!-- ═══════════════════════════════════════════════════════════════
+           TODO KONRAD — EIGENES HERO-FOTO
+           Bis dein Foto da ist, steht hier bewusst KEIN Bild (das alte
+           Pool-Resort war ein Stockfoto und passte nicht zu Münchner
+           Stadthotels). Sobald du eins hast:
+             1. Kommentar unten entfernen
+             2. Datei: hero.webp  (+ hero@2x.webp für Retina)
+             3. Empfohlen: 2400×1030 px, Seitenverhältnis 21:9, WebP,
+                Qualität ~80, unter 300 KB
+             4. Motiv: Fassade/Interieur eines Münchner Stadthotels,
+                ruhig, kein Menschengewimmel
       <figure class="hero-figure rv-img" style="--rv-d:.12s">
-        <!-- TODO KONRAD: Stockfoto — durch ein eigenes Hotel-Foto ersetzen (21:9). -->
-        <img src="hero-img.png" alt="A luxury hotel terrace at dusk" loading="eager">
+        <img src="hero.webp"
+             srcset="hero.webp 1200w, hero@2x.webp 2400w"
+             sizes="(max-width: 1180px) 100vw, 1180px"
+             width="2400" height="1030"
+             alt="" loading="eager" decoding="async">
         <figcaption class="figcap"><span class="label" data-i18n="home.cities.volume">Vol. I · München</span><span class="label label--accent" data-i18n="home.hero.by">Reviews by Konrad Xu</span></figcaption>
       </figure>
+           ═══════════════════════════════════════════════════════════════ -->
+      <div class="hero-rule rv" style="--rv-d:.38s">
+        <span class="label" data-i18n="home.cities.volume">Vol. I · München</span>
+        <span class="label label--accent" data-i18n="home.hero.by">Reviews by Konrad Xu</span>
+      </div>
     </div>
   </section>
 
-  <!-- LATEST REVIEWS -->
-  <section class="section-sm">
+  <!-- LATEST REVIEWS — hidden entirely until at least one hotel is published -->
+  <section class="section-sm" id="latest-reviews" hidden>
     <div class="wrap">
       <div class="sec-head rv rv-line">
         <h2 class="h2" data-i18n="home.latest.title">Latest reviews</h2>
@@ -115,30 +134,32 @@
 
         <div class="about-cred">
           <div class="about-cred-label" data-i18n="home.about.cred">Training &amp; Background</div>
+          <!-- TODO KONRAD: Zeiträume in die <span class="cred-period"> eintragen,
+               z. B. "2024 – 2025". Bleibt der Span leer, wird die Zeile automatisch
+               ausgeblendet — es steht also nie ein leeres Feld auf der Seite.
+               Bei Aman Shanghai fehlt mir deine Abteilung: trag sie in lang.js
+               unter 'home.cred.aman' in allen drei Sprachen ein. -->
           <ul class="about-cred-list">
             <li>
               <span class="cred-house">Le Méridien Munich</span>
-              <span class="cred-detail" data-i18n="home.cred.meridien">Marriott Bonvoy · 6-month rotation — Front Office, Housekeeping, Breakfast &amp; Banquet</span>
+              <span class="cred-detail" data-i18n="home.cred.meridien">Marriott Bonvoy · Rotation: Front Office, Housekeeping, Breakfast &amp; Banquet · 6 months</span>
+              <span class="cred-period"></span>
             </li>
             <li>
               <span class="cred-house">Aman Shanghai</span>
               <span class="cred-detail" data-i18n="home.cred.aman">Internship</span>
+              <span class="cred-period"></span>
             </li>
             <li>
               <span class="cred-house">EHL Hospitality Business School, Lausanne</span>
               <span class="cred-detail" data-i18n="home.cred.ehl">From 2027</span>
+              <span class="cred-period"></span>
             </li>
           </ul>
         </div>
 
         <p class="muted about-focus" data-i18n="home.about.focus">Europe is the focus — the perspective is international. My own path runs through Munich, Shanghai and soon Lausanne, and City Archivist is written for travellers from everywhere, with particular care for guests from China.</p>
-
-        <!-- TODO KONRAD: echte Profil-URLs (Instagram / Xiaohongshu / WeChat) -->
-        <div class="about-social" aria-label="Social profiles">
-          <a href="#" class="about-soc" rel="me">Instagram</a>
-          <a href="#" class="about-soc" rel="me">小红书 · Xiaohongshu</a>
-          <a href="#" class="about-soc" rel="me">WeChat</a>
-        </div>
+        <div class="about-social" data-social hidden aria-label="Social profiles"></div>
       </div>
       <div class="media rv-img">
         <!-- TODO KONRAD: Porträtfoto von dir (Hochformat). Platzhalter = deine Bund-Aufnahme. -->
@@ -174,7 +195,7 @@
 
       <div class="rev-grid rv-group" style="margin-top:var(--s-6)">
         <a class="rev-card" href="/muenchen">
-          <div class="media"><img src="muenchen_bild.png" alt="Munich" loading="lazy"></div>
+          <div class="media"><img src="muenchen_bild.jpg" alt="Munich" loading="lazy"></div>
           <div class="label label--accent" data-i18n="home.cities.volume">Vol. I · München</div>
           <div class="rev-name" data-i18n="dest.munich.city">Munich</div>
           <p class="rev-verdict" data-i18n="dest.munich.sub">Bavaria's capital, where tradition, culture and lifestyle come together.</p>
@@ -186,7 +207,7 @@
           <p class="rev-verdict" data-i18n="dest.geneva.sub">A lake, the Alps and the world's diplomats.</p>
         </a>
         <a class="rev-card" href="/shanghai">
-          <div class="media"><img src="shanghai.png" alt="Shanghai" loading="lazy"></div>
+          <div class="media"><img src="shanghai.jpg" alt="Shanghai" loading="lazy"></div>
           <div class="label" data-i18n="home.cities.progress">In progress</div>
           <div class="rev-name" data-i18n="dest.shanghai.city">Shanghai</div>
           <p class="rev-verdict" data-i18n="dest.shanghai.sub">China's largest city, defined by skyline, culture and nonstop energy.</p>
@@ -214,13 +235,17 @@
       <div class="label label--accent" data-i18n="news.eyebrow">Newsletter</div>
       <h2 class="h2" style="margin-top:var(--s-3)" data-i18n="news.teaser.h">Every Sunday: one hotel, one hidden spot.</h2>
       <p class="muted" style="margin-top:var(--s-3)" data-i18n="news.p">New reviews and city notes — straight to your inbox.</p>
-      <form id="newsletter-form" class="news-form" data-endpoint="https://formspree.io/f/myklrnro" novalidate>
+      <form id="newsletter-form" class="news-form" novalidate>
         <input class="news-input" type="email" name="email" autocomplete="email" required data-i18n-placeholder="news.emailPlaceholder" placeholder="your@email.com">
         <button type="submit" class="btn btn--solid" data-i18n="news.button">Subscribe</button>
         <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;">
         <input type="hidden" name="_form_loaded_at" value="">
       </form>
       <div id="newsletter-msg" class="news-msg" role="status" aria-live="polite"></div>
+      <p class="news-fine">
+        <span data-i18n="news.optin">You will receive a confirmation email — the subscription only starts once you confirm it (double opt-in). Unsubscribe any time.</span>
+        <a class="lk lk--plain" href="/impressum#datenschutz" data-i18n="news.privacy">Privacy policy</a>
+      </p>
     </div>
   </section>
 
@@ -232,12 +257,7 @@
       <div>
         <div class="wordmark">City <span>Archivist</span></div>
         <p class="foot-tag" data-i18n="footer.tag">The hotelier's guide to Europe's finest hotels and hidden places — for international and Chinese travellers.</p>
-        <!-- TODO KONRAD: echte Profil-URLs (Instagram / Xiaohongshu / WeChat + QR) -->
-        <div class="foot-social">
-          <a href="#" rel="me">Instagram</a>
-          <a href="#" rel="me">小红书</a>
-          <a href="#" rel="me">WeChat</a>
-        </div>
+        <div class="foot-social" data-social hidden></div>
       </div>
       <div>
         <div class="foot-col-title" data-i18n="footer.nav">Navigation</div>
@@ -266,8 +286,8 @@
 <span class="vh" id="t-verdictTbd" data-i18n="rp.verdictTbd">Review in progress</span>
 <span class="vh" id="t-scoreLabel" data-i18n="rev.score">Archivist Score</span>
 
-<script src="lang.js?v=54" defer></script>
-<script src="ca.js?v=3" defer></script>
+<script src="lang.js?v=57" defer></script>
+<script src="ca.js?v=5" defer></script>
 <script>
 /* Latest reviews — newest published hotels from hotels.json (falls back to
    the scaffolds while nothing is published yet). Trilingual, re-renders on
@@ -277,16 +297,17 @@
   if (!wrap) return;
   var DATA = null;
 
-  function lang() { var l = document.documentElement.lang; return (l === 'de' || l === 'zh') ? l : 'en'; }
+  function lang() { var l = String(document.documentElement.lang || ''); if (l.indexOf('zh') === 0) return 'zh'; return l === 'de' ? 'de' : 'en'; }
   function loc(o) { if (!o) return ''; return o[lang()] || o.en || ''; }
   function t(id) { var e = document.getElementById(id); return e ? e.textContent : ''; }
   function cityName(k) { var c = (DATA.cities || []).find(function (x) { return x.key === k; }); return c ? loc(c.name) : k; }
 
+  /* Only genuinely published hotels ever reach the homepage. */
   function pick() {
-    var all = DATA.hotels || [];
-    var pub = all.filter(function (h) { return h.published && h.overall != null; })
-                 .sort(function (a, b) { return String(b.visitDate || '').localeCompare(String(a.visitDate || '')); });
-    return (pub.length ? pub : all).slice(0, 3);
+    return (DATA.hotels || [])
+      .filter(function (h) { return h.published && h.overall != null; })
+      .sort(function (a, b) { return String(b.visitDate || '').localeCompare(String(a.visitDate || '')); })
+      .slice(0, 3);
   }
 
   function card(h) {
@@ -319,12 +340,18 @@
 
   function render() {
     if (!DATA) return;
+    var section = document.getElementById('latest-reviews');
+    var items = pick();
+    /* Nothing published yet → the whole section stays hidden. No grey
+       placeholder cards on the front page. */
+    if (!items.length) { if (section) section.hidden = true; return; }
+    if (section) section.hidden = false;
     wrap.innerHTML = '';
-    pick().forEach(function (h) { wrap.appendChild(card(h)); });
-    if (window.caReveal) window.caReveal(wrap.parentNode);
+    items.forEach(function (h) { wrap.appendChild(card(h)); });
+    if (window.caReveal) window.caReveal(section || wrap.parentNode);
   }
 
-  fetch('hotels.json').then(function (r) { return r.json(); }).then(function (d) {
+  fetch('hotels.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (d) {
     DATA = d; render();
     new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
   }).catch(function () {});

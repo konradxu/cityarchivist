@@ -16,11 +16,11 @@
   --stone:     #f4eee2;   /* warm paper background            */
   --stone-2:   #ede4d4;   /* insets / hovers                 */
   --stone-3:   #e4dac6;   /* placeholders                    */
-  --char:      #2a2520;   /* warm ink — 11:1 on paper        */
-  --char-soft: #6a6157;   /* secondary text — 4.6:1 (AA)     */
-  --char-faint:#9a9082;   /* tertiary / hairline labels      */
-  --bronze:    #8a6a2f;   /* warm gold — 4.8:1 on paper (AA) */
-  --bronze-2:  #a07d38;   /* gold hover                      */
+  --char:      #2a2520;   /* warm ink    — 11.4:1 on paper (AAA) */
+  --char-soft: #6a6157;   /* secondary   —  5.3:1 on paper (AA)  */
+  --char-faint:#726b5d;   /* tertiary    —  4.6:1 on paper (AA)  */
+  --bronze:    #805f20;   /* warm gold   —  5.1:1 on paper (AA)  */
+  --bronze-2:  #6b4f1a;   /* gold hover  —  6.5:1 (darker, not lighter) */
   --line:      rgba(42,37,32,0.16);
   --line-2:    rgba(42,37,32,0.08);
   --focus:     #8a6a2f;
@@ -39,7 +39,8 @@
   --ease: cubic-bezier(.2,.7,.2,1);
 }
 /* CJK: Jost/Cormorant carry no Chinese glyphs — append Noto SC under lang=zh */
-:root[lang="zh"] {
+/* lang^="zh" so it also matches the correct BCP-47 tag zh-Hans */
+:root[lang^="zh"] {
   --sans:  'Jost', 'Noto Sans SC', -apple-system, sans-serif;
   --serif: 'Cormorant Garamond', 'Noto Serif SC', Georgia, serif;
 }
@@ -52,9 +53,9 @@
     --stone:     #17130d;   /* warm near-black background       */
     --stone-2:   #1f1a13;
     --stone-3:   #2a231a;
-    --char:      #f1e9db;   /* cream — ~15:1 on stone           */
-    --char-soft: #b2a893;   /* secondary — ~8:1                 */
-    --char-faint:#7e715d;
+    --char:      #f1e9db;   /* cream     — 15.0:1 on stone (AAA) */
+    --char-soft: #b2a893;   /* secondary —  7.9:1 (AA)           */
+    --char-faint:#978a74;   /* tertiary  —  5.5:1 (AA)           */
     --bronze:    #cca86a;   /* brighter gold for dark — ~7:1    */
     --bronze-2:  #e0c48c;
     --line:      rgba(224,196,140,0.16);
@@ -132,8 +133,11 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 /* ── Header / nav ───────────────────────────────────────────────────── */
 .site-header { position: sticky; top: 0; z-index: 40; background: var(--header-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line-2); }
 .nav { display: flex; align-items: center; justify-content: space-between; height: var(--header-h); }
-.wordmark { font-family: var(--serif); font-size: 1.35rem; font-weight: 600; letter-spacing: 0.02em; white-space: nowrap; }
+/* Wordmark — the original City Archivist lockup: Cormorant, uppercase,
+   widely tracked. Colours come from tokens so it works light + dark. */
+.wordmark { font-family: var(--serif); font-size: 1.3rem; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; white-space: nowrap; }
 .wordmark span { color: var(--bronze); }
+@media (max-width: 520px) { .wordmark { font-size: 1.05rem; letter-spacing: 0.2em; } }
 .nav-links { display: flex; gap: var(--s-6); list-style: none; }
 .nav-links a { position: relative; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--char-soft); transition: color .25s; }
 .nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--char); }
@@ -233,6 +237,25 @@ html.nav-open .nav-overlay { opacity: 1; visibility: visible; }
 .foot-social a:hover { color: var(--bronze); }
 .foot-bottom { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); flex-wrap: wrap; margin-top: var(--s-7); padding-top: var(--s-4); border-top: 1px solid var(--line); }
 .foot-copy { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--char-faint); }
+
+/* ── Typographic hero rule (stands in for the hero photo) ───────────── */
+.hero-rule { margin-top: clamp(var(--s-6), 8vw, var(--s-7)); padding-top: var(--s-4); border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: var(--s-4); flex-wrap: wrap; }
+
+/* ── Credentials: period line hides itself while empty ──────────────── */
+.cred-period { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--char-faint); margin-top: 2px; }
+.cred-period:empty { display: none; }
+
+/* ── Newsletter fine print + empty state ────────────────────────────── */
+.news-fine { margin-top: var(--s-4); font-size: 12px; line-height: 1.7; color: var(--char-faint); max-width: 48ch; margin-inline: auto; }
+.news-fine .lk { font-size: 11px; margin-left: var(--s-2); }
+.empty-state { text-align: center; max-width: 52ch; margin: var(--s-7) auto 0; }
+.empty-state .h2 { margin-bottom: var(--s-4); }
+
+/* ── Transparency line (review pages) ───────────────────────────────── */
+.transparency { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-5); margin-top: var(--s-5); padding-top: var(--s-4); border-top: 1px solid var(--line); }
+.transparency .ti { display: flex; flex-direction: column; gap: 2px; }
+.transparency .tk { font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--char-faint); }
+.transparency .tv { font-size: 0.95rem; color: var(--char-soft); }
 
 /* ── Review page ────────────────────────────────────────────────────── */
 .breadcrumb { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--char-soft); padding: var(--s-5) 0 0; }

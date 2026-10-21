@@ -113,7 +113,7 @@ const TRANSLATIONS = {
     'rev.sub': 'First-hand reviews of Europe’s finest hotels — scored on service, design, food and location, the way the industry measures itself.',
     'rev.howScore': 'How I score',
     'rev.introLabel': 'Why these reviews',
-    'rev.introP': 'These aren’t reviews written by a guest ticking off amenities. They’re written by someone trained inside hotels — front office, housekeeping, breakfast, banquet — who notices the things only a hotelier would. No press trips, no influencer gloss; just an honest read on whether a hotel is worth your night, and your money.',
+    'rev.introP': 'These aren’t reviews written by a guest ticking off amenities. They’re written by someone who has worked inside hotels — front office, housekeeping, breakfast, banquet — and notices the things most guests never see. No press trips, no influencer gloss; just an honest read on whether a hotel is worth your night, and your money.',
     'rev.listTitle': 'All reviews',
     'rev.filterLabel': 'Filter by city',
     'rev.empty': 'The first Munich reviews are being written — check back soon.',
@@ -167,8 +167,49 @@ const TRANSLATIONS = {
     'score.independence.title': 'Independence',
     'score.independence.p': 'Wherever possible I pay for my own stays. When a hotel hosts me, I say so in the review — and it never changes the score. No paid placements, no affiliate links, no scores in exchange for access.',
     'score.about.title': 'Who’s behind the score',
-    'score.about.p': 'I’m Konrad Xu — trained inside hotels (Le Méridien Munich, Aman Shanghai) and heading to EHL Lausanne. The score reflects that training: the view from behind the desk, not just in front of it.',
+    'score.about.p': 'I’m Konrad Xu — I have worked inside hotels (Le Méridien Munich, Aman Shanghai) and am heading to EHL Lausanne. The score reflects that experience: the view from behind the desk, not just in front of it.',
     'score.about.link': 'More about me',
+    'home.hero.label': 'Luxury hotels in Europe',
+    'home.hero.h1': 'Europe’s finest hotels,<br>reviewed by a <b>hotelier</b>.',
+    // ALT-Variante B: 'Written from the staff side of the door, not the guest side — service, design, food and location, measured the way the industry measures itself. Starting with Munich.'
+    'home.hero.sub': 'Not a guest ticking off amenities — someone who has worked inside hotels, scoring service, design, food and location the way the industry measures itself. Starting with Munich.',
+    'home.hero.cta': 'Read the reviews',
+    'home.hero.by': 'Reviews by Konrad Xu',
+    'home.latest.title': 'Latest reviews',
+    'home.latest.all': 'All reviews',
+    'home.about.label': 'About',
+    'home.about.h': 'An insider’s guide, written by a hotelier.',
+    'home.about.p': 'I’m Konrad Xu. My fascination with hotels began at twelve and became a calling: understanding how great houses turn a stay into a memory. City Archivist is where I write it down — the hotels worth the journey, and the hidden corners of the cities around them.',
+    'home.about.cred': 'Training &amp; Background',
+    'home.about.focus': 'Europe is the focus — the perspective is international. My own path runs through Munich, Shanghai and soon Lausanne, and City Archivist is written for travellers from everywhere, with particular care for guests from China.',
+    'home.cred.meridien': 'Marriott Bonvoy · Rotation: Front Office, Housekeeping, Breakfast &amp; Banquet · 6 months',
+    'home.cred.aman': 'Internship',
+    'home.cred.ehl': 'From 2027',
+    'home.score.title': 'The Archivist Score',
+    'home.score.p': 'Four criteria, each from one to ten, averaged into a single number. No weighting, no sponsored scores — the same yardstick for every hotel.',
+    'home.cities.title': 'Cities',
+    'home.cities.sub': 'München is the first city covered end to end. The others are being written.',
+    'home.cities.volume': 'Vol. I · München',
+    'home.cities.progress': 'In progress',
+    'a11y.skip': 'Skip to content',
+    'news.optin': 'You will receive a confirmation email — the subscription only starts once you confirm it (double opt-in). Unsubscribe any time.',
+    'news.privacy': 'Privacy policy',
+    'news.notReady': 'The newsletter is being set up — nothing has been sent. Write to me directly in the meantime:',
+    'news.mailtoCta': 'Subscribe by email',
+    'news.errorSend': 'Something went wrong. Please try again later.',
+    'rev.emptyTitle': 'The first Munich reviews are coming soon.',
+    'rev.emptyText': 'Every hotel is visited in person before it appears here. Leave your email and you will hear about the first one.',
+    'rp.t.title': 'Transparency',
+    'rp.t.type': 'Type of visit',
+    'rp.t.stay': 'Overnight stay',
+    'rp.t.visitOnly': 'Visit (lobby, bar, restaurant)',
+    'rp.t.cost': 'Cost',
+    'rp.t.self': 'Paid for myself',
+    'rp.t.invited': 'Hosted by the hotel',
+    'rp.t.notice': 'Notice',
+    'rp.t.announced': 'Announced',
+    'rp.t.anonymous': 'Anonymous',
+    'rp.availability': 'Check availability',
     'nav.search': 'Search',
     'nav.back': 'Back to Home',
     'nav.allClubs': 'All Clubs',
@@ -602,12 +643,9 @@ const TRANSLATIONS = {
     'mu.req.submit': 'Send request',
     // ── Shanghai spots + reads (EN) ──
     'spots.filter.all': 'All',
-    'spots.filter.cafes': 'Cafés',
-    'spots.filter.bars': 'Bars',
     'spots.filter.walks': 'Walks',
     'spots.filter.culture': 'Culture',
     'spots.filter.food': 'Food',
-    'spots.filter.shopping': 'Shopping',
     'spots.cat.cafe': 'Café',
     'spots.cat.bar': 'Bar',
     'spots.cat.walk': 'Walk',
@@ -949,7 +987,7 @@ const TRANSLATIONS = {
     'rev.sub': 'Reviews aus erster Hand zu Europas feinsten Hotels — bewertet nach Service, Design, F&B und Lage, so wie die Branche selbst misst.',
     'rev.howScore': 'Wie ich bewerte',
     'rev.introLabel': 'Warum diese Reviews',
-    'rev.introP': 'Das sind keine Reviews eines Gastes, der Ausstattung abhakt. Sie stammen von jemandem, der in Hotels ausgebildet wurde — Front Office, Housekeeping, Frühstück, Bankett — und die Dinge bemerkt, die nur einem Hotelier auffallen. Keine Pressereisen, kein Influencer-Glanz; nur ein ehrliches Urteil, ob ein Hotel deine Nacht und dein Geld wert ist.',
+    'rev.introP': 'Das sind keine Reviews eines Gastes, der Ausstattung abhakt. Sie stammen von jemandem, der in Hotels gearbeitet hat — Front Office, Housekeeping, Frühstück, Bankett — und die Dinge bemerkt, die die meisten Gäste nie sehen. Keine Pressereisen, kein Influencer-Glanz; nur ein ehrliches Urteil, ob ein Hotel deine Nacht und dein Geld wert ist.',
     'rev.listTitle': 'Alle Reviews',
     'rev.filterLabel': 'Nach Stadt filtern',
     'rev.empty': 'Die ersten München-Reviews entstehen gerade — schau bald wieder vorbei.',
@@ -1003,8 +1041,49 @@ const TRANSLATIONS = {
     'score.independence.title': 'Unabhängigkeit',
     'score.independence.p': 'Wo möglich zahle ich meine Aufenthalte selbst. Wenn ein Hotel mich einlädt, steht das im Review — und es ändert nie die Note. Keine bezahlten Platzierungen, keine Affiliate-Links, keine Noten gegen Zugang.',
     'score.about.title': 'Wer hinter dem Score steht',
-    'score.about.p': 'Ich bin Konrad Xu — ausgebildet in Hotels (Le Méridien München, Aman Shanghai) und auf dem Weg zur EHL Lausanne. Der Score spiegelt diese Ausbildung: der Blick von hinter der Rezeption, nicht nur davor.',
+    'score.about.p': 'Ich bin Konrad Xu — ich habe in Hotels gearbeitet (Le Méridien München, Aman Shanghai) und gehe an die EHL Lausanne. Der Score spiegelt diese Erfahrung: der Blick von hinter der Rezeption, nicht nur davor.',
     'score.about.link': 'Mehr über mich',
+    'home.hero.label': 'Luxushotels in Europa',
+    'home.hero.h1': 'Europas beste Hotels,<br>bewertet von einem <b>Hotelier</b>.',
+    // ALT-Variante B: 'Geschrieben von der Personalseite der Tür aus, nicht von der Gästeseite — Service, Design, Küche und Lage, gemessen wie in der Branche. Beginnend mit München.'
+    'home.hero.sub': 'Kein Gast, der Ausstattung abhakt — jemand, der in Hotels gearbeitet hat und Service, Design, Küche und Lage so bewertet, wie die Branche selbst misst. Beginnend mit München.',
+    'home.hero.cta': 'Zu den Reviews',
+    'home.hero.by': 'Reviews von Konrad Xu',
+    'home.latest.title': 'Neueste Reviews',
+    'home.latest.all': 'Alle Reviews',
+    'home.about.label': 'Über mich',
+    'home.about.h': 'Ein Insider-Guide, geschrieben von einem Hotelier.',
+    'home.about.p': 'Ich bin Konrad Xu. Meine Faszination für Hotels begann mit zwölf und wurde zur Berufung: zu verstehen, wie große Häuser aus einem Aufenthalt eine Erinnerung machen. City Archivist ist, wo ich das festhalte — die Hotels, die die Reise wert sind, und die verborgenen Ecken der Städte drumherum.',
+    'home.about.cred': 'Ausbildung &amp; Werdegang',
+    'home.about.focus': 'Europa steht im Mittelpunkt — die Perspektive ist international. Mein eigener Weg führt über München, Shanghai und bald Lausanne; City Archivist ist für Reisende von überall geschrieben, mit besonderer Sorgfalt für Gäste aus China.',
+    'home.cred.meridien': 'Marriott Bonvoy · Rotation: Front Office, Housekeeping, Frühstück &amp; Bankett · 6 Monate',
+    'home.cred.aman': 'Praktikum',
+    'home.cred.ehl': 'Ab 2027',
+    'home.score.title': 'Der Archivist Score',
+    'home.score.p': 'Vier Kriterien, jeweils von eins bis zehn, gemittelt zu einer Zahl. Keine Gewichtung, keine gekauften Noten — für jedes Hotel derselbe Maßstab.',
+    'home.cities.title': 'Städte',
+    'home.cities.sub': 'München ist die erste vollständig abgedeckte Stadt. Die übrigen entstehen gerade.',
+    'home.cities.volume': 'Band I · München',
+    'home.cities.progress': 'In Arbeit',
+    'a11y.skip': 'Zum Inhalt springen',
+    'news.optin': 'Du erhältst eine Bestätigungs-E-Mail — die Anmeldung wird erst mit deiner Bestätigung wirksam (Double-Opt-in). Abmeldung jederzeit möglich.',
+    'news.privacy': 'Datenschutzerklärung',
+    'news.notReady': 'Der Newsletter wird gerade eingerichtet — es wurde nichts gesendet. Schreib mir solange direkt:',
+    'news.mailtoCta': 'Per E-Mail anmelden',
+    'news.errorSend': 'Da ist etwas schiefgelaufen. Bitte versuch es später noch einmal.',
+    'rev.emptyTitle': 'Die ersten Münchner Reviews erscheinen in Kürze.',
+    'rev.emptyText': 'Jedes Hotel wird persönlich besucht, bevor es hier steht. Trag dich ein, dann erfährst du vom ersten.',
+    'rp.t.title': 'Transparenz',
+    'rp.t.type': 'Art des Besuchs',
+    'rp.t.stay': 'Übernachtung',
+    'rp.t.visitOnly': 'Besuch (Lobby, Bar, Restaurant)',
+    'rp.t.cost': 'Kosten',
+    'rp.t.self': 'Selbst bezahlt',
+    'rp.t.invited': 'Vom Hotel eingeladen',
+    'rp.t.notice': 'Ankündigung',
+    'rp.t.announced': 'Angekündigt',
+    'rp.t.anonymous': 'Anonym',
+    'rp.availability': 'Verfügbarkeit prüfen',
     'nav.search': 'Suche',
     'nav.back': 'Zurück zum Start',
     'nav.allClubs': 'Alle Clubs',
@@ -1438,12 +1517,9 @@ const TRANSLATIONS = {
     'mu.req.submit': 'Anfrage senden',
     // ── Shanghai spots + reads (DE) ──
     'spots.filter.all': 'Alle',
-    'spots.filter.cafes': 'Cafés',
-    'spots.filter.bars': 'Bars',
     'spots.filter.walks': 'Spaziergänge',
     'spots.filter.culture': 'Kultur',
     'spots.filter.food': 'Essen',
-    'spots.filter.shopping': 'Shopping',
     'spots.cat.cafe': 'Café',
     'spots.cat.bar': 'Bar',
     'spots.cat.walk': 'Spaziergang',
@@ -1785,7 +1861,7 @@ const TRANSLATIONS = {
     'rev.sub': '对欧洲顶级酒店的第一手评测——从服务、设计、餐饮与位置四方面评分，以业内标准衡量。',
     'rev.howScore': '评分方式',
     'rev.introLabel': '为什么看这些评测',
-    'rev.introP': '这些评测并非出自只会逐项核对设施的客人，而是出自在酒店中受过训练的人——前厅、客房、早餐、宴会——他留意的是只有酒店人才会注意的细节。没有媒体招待，没有网红滤镜；只有一个诚实的判断：这家酒店是否值得你的一晚与你的花费。',
+    'rev.introP': '这些评测并非出自只会逐项核对设施的客人，而是出自曾在酒店一线工作过的人——前厅、客房、早餐、宴会——他留意的是大多数客人永远看不到的细节。没有媒体招待，没有网红滤镜；只有一个诚实的判断：这家酒店是否值得你的一晚与你的花费。',
     'rev.listTitle': '全部评测',
     'rev.filterLabel': '按城市筛选',
     'rev.empty': '首批慕尼黑评测正在撰写中——敬请期待。',
@@ -1839,8 +1915,49 @@ const TRANSLATIONS = {
     'score.independence.title': '独立性',
     'score.independence.p': '只要可能，我都自费入住。若酒店邀请我，我会在评测中注明——而这绝不改变分数。没有付费推广，没有返佣链接，不以分数换取接待。',
     'score.about.title': '评分的作者',
-    'score.about.p': '我是 Konrad Xu——在酒店中受训（慕尼黑艾美、上海安缦），并即将前往洛桑 EHL。这份评分正源于此：来自前台之后、而非仅仅之前的视角。',
+    'score.about.p': '我是 Konrad Xu——我曾在酒店一线工作（慕尼黑艾美、上海安缦），并即将前往洛桑 EHL。这份评分正源于这段经历：来自前台之后、而非仅仅之前的视角。',
     'score.about.link': '更多关于我',
+    'home.hero.label': '欧洲奢华酒店',
+    'home.hero.h1': '欧洲顶级酒店，<br>由<b>酒店从业者</b>亲自评测。',
+    // ALT-Variante B: '从员工通道的这一侧写起，而非客人的那一侧——服务、设计、餐饮与位置，以业内的标准衡量。从慕尼黑开始。'
+    'home.hero.sub': '不是逐项核对设施的客人，而是真正在酒店一线工作过的人，以业内标准评判服务、设计、餐饮与位置。从慕尼黑开始。',
+    'home.hero.cta': '阅读评测',
+    'home.hero.by': '评测：Konrad Xu',
+    'home.latest.title': '最新评测',
+    'home.latest.all': '全部评测',
+    'home.about.label': '关于',
+    'home.about.h': '一份内行人指南，由酒店从业者亲笔。',
+    'home.about.p': '我是 Konrad Xu。我对酒店的着迷始于十二岁，并逐渐成为一种使命：理解顶级酒店如何把一次入住变成一段回忆。City Archivist 就是我记录这一切的地方——值得专程前往的酒店，以及它们所在城市的隐秘角落。',
+    'home.about.cred': '专业背景',
+    'home.about.focus': '聚焦欧洲，视野国际。我的脚步从慕尼黑到上海，不久将抵达洛桑；City Archivist 为世界各地的旅行者而写，并特别用心于来自中国的客人。',
+    'home.cred.meridien': '万豪 Bonvoy · 轮岗：前厅、客房、早餐与宴会 · 6 个月',
+    'home.cred.aman': '实习',
+    'home.cred.ehl': '2027 年起',
+    'home.score.title': 'Archivist 评分',
+    'home.score.p': '四项标准，每项一到十分，取平均得出一个分数。没有加权，没有赞助分数——对每家酒店都是同一把尺。',
+    'home.cities.title': '城市',
+    'home.cities.sub': '慕尼黑是首座完整覆盖的城市，其余正在撰写中。',
+    'home.cities.volume': '第一卷 · 慕尼黑',
+    'home.cities.progress': '制作中',
+    'a11y.skip': '跳至正文',
+    'news.optin': '你将收到一封确认邮件——只有点击确认后订阅才会生效（双重确认）。可随时退订。',
+    'news.privacy': '隐私政策',
+    'news.notReady': '订阅功能正在配置中——你的信息尚未发送。这段时间可以直接写信给我：',
+    'news.mailtoCta': '通过邮件订阅',
+    'news.errorSend': '出了点问题，请稍后再试。',
+    'rev.emptyTitle': '首批慕尼黑评测即将发布。',
+    'rev.emptyText': '每一家酒店都经过亲自到访后才会出现在这里。留下邮箱，第一篇发布时你会第一时间知道。',
+    'rp.t.title': '透明声明',
+    'rp.t.type': '到访方式',
+    'rp.t.stay': '入住过夜',
+    'rp.t.visitOnly': '到访（大堂、酒吧、餐厅）',
+    'rp.t.cost': '费用',
+    'rp.t.self': '自费',
+    'rp.t.invited': '由酒店招待',
+    'rp.t.notice': '是否告知',
+    'rp.t.announced': '已告知',
+    'rp.t.anonymous': '匿名',
+    'rp.availability': '查询空房',
     'nav.search': '搜索',
     'nav.back': '返回首页',
     'nav.allClubs': '所有夜店',
@@ -2274,12 +2391,9 @@ const TRANSLATIONS = {
     'mu.req.submit': '发送申请',
     // ── Shanghai spots + reads (ZH) ──
     'spots.filter.all': '全部',
-    'spots.filter.cafes': '咖啡馆',
-    'spots.filter.bars': '酒吧',
     'spots.filter.walks': '漫步',
     'spots.filter.culture': '文化',
     'spots.filter.food': '美食',
-    'spots.filter.shopping': '购物',
     'spots.cat.cafe': '咖啡馆',
     'spots.cat.bar': '酒吧',
     'spots.cat.walk': '漫步',
@@ -2555,15 +2669,65 @@ const LANG_LABELS = {
   zh: { native: '中文',     code: '中文', english: 'Chinese' },
 };
 
+/* Correct BCP-47 tags for <html lang>. 'zh' alone is ambiguous —
+   zh-Hans (Simplified) is what we actually publish. */
+const HTML_LANG = { en: 'en', de: 'de', zh: 'zh-Hans' };
+
 function getCurrentLang() {
   const saved = localStorage.getItem(LANG_KEY);
   return SUPPORTED_LANGS.includes(saved) ? saved : null;
 }
 
+/* ?lang=de|en|zh — the URL the hreflang tags point at. Without this the
+   language variants would all render whatever was last stored locally. */
+function getUrlLang() {
+  try {
+    const p = new URLSearchParams(window.location.search).get('lang');
+    return SUPPORTED_LANGS.includes(p) ? p : null;
+  } catch (_) { return null; }
+}
+
+function setHtmlLang(lang) {
+  document.documentElement.lang = HTML_LANG[lang] || lang;
+  ensureCjkFont(lang);
+}
+
+/* The Noto SC webfonts are large (full CJK glyph sets). German and English
+   visitors never need them, so they are only fetched once Chinese is
+   actually selected — and only once per page. */
+function ensureCjkFont(lang) {
+  if (lang !== 'zh') return;
+  if (document.getElementById('ca-cjk-font')) return;
+  const l = document.createElement('link');
+  l.id = 'ca-cjk-font';
+  l.rel = 'stylesheet';
+  l.href = 'https://fonts.googleapis.com/css2'
+         + '?family=Noto+Sans+SC:wght@300;400'
+         + '&family=Noto+Serif+SC:wght@400;500'
+         + '&display=swap';
+  document.head.appendChild(l);
+}
+
+/* Give each language variant its own canonical + og:url, matching hreflang.
+   Only when the visitor actually arrived on a ?lang= URL — otherwise the
+   static canonical in the HTML stays authoritative (rewriting it on the
+   plain URL would point every page at a query-string variant). */
+function syncLangUrls(lang) {
+  if (!getUrlLang()) return;
+  try {
+    const url = window.location.origin + window.location.pathname + '?lang=' + lang;
+    const can = document.querySelector('link[rel="canonical"]');
+    if (can) can.setAttribute('href', url);
+    const og = document.querySelector('meta[property="og:url"]');
+    if (og) og.setAttribute('content', url);
+  } catch (_) { /* no-op */ }
+}
+
 function setLang(lang) {
   if (!SUPPORTED_LANGS.includes(lang)) return;
   localStorage.setItem(LANG_KEY, lang);
-  document.documentElement.lang = lang;
+  setHtmlLang(lang);
+  syncLangUrls(lang);
   applyLang(lang);
   closeLangModal();
 }
@@ -2739,7 +2903,7 @@ function injectPopupStyles() {
       font-family: 'Jost', sans-serif;
       font-size: 9px; font-weight: 300;
       letter-spacing: 0.36em; text-transform: uppercase;
-      color: rgba(248,245,239,0.4);
+      color: rgba(248,245,239,0.55);
       margin-bottom: 1rem;
     }
     .ca-modal-title {
@@ -2754,7 +2918,7 @@ function injectPopupStyles() {
       font-family: 'Jost', sans-serif;
       font-size: 11px; font-weight: 300;
       letter-spacing: 0.08em;
-      color: rgba(248,245,239,0.38);
+      color: rgba(248,245,239,0.55);
       margin-bottom: 3.5rem;
     }
     .ca-modal-close {
@@ -2791,7 +2955,7 @@ function injectPopupStyles() {
       font-family: 'Jost', sans-serif;
       font-size: 9.5px; font-weight: 300;
       letter-spacing: 0.28em; text-transform: uppercase;
-      color: rgba(248,245,239,0.35);
+      color: rgba(248,245,239,0.55);
       transition: color 0.3s;
     }
     /* subtle gold underline on hover/active — no italic */
@@ -3369,57 +3533,70 @@ function bindNewsletter() {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const lang = getCurrentLang() || 'en';
-    const dict = TRANSLATIONS[lang];
-    const nameEl  = form.querySelector('[name="name"]');
+    const dict = TRANSLATIONS[lang] || TRANSLATIONS.en;
     const emailEl = form.querySelector('[name="email"]');
+    const nameEl  = form.querySelector('[name="name"]');   // optional - not every form has one
     const msgEl   = document.getElementById('newsletter-msg');
 
-    // ── SECURITY: silently drop bot submissions ──
+    const say = (key, state) => {
+      if (!msgEl) return;
+      msgEl.textContent = dict[key] || key;
+      msgEl.dataset.state = state;
+    };
+
+    // SECURITY: silently drop bot submissions (fake success)
     if (isHoneypotTripped(form) || isTooFast(form)) {
-      msgEl.textContent = dict['news.success'];  // fake success — bots learn nothing
-      msgEl.dataset.state = 'ok';
-      form.reset();
-      stampFormLoadTime(form);
-      return;
+      say('news.success', 'ok'); form.reset(); stampFormLoadTime(form); return;
     }
-    // ── SECURITY: rate-limit ──
-    if (hitRateLimit()) {
-      msgEl.textContent = dict['news.rateLimit'] || 'Too many requests. Try again later.';
-      msgEl.dataset.state = 'error';
-      return;
-    }
+    if (hitRateLimit()) { say('news.rateLimit', 'error'); return; }
 
-    const name  = nameEl.value.trim();
-    const email = emailEl.value.trim();
-    const ok    = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const email = (emailEl ? emailEl.value : '').trim();
+    const name  = (nameEl ? nameEl.value : '').trim();
 
-    // ── INPUT SANITISATION: limit length, strip control chars ──
-    if (name.length > 100 || email.length > 200) {
-      msgEl.textContent = dict['news.errorName'];
-      msgEl.dataset.state = 'error';
-      return;
-    }
-    const safeName = name.replace(/[ -<>]/g, '').slice(0, 100);
+    if (email.length > 200 || name.length > 100) { say('news.errorEmail', 'error'); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { say('news.errorEmail', 'error'); return; }
+    if (nameEl && !name) { say('news.errorName', 'error'); return; }
 
-    if (!safeName) { msgEl.textContent = dict['news.errorName'];  msgEl.dataset.state = 'error'; return; }
-    if (!ok)       { msgEl.textContent = dict['news.errorEmail']; msgEl.dataset.state = 'error'; return; }
-
+    const safeName = name.replace(/[<>]/g, '').slice(0, 100);
     const payload = { name: safeName, email, lang, ts: new Date().toISOString() };
 
-    // Local backup
-    const list = JSON.parse(localStorage.getItem(NEWSLETTER_KEY) || '[]');
-    list.push(payload);
-    localStorage.setItem(NEWSLETTER_KEY, JSON.stringify(list));
+    // Local backup so nothing is lost even if the provider is down
+    try {
+      const list = JSON.parse(localStorage.getItem(NEWSLETTER_KEY) || '[]');
+      list.push(payload);
+      localStorage.setItem(NEWSLETTER_KEY, JSON.stringify(list));
+    } catch (_) { /* storage blocked */ }
 
-    // Remote endpoint (Formspree etc.) if configured
-    const endpoint = form.getAttribute('data-endpoint');
-    const valid = endpoint && /^https:\/\//.test(endpoint) && !/PLACEHOLDER/i.test(endpoint);
-    if (valid) await postToEndpoint(endpoint, payload);
+    // Provider: central config in ca.js (CA_NEWSLETTER); form attribute as fallback
+    const cfg = (typeof window !== 'undefined' && window.CA_NEWSLETTER) || {};
+    const endpoint = String(cfg.endpoint || form.getAttribute('data-endpoint') || '').trim();
+    const configured = /^https:\/\//.test(endpoint) && !/PLACEHOLDER|TODO|YOUR-/i.test(endpoint);
 
-    msgEl.textContent = dict['news.success'];
-    msgEl.dataset.state = 'ok';
-    form.reset();
-    stampFormLoadTime(form);
+    // Not configured yet -> be honest and offer mailto, never a fake success
+    if (!configured) {
+      say('news.notReady', 'error');
+      const mail = cfg.mailto || '';
+      if (mail && msgEl) {
+        const a = document.createElement('a');
+        a.href = 'mailto:' + mail
+               + '?subject=' + encodeURIComponent('Newsletter')
+               + '&body=' + encodeURIComponent(email);
+        a.textContent = dict['news.mailtoCta'] || 'E-Mail';
+        a.className = 'lk lk--plain';
+        a.style.marginLeft = '8px';
+        msgEl.appendChild(a);
+      }
+      return;
+    }
+
+    const sent = await postToEndpoint(endpoint, payload);
+    if (sent) {
+      say('news.success', 'ok');
+      form.reset();
+      stampFormLoadTime(form);
+    } else {
+      say('news.errorSend', 'error');
+    }
   });
 }
 
@@ -3435,14 +3612,22 @@ function bindBaariaForm() {
    ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
   injectPopupStyles();
-  const lang = getCurrentLang();
+  // ?lang= in the URL wins (that is what hreflang points at and what a
+  // crawler or a shared link requests); otherwise the stored choice.
+  const urlLang = getUrlLang();
+  const lang = urlLang || getCurrentLang();
+  if (urlLang) {
+    try { localStorage.setItem(LANG_KEY, urlLang); } catch (_) {}
+  }
   if (!lang) {
     applyLang('en');
-    document.documentElement.lang = 'en';
+    setHtmlLang('en');
+    syncLangUrls('en');
     showWelcomePopup();
   } else {
     applyLang(lang);
-    document.documentElement.lang = lang;
+    setHtmlLang(lang);
+    syncLangUrls(lang);
   }
 
   // Wire any language-trigger buttons → elegant nav dropdown
