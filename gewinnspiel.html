@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FBFBF9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121210" media="(prefers-color-scheme: dark)">
+<meta name="description" content="Die BEATWINGS Adventskalender-Gewinnspiele 2026 auf Instagram und TikTok – Ablauf, Gewinne und vollständige Teilnahmebedingungen.">
+<title>Adventskalender-Gewinnspiele – BEATWINGS</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 26c-3.5-9-12.5-12.5-18-9 1.5 7 8.5 12.5 18 9Z' fill='%23BFE34F'/%3E%3Cpath d='M24 26c3.5-9 12.5-12.5 18-9-1.5 7-8.5 12.5-18 9Z' fill='%23BFE34F'/%3E%3Ccircle cx='24' cy='14' r='3.2' fill='%23131313'/%3E%3Cpath d='M24 17.4v16' stroke='%23131313' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FBFBF9; --bg-2:#F2F2EE; --card:#FFFFFF; --line:#E3E3DD; --line-2:#EDEDE8;
+    --ink:#131313; --text:#55554F; --mute:#86867E;
+    --lime:#BFE34F; --lime-ink:#1E2606; --amber:#E07B2C; --amber-soft:#FBE9D8;
+    --ease:cubic-bezier(.22,.68,.26,1); --grain:.028;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#121210; --bg-2:#191916; --card:#1C1C19; --line:#2C2C27; --line-2:#232320;
+      --ink:#F4F3EE; --text:#B6B5AC; --mute:#8B8A82;
+      --lime:#D8F56F; --lime-ink:#1A2206; --amber:#FF9F3A; --amber-soft:#2E2015; --grain:.05;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#121210; --bg-2:#191916; --card:#1C1C19; --line:#2C2C27; --line-2:#232320;
+    --ink:#F4F3EE; --text:#B6B5AC; --mute:#8B8A82;
+    --lime:#D8F56F; --lime-ink:#1A2206; --amber:#FF9F3A; --amber-soft:#2E2015; --grain:.05;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--bg); color:var(--text); font-family:'Archivo',system-ui,sans-serif; font-size:15px; line-height:1.72;}
+  a{color:inherit;}
+  img{display:block; max-width:100%;}
+  h1,h2,h3{color:var(--ink); margin:0; font-family:'Bricolage Grotesque','Archivo',sans-serif; font-weight:700;
+           letter-spacing:-.035em; line-height:1.03;}
+  .pad{padding-inline:clamp(18px,4.6vw,60px);}
+  .kicker{font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--mute); font-weight:600;}
+  .wrap{max-width:1180px; margin:0 auto;}
+
+  .grain{position:fixed; inset:0; z-index:90; pointer-events:none; opacity:var(--grain);
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+  .anim .up{opacity:0; transform:translateY(22px);}
+  .anim .up.in{opacity:1; transform:none; transition:opacity .85s var(--ease) var(--d,0ms), transform .9s var(--ease) var(--d,0ms);}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .anim .up{opacity:1 !important; transform:none !important; transition:none !important;}
+  }
+
+
+  /* ---------- größere Tippflächen auf dem Handy ---------- */
+  @media (max-width:920px){
+    footer nav a{display:inline-block; padding-block:9px;}
+    footer nav{gap:14px 22px;}
+    .head a,.sechead a{display:inline-block; padding-block:8px;}
+    .hl{padding-block:17px;}
+  }
+
+  /* ---------- Navigation auf dem Handy ---------- */
+  .mobnav{display:none;}
+  @media (max-width:920px){
+    .mobnav{display:flex; gap:20px; overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch;
+            padding-block:12px; border-bottom:1px solid var(--line); background:var(--bg);}
+    .mobnav::-webkit-scrollbar{display:none;}
+    .mobnav a{font-size:13.5px; color:var(--text); white-space:nowrap; padding-block:4px; text-decoration:none;}
+    .mobnav a.on{color:var(--ink); border-bottom:2px solid var(--lime);}
+  }
+
+  header{position:sticky; top:0; z-index:40; background:color-mix(in srgb, var(--bg) 88%, transparent);
+         backdrop-filter:blur(14px); border-bottom:1px solid transparent; transition:border-color .35s var(--ease);}
+  header.stuck{border-bottom-color:var(--line);}
+  .bar{display:flex; align-items:center; justify-content:space-between; gap:18px; padding-block:15px;}
+  .brand{display:flex; align-items:center; gap:10px; text-decoration:none;}
+  .brand svg{width:25px; height:25px;}
+  .brand span{font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:13px; letter-spacing:.2em;
+              text-transform:uppercase; color:var(--ink);}
+  nav.top{display:flex; gap:24px;}
+  nav.top a{font-size:13px; color:var(--text); text-decoration:none;}
+  nav.top a:hover,nav.top a.on{color:var(--ink);}
+  .book{font-size:12.5px; font-weight:600; border:1px solid var(--ink); color:var(--ink); padding:10px 17px;
+        text-decoration:none; white-space:nowrap; transition:background .3s var(--ease), color .3s var(--ease);}
+  .book:hover{background:var(--ink); color:var(--bg);}
+  @media (max-width:920px){ nav.top{display:none;} }
+
+  .shot{position:relative; overflow:hidden; background:var(--bg-2);}
+  .shot img{width:100%; height:100%; object-fit:cover; filter:saturate(.94) contrast(1.05);}
+  .cta{display:inline-flex; align-items:center; gap:10px; background:var(--lime); color:var(--lime-ink);
+       font-weight:600; font-size:13.5px; padding:15px 24px; text-decoration:none; border:none; cursor:pointer;
+       transition:transform .3s var(--ease);}
+  .cta:hover{transform:translateY(-2px);}
+  .cta.plain{background:transparent; color:var(--ink); border:1px solid var(--line);}
+
+  /* ----- Kopf ----- */
+  .top{display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(24px,4vw,60px); align-items:center;
+       padding-block:clamp(34px,5vw,72px); border-bottom:1px solid var(--line);}
+  @media (max-width:880px){ .top{grid-template-columns:1fr;} }
+  .top h1{font-size:clamp(32px,5.2vw,62px); margin-top:14px; max-width:16ch;}
+  .top p{margin:20px 0 0; max-width:48ch;}
+  .top .shot{aspect-ratio:4/3;}
+  .top .badge{position:absolute; left:0; bottom:0; background:var(--lime); color:var(--lime-ink);
+              font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:13px; padding:11px 16px;}
+
+  /* ----- zwei Gewinnspiele ----- */
+  .two{display:grid; grid-template-columns:1fr 1fr; gap:clamp(16px,2.4vw,30px); padding-block:clamp(36px,5vw,72px);
+       border-bottom:1px solid var(--line);}
+  @media (max-width:860px){ .two{grid-template-columns:1fr;} }
+  .gs{border:1px solid var(--line); padding:clamp(20px,2.6vw,32px); background:var(--card); display:flex; flex-direction:column;}
+  .gs .no{font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:12px; letter-spacing:.14em;
+          text-transform:uppercase; color:var(--amber);}
+  .gs h2{font-size:clamp(22px,2.8vw,32px); margin-top:10px;}
+  .gs .rows{margin-top:18px;}
+  .gs .row{display:grid; grid-template-columns:130px 1fr; gap:14px; padding-block:10px; border-top:1px solid var(--line-2);
+           font-size:13.5px;}
+  .gs .row:first-child{border-top:none;}
+  .gs .row dt{color:var(--mute); font-size:12px; letter-spacing:.1em; text-transform:uppercase;}
+  .gs .row dd{margin:0; color:var(--ink); font-weight:500;}
+  .gs .prizes{margin-top:18px; border-top:2px solid var(--ink); padding-top:14px;}
+  .gs .prize{display:grid; grid-template-columns:auto 1fr; gap:12px; padding-block:7px; font-size:13.5px;}
+  .gs .prize b{font-family:'Bricolage Grotesque',sans-serif; color:var(--amber); font-size:12.5px;}
+  @media (max-width:560px){ .gs .row{grid-template-columns:1fr; gap:3px;} }
+
+  /* ----- Teilnahme ----- */
+  .how{padding-block:clamp(40px,5.5vw,80px); border-bottom:1px solid var(--line);}
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(16px,2.4vw,32px); margin-top:26px;}
+  @media (max-width:820px){ .steps{grid-template-columns:1fr; max-width:520px;} }
+  .step{border-top:2px solid var(--ink); padding-top:16px;}
+  .step b{font-family:'Bricolage Grotesque',sans-serif; font-size:12px; letter-spacing:.14em; color:var(--amber);}
+  .step h3{font-size:19px; margin-top:9px;}
+  .step p{margin:9px 0 0; font-size:13.5px; color:var(--mute);}
+  .rules{margin-top:30px; display:grid; gap:0; max-width:760px;}
+  .rule{display:grid; grid-template-columns:auto 1fr; gap:12px; padding-block:11px; border-top:1px solid var(--line-2); font-size:13.5px;}
+  .rule:last-child{border-bottom:1px solid var(--line-2);}
+  .rule i{font-style:normal; color:var(--lime-ink); background:var(--lime); width:19px; height:19px; display:flex;
+          align-items:center; justify-content:center; font-size:11px; font-weight:700; margin-top:2px;}
+  .rule.no i{background:var(--amber-soft); color:var(--amber);}
+
+  /* ----- Hinweis ----- */
+  .warn{border:1px solid var(--amber); background:var(--amber-soft); padding:clamp(18px,2.4vw,28px);
+        margin-block:clamp(30px,4vw,48px);}
+  .warn h3{font-size:17px; color:var(--amber);}
+  .warn p{margin:10px 0 0; font-size:13.5px; max-width:70ch; color:var(--ink);}
+
+  /* ----- Bedingungen ----- */
+  .terms{padding-block:clamp(40px,5.5vw,80px);}
+  .terms .lead{max-width:64ch; margin-top:16px;}
+  .block{border-top:1px solid var(--line); padding-block:24px; display:grid; grid-template-columns:210px 1fr;
+         gap:clamp(16px,3vw,44px); align-items:start;}
+  @media (max-width:760px){ .block{grid-template-columns:1fr; gap:10px;} }
+  .block h3{font-size:16px;}
+  .block .num{font-family:'Bricolage Grotesque',sans-serif; font-size:12px; color:var(--amber); display:block; margin-bottom:6px;}
+  .block p{margin:0 0 12px; font-size:14px; max-width:66ch;}
+  .block p:last-child{margin-bottom:0;}
+  .block ul{margin:0 0 12px; padding-left:1.1em; font-size:14px; max-width:66ch;}
+  .block li{margin-bottom:6px;}
+  .block h4{margin:16px 0 6px; font-size:14px; color:var(--ink); font-family:'Archivo'; font-weight:600;}
+  .tablewrap{overflow-x:auto; margin:0 0 14px;}
+  table{border-collapse:collapse; width:100%; min-width:460px; font-size:13.5px;}
+  th,td{text-align:left; padding:10px 12px; border-bottom:1px solid var(--line-2); vertical-align:top;}
+  th{font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--mute); font-weight:600;
+     border-bottom:1px solid var(--line);}
+  td:first-child{color:var(--ink); font-weight:500; white-space:nowrap;}
+
+  footer{border-top:1px solid var(--line); padding-block:30px; display:flex; justify-content:space-between;
+         gap:16px; flex-wrap:wrap; align-items:center;}
+  footer nav{display:flex; gap:20px; flex-wrap:wrap;}
+  footer a{font-size:12px; color:var(--mute); text-decoration:none;}
+  footer small{font-size:12px; color:var(--mute);}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="pad">
+  <div class="bar">
+    <a class="brand" href="beatwings.html">
+      <svg viewBox="0 0 48 48" fill="none">
+        <path d="M24 26c-3.5-9-12.5-12.5-18-9 1.5 7 8.5 12.5 18 9Z" fill="var(--lime)" stroke="var(--ink)" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M24 26c3.5-9 12.5-12.5 18-9-1.5 7-8.5 12.5-18 9Z" fill="var(--lime)" stroke="var(--ink)" stroke-width="1.5" stroke-linejoin="round"/>
+        <circle cx="24" cy="14" r="3.2" fill="var(--ink)"/>
+        <path d="M24 17.4v16M20.6 33.4h7" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      <span>Beatwings</span>
+    </a>
+    <nav class="top">
+      <a href="beatwings.html#trips">Reisen</a>
+      <a href="beatwings.html#moments">Moments</a>
+      <a href="beatwings.html#news">News</a>
+      <a class="on" href="gewinnspiel.html">Gewinnspiel</a>
+      <a href="beatwings.html#waitlist">Waitlist</a>
+    </nav>
+    <a class="book" href="https://booking.beatwings.com" target="_blank" rel="noopener">Booking ↗</a>
+  </div>
+</header>
+
+<nav class="mobnav pad">
+  <a href="beatwings.html#trips">Reisen</a>
+  <a href="beatwings.html#moments">Moments</a>
+  <a href="beatwings.html#news">News</a>
+  <a class="on" href="gewinnspiel.html">Gewinnspiel</a>
+  <a href="beatwings.html#waitlist">Waitlist</a>
+</nav>
+
+<main class="wrap">
+
+  <!-- ===== Kopf ===== -->
+  <section class="pad top">
+    <div>
+      <span class="kicker up">Adventskalender 2026</span>
+      <h1 class="up" style="--d:60ms">Zwei Gewinnspiele im BEATWINGS-Adventskalender</h1>
+      <p class="up" style="--d:140ms">Vom 1. bis 24. Dezember posten wir täglich auf <b>@beatwingsadventure</b> bei Instagram und TikTok.
+        Teilnahme per Kommentar unter den Adventskalender-Posts — kostenlos, unabhängig von einer Buchung und weltweit möglich.</p>
+      <div class="up" style="--d:220ms; display:flex; gap:14px; flex-wrap:wrap; margin-top:26px;">
+        <a class="cta" href="https://www.instagram.com/beatwingsadventure/" target="_blank" rel="noopener">Instagram ↗</a>
+        <a class="cta plain" href="https://www.tiktok.com/@beatwingsadventure" target="_blank" rel="noopener">TikTok ↗</a>
+        <a class="cta plain" href="#bedingungen">Teilnahmebedingungen</a>
+      </div>
+    </div>
+    <div class="up" style="--d:160ms">
+      <div class="shot">
+        <img src="bw-crowd.jpg" alt="BEATWINGS Festival">
+        <span class="badge">Teilnahme kostenlos</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Die zwei Gewinnspiele ===== -->
+  <section class="pad two">
+
+    <div class="gs up">
+      <span class="no">Gewinnspiel 1</span>
+      <h2>Nikolaus</h2>
+      <dl class="rows">
+        <div class="row"><dt>Gewertete Posts</dt><dd>01.12. – 06.12.2026</dd></div>
+        <div class="row"><dt>Teilnahmeschluss</dt><dd>06.12.2026, 23:59 Uhr (MEZ)</dd></div>
+        <div class="row"><dt>Mindestalter</dt><dd>18 Jahre</dd></div>
+        <div class="row"><dt>Auslosung</dt><dd>19.12.2026</dd></div>
+      </dl>
+      <div class="prizes">
+        <div class="prize"><b>1. Preis</b><span>Bauchtasche, Pullover und T-Shirt</span></div>
+        <div class="prize"><b>2. Preis</b><span>Pullover und T-Shirt</span></div>
+        <div class="prize"><b>3. Preis</b><span>T-Shirt</span></div>
+      </div>
+    </div>
+
+    <div class="gs up" style="--d:100ms">
+      <span class="no">Gewinnspiel 2</span>
+      <h2>Weihnachten</h2>
+      <dl class="rows">
+        <div class="row"><dt>Gewertete Posts</dt><dd>07.12. – 24.12.2026</dd></div>
+        <div class="row"><dt>Teilnahmeschluss</dt><dd>24.12.2026, 23:59 Uhr (MEZ)</dd></div>
+        <div class="row"><dt>Mindestalter</dt><dd>20 Jahre</dd></div>
+        <div class="row"><dt>Auslosung</dt><dd>29.12.2026</dd></div>
+      </dl>
+      <div class="prizes">
+        <div class="prize"><b>1. Preis</b><span>Reisegutschein über 500 €</span></div>
+        <div class="prize"><b>2. Preis</b><span>Reisegutschein über 250 €</span></div>
+        <div class="prize"><b>3. Preis</b><span>Reisegutschein über 150 €</span></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===== So nimmst du teil ===== -->
+  <section class="pad how">
+    <span class="kicker up">So nimmst du teil</span>
+    <h2 class="up" style="--d:60ms; font-size:clamp(24px,3.2vw,38px); margin-top:12px;">Folgen, kommentieren, markieren</h2>
+
+    <div class="steps">
+      <div class="step up">
+        <b>01</b>
+        <h3>@beatwingsadventure folgen</h3>
+        <p>Auf der Plattform, auf der du kommentierst — Instagram oder TikTok.</p>
+      </div>
+      <div class="step up" style="--d:100ms">
+        <b>02</b>
+        <h3>Unter einem Adventskalender-Post kommentieren</h3>
+        <p>Im Kommentar muss eine andere reale Person per @-Markierung markiert sein.</p>
+      </div>
+      <div class="step up" style="--d:200ms">
+        <b>03</b>
+        <h3>Lose sammeln</h3>
+        <p>Jeder gültige Kommentar ist ein Los. Wer an mehreren Tagen mitmacht, erhöht seine Chance.</p>
+      </div>
+    </div>
+
+    <div class="rules up" style="--d:140ms">
+      <div class="rule"><i>✓</i><span>Pro Person, Post und Plattform zählen maximal <b>3 Lose</b> — jedes Los braucht einen eigenen Kommentar mit einer anderen markierten Person.</span></div>
+      <div class="rule"><i>✓</i><span>Mehrere Markierungen in einem Kommentar ergeben nur ein Los.</span></div>
+      <div class="rule"><i>✓</i><span>Instagram und TikTok werden getrennt gewertet — auf beiden Plattformen kannst du Lose sammeln.</span></div>
+      <div class="rule no"><i>✕</i><span>Nicht gewertet: Markierungen der eigenen Person, des Veranstalters oder von Fake-Accounts.</span></div>
+      <div class="rule no"><i>✕</i><span>Nicht gewertet: Kommentare in Livestreams, Story-Reposts, Shares, Likes sowie vor der Auslosung gelöschte Kommentare.</span></div>
+    </div>
+
+    <div class="warn up" style="--d:200ms">
+      <h3>Vorsicht vor gefälschten Gewinn-Nachrichten</h3>
+      <p>Wir melden uns ausschließlich per Direktnachricht vom offiziellen Account <b>@beatwingsadventure</b> der jeweiligen Plattform.
+        Wir fragen niemals nach Zahlungsdaten oder Passwörtern, verlangen keine Gebühren und verschicken keine Links zu fremden Websites.
+        Nachrichten anderer Accounts, die einen Gewinn versprechen, stammen nicht von uns.</p>
+    </div>
+  </section>
+
+  <!-- ===== Teilnahmebedingungen ===== -->
+  <section class="pad terms" id="bedingungen">
+    <span class="kicker up">Rechtliches</span>
+    <h2 class="up" style="--d:60ms; font-size:clamp(24px,3.2vw,38px); margin-top:12px;">Teilnahmebedingungen BEATWINGS Adventskalender-Gewinnspiele 2026</h2>
+
+    <div class="block up">
+      <div><span class="num">01</span><h3>Veranstalter</h3></div>
+      <div>
+        <p>Veranstalter der Gewinnspiele ist die BEATWINGS GmbH, Hafenweg 16, 48155 Münster, Deutschland.
+          Registergericht: Amtsgericht Münster, HRB 23224. Fragen zu den Gewinnspielen beantworten wir unter
+          <a href="mailto:info@beatwings.com">info@beatwings.com</a>.</p>
+        <p>Die Gewinnspiele stehen in keiner Verbindung zu Instagram, Meta Platforms, TikTok oder ByteDance. Sie werden von
+          diesen weder gesponsert, unterstützt noch organisiert. Ansprechpartner für alle Fragen ist ausschließlich der Veranstalter.</p>
+      </div>
+    </div>
+
+    <div class="block up">
+      <div><span class="num">02</span><h3>Gewinnspiele und Teilnahmezeitraum</h3></div>
+      <div>
+        <p>Im Rahmen des BEATWINGS Adventskalenders finden zwei voneinander unabhängige Gewinnspiele auf den Accounts
+          @beatwingsadventure bei Instagram und TikTok statt.</p>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Gewinnspiel</th><th>Gewertete Posts</th><th>Teilnahmeschluss</th><th>Mindestalter</th></tr></thead>
+            <tbody>
+              <tr><td>Gewinnspiel 1 (Nikolaus)</td><td>Adventskalender-Posts vom 01.12. bis 06.12.2026</td><td>06.12.2026, 23:59 Uhr (MEZ)</td><td>18 Jahre</td></tr>
+              <tr><td>Gewinnspiel 2 (Weihnachten)</td><td>Adventskalender-Posts vom 07.12. bis 24.12.2026</td><td>24.12.2026, 23:59 Uhr (MEZ)</td><td>20 Jahre</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Die Teilnahme ist jeweils ab Veröffentlichung des ersten gewerteten Posts möglich. Maßgeblich sind Datum und
+          Uhrzeit des Kommentars laut Plattform. Kommentare nach dem Teilnahmeschluss oder unter Posts außerhalb des
+          jeweiligen Zeitraums zählen für keines der beiden Gewinnspiele.</p>
+      </div>
+    </div>
+
+    <div class="block up">
+      <div><span class="num">03</span><h3>Teilnahmeberechtigung</h3></div>
+      <div>
+        <p>Teilnahmeberechtigt sind natürliche Personen weltweit, die bei Teilnahmeschluss das Mindestalter des jeweiligen
+          Gewinnspiels erreicht haben: 18 Jahre für Gewinnspiel 1 und 20 Jahre für Gewinnspiel 2. Jüngere Personen können
+          kommentieren, aber nicht gewinnen. Ausgenommen sind Personen aus Ländern, in denen die Teilnahme an Gewinnspielen
+          dieser Art gesetzlich verboten oder eingeschränkt ist.</p>
+        <p>Die Teilnahme ist kostenlos und unabhängig von einem Kauf oder einer Buchung.</p>
+        <p>Von der Teilnahme ausgeschlossen sind: Mitarbeiter*innen der BEATWINGS GmbH und deren Angehörige;
+          Gewinnspielvereine und automatisierte Gewinnspieldienste; Fake-Accounts sowie zusätzliche Accounts derselben
+          Person auf einer Plattform.</p>
+        <p>Bei Verstößen gegen diese Teilnahmebedingungen kann der Veranstalter Personen von der Teilnahme ausschließen,
+          auch nachträglich.</p>
+      </div>
+    </div>
+
+    <div class="block up">
+      <div><span class="num">04</span><h3>Gewinne</h3></div>
+      <div>
+        <p>Alle Merch-Artikel sind BEATWINGS-Artikel. Die Gutscheine sind auf booking.beatwings.com einlösbar
+          (Bedingungen in Abschnitt 7).</p>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Platz</th><th>Gewinnspiel 1 (Nikolaus)</th><th>Gewinnspiel 2 (Weihnachten)</th></tr></thead>
+            <tbody>
+              <tr><td>1. Preis</td><td>Bauchtasche, Pullover und T-Shirt</td><td>Gutschein über 500 €</td></tr>
+              <tr><td>2. Preis</td><td>Pullover und T-Shirt</td><td>Gutschein über 250 €</td></tr>
+              <tr><td>3. Preis</td><td>T-Shirt</td><td>Gutschein über 150 €</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Größe und Farbe der Merch-Artikel wählen die Gewinner*innen im Rahmen der verfügbaren Optionen selbst aus.
+          Ist ein Gewinn nicht verfügbar, kann der Veranstalter ihn durch einen gleichwertigen Gewinn ersetzen.</p>
+      </div>
+    </div>
+
+    <div class="block up">
+      <div><span class="num">05</span><h3>Teilnahme und Lose</h3></div>
+      <div>
+        <p>Voraussetzung für jede Teilnahme ist, dass die teilnehmende Person @beatwingsadventure auf der Plattform folgt,
+          auf der sie kommentiert.</p>
+        <p>Ein Los erhält, wer unter einem gewerteten Post einen Kommentar schreibt, in dem eine andere reale Person per
+          @-Markierung markiert ist. Dafür gelten folgende Regeln:</p>
+        <ul>
+          <li>Pro Person, Post und Plattform zählen maximal 3 Lose. Weitere Kommentare derselben Person unter demselben Post sind ungültig.</li>
+          <li>Jedes Los braucht einen eigenen Kommentar mit einer anderen markierten Person. Mehrere Markierungen in einem Kommentar ergeben nur ein Los.</li>
+          <li>Wer unter mehreren Posts kommentiert, sammelt pro Post Lose. Die Teilnahme an mehreren Tagen erhöht also die Gewinnchance.</li>
+          <li>Instagram und TikTok werden getrennt gewertet. Wer auf beiden Plattformen kommentiert, kann auf beiden Lose sammeln.</li>
+        </ul>
+        <p>Nicht gewertet werden: Markierungen der eigenen Person, des Veranstalters oder von Fake-Accounts; Kommentare in
+          Livestreams; Story-Reposts, Shares und Likes; Kommentare, die vor der Auslosung gelöscht wurden.</p>
+      </div>
+    </div>
+
+    <div class="block up">
+      <div><span class="num">06</span><h3>Gewinnermittlung und Benachrichtigung</h3></div>
+      <div>
+        <p>Die Gewinner*innen werden per Zufall aus allen gültigen Losen beider Plattformen ausgelost. Die Auslosung erfolgt
+          über das Tool Simpliers und wird per Bildschirmaufnahme dokumentiert. Gewinnspiel 1 wird am 19.12.2026 ausgelost,
+          Gewinnspiel 2 am 29.12.2026.</p>
+        <p>Die Benachrichtigung ist noch keine verbindliche Gewinnzusage. Vor der Zusage prüft der Veranstalter, ob alle
+          Teilnahmevoraussetzungen erfüllt sind: Folgen des Accounts, Mindestalter, Wohnsitz, Gültigkeit des Loses nach
+          Abschnitt 5 sowie kein vorheriger Gewinn. Fällt die Auslosung auf ein ungültiges Los, wird neu ausgelost.</p>
+        <p>Jede Person kann über beide Gewinnspiele hinweg nur einen Gewinn erhalten. Gewinner*innen von Gewinnspiel 1
+          dürfen bei Gewinnspiel 2 weiter kommentieren. Werden sie erneut gezogen, wird neu ausgelost.</p>
+        <p>Die Gewinner*innen werden ausschließlich per Direktnachricht vom offiziellen Account @beatwingsadventure der
+          jeweiligen Plattform benachrichtigt. Der Veranstalter fragt niemals nach Zahlungsdaten oder Passwörtern, verlangt
+          keine Gebühren und verschickt keine Links zu fremden Websites. Nachrichten anderer Accounts, die einen Gewinn
+          versprechen, stammen nicht vom Veranstalter.</p>
+        <p>Innerhalb von 5 Tagen nach der Benachrichtigung müssen die Gewinner*innen antworten und folgende Angaben machen:
+          Vor- und Nachname sowie E-Mail-Adresse; bei Gewinnspiel 1 zusätzlich Postanschrift sowie gewünschte Größe und
+          Farbe; einen Altersnachweis, zum Beispiel ein Foto des Ausweises, auf dem nur Name und Geburtsdatum sichtbar sind.</p>
+        <p>Erfolgt innerhalb der Frist keine vollständige Rückmeldung, verfällt der Gewinn und es wird neu ausgelost.
+          Mit Einwilligung der Gewinner*innen gibt der Veranstalter ihren Nutzernamen in einem Post oder einer Story bekannt.</p>
+      </div>
+    </div>
+
+    <div class="block up">
+      <div><span class="num">07</span><h3>Gewinnübergabe</h3></div>
+      <div>
+        <p>Die Merch-Gewinne werden an die angegebene Adresse verschickt. Die Versandkosten trägt der Veranstalter.
+          Zölle, Einfuhrabgaben und Gebühren beim Versand in Länder außerhalb der Europäischen Union tragen die Gewinner*innen.</p>
+        <p>Die Gutscheine werden per E-Mail verschickt. Für sie gilt:</p>
+        <ul>
+          <li>Sie sind ausschließlich auf booking.beatwings.com einlösbar, für Buchungen bis einschließlich 01.04.2027. Der Reisetermin kann auch nach diesem Datum liegen.</li>
+          <li>Es gibt keinen Mindestbuchungswert.</li>
+          <li>Sie sind nicht mit anderen Rabatten oder Aktionen kombinierbar.</li>
+          <li>Ein nicht genutzter Restwert verfällt am 01.04.2027.</li>
+          <li>Sie sind nicht übertragbar und werden nur über das Konto der Gewinner*innen eingelöst. Mitreisende können in derselben Buchung enthalten sein.</li>
+          <li>Die reisende Person muss die Alters- und Teilnahmevoraussetzungen der gebuchten Reise erfüllen.</li>
+        </ul>
+        <p>Eine Barauszahlung, Teilauszahlung oder ein Umtausch der Gewinne ist ausgeschlossen.</p>
+      </div>
+    </div>
+
+    <div class="block up">
+      <div><span class="num">08</span><h3>Datenschutz und Schlussbestimmungen</h3></div>
+      <div>
+        <h4>Datenschutz</h4>
+        <p>Der Veranstalter verarbeitet personenbezogene Daten ausschließlich zur Durchführung und Abwicklung der
+          Gewinnspiele. Für die Auslosung werden die öffentlichen Kommentare und Nutzernamen über das Tool Simpliers
+          ausgewertet. Der Altersnachweis wird nach der Prüfung gelöscht. Die übrigen Daten der Gewinner*innen werden nach
+          Abwicklung des Gewinns gelöscht, soweit keine gesetzlichen Aufbewahrungspflichten bestehen. Weitere Informationen
+          und Hinweise zu den Betroffenenrechten: <a href="#">Datenschutzerklärung</a>.</p>
+
+        <h4>Haftung</h4>
+        <p>Der Veranstalter haftet unbeschränkt bei Vorsatz und grober Fahrlässigkeit sowie bei Schäden aus der Verletzung
+          von Leben, Körper oder Gesundheit. Bei leicht fahrlässiger Verletzung wesentlicher Pflichten ist die Haftung auf
+          den vorhersehbaren, typischen Schaden begrenzt. Für technische Störungen der Plattformen oder des Auslosungstools
+          haftet der Veranstalter nicht.</p>
+
+        <h4>Vorzeitige Beendigung</h4>
+        <p>Der Veranstalter kann die Gewinnspiele aus wichtigem Grund vorzeitig beenden oder anpassen, insbesondere wenn
+          rechtliche oder technische Gründe eine ordnungsgemäße Durchführung verhindern.</p>
+
+        <h4>Anwendbares Recht</h4>
+        <p>Es gilt das Recht der Bundesrepublik Deutschland. Zwingende Verbraucherschutzvorschriften des Wohnsitzlandes
+          bleiben unberührt. Der Rechtsweg ist hinsichtlich der Ermittlung der Gewinner*innen ausgeschlossen.</p>
+
+        <h4>Salvatorische Klausel</h4>
+        <p>Sollten einzelne Bestimmungen unwirksam sein, bleibt die Gültigkeit der übrigen Bestimmungen unberührt.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="pad wrap">
+  <nav>
+    <a href="beatwings.html">Start</a><a href="beatwings.html#trips">Reisen</a><a href="gewinnspiel.html">Gewinnspiel</a>
+    <a href="#">FAQ</a><a href="#">Impressum</a><a href="#">AGB</a><a href="#">Datenschutz</a>
+  </nav>
+  <small>©2026 BEATWINGS · info@beatwings.com</small>
+</footer>
+
+<script>
+(function(){
+  document.documentElement.classList.add('anim');
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {rootMargin:'0px 0px -8% 0px', threshold:.08});
+  document.querySelectorAll('.up').forEach(function(el){ io.observe(el); });
+  var head = document.querySelector('header');
+  addEventListener('scroll', function(){ head.classList.toggle('stuck', scrollY > 8); }, {passive:true});
+})();
+</script>
+</body>
+</html>
