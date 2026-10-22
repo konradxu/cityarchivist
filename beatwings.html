@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#FBFBF9" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121210" media="(prefers-color-scheme: dark)">
-<meta name="description" content="BEATWINGS – kuratierte Festivalreisen nach Thailand. Tomorrowland Thailand, Siam Songkran und EDC Thailand mit Tickets, Hotels und Transfers.">
+<meta name="description" content="BEATWINGS – kuratierte Festivalreisen nach Thailand.">
 <title>BEATWINGS</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 26c-3.5-9-12.5-12.5-18-9 1.5 7 8.5 12.5 18 9Z' fill='%23BFE34F'/%3E%3Cpath d='M24 26c3.5-9 12.5-12.5 18-9-1.5 7-8.5 12.5-18 9Z' fill='%23BFE34F'/%3E%3Ccircle cx='24' cy='14' r='3.2' fill='%23131313'/%3E%3Cpath d='M24 17.4v16' stroke='%23131313' stroke-width='2'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,6 +47,7 @@
   .kicker{font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--mute); font-weight:600;}
 
   /* feines Korn – nimmt der Fläche das Digitale */
+  @media (max-width:880px){ .grain{display:none;} }
   .grain{position:fixed; inset:0; z-index:90; pointer-events:none; opacity:var(--grain);
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");}
 
@@ -60,6 +61,8 @@
   .anim .up{opacity:0; transform:translateY(24px);}
   .anim .up.in{opacity:1; transform:none; transition:opacity .85s var(--ease) var(--d,0ms), transform .9s var(--ease) var(--d,0ms);}
   .anim .wipe{animation:wipeIn 1s var(--ease) var(--d,0ms) both;}
+  /* auf dem Handy ohne Beschnitt – die abgeschnittene Zeile wirkt sonst wie ein Fehler */
+  @media (max-width:880px){ .anim .wipe{animation:riseIn .8s var(--ease) var(--d,0ms) both;} }
   @keyframes wipeIn{from{clip-path:inset(0 0 100% 0); transform:translateY(10px);}
                     to{clip-path:inset(0 0 0 0); transform:none;}}
   .anim .now{animation:riseIn .9s var(--ease) var(--d,0ms) both;}
@@ -170,7 +173,8 @@
   /* ---------- trips: liegende Strecke ---------- */
   .runway{position:relative; border-bottom:1px solid var(--line);}
   .runway .sticky{position:sticky; top:0; height:100vh; display:flex; align-items:center; overflow:hidden;}
-  .runway .track{display:flex; gap:clamp(16px,2.4vw,34px); padding-inline:clamp(18px,4.6vw,60px); will-change:transform;}
+  .runway .track{display:flex; gap:clamp(16px,2.4vw,34px); padding-inline:clamp(18px,4.6vw,60px);}
+  @media (hover:hover) and (min-width:881px){ .runway .track{will-change:transform;} }
   .card{flex:0 0 clamp(290px,38vw,560px);}
   .card .shot{aspect-ratio:3/2;}
   .card .state{display:flex; align-items:center; gap:9px; margin-top:16px; font-size:10.5px; letter-spacing:.18em;
@@ -195,9 +199,9 @@
   .runway .hint .line::after{content:""; position:absolute; inset:0; background:var(--amber); transform:scaleX(var(--p,0)); transform-origin:left;}
   @media (max-width:880px){
     .runway{height:auto !important;}
-    .runway .sticky{position:static; height:auto; padding-block:clamp(44px,8vw,64px);}
-    .runway .track{flex-direction:column; transform:none !important;}
-    .card{flex:auto; max-width:520px;}
+    .runway .sticky{position:static; height:auto; overflow:visible; display:block; padding-block:clamp(40px,7vw,60px);}
+    .runway .track{flex-direction:column; transform:none !important; width:100%; gap:34px;}
+    .card{flex:auto; width:100%; max-width:none;}
     .runway .meta{position:static; margin-bottom:18px;}
     .runway .hint{display:none;}
   }
