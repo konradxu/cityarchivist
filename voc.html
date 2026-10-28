@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Unit 5 Vokabeltrainer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&family=Caveat:wght@600;700&display=swap">
+<style>
+/* Layout: a study desk. Flashcard stage on the left, live class leaderboard pinned on the right; stacks on phones. */
+:root{
+  --desk:#e7ecf3; --desk-2:#d9e1ec; --ink:#16233b; --muted:#5a6782;
+  --card:#fdfdfb; --rule:#b9cde6; --margin:#e0525b; --line:#c9d4e3;
+  --accent:#2f5bd3; --accent-ink:#ffffff; --ok:#1f9d6b; --ok-soft:#dff4ea; --bad:#d6404b; --bad-soft:#fbe3e5;
+  --gold:#d9a521; --silver:#9aa6b8; --bronze:#c07a45; --panel:#f7f9fc;
+  --shadow:0 1px 2px rgba(22,35,59,.08),0 12px 30px -12px rgba(22,35,59,.28);
+  --f-display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --f-body:"Atkinson Hyperlegible",ui-sans-serif,system-ui,sans-serif;
+  --f-hand:"Caveat","Segoe Print","Bradley Hand",cursive;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --desk:#0f1626; --desk-2:#16203a; --ink:#e6ecf7; --muted:#9aa8c4;
+  --card:#f4f2ea; --rule:#9fb6d6; --margin:#d9535c; --line:#2a3653;
+  --accent:#7c9bff; --accent-ink:#0f1626; --ok:#3ccf92; --ok-soft:#173a2d; --bad:#ff6b75; --bad-soft:#3d1c22;
+  --panel:#141d33; --shadow:0 1px 2px rgba(0,0,0,.3),0 16px 36px -14px rgba(0,0,0,.7); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --desk:#0f1626; --desk-2:#16203a; --ink:#e6ecf7; --muted:#9aa8c4;
+  --card:#f4f2ea; --rule:#9fb6d6; --margin:#d9535c; --line:#2a3653;
+  --accent:#7c9bff; --accent-ink:#0f1626; --ok:#3ccf92; --ok-soft:#173a2d; --bad:#ff6b75; --bad-soft:#3d1c22;
+  --panel:#141d33; --shadow:0 1px 2px rgba(0,0,0,.3),0 16px 36px -14px rgba(0,0,0,.7); color-scheme:dark}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{background:radial-gradient(1200px 600px at 20% -10%,var(--desk-2),transparent 60%),var(--desk);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 40px}
+.wrap{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+header{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{display:flex;flex-direction:column;gap:2px}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
+h1{font-family:var(--f-display);font-weight:800;font-size:clamp(28px,4.4vw,40px);line-height:1.05;margin:0;text-wrap:balance}
+.who{font-size:14px;color:var(--muted)}
+.who b{color:var(--ink)}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:20px;align-items:start}
+@media (max-width:860px){.grid{grid-template-columns:minmax(0,1fr)}}
+.stage{min-width:0;display:flex;flex-direction:column;gap:16px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+button,select,input{font:inherit;color:inherit}
+.btn{appearance:none;border:0;border-radius:10px;padding:11px 18px;font-weight:700;cursor:pointer;background:var(--accent);color:var(--accent-ink);transition:transform .12s,filter .12s}
+.btn:hover{filter:brightness(1.07)}.btn:active{transform:translateY(1px)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.small{padding:7px 12px;font-size:14px}
+.btn:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+label{font-weight:700;font-size:14px;display:block;margin-bottom:6px}
+.field{display:flex;flex-direction:column}
+.text{width:100%;border:1.5px solid var(--line);background:var(--card);color:#16233b;border-radius:10px;padding:12px 14px;font-size:17px}
+select.text{cursor:pointer}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.row>.field{flex:1 1 180px;min-width:0}
+.hint{font-size:13px;color:var(--muted)}
+.err{color:var(--bad);font-size:14px;font-weight:700}
+
+/* Index card */
+.scene{perspective:1400px}
+.card{position:relative;width:100%;aspect-ratio:5/3;max-height:340px;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.2,.7,.2,1)}
+.card.flipped{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:12px;background:var(--card);box-shadow:var(--shadow);overflow:hidden;
+  background-image:linear-gradient(to bottom,transparent 0 22%,var(--margin) 22% calc(22% + 2px),transparent calc(22% + 2px)),repeating-linear-gradient(to bottom,transparent 0 31px,var(--rule) 31px 32px);
+  background-position:0 0,0 22%;color:#16233b;display:flex;flex-direction:column;padding:14px 22px}
+.face.back{transform:rotateY(180deg)}
+.face .tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#5a6782;display:flex;justify-content:space-between;gap:8px;height:22%;align-items:center}
+.face .word{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px 6px 18px}
+.front .word span{font-family:var(--f-display);font-weight:700;font-size:clamp(22px,3.6vw,34px);line-height:1.15;text-wrap:balance}
+.back .word{flex-direction:column;gap:2px}
+.back .en{font-family:var(--f-hand);font-weight:700;font-size:clamp(34px,5.6vw,54px);line-height:1;color:#23408f}
+.back .de{font-size:14px;color:#5a6782}
+.back .yours{font-size:14px;margin-top:6px}
+.face.back.ok{box-shadow:0 0 0 3px var(--ok),var(--shadow)}
+.face.back.bad{box-shadow:0 0 0 3px var(--bad),var(--shadow)}
+.stamp{position:absolute;right:18px;bottom:14px;font-family:var(--f-display);font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:6px;border:2px solid currentColor;transform:rotate(-6deg)}
+.stamp.ok{color:#1f9d6b}.stamp.bad{color:#d6404b}
+
+.topbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.progress{flex:1 1 200px;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.pill{font-size:14px;font-weight:700;padding:5px 10px;border-radius:99px;background:var(--panel);border:1px solid var(--line);font-variant-numeric:tabular-nums;white-space:nowrap}
+.pill.ok{background:var(--ok-soft);border-color:transparent;color:var(--ok)}
+.answer{display:flex;gap:10px;flex-wrap:wrap}
+.answer .text{flex:1 1 220px;min-width:0}
+.answer .text.ok{border-color:var(--ok);background:var(--ok-soft);color:var(--ink)}
+.answer .text.bad{border-color:var(--bad);background:var(--bad-soft);color:var(--ink)}
+.keys{font-size:13px;color:var(--muted)}
+kbd{font-family:var(--f-body);font-size:12px;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 5px;background:var(--panel)}
+
+/* Results */
+.big{font-family:var(--f-display);font-weight:800;font-size:clamp(40px,7vw,64px);line-height:1;font-variant-numeric:tabular-nums}
+.wrong{list-style:none;margin:0;padding:0;display:grid;gap:6px;max-height:320px;overflow:auto}
+.wrong li{display:flex;justify-content:space-between;gap:12px;padding:8px 12px;border-radius:8px;background:var(--bad-soft);font-size:15px}
+.wrong li b{font-family:var(--f-hand);font-size:22px;line-height:1;color:var(--ink)}
+
+/* Leaderboard */
+aside{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);min-width:0}
+aside h2{font-family:var(--f-display);font-size:22px;margin:0}
+.lb-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:4px}
+.live{font-size:12px;font-weight:700;color:var(--ok);display:flex;align-items:center;gap:6px}
+.live::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.live.off{color:var(--muted)}
+.lb{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.lb li{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 10px;border-radius:10px;background:var(--desk);border:1px solid transparent}
+.lb li.me{border-color:var(--accent)}
+.rank{font-family:var(--f-display);font-weight:800;text-align:center;font-variant-numeric:tabular-nums;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:14px}
+.r1{background:var(--gold);color:#3b2a00}.r2{background:var(--silver);color:#1d2433}.r3{background:var(--bronze);color:#2b1606}
+.lb .nm{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb .bar{height:4px;background:var(--line);border-radius:99px;margin-top:4px;overflow:hidden}
+.lb .bar i{display:block;height:100%;background:var(--accent)}
+.lb .sc{font-variant-numeric:tabular-nums;font-weight:700;text-align:right;font-size:15px}
+.lb .sc small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.empty{padding:14px;border:1.5px dashed var(--line);border-radius:10px;color:var(--muted);font-size:14px;margin-top:12px}
+.note{font-size:12px;color:var(--muted);margin-top:12px}
+.confirm{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px;font-size:14px}
+@media (prefers-reduced-motion:reduce){.card,.progress i,.btn{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <span class="eyebrow">English · Unit 5 · <span id="total-count">0</span> Vokabeln</span>
+      <h1>Vokabeltrainer</h1>
+    </div>
+    <div class="who" id="who" hidden>Spieler: <b id="who-name"></b> · <button class="btn ghost small" id="switch-btn" type="button">Spieler wechseln</button></div>
+  </header>
+
+  <div class="grid">
+    <main class="stage">
+      <!-- START -->
+      <section id="screen-start" class="stage">
+        <div class="scene" aria-hidden="true">
+          <div class="card flipped">
+            <div class="face front"><div class="tag"><span>Part B</span><span>Deutsch</span></div><div class="word"><span>Würde</span></div></div>
+            <div class="face back"><div class="tag"><span>Part B</span><span>English</span></div><div class="word"><span class="en">dignity</span><span class="de">Würde</span></div></div>
+          </div>
+        </div>
+        <form class="panel" id="start-form" novalidate>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div class="field">
+              <label for="name-input">Dein Name</label>
+              <input class="text" id="name-input" maxlength="20" autocomplete="nickname" placeholder="z. B. Konrad">
+              <span class="err" id="name-err" hidden>Bitte gib zuerst deinen Namen ein.</span>
+            </div>
+            <div class="row">
+              <div class="field">
+                <label for="part-select">Teil</label>
+                <select class="text" id="part-select">
+                  <option value="all">Alle Teile</option>
+                  <option value="Words in context">Words in context</option>
+                  <option value="Part A">Part A</option>
+                  <option value="Part B">Part B</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="count-select">Karten</label>
+                <select class="text" id="count-select">
+                  <option value="20">20 Karten</option>
+                  <option value="50">50 Karten</option>
+                  <option value="all">Alle</option>
+                  <option value="unknown">Nur die, die ich noch nicht kann</option>
+                </select>
+              </div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+              <button class="btn" type="submit" id="start-btn">Los geht's</button>
+              <span class="hint">Du siehst das deutsche Wort und tippst das englische. „sth“, „sb“ und „to“ kannst du weglassen.</span>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- GAME -->
+      <section id="screen-game" class="stage" hidden>
+        <div class="topbar">
+          <span class="pill" id="counter">1 / 20</span>
+          <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+          <span class="pill ok" id="score">0 richtig</span>
+        </div>
+        <div class="scene">
+          <div class="card" id="card">
+            <div class="face front"><div class="tag"><span id="f-part"></span><span>Deutsch</span></div><div class="word"><span id="f-de"></span></div></div>
+            <div class="face back" id="back"><div class="tag"><span id="b-part"></span><span>English</span></div><div class="word"><span class="en" id="b-en"></span><span class="de" id="b-de"></span><span class="yours" id="b-yours"></span></div><span class="stamp" id="stamp"></span></div>
+          </div>
+        </div>
+        <form class="answer" id="answer-form" novalidate autocomplete="off">
+          <input class="text" id="answer-input" placeholder="Englisches Wort eingeben …" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Englische Übersetzung">
+          <button class="btn" type="submit" id="check-btn">Prüfen</button>
+          <button class="btn ghost" type="button" id="skip-btn">Weiß ich nicht</button>
+        </form>
+        <div class="keys"><kbd>Enter</kbd> prüfen / weiter · <kbd>Esc</kbd> weiß ich nicht · <span id="round-note"></span></div>
+      </section>
+
+      <!-- RESULT -->
+      <section id="screen-result" class="panel" hidden>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <span class="eyebrow">Runde beendet</span>
+          <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
+            <span class="big" id="r-score">0 / 0</span><span class="pill" id="r-pct">0 %</span>
+          </div>
+          <p style="margin:0" id="r-known"></p>
+          <div id="r-wrong-wrap">
+            <label>Diese Wörter solltest du nochmal üben</label>
+            <ul class="wrong" id="r-wrong"></ul>
+          </div>
+          <div class="row" style="gap:10px">
+            <button class="btn" type="button" id="again-btn">Nochmal</button>
+            <button class="btn ghost" type="button" id="wrong-btn">Nur falsche Wörter üben</button>
+            <button class="btn ghost" type="button" id="new-btn">Neuer Spieler</button>
+          </div>
+          <span class="hint" id="save-note"></span>
+        </div>
+      </section>
+    </main>
+
+    <aside class="panel" aria-labelledby="lb-title">
+      <div class="lb-head"><h2 id="lb-title">Bestenliste</h2><span class="live off" id="live">lädt …</span></div>
+      <span class="hint">Wie viele der <b id="lb-total">0</b> Vokabeln jemand schon richtig hatte.</span>
+      <div class="empty" id="lb-empty">Noch keine Einträge. Spiel eine Runde, dann stehst du hier als Erste:r.</div>
+      <ol class="lb" id="lb"></ol>
+      <p class="note" id="lb-note"></p>
+      <div id="reset-wrap" hidden>
+        <button class="btn ghost small" type="button" id="reset-btn">Meinen Eintrag zurücksetzen</button>
+        <div class="confirm" id="reset-confirm" hidden><span>Wirklich löschen?</span><button class="btn small" type="button" id="reset-yes">Ja, löschen</button><button class="btn ghost small" type="button" id="reset-no">Abbrechen</button></div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script>
+const RAW = [["dictate sth", "etw diktieren, etw vorschreiben", "Words in context"], ["be fortunate", "(das) Glück haben", "Words in context"], ["shape one's own lifestyle", "das Leben nach den eigenen Vorstellungen gestalten", "Words in context"], ["colleague", "Kollege/-in", "Words in context"], ["lifestyle decisions pl", "Entscheidungen in Bezug auf die eigene Lebensweise", "Words in context"], ["goods pl", "Ware(n), Güter", "Words in context"], ["services pl", "Dienstleistungen", "Words in context"], ["individual action", "Einzelaktion, individuelle Maßnahme", "Words in context"], ["be conditioned by sth", "durch etw bedingt sein", "Words in context"], ["family background", "(familiäre) Herkunft, Familienverhältnisse", "Words in context"], ["role model", "Vorbild", "Words in context"], ["inspire sb to do sth", "jdn dazu anregen/inspirieren, etw zu tun", "Words in context"], ["rebel against sb/sth", "gegen jdn/etw rebellieren", "Words in context"], ["emancipate oneself from sth", "sich von etw emanzipieren", "Words in context"], ["traditional stereotype", "hergebrachtes Rollenbild", "Words in context"], ["prejudice", "Vorurteil(e)", "Words in context"], ["social norm", "gesellschaftliche Norm", "Words in context"], ["adopt an alternative lifestyle", "anders leben", "Words in context"], ["live up to one's dreams", "nicht den eigenen Wunschvorstellungen gerecht werden", "Words in context"], ["belief", "Überzeugung, Glaube(nssatz)", "Words in context"], ["family unit", "Familienverbund", "Words in context"], ["nuclear family", "Kernfamilie, Kleinfamilie", "Words in context"], ["divorce", "Scheidung", "Words in context"], ["rare", "selten", "Words in context"], ["family model", "Familienmodell", "Words in context"], ["separation", "Trennung", "Words in context"], ["remarriage", "Wiederheirat, erneutes Heiraten", "Words in context"], ["blended family", "Patchworkfamilie", "Words in context"], ["step-parents pl", "Stiefeltern", "Words in context"], ["half-siblings pl", "Halbgeschwister", "Words in context"], ["single-parent family", "Einelternfamilie", "Words in context"], ["same-sex marriage", "gleichgeschlechtliche Ehe", "Words in context"], ["generational conflict", "Generationenkonflikt", "Words in context"], ["caregiver", "Bezugsperson, Erziehungsberechtigte/r", "Words in context"], ["identity", "Identität", "Words in context"], ["be opposed to sth", "einer Sache entgegenstehen, sich nicht mit etw vereinbaren lassen", "Words in context"], ["sexuality", "Sexualität", "Words in context"], ["in spite of", "trotz", "Words in context"], ["close-knit community", "enge Gemeinschaft", "Words in context"], ["loyalty", "Loyalität, Bindung", "Words in context"], ["solidarity", "Solidarität", "Words in context"], ["family ties pl", "Familienbande", "Words in context"], ["aim in life", "Lebensziel", "Words in context"], ["live in harmony with sth", "im Einklang mit etw leben", "Words in context"], ["make sth up", "etw ausmachen", "Words in context"], ["be opposed to sth", "sich einer Sache widersetzen, gegen etw sein", "Words in context"], ["radical change", "Umbruch, radikaler Wandel", "Words in context"], ["as a result", "deshalb, aufgrund dessen", "Words in context"], ["pressure to conform", "Anpassungsdruck", "Words in context"], ["respectability", "soziales Ansehen, Anständigkeit", "Words in context"], ["question values", "Werte infrage stellen", "Words in context"], ["fulfilling", "erfüllend", "Words in context"], ["leave one's comfort zone", "Neues wagen", "Words in context"], ["well-off", "wohlhabend", "Part A"], ["step off sth", "aus etw aussteigen", "Part A"], ["hamster wheel", "Hamsterrad", "Part A"], ["by force", "gezwungenermaßen, zwangsweise", "Part A"], ["by choice", "freiwillig, aus freien Stücken", "Part A"], ["examine sb/sth with great scrutiny", "etw sehr genau überprüfen/untersuchen", "Part A"], ["fancy", "ausgefallen, raffiniert, teuer", "Part A"], ["detour", "Umweg, Abstecher", "Part A"], ["be on track to do sth", "auf dem besten Weg sein, etw zu tun", "Part A"], ["(school) administrator", "Schulleiter/in, Fachbereichsleiter/in", "Part A"], ["hairdresser", "Friseur/in", "Part A"], ["six-figure", "sechsstellig", "Part A"], ["question sth", "etw in Frage stellen, etw anzweifeln", "Part A"], ["obligation", "Verpflichtung", "Part A"], ["discontentment", "Unzufriedenheit", "Part A"], ["hollowness", "Leere, Sinnlosigkeit", "Part A"], ["release", "Entspannung, Ventil", "Part A"], ["trajectory", "Bahn, Weg, Lebensplanung", "Part A"], ["set sth in motion", "etw in Bewegung setzen", "Part A"], ["stroller AE", "Buggy, Kinderwagen", "Part A"], ["scheme", "planen, Pläne schmieden", "Part A"], ["cling to sth", "sich an etw klammern, an etw festhalten", "Part A"], ["status", "Ansehen, (soziale) Stellung", "Part A"], ["joy", "Freude", "Part A"], ["fragility", "Zerbrechlichkeit, Brüchigkeit", "Part A"], ["crumble", "zerbröseln, zerbröckeln, zerfallen", "Part A"], ["apocalypse", "Weltuntergang, Apokalypse", "Part A"], ["connect with sb", "mit jdm in Kontakt kommen, sich mit jdm (intensiv) austauschen", "Part A"], ["devise a plan", "einen Plan ausarbeiten", "Part A"], ["escape", "Flucht, Entkommen", "Part A"], ["nest egg", "finanzielles Polster, Notgroschen", "Part A"], ["confront sth", "sich einer Sache stellen", "Part A"], ["walk away from sth", "sich von etw verabschieden, etw verlassen", "Part A"], ["set out", "aufbrechen, sich auf den Weg machen", "Part A"], ["budget", "billig, preiswert", "Part A"], ["camp", "zelten", "Part A"], ["unlearn sth", "etw (absichtlich) vergessen, sich etw abgewöhnen", "Part A"], ["unease", "Unbehagen", "Part A"], ["revelation", "Offenbarung, Erkenntnis", "Part A"], ["anxiety", "Angst, Ängste", "Part A"], ["realization", "Erkenntnis, Einsicht", "Part A"], ["live one's heart's desire", "leben, wie es das Herz begehrt", "Part A"], ["confidence", "Selbstbewusstsein, Selbstvertrauen, Zuversicht", "Part A"], ["approval-seeking", "Suche/Jagd nach Anerkennung", "Part A"], ["people-pleasing", "Gefallsucht", "Part A"], ["wander", "umherstreifen", "Part A"], ["retreat", "Einkehr, Rückzug(sort)", "Part A"], ["ridge", "Gebirgskamm", "Part A"], ["volunteer", "ehrenamtlich arbeiten, (freiwillig) helfen", "Part A"], ["come across sth", "auf etw stoßen, etw (zufällig) finden", "Part A"], ["intrigue sb", "jdn faszinieren", "Part A"], ["stunning", "atemberaubend", "Part A"], ["homestead AE", "Gehöft", "Part A"], ["caked", "verkrustet", "Part A"], ["forage", "nach Essbarem suchen", "Part A"], ["knead dough", "Teig kneten", "Part A"], ["cabin", "Hütte", "Part A"], ["strum", "Gitarre spielen, klampfen", "Part A"], ["pluck", "(Saiten) zupfen", "Part A"], ["fiddle", "Geige spielen, fiedeln", "Part A"], ["fish", "angeln, fischen", "Part A"], ["fret over sth", "sich über etw aufregen", "Part A"], ["world affairs pl", "Weltgeschehen", "Part A"], ["quarantine", "Quarantäne", "Part A"], ["tangible", "greifbar, konkret, handfest", "Part A"], ["education", "Lernen, Unterricht, Schulbildung", "Part A"], ["confinement", "Eingesperrtsein, Enge", "Part A"], ["abstraction", "Abstraktion", "Part A"], ["reciprocal", "gegenseitig, wechselseitig", "Part A"], ["opposite", "Gegenteil, Gegensatz", "Part A"], ["groundedness", "Bodenständigkeit, Erdung", "Part A"], ["connectedness", "Verbundenheit", "Part A"], ["intentional", "absichtsvoll, beabsichtigt", "Part A"], ["outsider", "Außenseiter/in", "Part B"], ["dignity", "Würde", "Part B"], ["be endowed with sth", "mit etw ausgestattet sein, etw besitzen", "Part B"], ["reason", "Vernunft, Verstand", "Part B"], ["conscience", "Gewissen", "Part B"], ["spirit", "Geist", "Part B"], ["brotherhood", "Brüderlichkeit", "Part B"], ["be entitled to sth", "Anspruch auf etw haben, zu etw berechtigt sein", "Part B"], ["set sth forth", "etw darlegen, etw verkünden", "Part B"], ["distinction", "Unterscheidung, Abgrenzung", "Part B"], ["origin", "Herkunft, Ursprung", "Part B"], ["property", "Eigentum, Besitz", "Part B"], ["unreasonable", "überzogen, unvernünftig", "Part B"], ["dislike (for sb/sth)", "Abneigung (gegen jdn/etw)", "Part B"], ["custom", "Sitte, Brauch", "Part B"], ["boarding school", "Internat", "Part B"], ["grand", "herrschaftlich, stattlich, grandios", "Part B"], ["modest(ly)", "schlicht, bescheiden", "Part B"], ["wreath", "Kranz", "Part B"], ["evergreen", "immergrüne Pflanze", "Part B"], ["Jew", "Jude/Jüdin", "Part B"], ["envy", "Neid", "Part B"], ["villager", "Dorfbewohner/in", "Part B"], ["gift-wrapped", "als Geschenk verpackt", "Part B"], ["kinky", "(Haar:) kraus, gekräuselt", "Part B"], ["hooked nose", "Hakennase", "Part B"], ["vile", "niederträchtig, abscheulich", "Part B"], ["chancellor", "Kanzler/in", "Part B"], ["candlelight", "Kerzenlicht", "Part B"], ["dressed up", "feingemacht, fein angezogen", "Part B"], ["sip sth", "an etw nippen, etw in kleinen Schlückchen trinken", "Part B"], ["Christmas carol", "Weihnachtslied", "Part B"], ["tablecloth", "Tischdecke", "Part B"], ["china", "Porzellan", "Part B"], ["servant", "Bedienstete/r, Hausangestellte/r", "Part B"], ["maid", "Hausangestellte, Hausmädchen", "Part B"], ["appear", "auftauchen, erscheinen", "Part B"], ["crisp", "(Wäsche:) faltenfrei, gestärkt", "Part B"], ["apron", "Schürze", "Part B"], ["pause", "innehalten", "Part B"], ["announce sth", "etw verkünden, etw ankündigen", "Part B"], ["figure sth out", "etw herausfinden", "Part B"], ["uncomfortable", "unangenehm, unbehaglich, peinlich", "Part B"], ["stage", "Phase, Stadium, Etappe", "Part B"], ["guess", "vermuten", "Part B"], ["persist with sth", "etw unbeirrt fortsetzen, mit etw unbeirrt weitermachen", "Part B"], ["shrug", "mit den Achseln zucken", "Part B"], ["sigh", "seufzen", "Part B"], ["test tube", "Reagenzglas", "Part B"], ["artificial insemination", "künstliche Befruchtung", "Part B"], ["get oneself involved in sth", "sich in etw hineinziehen lassen, in etw verwickelt sein", "Part B"], ["Where do we go from here?", "Was machen wir jetzt?", "Part B"], ["weep", "weinen, schluchzen", "Part B"], ["sympathetic", "mitfühlend, verständnisvoll", "Part B"], ["To be continued.", "Fortsetzung folgt.", "Part B"], ["become acquainted", "miteinander bekannt werden, sich kennenlernen", "Part B"]];
+const V = RAW.map((r,i)=>({id:i,en:r[0],de:r[1],part:r[2]}));
+const N = V.length;
+const $ = id=>document.getElementById(id);
+$('total-count').textContent=N; $('lb-total').textContent=N;
+
+/* ---------- answer matching ---------- */
+function norm(s){return s.toLowerCase().replace(/[’`´]/g,"'").replace(/[.!?,;]/g,' ').replace(/\s+/g,' ').trim().replace(/^to /,'');}
+function variants(en){
+  const out=new Set();
+  const base=en.replace(/\s+(pl|AE)$/,'').replace(/\s+AE\b/,'');
+  const withParen=base.replace(/\(([^)]*)\)/g,'$1'); // modest(ly)->modestly, (school) administrator -> school administrator
+  const noParen=base.replace(/\([^)]*\)/g,'');     // modest, administrator, dislike
+  const joined=base.replace(/\(([^)]*)\)/g,(m,g)=>/^[a-z]+$/.test(g)&&/\w\(/.test(base)?g:' '+g+' ');
+  [base,withParen,noParen,joined].forEach(v=>{
+    out.add(norm(v));
+    const noObj=v.replace(/\b(sb\/sth|sb|sth|one's|oneself)\b/g,' ');
+    out.add(norm(noObj));
+  });
+  return [...out].filter(Boolean);
+}
+V.forEach(v=>v.ok=variants(v.en));
+function isRight(v,input){const a=norm(input).replace(/\b(sb\/sth|sb|sth|something|somebody|someone)\b/g,' ').replace(/\s+/g,' ').trim();
+  return v.ok.includes(norm(input))||v.ok.includes(a);}
+
+/* ---------- local storage helpers ---------- */
+const LS={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const keyOf=n=>n.trim().toLowerCase().replace(/[^a-z0-9äöüß]+/g,'-').replace(/^-|-$/g,'').slice(0,40)||'spieler';
+
+/* ---------- state ---------- */
+let player=LS.get('voc-player',null); // {name,key}
+let deck=[],idx=0,firstTry=new Map(),wrongIds=[],retryQueue=[],phase='ask',inRetry=false,roundCorrect=0,roundTotal=0;
+let db=null,user=null,uid=null,shared=false,myDoc={players:{}},allDocs=[],canWrite=true;
+let localBoard=LS.get('voc-board',{}); // key -> {name,known:[...]}
+
+function myKnown(){if(!player)return new Set();
+  const rec=(shared?(myDoc.players||{})[player.key]:localBoard[player.key]);return new Set(rec?rec.known:[]);}
+
+/* ---------- screens ---------- */
+function show(which){['start','game','result'].forEach(s=>$('screen-'+s).hidden=s!==which);
+  $('who').hidden=!player||which==='start'; if(player)$('who-name').textContent=player.name;}
+if(player)$('name-input').value=player.name;
+
+$('start-form').addEventListener('submit',e=>{e.preventDefault();
+  const name=$('name-input').value.trim().slice(0,20);
+  if(!name){$('name-err').hidden=false;$('name-input').focus();return}
+  $('name-err').hidden=true; player={name,key:keyOf(name)}; LS.set('voc-player',player); renderBoard();
+  const part=$('part-select').value,count=$('count-select').value;
+  let pool=V.filter(v=>part==='all'||v.part===part);
+  if(count==='unknown'){const k=myKnown();pool=pool.filter(v=>!k.has(v.id));if(!pool.length){pool=V.filter(v=>part==='all'||v.part===part)}}
+  pool=shuffle(pool); if(count==='20'||count==='50')pool=pool.slice(0,+count);
+  startRound(pool);
+});
+$('switch-btn').addEventListener('click',()=>{show('start');$('name-input').select();});
+$('new-btn').addEventListener('click',()=>{player=null;LS.set('voc-player',null);$('name-input').value='';show('start');$('name-input').focus();renderBoard();});
+$('again-btn').addEventListener('click',()=>startRound(shuffle(lastDeck)));
+$('wrong-btn').addEventListener('click',()=>{const w=lastWrong.map(id=>V[id]);if(w.length)startRound(shuffle(w));});
+
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+let lastDeck=[],lastWrong=[];
+function startRound(cards){deck=cards;lastDeck=cards;idx=0;firstTry=new Map();retryQueue=[];inRetry=false;roundCorrect=0;roundTotal=cards.length;show('game');showCard();}
+
+function current(){return inRetry?retryQueue[idx]:deck[idx]}
+function showCard(){
+  const v=current(); phase='ask';
+  $('card').classList.remove('flipped'); $('back').className='face back';
+  $('f-part').textContent=v.part; $('b-part').textContent=v.part; $('f-de').textContent=v.de;
+  setTimeout(()=>{$('b-en').textContent=v.en;$('b-de').textContent=v.de;},inRetry||idx?250:0);
+  const inp=$('answer-input'); inp.value=''; inp.className='text'; inp.disabled=false; inp.focus();
+  $('check-btn').textContent='Prüfen'; $('skip-btn').disabled=false;
+  const done=inRetry?roundTotal:idx; $('counter').textContent=inRetry?`Wiederholung ${idx+1} / ${retryQueue.length}`:`${idx+1} / ${roundTotal}`;
+  $('bar').style.width=(inRetry?100:(idx/roundTotal*100))+'%';
+  $('score').textContent=roundCorrect+' richtig';
+  $('round-note').textContent=inRetry?'Falsche Wörter kommen nochmal, ohne Punkte.':'';
+}
+function reveal(right,given){
+  const v=current(); phase='shown';
+  if(!inRetry&&!firstTry.has(v.id)){firstTry.set(v.id,right);if(right)roundCorrect++;}
+  if(!right&&!inRetry)retryQueue.push(v);
+  const back=$('back'); back.className='face back '+(right?'ok':'bad');
+  $('b-en').textContent=v.en; $('b-de').textContent=v.de;
+  $('b-yours').textContent=right?'':(given?'Deine Antwort: '+given:'Nicht gewusst');
+  $('stamp').textContent=right?'Richtig':'Falsch'; $('stamp').className='stamp '+(right?'ok':'bad');
+  $('card').classList.add('flipped');
+  const inp=$('answer-input'); inp.className='text '+(right?'ok':'bad'); inp.disabled=true;
+  $('check-btn').textContent='Weiter'; $('skip-btn').disabled=true; $('check-btn').focus();
+  $('score').textContent=roundCorrect+' richtig';
+  if(right&&!inRetry)queueSave();
+}
+function next(){
+  idx++;
+  if(!inRetry&&idx>=deck.length){if(retryQueue.length){inRetry=true;idx=0;}else return finish();}
+  else if(inRetry&&idx>=retryQueue.length)return finish();
+  showCard();
+}
+$('answer-form').addEventListener('submit',e=>{e.preventDefault();
+  if(phase==='shown')return next();
+  const val=$('answer-input').value; if(!val.trim()){$('answer-input').focus();return}
+  reveal(isRight(current(),val),val.trim());
+});
+$('skip-btn').addEventListener('click',()=>{if(phase==='ask')reveal(false,'')});
+document.addEventListener('keydown',e=>{
+  if($('screen-game').hidden)return;
+  if(e.key==='Escape'&&phase==='ask'){e.preventDefault();reveal(false,'')}
+  else if(e.key==='Enter'&&phase==='shown'&&document.activeElement!==$('check-btn')){e.preventDefault();next()}
+});
+
+function finish(){
+  lastWrong=[...firstTry].filter(([,r])=>!r).map(([id])=>id);
+  $('r-score').textContent=`${roundCorrect} / ${roundTotal}`;
+  $('r-pct').textContent=Math.round(roundCorrect/Math.max(1,roundTotal)*100)+' %';
+  const ul=$('r-wrong'); ul.innerHTML='';
+  lastWrong.forEach(id=>{const li=document.createElement('li');const d=document.createElement('span');d.textContent=V[id].de;const b=document.createElement('b');b.textContent=V[id].en;li.append(d,b);ul.append(li)});
+  $('r-wrong-wrap').hidden=!lastWrong.length; $('wrong-btn').disabled=!lastWrong.length;
+  $('bar').style.width='100%';
+  saveNow().then(()=>{const k=myKnown().size;$('r-known').innerHTML='';$('r-known').append('Insgesamt kannst du jetzt ',Object.assign(document.createElement('b'),{textContent:`${k} von ${N}`}),' Vokabeln.');});
+  show('result'); $('again-btn').focus();
+}
+
+/* ---------- saving ---------- */
+let saveTimer=null;
+function queueSave(){clearTimeout(saveTimer);saveTimer=setTimeout(saveNow,2500)}
+function mergedRecord(prev){
+  const known=new Set(prev?prev.known:[]); firstTry.forEach((r,id)=>{if(r)known.add(id)});
+  return {name:player.name,known:[...known].sort((a,b)=>a-b),updated:new Date().toISOString()};
+}
+async function saveNow(){
+  clearTimeout(saveTimer); if(!player)return;
+  // local copy always
+  localBoard[player.key]=mergedRecord(localBoard[player.key]); LS.set('voc-board',localBoard);
+  if(!shared){$('save-note').textContent='Dein Fortschritt ist auf diesem Gerät gespeichert.';renderBoard();return}
+  const players=Object.assign({},myDoc.players||{}); players[player.key]=mergedRecord(players[player.key]);
+  const body={players,updated:new Date().toISOString()};
+  myDoc=body; renderBoard();
+  try{await db.collection('scores').doc(uid).set(body);$('save-note').textContent='Gespeichert. Die Bestenliste ist für alle aktualisiert.';}
+  catch(e){canWrite=false;$('save-note').textContent='Konnte nicht in die gemeinsame Bestenliste speichern: Du brauchst Mitspiel-Rechte für diese Seite. Dein Fortschritt bleibt auf diesem Gerät.';$('lb-note').textContent='Nur Lesen: Bitte die Person, die den Link geteilt hat, dir Mitspiel-Rechte (Contributor) zu geben.';}
+}
+
+/* ---------- leaderboard ---------- */
+function rows(){
+  const out=[];
+  if(shared){allDocs.forEach(d=>{const ps=(d.id===uid?myDoc.players:d.data.players)||{};Object.entries(ps).forEach(([k,p])=>out.push({name:String(p.name||'?').slice(0,20),known:(p.known||[]).length,mine:d.id===uid&&player&&k===player.key}))});
+    if(uid&&!allDocs.some(d=>d.id===uid))Object.entries(myDoc.players||{}).forEach(([k,p])=>out.push({name:p.name,known:p.known.length,mine:player&&k===player.key}));}
+  else Object.entries(localBoard).forEach(([k,p])=>out.push({name:p.name,known:(p.known||[]).length,mine:player&&k===player.key}));
+  return out.filter(r=>r.known>0).sort((a,b)=>b.known-a.known||a.name.localeCompare(b.name));
+}
+function renderBoard(){
+  const r=rows(),ol=$('lb'); ol.innerHTML=''; $('lb-empty').hidden=r.length>0;
+  let rank=0,prev=null;
+  r.slice(0,50).forEach((x,i)=>{if(x.known!==prev){rank=i+1;prev=x.known}
+    const li=document.createElement('li'); if(x.mine)li.className='me';
+    const rk=document.createElement('span');rk.className='rank'+(rank<=3?' r'+rank:'');rk.textContent=rank;
+    const mid=document.createElement('div');mid.style.minWidth='0';const nm=document.createElement('div');nm.className='nm';nm.textContent=x.name+(x.mine?' (du)':'');
+    const bar=document.createElement('div');bar.className='bar';const bi=document.createElement('i');bi.style.width=(x.known/N*100)+'%';bar.append(bi);mid.append(nm,bar);
+    const sc=document.createElement('span');sc.className='sc';sc.textContent=x.known;const sm=document.createElement('small');sm.textContent=Math.round(x.known/N*100)+' %';sc.append(sm);
+    li.append(rk,mid,sc);ol.append(li)});
+  $('reset-wrap').hidden=!(player&&r.some(x=>x.mine));
+}
+$('reset-btn').addEventListener('click',()=>{$('reset-confirm').hidden=false});
+$('reset-no').addEventListener('click',()=>{$('reset-confirm').hidden=true});
+$('reset-yes').addEventListener('click',async()=>{$('reset-confirm').hidden=true;if(!player)return;
+  delete localBoard[player.key];LS.set('voc-board',localBoard);
+  if(shared){const players=Object.assign({},myDoc.players);delete players[player.key];myDoc={players,updated:new Date().toISOString()};
+    try{await db.collection('scores').doc(uid).set(myDoc)}catch(e){}}
+  renderBoard();});
+
+/* ---------- connect shared store ---------- */
+renderBoard(); show('start');
+(async()=>{
+  try{
+    if(!window.claude||!window.claude.use)throw 0;
+    [db,user]=await Promise.all([claude.use('db'),claude.use('user')]);
+    uid=user?await user.id():null;
+    if(!db||!uid)throw 0;
+    shared=true;
+    const mine=await db.collection('scores').doc(uid).get().catch(()=>null);
+    if(mine&&mine.exists)myDoc=Object.assign({players:{}},mine.data());
+    // carry over progress made on this device before connecting
+    Object.entries(localBoard).forEach(([k,p])=>{if(!myDoc.players[k])myDoc.players[k]=p;});
+    $('live').textContent='live';$('live').className='live';
+    $('lb-note').textContent='Alle, die diesen Link öffnen, sehen dieselbe Bestenliste.';
+    db.collection('scores').onSnapshot(snap=>{allDocs=snap.docs.map(d=>({id:d.id,data:d.data()||{}}));renderBoard();},
+      ()=>{$('live').textContent='offline';$('live').className='live off';});
+    renderBoard();
+  }catch(e){
+    shared=false;$('live').textContent='nur dieses Gerät';$('live').className='live off';
+    $('lb-note').textContent='Die gemeinsame Bestenliste ist hier nicht verfügbar. Ergebnisse werden auf diesem Gerät gespeichert.';
+    renderBoard();
+  }
+})();
+</script>
+</body>
+</html>
