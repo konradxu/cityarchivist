@@ -236,6 +236,10 @@ aside h2{font-family:var(--f-display);font-size:22px;margin:0}
 </div>
 
 <script>
+/* ===== SUPABASE: hier deine Daten eintragen (Project Settings → API) ===== */
+const SUPABASE_URL = "https://xcyyjbokpejmesjqapsj.supabase.co";      // z. B. "https://abcdefgh.supabase.co"
+const SUPABASE_KEY = "sb_publishable_fYXEeFAd8QNFhQYZ2t6qsA_WSdf9h63";      // der "anon public" Key
+/* ========================================================================= */
 const RAW = [["dictate sth", "etw diktieren, etw vorschreiben", "Words in context"], ["be fortunate", "(das) Glück haben", "Words in context"], ["shape one's own lifestyle", "das Leben nach den eigenen Vorstellungen gestalten", "Words in context"], ["colleague", "Kollege/-in", "Words in context"], ["lifestyle decisions pl", "Entscheidungen in Bezug auf die eigene Lebensweise", "Words in context"], ["goods pl", "Ware(n), Güter", "Words in context"], ["services pl", "Dienstleistungen", "Words in context"], ["individual action", "Einzelaktion, individuelle Maßnahme", "Words in context"], ["be conditioned by sth", "durch etw bedingt sein", "Words in context"], ["family background", "(familiäre) Herkunft, Familienverhältnisse", "Words in context"], ["role model", "Vorbild", "Words in context"], ["inspire sb to do sth", "jdn dazu anregen/inspirieren, etw zu tun", "Words in context"], ["rebel against sb/sth", "gegen jdn/etw rebellieren", "Words in context"], ["emancipate oneself from sth", "sich von etw emanzipieren", "Words in context"], ["traditional stereotype", "hergebrachtes Rollenbild", "Words in context"], ["prejudice", "Vorurteil(e)", "Words in context"], ["social norm", "gesellschaftliche Norm", "Words in context"], ["adopt an alternative lifestyle", "anders leben", "Words in context"], ["live up to one's dreams", "nicht den eigenen Wunschvorstellungen gerecht werden", "Words in context"], ["belief", "Überzeugung, Glaube(nssatz)", "Words in context"], ["family unit", "Familienverbund", "Words in context"], ["nuclear family", "Kernfamilie, Kleinfamilie", "Words in context"], ["divorce", "Scheidung", "Words in context"], ["rare", "selten", "Words in context"], ["family model", "Familienmodell", "Words in context"], ["separation", "Trennung", "Words in context"], ["remarriage", "Wiederheirat, erneutes Heiraten", "Words in context"], ["blended family", "Patchworkfamilie", "Words in context"], ["step-parents pl", "Stiefeltern", "Words in context"], ["half-siblings pl", "Halbgeschwister", "Words in context"], ["single-parent family", "Einelternfamilie", "Words in context"], ["same-sex marriage", "gleichgeschlechtliche Ehe", "Words in context"], ["generational conflict", "Generationenkonflikt", "Words in context"], ["caregiver", "Bezugsperson, Erziehungsberechtigte/r", "Words in context"], ["identity", "Identität", "Words in context"], ["be opposed to sth", "einer Sache entgegenstehen, sich nicht mit etw vereinbaren lassen", "Words in context"], ["sexuality", "Sexualität", "Words in context"], ["in spite of", "trotz", "Words in context"], ["close-knit community", "enge Gemeinschaft", "Words in context"], ["loyalty", "Loyalität, Bindung", "Words in context"], ["solidarity", "Solidarität", "Words in context"], ["family ties pl", "Familienbande", "Words in context"], ["aim in life", "Lebensziel", "Words in context"], ["live in harmony with sth", "im Einklang mit etw leben", "Words in context"], ["make sth up", "etw ausmachen", "Words in context"], ["be opposed to sth", "sich einer Sache widersetzen, gegen etw sein", "Words in context"], ["radical change", "Umbruch, radikaler Wandel", "Words in context"], ["as a result", "deshalb, aufgrund dessen", "Words in context"], ["pressure to conform", "Anpassungsdruck", "Words in context"], ["respectability", "soziales Ansehen, Anständigkeit", "Words in context"], ["question values", "Werte infrage stellen", "Words in context"], ["fulfilling", "erfüllend", "Words in context"], ["leave one's comfort zone", "Neues wagen", "Words in context"], ["well-off", "wohlhabend", "Part A"], ["step off sth", "aus etw aussteigen", "Part A"], ["hamster wheel", "Hamsterrad", "Part A"], ["by force", "gezwungenermaßen, zwangsweise", "Part A"], ["by choice", "freiwillig, aus freien Stücken", "Part A"], ["examine sb/sth with great scrutiny", "etw sehr genau überprüfen/untersuchen", "Part A"], ["fancy", "ausgefallen, raffiniert, teuer", "Part A"], ["detour", "Umweg, Abstecher", "Part A"], ["be on track to do sth", "auf dem besten Weg sein, etw zu tun", "Part A"], ["(school) administrator", "Schulleiter/in, Fachbereichsleiter/in", "Part A"], ["hairdresser", "Friseur/in", "Part A"], ["six-figure", "sechsstellig", "Part A"], ["question sth", "etw in Frage stellen, etw anzweifeln", "Part A"], ["obligation", "Verpflichtung", "Part A"], ["discontentment", "Unzufriedenheit", "Part A"], ["hollowness", "Leere, Sinnlosigkeit", "Part A"], ["release", "Entspannung, Ventil", "Part A"], ["trajectory", "Bahn, Weg, Lebensplanung", "Part A"], ["set sth in motion", "etw in Bewegung setzen", "Part A"], ["stroller AE", "Buggy, Kinderwagen", "Part A"], ["scheme", "planen, Pläne schmieden", "Part A"], ["cling to sth", "sich an etw klammern, an etw festhalten", "Part A"], ["status", "Ansehen, (soziale) Stellung", "Part A"], ["joy", "Freude", "Part A"], ["fragility", "Zerbrechlichkeit, Brüchigkeit", "Part A"], ["crumble", "zerbröseln, zerbröckeln, zerfallen", "Part A"], ["apocalypse", "Weltuntergang, Apokalypse", "Part A"], ["connect with sb", "mit jdm in Kontakt kommen, sich mit jdm (intensiv) austauschen", "Part A"], ["devise a plan", "einen Plan ausarbeiten", "Part A"], ["escape", "Flucht, Entkommen", "Part A"], ["nest egg", "finanzielles Polster, Notgroschen", "Part A"], ["confront sth", "sich einer Sache stellen", "Part A"], ["walk away from sth", "sich von etw verabschieden, etw verlassen", "Part A"], ["set out", "aufbrechen, sich auf den Weg machen", "Part A"], ["budget", "billig, preiswert", "Part A"], ["camp", "zelten", "Part A"], ["unlearn sth", "etw (absichtlich) vergessen, sich etw abgewöhnen", "Part A"], ["unease", "Unbehagen", "Part A"], ["revelation", "Offenbarung, Erkenntnis", "Part A"], ["anxiety", "Angst, Ängste", "Part A"], ["realization", "Erkenntnis, Einsicht", "Part A"], ["live one's heart's desire", "leben, wie es das Herz begehrt", "Part A"], ["confidence", "Selbstbewusstsein, Selbstvertrauen, Zuversicht", "Part A"], ["approval-seeking", "Suche/Jagd nach Anerkennung", "Part A"], ["people-pleasing", "Gefallsucht", "Part A"], ["wander", "umherstreifen", "Part A"], ["retreat", "Einkehr, Rückzug(sort)", "Part A"], ["ridge", "Gebirgskamm", "Part A"], ["volunteer", "ehrenamtlich arbeiten, (freiwillig) helfen", "Part A"], ["come across sth", "auf etw stoßen, etw (zufällig) finden", "Part A"], ["intrigue sb", "jdn faszinieren", "Part A"], ["stunning", "atemberaubend", "Part A"], ["homestead AE", "Gehöft", "Part A"], ["caked", "verkrustet", "Part A"], ["forage", "nach Essbarem suchen", "Part A"], ["knead dough", "Teig kneten", "Part A"], ["cabin", "Hütte", "Part A"], ["strum", "Gitarre spielen, klampfen", "Part A"], ["pluck", "(Saiten) zupfen", "Part A"], ["fiddle", "Geige spielen, fiedeln", "Part A"], ["fish", "angeln, fischen", "Part A"], ["fret over sth", "sich über etw aufregen", "Part A"], ["world affairs pl", "Weltgeschehen", "Part A"], ["quarantine", "Quarantäne", "Part A"], ["tangible", "greifbar, konkret, handfest", "Part A"], ["education", "Lernen, Unterricht, Schulbildung", "Part A"], ["confinement", "Eingesperrtsein, Enge", "Part A"], ["abstraction", "Abstraktion", "Part A"], ["reciprocal", "gegenseitig, wechselseitig", "Part A"], ["opposite", "Gegenteil, Gegensatz", "Part A"], ["groundedness", "Bodenständigkeit, Erdung", "Part A"], ["connectedness", "Verbundenheit", "Part A"], ["intentional", "absichtsvoll, beabsichtigt", "Part A"], ["outsider", "Außenseiter/in", "Part B"], ["dignity", "Würde", "Part B"], ["be endowed with sth", "mit etw ausgestattet sein, etw besitzen", "Part B"], ["reason", "Vernunft, Verstand", "Part B"], ["conscience", "Gewissen", "Part B"], ["spirit", "Geist", "Part B"], ["brotherhood", "Brüderlichkeit", "Part B"], ["be entitled to sth", "Anspruch auf etw haben, zu etw berechtigt sein", "Part B"], ["set sth forth", "etw darlegen, etw verkünden", "Part B"], ["distinction", "Unterscheidung, Abgrenzung", "Part B"], ["origin", "Herkunft, Ursprung", "Part B"], ["property", "Eigentum, Besitz", "Part B"], ["unreasonable", "überzogen, unvernünftig", "Part B"], ["dislike (for sb/sth)", "Abneigung (gegen jdn/etw)", "Part B"], ["custom", "Sitte, Brauch", "Part B"], ["boarding school", "Internat", "Part B"], ["grand", "herrschaftlich, stattlich, grandios", "Part B"], ["modest(ly)", "schlicht, bescheiden", "Part B"], ["wreath", "Kranz", "Part B"], ["evergreen", "immergrüne Pflanze", "Part B"], ["Jew", "Jude/Jüdin", "Part B"], ["envy", "Neid", "Part B"], ["villager", "Dorfbewohner/in", "Part B"], ["gift-wrapped", "als Geschenk verpackt", "Part B"], ["kinky", "(Haar:) kraus, gekräuselt", "Part B"], ["hooked nose", "Hakennase", "Part B"], ["vile", "niederträchtig, abscheulich", "Part B"], ["chancellor", "Kanzler/in", "Part B"], ["candlelight", "Kerzenlicht", "Part B"], ["dressed up", "feingemacht, fein angezogen", "Part B"], ["sip sth", "an etw nippen, etw in kleinen Schlückchen trinken", "Part B"], ["Christmas carol", "Weihnachtslied", "Part B"], ["tablecloth", "Tischdecke", "Part B"], ["china", "Porzellan", "Part B"], ["servant", "Bedienstete/r, Hausangestellte/r", "Part B"], ["maid", "Hausangestellte, Hausmädchen", "Part B"], ["appear", "auftauchen, erscheinen", "Part B"], ["crisp", "(Wäsche:) faltenfrei, gestärkt", "Part B"], ["apron", "Schürze", "Part B"], ["pause", "innehalten", "Part B"], ["announce sth", "etw verkünden, etw ankündigen", "Part B"], ["figure sth out", "etw herausfinden", "Part B"], ["uncomfortable", "unangenehm, unbehaglich, peinlich", "Part B"], ["stage", "Phase, Stadium, Etappe", "Part B"], ["guess", "vermuten", "Part B"], ["persist with sth", "etw unbeirrt fortsetzen, mit etw unbeirrt weitermachen", "Part B"], ["shrug", "mit den Achseln zucken", "Part B"], ["sigh", "seufzen", "Part B"], ["test tube", "Reagenzglas", "Part B"], ["artificial insemination", "künstliche Befruchtung", "Part B"], ["get oneself involved in sth", "sich in etw hineinziehen lassen, in etw verwickelt sein", "Part B"], ["Where do we go from here?", "Was machen wir jetzt?", "Part B"], ["weep", "weinen, schluchzen", "Part B"], ["sympathetic", "mitfühlend, verständnisvoll", "Part B"], ["To be continued.", "Fortsetzung folgt.", "Part B"], ["become acquainted", "miteinander bekannt werden, sich kennenlernen", "Part B"]];
 const V = RAW.map((r,i)=>({id:i,en:r[0],de:r[1],part:r[2]}));
 const N = V.length;
@@ -268,11 +272,14 @@ const keyOf=n=>n.trim().toLowerCase().replace(/[^a-z0-9äöüß]+/g,'-').replace
 /* ---------- state ---------- */
 let player=LS.get('voc-player',null); // {name,key}
 let deck=[],idx=0,firstTry=new Map(),wrongIds=[],retryQueue=[],phase='ask',inRetry=false,roundCorrect=0,roundTotal=0;
-let db=null,user=null,uid=null,shared=false,myDoc={players:{}},allDocs=[],canWrite=true;
+const shared=!!(SUPABASE_URL&&SUPABASE_KEY);let remote=[],myRemote={};
+const API=SUPABASE_URL.replace(/\/$/,'')+'/rest/v1/scores';
+const H={apikey:SUPABASE_KEY,'Content-Type':'application/json'};
+if(!SUPABASE_KEY.startsWith('sb_'))H.Authorization='Bearer '+SUPABASE_KEY; // neue sb_publishable-Keys nur im apikey-Header
 let localBoard=LS.get('voc-board',{}); // key -> {name,known:[...]}
 
 function myKnown(){if(!player)return new Set();
-  const rec=(shared?(myDoc.players||{})[player.key]:localBoard[player.key]);return new Set(rec?rec.known:[]);}
+  const s=new Set((localBoard[player.key]||{}).known||[]);((myRemote[player.key]||{}).known||[]).forEach(x=>s.add(x));return s;}
 
 /* ---------- screens ---------- */
 function show(which){['start','game','result'].forEach(s=>$('screen-'+s).hidden=s!==which);
@@ -364,21 +371,26 @@ function mergedRecord(prev){
 }
 async function saveNow(){
   clearTimeout(saveTimer); if(!player)return;
-  // local copy always
   localBoard[player.key]=mergedRecord(localBoard[player.key]); LS.set('voc-board',localBoard);
   if(!shared){$('save-note').textContent='Dein Fortschritt ist auf diesem Gerät gespeichert.';renderBoard();return}
-  const players=Object.assign({},myDoc.players||{}); players[player.key]=mergedRecord(players[player.key]);
-  const body={players,updated:new Date().toISOString()};
-  myDoc=body; renderBoard();
-  try{await db.collection('scores').doc(uid).set(body);$('save-note').textContent='Gespeichert. Die Bestenliste ist für alle aktualisiert.';}
-  catch(e){canWrite=false;$('save-note').textContent='Konnte nicht in die gemeinsame Bestenliste speichern: Du brauchst Mitspiel-Rechte für diese Seite. Dein Fortschritt bleibt auf diesem Gerät.';$('lb-note').textContent='Nur Lesen: Bitte die Person, die den Link geteilt hat, dir Mitspiel-Rechte (Contributor) zu geben.';}
+  try{
+    const r=await fetch(API+'?player_key=eq.'+encodeURIComponent(player.key)+'&select=known',{headers:H});
+    const ex=r.ok?await r.json():[]; const known=new Set(localBoard[player.key].known);
+    (ex[0]&&ex[0].known||[]).forEach(x=>known.add(x));
+    const arr=[...known].sort((a,b)=>a-b);
+    const w=await fetch(API+'?on_conflict=player_key',{method:'POST',headers:{...H,Prefer:'resolution=merge-duplicates,return=minimal'},
+      body:JSON.stringify({player_key:player.key,name:player.name,known:arr,known_count:arr.length,updated_at:new Date().toISOString()})});
+    if(!w.ok)throw new Error(w.status);
+    myRemote[player.key]={known:arr}; localBoard[player.key].known=arr; LS.set('voc-board',localBoard);
+    $('save-note').textContent='Gespeichert. Die Bestenliste ist für alle aktualisiert.'; await loadBoard();
+  }catch(e){$('save-note').textContent='Konnte gerade nicht online speichern. Dein Fortschritt ist auf diesem Gerät gesichert und wird beim nächsten Mal mitgeschickt.';renderBoard();}
 }
 
 /* ---------- leaderboard ---------- */
 function rows(){
   const out=[];
-  if(shared){allDocs.forEach(d=>{const ps=(d.id===uid?myDoc.players:d.data.players)||{};Object.entries(ps).forEach(([k,p])=>out.push({name:String(p.name||'?').slice(0,20),known:(p.known||[]).length,mine:d.id===uid&&player&&k===player.key}))});
-    if(uid&&!allDocs.some(d=>d.id===uid))Object.entries(myDoc.players||{}).forEach(([k,p])=>out.push({name:p.name,known:p.known.length,mine:player&&k===player.key}));}
+  if(shared){remote.forEach(x=>{let k=x.known_count;const mine=player&&x.player_key===player.key;if(mine)k=Math.max(k,myKnown().size);out.push({name:String(x.name||'?').slice(0,20),known:k,mine})});
+    if(player&&!remote.some(x=>x.player_key===player.key)&&myKnown().size)out.push({name:player.name,known:myKnown().size,mine:true});}
   else Object.entries(localBoard).forEach(([k,p])=>out.push({name:p.name,known:(p.known||[]).length,mine:player&&k===player.key}));
   return out.filter(r=>r.known>0).sort((a,b)=>b.known-a.known||a.name.localeCompare(b.name));
 }
@@ -397,35 +409,24 @@ function renderBoard(){
 $('reset-btn').addEventListener('click',()=>{$('reset-confirm').hidden=false});
 $('reset-no').addEventListener('click',()=>{$('reset-confirm').hidden=true});
 $('reset-yes').addEventListener('click',async()=>{$('reset-confirm').hidden=true;if(!player)return;
-  delete localBoard[player.key];LS.set('voc-board',localBoard);
-  if(shared){const players=Object.assign({},myDoc.players);delete players[player.key];myDoc={players,updated:new Date().toISOString()};
-    try{await db.collection('scores').doc(uid).set(myDoc)}catch(e){}}
+  delete localBoard[player.key];LS.set('voc-board',localBoard);myRemote[player.key]={known:[]};
+  if(shared){try{await fetch(API+'?on_conflict=player_key',{method:'POST',headers:{...H,Prefer:'resolution=merge-duplicates,return=minimal'},
+    body:JSON.stringify({player_key:player.key,name:player.name,known:[],known_count:0,updated_at:new Date().toISOString()})});await loadBoard();}catch(e){}}
   renderBoard();});
 
-/* ---------- connect shared store ---------- */
-renderBoard(); show('start');
-(async()=>{
-  try{
-    if(!window.claude||!window.claude.use)throw 0;
-    [db,user]=await Promise.all([claude.use('db'),claude.use('user')]);
-    uid=user?await user.id():null;
-    if(!db||!uid)throw 0;
-    shared=true;
-    const mine=await db.collection('scores').doc(uid).get().catch(()=>null);
-    if(mine&&mine.exists)myDoc=Object.assign({players:{}},mine.data());
-    // carry over progress made on this device before connecting
-    Object.entries(localBoard).forEach(([k,p])=>{if(!myDoc.players[k])myDoc.players[k]=p;});
+/* ---------- shared leaderboard (Supabase) ---------- */
+async function loadBoard(){
+  try{const r=await fetch(API+'?select=player_key,name,known_count&known_count=gt.0&order=known_count.desc&limit=100',{headers:H});
+    if(!r.ok)throw new Error(r.status); remote=await r.json();
     $('live').textContent='live';$('live').className='live';
-    $('lb-note').textContent='Alle, die diesen Link öffnen, sehen dieselbe Bestenliste.';
-    db.collection('scores').onSnapshot(snap=>{allDocs=snap.docs.map(d=>({id:d.id,data:d.data()||{}}));renderBoard();},
-      ()=>{$('live').textContent='offline';$('live').className='live off';});
-    renderBoard();
-  }catch(e){
-    shared=false;$('live').textContent='nur dieses Gerät';$('live').className='live off';
-    $('lb-note').textContent='Die gemeinsame Bestenliste ist hier nicht verfügbar. Ergebnisse werden auf diesem Gerät gespeichert.';
-    renderBoard();
-  }
-})();
+    $('lb-note').textContent='Alle, die diese Seite öffnen, sehen dieselbe Bestenliste. Gleicher Name = gleicher Spieler, auch auf anderen Geräten.';
+  }catch(e){$('live').textContent='offline';$('live').className='live off';$('lb-note').textContent='Bestenliste gerade nicht erreichbar. Ergebnisse werden lokal gesichert.';}
+  renderBoard();
+}
+renderBoard(); show('start');
+if(shared){loadBoard();setInterval(()=>{if(document.visibilityState==='visible'&&$('screen-game').hidden)loadBoard()},15000);
+  if(player&&localBoard[player.key])setTimeout(()=>{firstTry=new Map();saveNow()},800);}
+else{$('live').textContent='nur dieses Gerät';$('live').className='live off';$('lb-note').textContent='Noch keine Datenbank verbunden: Die Bestenliste gilt nur für diesen Browser.';}
 </script>
 </body>
 </html>
