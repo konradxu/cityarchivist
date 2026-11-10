@@ -3,45 +3,59 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#FBFBF9" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#121210" media="(prefers-color-scheme: dark)">
-<meta name="description" content="BEATWINGS – kuratierte Festivalreisen nach Thailand.">
+<meta name="theme-color" content="#F8F8F8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#161616" media="(prefers-color-scheme: dark)">
+<meta name="description" content="Kuratierte Festivalreisen nach Thailand: Tomorrowland Thailand, Siam Songkran und EDC Thailand mit offiziellen Tickets, Hotels und Transfers.">
+<link rel="canonical" href="https://www.beatwings.com/beatwings.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BEATWINGS">
+<meta property="og:locale" content="de_DE">
+<meta property="og:title" content="BEATWINGS – Festivalreisen nach Thailand">
+<meta property="og:description" content="Kuratierte Festivalreisen nach Thailand: Tomorrowland Thailand, Siam Songkran und EDC Thailand mit offiziellen Tickets, Hotels und Transfers.">
+<meta property="og:image" content="https://www.beatwings.com/bw-night.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <title>BEATWINGS</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath d='M24 26c-3.5-9-12.5-12.5-18-9 1.5 7 8.5 12.5 18 9Z' fill='%23BFE34F'/%3E%3Cpath d='M24 26c3.5-9 12.5-12.5 18-9-1.5 7-8.5 12.5-18 9Z' fill='%23BFE34F'/%3E%3Ccircle cx='24' cy='14' r='3.2' fill='%23131313'/%3E%3Cpath d='M24 17.4v16' stroke='%23131313' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   /* ---------- Farben: folgen dem System (hell / dunkel) ---------- */
   :root{
-    --bg:#FBFBF9; --bg-2:#F2F2EE; --card:#FFFFFF; --line:#E3E3DD; --line-2:#EDEDE8;
-    --ink:#131313; --text:#55554F; --mute:#86867E;
-    --lime:#BFE34F; --lime-ink:#1E2606; --amber:#E07B2C; --amber-soft:#FBE9D8;
+    --bg:#F8F8F8; --bg-2:#F1F1F1; --card:#FFFFFF; --line:#E9E9E9; --line-2:#F0F0F0;
+    --ink:#464646; --text:#656565; --mute:#8A8A8A;
+    --lime:#E3FF87; --lime-ink:#3A4A10; --amber:#C98A2E; --amber-soft:#F7EEDF;
+    --r-s:8px; --r-m:12px; --r-l:16px;
+    --shadow:0 4px 16px rgba(0,0,0,.10);
     --ease:cubic-bezier(.22,.68,.26,1);
-    --grain:.028;
+    --grain:0;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --bg:#121210; --bg-2:#191916; --card:#1C1C19; --line:#2C2C27; --line-2:#232320;
-      --ink:#F4F3EE; --text:#B6B5AC; --mute:#8B8A82;
-      --lime:#D8F56F; --lime-ink:#1A2206; --amber:#FF9F3A; --amber-soft:#2E2015;
-      --grain:.05;
+      --bg:#161616; --bg-2:#1D1D1D; --card:#202020; --line:#2F2F2F; --line-2:#272727;
+      --ink:#F2F2F2; --text:#B4B4B4; --mute:#8A8A8A;
+      --lime:#E3FF87; --lime-ink:#2A3608; --amber:#E0A44A; --amber-soft:#2E2515;
+      --shadow:0 4px 16px rgba(0,0,0,.45);
+      --grain:0;
     }
   }
   :root[data-theme="dark"]{
-    --bg:#121210; --bg-2:#191916; --card:#1C1C19; --line:#2C2C27; --line-2:#232320;
-    --ink:#F4F3EE; --text:#B6B5AC; --mute:#8B8A82;
-    --lime:#D8F56F; --lime-ink:#1A2206; --amber:#FF9F3A; --amber-soft:#2E2015;
-    --grain:.05;
+    --bg:#161616; --bg-2:#1D1D1D; --card:#202020; --line:#2F2F2F; --line-2:#272727;
+    --ink:#F2F2F2; --text:#B4B4B4; --mute:#8A8A8A;
+    --lime:#E3FF87; --lime-ink:#2A3608; --amber:#E0A44A; --amber-soft:#2E2515;
+    --shadow:0 4px 16px rgba(0,0,0,.45);
+    --grain:0;
   }
 
   *{box-sizing:border-box;}
+  [hidden]{display:none !important;}
   html{scroll-behavior:smooth;}
-  body{margin:0; background:var(--bg); color:var(--text); font-family:'Archivo',system-ui,sans-serif;
+  body{margin:0; background:var(--bg); color:var(--text); font-family:'Montserrat',system-ui,sans-serif;
        font-size:15px; line-height:1.68;}
   a{color:inherit; text-decoration:none;}
   img{display:block; max-width:100%;}
-  h1,h2,h3,h4{color:var(--ink); margin:0; font-family:'Bricolage Grotesque','Archivo',sans-serif; font-weight:700;
+  h1,h2,h3,h4{color:var(--ink); margin:0; font-family:'Montserrat',sans-serif; font-weight:700;
               letter-spacing:-.035em; line-height:1;}
   .pad{padding-inline:clamp(18px,4.6vw,60px);}
   .kicker{font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--mute); font-weight:600;}
@@ -102,9 +116,8 @@
   header.stuck{border-bottom-color:var(--line);}
   .bar{display:flex; align-items:center; justify-content:space-between; gap:18px; padding-block:15px;}
   .brand{display:flex; align-items:center; gap:10px;}
-  .brand svg{width:25px; height:25px;}
-  .brand span{font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:13px; letter-spacing:.2em;
-              text-transform:uppercase; color:var(--ink);}
+  
+
   nav.top{display:flex; gap:24px;}
   nav.top a{font-size:13px; color:var(--text); transition:color .25s var(--ease);}
   nav.top a:hover{color:var(--ink);}
@@ -186,8 +199,8 @@
   .card .when{margin:10px 0 0; color:var(--mute); font-size:13.5px;}
   .card .foot{display:flex; align-items:baseline; justify-content:space-between; gap:14px; margin-top:16px;
               padding-top:14px; border-top:1px solid var(--line-2);}
-  .card .price{font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:20px; color:var(--ink);}
-  .card .price span{font-family:'Archivo'; font-weight:400; font-size:11.5px; color:var(--mute); margin-left:6px;}
+  .card .price{font-family:'Montserrat',sans-serif; font-weight:700; font-size:20px; color:var(--ink);}
+  .card .price span{font-family:'Montserrat'; font-weight:400; font-size:11.5px; color:var(--mute); margin-left:6px;}
   .card .go{font-weight:600; font-size:12.5px; color:var(--ink);}
   .card .go::after{content:" ↗"; display:inline-block; transition:transform .3s var(--ease);}
   .card:hover .go::after{transform:translate(3px,-3px);}
@@ -242,12 +255,12 @@
   .prize .steps{display:grid; gap:0; margin-top:26px;}
   .prize .step{display:grid; grid-template-columns:auto 1fr; gap:14px; padding-block:13px; border-top:1px solid var(--line);}
   .prize .step:last-child{border-bottom:1px solid var(--line);}
-  .prize .step b{font-family:'Bricolage Grotesque',sans-serif; font-size:13px; color:var(--amber);}
+  .prize .step b{font-family:'Montserrat',sans-serif; font-size:13px; color:var(--amber);}
   .prize .step span{font-size:13.5px; color:var(--text);}
   .prize .acts{display:flex; gap:14px; align-items:center; flex-wrap:wrap; margin-top:26px;}
   .prize .shot{aspect-ratio:4/5;}
   .prize .badge{position:absolute; left:0; bottom:0; z-index:2; background:var(--lime); color:var(--lime-ink);
-                font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:13px; letter-spacing:.04em;
+                font-family:'Montserrat',sans-serif; font-weight:700; font-size:13px; letter-spacing:.04em;
                 padding:11px 16px;}
 
   /* ---------- waitlist ---------- */
@@ -261,29 +274,296 @@
   footer nav{display:flex; gap:20px; flex-wrap:wrap;}
   footer a{font-size:12px; color:var(--mute);}
   footer small{font-size:12px; color:var(--mute);}
+
+  /* ----- Aufklappbare Fragen ----- */
+  .faq{border-bottom:1px solid var(--line-2);}
+  .faq:first-of-type{border-top:1px solid var(--line-2);}
+  .faq summary{list-style:none; cursor:pointer; padding:14px 30px 14px 0; position:relative;
+               font-size:14.5px; font-weight:600; color:var(--ink);}
+  .faq summary::-webkit-details-marker{display:none;}
+  .faq summary::after{content:""; position:absolute; right:6px; top:50%; width:9px; height:9px;
+                      border-right:1.5px solid var(--mute); border-bottom:1.5px solid var(--mute);
+                      transform:translateY(-70%) rotate(45deg); transition:transform .3s var(--ease);}
+  .faq[open] summary::after{transform:translateY(-30%) rotate(225deg);}
+  .faq summary:hover{color:var(--amber);}
+  .faq summary:focus-visible{outline:2px solid var(--amber); outline-offset:3px;}
+  .faq p{margin:0 0 16px; font-size:14px; max-width:66ch; color:var(--text);}
+
+  /* ----- Original-Logo ----- */
+  .brand img, .mark img{height:46px; width:auto; display:block;}
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]) .brand img{filter:invert(1);}
+  }
+  :root[data-theme="dark"] .brand img{filter:invert(1);}
+  @media (max-width:560px){ .brand img{height:40px;} }
+  /* ---------- Design 1:1 vom Buchungsportal booking.beatwings.com ---------- */
+  .kicker{font-size:11px; font-weight:700; letter-spacing:1.65px;}
+  h1,h2,h3{font-weight:800; letter-spacing:-.01em;}
+  .shot{border-radius:var(--r-l);}
+  .cta,.book,.tag,.badge{border-radius:var(--r-s);}
+  .card .foot,.hl,.step,.faq,.rule{border-radius:0;}
+  .peek,.warn,.calnote,.legend,.two > div,.gs,.tablewrap{border-radius:var(--r-m);}
+  .door .front,.door .back{border-radius:var(--r-m);}
+  .grain{display:none;}
+
+  /* ---------- Sprachumschalter ---------- */
+  .lang{position:relative; flex:0 0 auto;}
+  .langbtn{display:inline-flex; align-items:center; gap:6px; background:var(--card);
+    border:1px solid var(--line); border-radius:var(--r-s); color:var(--ink);
+    font-family:'Montserrat',sans-serif; font-size:13px; font-weight:600;
+    padding:5px 10px; cursor:pointer; line-height:1.4; transition:border-color .2s var(--ease);}
+  .langbtn:hover{border-color:var(--mute);}
+  .langbtn svg{width:9px; height:9px; opacity:.65; transition:transform .2s var(--ease);}
+  .lang.open .langbtn svg{transform:rotate(180deg);}
+  .langmenu{position:absolute; right:0; top:calc(100% + 8px); z-index:80; min-width:168px;
+    max-height:min(62vh,420px); overflow-y:auto; background:var(--card);
+    border:1px solid var(--line); border-radius:var(--r-m); box-shadow:var(--shadow); padding:5px 0;}
+  .langmenu button{display:flex; align-items:center; gap:11px; width:100%; background:none; border:0;
+    padding:9px 14px; font-family:'Montserrat',sans-serif; font-size:13px; color:var(--text);
+    text-align:left; cursor:pointer; transition:background .15s var(--ease);}
+  .langmenu button:hover{background:var(--bg-2);}
+  .langmenu button b{font-weight:600; color:var(--ink); min-width:22px; font-size:12px;}
+  .langmenu button[aria-selected="true"]{color:var(--ink);}
+  .langmenu button[aria-selected="true"]::after{content:"\2713"; margin-left:auto; color:var(--ink); font-size:12px;}
+  /* Google-Translate-Leiste ausblenden */
+  .skiptranslate{display:none !important;}
+  body{top:0 !important;}
+  #google_translate_element{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0);}
+  @media (max-width:560px){ .langmenu{min-width:152px;} }
 </style>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": [
+    "TravelAgency",
+    "Organization"
+   ],
+   "@id": "https://www.beatwings.com/#organisation",
+   "name": "BEATWINGS",
+   "legalName": "BEATWINGS GmbH",
+   "url": "https://www.beatwings.com/beatwings.html",
+   "logo": {
+    "@type": "ImageObject",
+    "url": "https://www.beatwings.com/bw-logo.png",
+    "width": 420,
+    "height": 420
+   },
+   "image": "https://www.beatwings.com/bw-night.jpg",
+   "description": "BEATWINGS veranstaltet geführte Festivalreisen nach Thailand mit offiziellen Festivaltickets, Hotels, allen Transfers und deutschsprachiger Betreuung vor Ort. BEATWINGS ist offizieller Reisepartner des Tomorrowland Thailand für Deutschland und Österreich.",
+   "slogan": "Such dir das Festival aus. Den Rest machen wir.",
+   "email": "info@beatwings.com",
+   "telephone": "+49 251 5355680017",
+   "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Hafenweg 16",
+    "postalCode": "48155",
+    "addressLocality": "Münster",
+    "addressCountry": "DE"
+   },
+   "founder": {
+    "@type": "Person",
+    "name": "Björn Weiß"
+   },
+   "knowsLanguage": [
+    "de",
+    "en"
+   ],
+   "areaServed": [
+    {
+     "@type": "Country",
+     "name": "Deutschland"
+    },
+    {
+     "@type": "Country",
+     "name": "Österreich"
+    },
+    {
+     "@type": "Country",
+     "name": "Schweiz"
+    }
+   ],
+   "knowsAbout": [
+    "Tomorrowland Thailand",
+    "Siam Songkran",
+    "EDC Thailand",
+    "Festivalreisen Thailand",
+    "Bangkok",
+    "Pattaya",
+    "Chon Buri"
+   ],
+   "contactPoint": [
+    {
+     "@type": "ContactPoint",
+     "contactType": "customer support",
+     "email": "community@beatwings.com",
+     "telephone": "+66 64 235 2858",
+     "availableLanguage": [
+      "de",
+      "en"
+     ]
+    }
+   ],
+   "sameAs": [
+    "https://booking.beatwings.com",
+    "https://thailand.tomorrowland.com/en/sales-info/official-travel-partners/"
+   ]
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://www.beatwings.com/#website",
+   "url": "https://www.beatwings.com/beatwings.html",
+   "name": "BEATWINGS",
+   "inLanguage": "de-DE",
+   "publisher": {
+    "@id": "https://www.beatwings.com/#organisation"
+   }
+  },
+  {
+   "@type": "ItemList",
+   "name": "Festivalreisen nach Thailand",
+   "numberOfItems": 3,
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": {
+      "@type": "TouristTrip",
+      "name": "BEATWINGS x Tomorrowland Thailand 2026",
+      "description": "Zehntägige Festivalreise zum Tomorrowland Thailand: Full Madness Pass für drei Festivaltage, Hotels in Bangkok und Chon Buri, alle Transfers und Festival-Shuttles, Betreuung durch das BEATWINGS-Team.",
+      "url": "https://www.beatwings.com/anreise.html",
+      "image": "https://www.beatwings.com/bw-hero.jpg",
+      "provider": {
+       "@id": "https://www.beatwings.com/#organisation"
+      },
+      "itinerary": [
+       {
+        "@type": "Place",
+        "name": "Bangkok, Thailand"
+       },
+       {
+        "@type": "Place",
+        "name": "Chon Buri, Thailand"
+       },
+       {
+        "@type": "Place",
+        "name": "Pattaya, Thailand"
+       }
+      ],
+      "offers": {
+       "@type": "Offer",
+       "price": "899",
+       "priceCurrency": "EUR",
+       "url": "https://booking.beatwings.com",
+       "availability": "https://schema.org/LimitedAvailability",
+       "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "899",
+        "priceCurrency": "EUR",
+        "referenceQuantity": {
+         "@type": "QuantitativeValue",
+         "value": 1,
+         "unitText": "Person"
+        }
+       }
+      },
+      "startDate": "2026-12-05",
+      "endDate": "2026-12-15"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": {
+      "@type": "TouristTrip",
+      "name": "BEATWINGS x Siam Songkran",
+      "description": "Festivalreise zum Siam Songkran in Bangkok und Pattaya über das thailändische Neujahrsfest, mit Tickets, Hotel und Transfers.",
+      "url": "https://www.beatwings.com/beatwings.html#trips",
+      "image": "https://www.beatwings.com/bw-siam1.jpg",
+      "provider": {
+       "@id": "https://www.beatwings.com/#organisation"
+      },
+      "itinerary": [
+       {
+        "@type": "Place",
+        "name": "Bangkok, Thailand"
+       },
+       {
+        "@type": "Place",
+        "name": "Pattaya, Thailand"
+       }
+      ],
+      "offers": {
+       "@type": "Offer",
+       "price": "849",
+       "priceCurrency": "EUR",
+       "url": "https://booking.beatwings.com",
+       "availability": "https://schema.org/LimitedAvailability",
+       "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "849",
+        "priceCurrency": "EUR",
+        "referenceQuantity": {
+         "@type": "QuantitativeValue",
+         "value": 1,
+         "unitText": "Person"
+        }
+       }
+      },
+      "startDate": "2027-04-11",
+      "endDate": "2027-04-21"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": {
+      "@type": "TouristTrip",
+      "name": "BEATWINGS x EDC Thailand",
+      "description": "Festivalreise zum EDC Thailand auf Phuket. Warteliste offen, Buchung ab Februar.",
+      "url": "https://beatwings.com/edc-thailand-2026/",
+      "image": "https://www.beatwings.com/bw-island.jpg",
+      "provider": {
+       "@id": "https://www.beatwings.com/#organisation"
+      },
+      "itinerary": [
+       {
+        "@type": "Place",
+        "name": "Phuket, Thailand"
+       }
+      ]
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
 
 <header class="pad" id="top">
   <div class="bar">
-    <a class="brand" href="#top">
-      <svg viewBox="0 0 48 48" fill="none">
-        <path d="M24 26c-3.5-9-12.5-12.5-18-9 1.5 7 8.5 12.5 18 9Z" fill="var(--lime)" stroke="var(--ink)" stroke-width="1.5" stroke-linejoin="round"/>
-        <path d="M24 26c3.5-9 12.5-12.5 18-9-1.5 7-8.5 12.5-18 9Z" fill="var(--lime)" stroke="var(--ink)" stroke-width="1.5" stroke-linejoin="round"/>
-        <circle cx="24" cy="14" r="3.2" fill="var(--ink)"/>
-        <path d="M24 17.4v16M20.6 33.4h7" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round"/>
-      </svg>
-      <span>Beatwings</span>
+    <a class="brand notranslate" translate="no" href="#top">
+      <img src="bw-logo.png" alt="BEATWINGS" width="420" height="420">
     </a>
     <nav class="top">
       <a href="#trips">Reisen</a>
       <a href="#moments">Moments</a>
       <a href="#news">News</a>
+      <a href="anreise.html">Anreise</a>
       <a href="gewinnspiel.html">Gewinnspiel</a>
       <a href="#waitlist">Waitlist</a>
     </nav>
+    <div class="lang notranslate" id="lang">
+      <button class="langbtn" id="langbtn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Sprache wählen">
+        <span id="langcur">DE</span>
+        <svg viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="langmenu" id="langmenu" role="listbox" hidden></div>
+    </div>
     <a class="book" href="https://booking.beatwings.com" target="_blank" rel="noopener">Booking ↗</a>
   </div>
 </header>
@@ -292,6 +572,7 @@
   <a href="#trips">Reisen</a>
   <a href="#moments">Moments</a>
   <a href="#news">News</a>
+  <a href="anreise.html">Anreise</a>
   <a href="gewinnspiel.html">Gewinnspiel</a>
   <a href="#waitlist">Waitlist</a>
 </nav>
@@ -423,7 +704,7 @@
 <section class="pad news" id="news">
   <div class="head">
     <h2 class="up">News</h2>
-    <a class="kicker up" style="--d:60ms" href="#">Alle Meldungen →</a>
+    <a class="kicker up" style="--d:60ms" href="gewinnspiel.html">Zum Gewinnspiel →</a>
   </div>
 
   <div class="newswrap">
@@ -497,15 +778,21 @@
     <h2 class="up" style="--d:60ms">Erfahre als Erstes, wohin es als Nächstes geht.</h2>
     <p class="up" style="--d:140ms">Früher Zugang, exklusive Rabatte und neue Festivals, bevor sie öffentlich sind. Kostenlos, dauert zwanzig Sekunden.</p>
   </div>
-  <a class="cta up" style="--d:200ms" href="#">Eintragen ↗</a>
+  <a class="cta up" style="--d:200ms" href="https://booking.beatwings.com" target="_blank" rel="noopener">Eintragen ↗</a>
 </section>
 
-<footer class="pad">
+<footer class="pad wrap">
   <nav>
-    <a href="#top">Start</a><a href="#trips">Reisen</a><a href="gewinnspiel.html">Gewinnspiel</a>
-    <a href="#">FAQ</a><a href="#">Impressum</a><a href="#">AGB</a><a href="#">Datenschutz</a>
+    <a href="beatwings.html">Start</a>
+    <a href="beatwings.html#trips">Reisen</a>
+    <a href="anreise.html">Anreise</a>
+    <a href="gewinnspiel.html">Gewinnspiel</a>
+    <a href="faq.html">FAQ</a>
+    <a href="impressum.html">Impressum</a>
+    <a href="https://beatwings.com/wp-content/uploads/2026/03/AGB-Dialog-Travel-GmbH.pdf" target="_blank" rel="noopener">AGB</a>
+    <a href="https://beatwings.com/privacy-policy/" target="_blank" rel="noopener">Datenschutz</a>
   </nav>
-  <small>©2026 BEATWINGS · community@beatwings.com</small>
+  <small>©2026 BEATWINGS GmbH · info@beatwings.com</small>
 </footer>
 
 <script>
@@ -565,6 +852,76 @@
       ? '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>'
       : '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
   });
+})();
+</script>
+
+<div id="google_translate_element" aria-hidden="true"></div>
+<script>
+/* Sprachen und Mechanik 1:1 wie booking.beatwings.com (Google Translate Element) */
+(function(){
+  var SPRACHEN = [
+    ['de','Deutsch'],['en','English'],['fr','Français'],['es','Español'],['it','Italiano'],
+    ['nl','Nederlands'],['pl','Polski'],['pt','Português'],['ru','Русский'],['tr','Türkçe'],
+    ['th','ภาษาไทย'],['ja','日本語'],['ko','한국어'],['zh-CN','中文'],['ar','العربية']
+  ];
+  var KUERZEL = {'zh-CN':'ZH'};
+  var btn = document.getElementById('langbtn'),
+      menu = document.getElementById('langmenu'),
+      wrap = document.getElementById('lang'),
+      cur  = document.getElementById('langcur');
+  if(!btn) return;
+
+  function aktuelle(){
+    var m = document.cookie.match(/googtrans=\/[^\/]+\/([^;]+)/);
+    return m ? decodeURIComponent(m[1]) : 'de';
+  }
+  function kuerzel(code){ return KUERZEL[code] || code.toUpperCase(); }
+
+  function bauen(){
+    var jetzt = aktuelle();
+    cur.textContent = kuerzel(jetzt);
+    menu.innerHTML = '';
+    SPRACHEN.forEach(function(s){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('role','option');
+      b.setAttribute('aria-selected', s[0] === jetzt ? 'true' : 'false');
+      b.innerHTML = '<b>' + kuerzel(s[0]) + '</b><span>' + s[1] + '</span>';
+      b.addEventListener('click', function(){ wechseln(s[0]); });
+      menu.appendChild(b);
+    });
+  }
+
+  function wechseln(code){
+    var host = location.hostname;
+    var wert = code === 'de' ? '' : '/de/' + code;
+    ['', '; domain=' + host, '; domain=.' + host.replace(/^www\./,'')].forEach(function(d){
+      document.cookie = 'googtrans=' + wert + '; path=/' + d + (wert ? '' : '; expires=Thu, 01 Jan 1970 00:00:00 GMT');
+    });
+    location.reload();
+  }
+
+  function auf(){ wrap.classList.add('open'); menu.hidden = false; btn.setAttribute('aria-expanded','true'); }
+  function zu(){ wrap.classList.remove('open'); menu.hidden = true; btn.setAttribute('aria-expanded','false'); }
+  btn.addEventListener('click', function(e){ e.stopPropagation(); menu.hidden ? auf() : zu(); });
+  document.addEventListener('click', function(e){ if(!wrap.contains(e.target)) zu(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') zu(); });
+
+  bauen();
+
+  /* Google Translate nur laden, wenn eine andere Sprache als Deutsch aktiv ist */
+  if(aktuelle() !== 'de'){
+    window.googleTranslateElementInit = function(){
+      new google.translate.TranslateElement(
+        {pageLanguage:'de',
+         includedLanguages:'en,de,fr,es,th,pl,nl,it,pt,ru,ja,ko,zh-CN,ar,tr',
+         autoDisplay:false}, 'google_translate_element');
+    };
+    var s = document.createElement('script');
+    s.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    s.async = true;
+    document.head.appendChild(s);
+  }
 })();
 </script>
 </body>
