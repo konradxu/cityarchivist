@@ -57,6 +57,7 @@
   img{display:block; max-width:100%;}
   h1,h2,h3,h4{color:var(--ink); margin:0; font-family:'Montserrat',sans-serif; font-weight:700;
               letter-spacing:-.035em; line-height:1;}
+  .wrap{max-width:1180px; margin-inline:auto;}
   .pad{padding-inline:clamp(18px,4.6vw,60px);}
   .kicker{font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--mute); font-weight:600;}
 
@@ -144,11 +145,7 @@
   .feature .shot{aspect-ratio:3/2;}
   .feature .sound{position:absolute; top:12px; right:12px; z-index:2; font-size:10px; letter-spacing:.14em;
                   text-transform:uppercase; font-weight:600; color:#FFF; background:rgba(12,12,10,.62); padding:5px 9px;}
-  .feature .play{position:absolute; left:14px; bottom:14px; z-index:2; width:46px; height:46px; border-radius:50%;
-                 background:var(--lime); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--lime-ink);
-                 padding:0; transition:transform .3s var(--ease);}
   .feature .play:hover{transform:scale(1.07);}
-  .feature .play svg{width:14px; height:14px;}
   .feature .cap{display:flex; align-items:center; gap:11px; margin-top:14px;}
   .feature h3{margin:9px 0 0; font-size:clamp(19px,2.2vw,24px); line-height:1.16;}
   .feature p{margin:8px 0 0; color:var(--mute); font-size:13.5px; max-width:50ch;}
@@ -184,10 +181,7 @@
   .cta.plain{background:transparent; color:var(--ink); border:1px solid var(--line);}
 
   /* ---------- trips: liegende Strecke ---------- */
-  .runway{position:relative; border-bottom:1px solid var(--line);}
   .runway .sticky{position:sticky; top:0; height:100vh; display:flex; align-items:center; overflow:hidden;}
-  .runway .track{display:flex; gap:clamp(16px,2.4vw,34px); padding-inline:clamp(18px,4.6vw,60px);}
-  @media (hover:hover) and (min-width:881px){ .runway .track{will-change:transform;} }
   .card{flex:0 0 clamp(290px,38vw,560px);}
   .card .shot{aspect-ratio:3/2;}
   .card .state{display:flex; align-items:center; gap:9px; margin-top:16px; font-size:10.5px; letter-spacing:.18em;
@@ -204,11 +198,9 @@
   .card .go{font-weight:600; font-size:12.5px; color:var(--ink);}
   .card .go::after{content:" ↗"; display:inline-block; transition:transform .3s var(--ease);}
   .card:hover .go::after{transform:translate(3px,-3px);}
-  .runway .meta{position:absolute; left:clamp(18px,4.6vw,60px); top:clamp(22px,4vw,44px); z-index:2;}
   .runway .hint{position:absolute; right:clamp(18px,4.6vw,60px); bottom:clamp(22px,4vw,44px); z-index:2;
                 font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--mute);
                 display:flex; align-items:center; gap:10px;}
-  .runway .hint .line{width:58px; height:1px; background:var(--line); position:relative; overflow:hidden;}
   .runway .hint .line::after{content:""; position:absolute; inset:0; background:var(--amber); transform:scaleX(var(--p,0)); transform-origin:left;}
   @media (max-width:880px){
     .runway{height:auto !important;}
@@ -240,9 +232,6 @@
   }
   .m .sound{position:absolute; top:10px; right:10px; z-index:2; font-size:9.5px; letter-spacing:.14em; text-transform:uppercase;
             font-weight:600; color:#FFF; background:rgba(12,12,10,.6); padding:4px 8px;}
-  .m .play{position:absolute; left:10px; bottom:10px; z-index:2; width:36px; height:36px; border-radius:50%;
-           background:var(--lime); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--lime-ink); padding:0;
-           transition:transform .3s var(--ease);}
   .m .play:hover{transform:scale(1.08);}
   .m .play svg{width:12px; height:12px;}
 
@@ -306,6 +295,10 @@
   .door .front,.door .back{border-radius:var(--r-m);}
   .grain{display:none;}
 
+  .actions{display:flex; align-items:center; gap:12px; flex:0 0 auto;}
+  .langbtn{height:40px; padding:0 12px;}
+  .book{display:inline-flex; align-items:center; height:40px; padding:0 17px;}
+
   /* ---------- Sprachumschalter ---------- */
   .lang{position:relative; flex:0 0 auto;}
   .langbtn{display:inline-flex; align-items:center; gap:6px; background:var(--card);
@@ -323,13 +316,115 @@
     text-align:left; cursor:pointer; transition:background .15s var(--ease);}
   .langmenu button:hover{background:var(--bg-2);}
   .langmenu button b{font-weight:600; color:var(--ink); min-width:22px; font-size:12px;}
-  .langmenu button[aria-selected="true"]{color:var(--ink);}
-  .langmenu button[aria-selected="true"]::after{content:"\2713"; margin-left:auto; color:var(--ink); font-size:12px;}
+  .langmenu button[aria-checked="true"]{color:var(--ink);}
+  .langmenu button[aria-checked="true"]::after{content:"\2713"; margin-left:auto; color:var(--ink); font-size:12px;}
   /* Google-Translate-Leiste ausblenden */
   .skiptranslate{display:none !important;}
   body{top:0 !important;}
   #google_translate_element{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0);}
   @media (max-width:560px){ .langmenu{min-width:152px;} }
+  /* ---------- Korrekturen aus dem Design-Review ---------- */
+  /* Kontraste: Amber und Lime waren als Text-/Signalfarbe im Hellmodus unlesbar */
+  :root{ --amber:#8A5A12; --lime-line:#6F8A18; }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --amber:#E0A44A; --lime-line:#D8F56F; } }
+  :root[data-theme="dark"]{ --amber:#E0A44A; --lime-line:#D8F56F; }
+
+  /* Fokus: war ausser bei den FAQ-Aufklappern nirgends definiert */
+  :where(a,button,summary,[tabindex]):focus-visible{
+    outline:2px solid var(--ink); outline-offset:3px; border-radius:3px;}
+  .faq summary:focus-visible{outline:2px solid var(--ink); outline-offset:3px;}
+  .langmenu button:focus-visible{outline:none; box-shadow:inset 0 0 0 2px var(--ink);}
+  .skip{position:absolute; left:-9999px;}
+  .skip:focus{left:18px; top:10px; z-index:200; background:var(--lime); color:var(--lime-ink);
+    padding:12px 18px; border-radius:var(--r-s); font-weight:700; font-size:13px;}
+
+  /* Knopfkonturen hatten 1,14:1 - sahen aus wie Text */
+  .cta.plain{border:1px solid var(--ink); color:var(--ink);}
+  .langbtn{border:1px solid var(--mute);}
+  .langbtn:hover{border-color:var(--ink); background:var(--bg-2);}
+
+  /* Tippflaechen auf 44px */
+  .mobnav{gap:2px; padding-inline-end:36px;
+    -webkit-mask-image:linear-gradient(to right,#000 calc(100% - 32px),transparent);
+            mask-image:linear-gradient(to right,#000 calc(100% - 32px),transparent);}
+  .mobnav a{min-height:44px; display:inline-flex; align-items:center; padding:0 10px; padding-block:0;}
+  .mobnav a[aria-current="page"]{color:var(--ink); border-bottom:0; box-shadow:inset 0 -2px 0 var(--ink);}
+  .top a[aria-current="page"]{color:var(--ink); box-shadow:inset 0 -2px 0 var(--ink);}
+  .langmenu button{min-height:44px;}
+
+  /* Footer-Links hatten 3,25:1 - ausgerechnet AGB, Datenschutz, Impressum */
+  footer a{color:var(--text);}
+  footer a:hover{color:var(--ink); text-decoration:underline; text-underline-offset:3px;}
+
+  /* Druckzustand fehlte ganz; Hover nur auf Geraeten mit echtem Zeiger */
+  @media (hover:hover){ .cta:hover{transform:translateY(-2px);} }
+  @media (hover:none){ .cta:hover{transform:none;} }
+  .cta:active,.book:active,.langbtn:active{transform:scale(.97); transition-duration:.06s;}
+
+  /* Einblendungen waren mit 0,85-1,4s zu traege und sprangen erst bei -8% an */
+  .anim .up.in{transition:opacity .45s var(--ease) var(--d,0ms), transform .5s var(--ease) var(--d,0ms);}
+  .anim .wipe{animation-duration:.6s;}
+  .anim .now{animation-duration:.5s;}
+  .anim .pull.in .shot img{transition:transform .8s var(--ease) var(--d,0ms);}
+
+  @media (max-width:920px){
+    .ticker{display:none;}            /* reine Deko (aria-hidden), frass 40px vom Handyschirm */
+  }
+  @media (max-width:560px){
+    .brand img{height:34px;}
+    .bar{padding-block:10px;}
+  }
+  /* ---------- Neuer Aufbau Startseite ---------- */
+  .sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap;}
+
+  /* Hero: Angebot und Knoepfe ueber der Falz, Schlagzeile zweizeilig statt vierzeilig */
+  .hero{padding-block:clamp(34px,4.4vw,60px) clamp(22px,2.6vw,34px);}
+  .hero h1{font-size:clamp(32px,4.4vw,62px); max-width:21ch; line-height:1.04;
+    letter-spacing:-.02em; margin:14px 0 0;}
+  .hero .lead{margin:18px 0 0; max-width:60ch; font-size:15.5px; color:var(--text);}
+  .heroacts{display:flex; gap:12px; flex-wrap:wrap; margin-top:24px;}
+  .trust{margin:26px 0 0; display:flex; flex-direction:column; gap:4px; font-size:13px;}
+  .trust a{color:var(--ink); display:inline-block;}
+  .trust a:hover b{text-decoration:underline; text-underline-offset:3px;}
+  .trust b{font-weight:700;}
+  .trust span{color:var(--mute); font-size:12.5px;}
+  @media (max-width:560px){ .hero h1{max-width:18ch;} .heroacts .cta{flex:1 1 100%; justify-content:center;} }
+
+  /* Reisen: Raster statt klebender Querstrecke */
+  .trips{padding-block:var(--s-sec,clamp(56px,7vw,96px)); border-bottom:1px solid var(--line);}
+  .trips .track{display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:clamp(16px,2.2vw,30px); margin-top:26px;}
+  @media (max-width:980px){ .trips .track{grid-template-columns:repeat(2,minmax(0,1fr));} }
+  @media (max-width:660px){ .trips .track{grid-template-columns:1fr;} }
+
+  /* Karten: echte weisse Flaeche, wie im Buchungsportal */
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--r-l);
+    padding:12px 12px 16px; box-shadow:var(--shadow); display:flex; flex-direction:column;
+    transition:box-shadow .3s var(--ease), transform .3s var(--ease);}
+  @media (hover:hover){ .card:hover{transform:translateY(-3px); box-shadow:0 10px 26px rgba(0,0,0,.12);} }
+  .card .shot{aspect-ratio:3/2; border-radius:10px;}
+  .card h3{margin:12px 0 0; font-size:clamp(19px,2vw,25px); padding-inline:4px;}
+  .card h3 a{display:block;}
+  .card .when{margin:7px 0 0; color:var(--mute); font-size:13px; padding-inline:4px;}
+  .card .state{margin-top:14px; padding-inline:4px;}
+  .card .state i{background:var(--lime-line);}
+  .card .foot{margin-top:auto; padding:16px 4px 0; border-top:1px solid var(--line-2);
+    display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;}
+  .card .price{font-size:19px;}
+  .card .go{background:var(--lime); color:var(--lime-ink); font-weight:700; font-size:13px;
+    padding:0 16px; min-height:44px; border-radius:var(--r-s);
+    display:inline-flex; align-items:center; white-space:nowrap;}
+  .card .go::after{content:"\00a0↗";}
+  .card .go.soft{background:transparent; color:var(--ink); border:1px solid var(--ink);}
+  @media (hover:hover){ .card .go:hover{filter:brightness(.95);} }
+
+  /* Einheitliche Ueberschriften-Stufen statt 26/37/42/54px durcheinander */
+  .head h2,.prize h2,.wait h2,.trips h2{font-size:clamp(26px,3.2vw,40px); margin:0;}
+  .prize h2,.wait h2{margin-top:12px;}
+
+  /* Schlagzeilen-Wechsler: Text blieb lesbar statt in schwachem Amber zu verschwinden */
+  .hl.active b{color:var(--ink);}
+  .hl.active{background:var(--bg-2);}
 </style>
 <script type="application/ld+json">
 {
@@ -542,6 +637,7 @@
 </script>
 </head>
 <body>
+<a class="skip" href="#main">Zum Inhalt springen</a>
 <div class="grain" aria-hidden="true"></div>
 
 <header class="pad" id="top">
@@ -550,31 +646,31 @@
       <img src="bw-logo.png" alt="BEATWINGS" width="420" height="420">
     </a>
     <nav class="top">
-      <a href="#trips">Reisen</a>
-      <a href="#moments">Moments</a>
-      <a href="#news">News</a>
+      <a href="beatwings.html#trips">Reisen</a>
+      <a href="beatwings.html#moments">Moments</a>
       <a href="anreise.html">Anreise</a>
       <a href="gewinnspiel.html">Gewinnspiel</a>
-      <a href="#waitlist">Waitlist</a>
+      <a href="faq.html">FAQ</a>
     </nav>
-    <div class="lang notranslate" id="lang">
-      <button class="langbtn" id="langbtn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Sprache wählen">
+    <div class="actions">
+      <div class="lang notranslate" id="lang">
+      <button class="langbtn" id="langbtn" type="button" aria-haspopup="true" aria-expanded="false">
         <span id="langcur">DE</span>
         <svg viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
-      <div class="langmenu" id="langmenu" role="listbox" hidden></div>
+      <div class="langmenu" id="langmenu" role="menu" aria-label="Sprache wählen" hidden></div>
     </div>
-    <a class="book" href="https://booking.beatwings.com" target="_blank" rel="noopener">Booking ↗</a>
+      <a class="book" href="https://booking.beatwings.com" target="_blank" rel="noopener">Booking ↗</a>
+    </div>
   </div>
 </header>
 
 <nav class="mobnav pad">
-  <a href="#trips">Reisen</a>
-  <a href="#moments">Moments</a>
-  <a href="#news">News</a>
+  <a href="beatwings.html#trips">Reisen</a>
+  <a href="beatwings.html#moments">Moments</a>
   <a href="anreise.html">Anreise</a>
   <a href="gewinnspiel.html">Gewinnspiel</a>
-  <a href="#waitlist">Waitlist</a>
+  <a href="faq.html">FAQ</a>
 </nav>
 
 <div class="ticker" aria-hidden="true">
@@ -590,58 +686,69 @@
   </div>
 </div>
 
+<main id="main" class="wrap">
 <!-- ========== HERO ========== -->
 <section class="pad hero">
   <span class="kicker now">Thailand · Dezember — April</span>
-  <h1 class="wipe" style="--d:80ms; margin-top:18px;">Such dir das Festival aus. Den Rest machen wir.</h1>
+  <h1 class="wipe" style="--d:60ms">Such dir das Festival aus. Den Rest machen wir.</h1>
+  <p class="lead now" style="--d:180ms">Full Madness Pass, zwei Hotels, jeder Transfer vom Flughafen bis zum
+    Shuttle um 01:00 Uhr nach dem letzten Set. Deutschsprachiges Team vor Ort. Du buchst einmal statt sechsmal.</p>
+  <div class="heroacts now" style="--d:260ms">
+    <a class="cta" href="https://booking.beatwings.com" target="_blank" rel="noopener">Reise buchen ↗</a>
+    <a class="cta plain" href="#trips">Alle Reisen ansehen</a>
+  </div>
+  <p class="trust now" style="--d:340ms">
+    <a href="https://thailand.tomorrowland.com/en/sales-info/official-travel-partners/" target="_blank" rel="noopener">
+      <b>Offizieller Reisepartner des Tomorrowland Thailand</b> für Deutschland und Österreich</a>
+    <span>Pauschalreise nach deutschem Recht · Insolvenzabsicherung · Airline-Partner Lufthansa Group</span>
+  </p>
 </section>
 
-<div class="band now" style="--d:260ms">
-  <div class="shot"><img src="bw-night.jpg" alt="Siam Songkran bei Nacht"></div>
+<div class="band now pad" style="--d:420ms">
+  <div class="shot"><img src="bw-tml.jpg" alt="Tomorrowland Thailand, Hauptbühne bei Nacht"></div>
 </div>
 
-<section class="pad herofoot">
-  <div class="row">
-    <p class="now" style="--d:360ms">Offizielle Tickets, Hotels an den richtigen Stellen, jeder Transfer organisiert — und eine Gruppe, die so reist wie du.</p>
-    <span class="now" style="--d:440ms; display:flex; gap:12px; flex-wrap:wrap;">
-      <a class="cta" href="https://booking.beatwings.com" target="_blank" rel="noopener">Reise buchen ↗</a>
-      <a class="cta plain" href="#trips">Alle Reisen</a>
-    </span>
-  </div>
-</section>
-
 <!-- ========== TRIPS ========== -->
-<section class="runway" id="trips">
-  <div class="sticky">
-    <div class="meta"><span class="kicker">Kommende Reisen</span></div>
-    <div class="track" id="track">
+<section class="pad trips" id="trips">
+  <div class="head">
+    <h2 class="up">Kommende Reisen</h2>
+    <span class="kicker up" style="--d:60ms">Drei Festivals · Dezember bis April</span>
+  </div>
+  <div class="track">
 
-      <a class="card pull" href="https://booking.beatwings.com" target="_blank" rel="noopener">
-        <div class="shot"><img src="bw-hero.jpg" alt="Tomorrowland Thailand"></div>
-        <span class="state"><i></i>Tickets verfügbar</span>
-        <h3>Tomorrowland Thailand</h3>
-        <p class="when">5. – 15. Dezember 2026 · Bangkok &amp; Pattaya</p>
-        <div class="foot"><span class="price">899 €<span>pro Person</span></span><span class="go">Buchen</span></div>
-      </a>
+    <article class="card pull">
+      <div class="shot"><img src="bw-hero.jpg" alt="Tomorrowland Thailand"></div>
+      <span class="state"><i></i>Tickets verfügbar</span>
+      <h3><a href="https://booking.beatwings.com" target="_blank" rel="noopener">Tomorrowland Thailand</a></h3>
+      <p class="when">5. – 15. Dezember 2026 · Bangkok &amp; Pattaya</p>
+      <div class="foot">
+        <span class="price">899 €<span>pro Person</span></span>
+        <a class="go" href="https://booking.beatwings.com" target="_blank" rel="noopener">Buchen<span class="sr">: Tomorrowland Thailand</span></a>
+      </div>
+    </article>
 
-      <a class="card pull" href="https://booking.beatwings.com" target="_blank" rel="noopener">
-        <div class="shot"><img src="bw-siam1.jpg" alt="Siam Songkran"></div>
-        <span class="state warm"><i></i>Füllt sich schnell</span>
-        <h3>Siam Songkran</h3>
-        <p class="when">11. – 21. April · Bangkok &amp; Pattaya</p>
-        <div class="foot"><span class="price">849 €<span>pro Person</span></span><span class="go">Buchen</span></div>
-      </a>
+    <article class="card pull" style="--d:80ms">
+      <div class="shot"><img src="bw-siam1.jpg" alt="Siam Songkran"></div>
+      <span class="state warm"><i></i>Füllt sich schnell</span>
+      <h3><a href="https://booking.beatwings.com" target="_blank" rel="noopener">Siam Songkran</a></h3>
+      <p class="when">11. – 21. April 2027 · Bangkok &amp; Pattaya</p>
+      <div class="foot">
+        <span class="price">849 €<span>pro Person</span></span>
+        <a class="go" href="https://booking.beatwings.com" target="_blank" rel="noopener">Buchen<span class="sr">: Siam Songkran</span></a>
+      </div>
+    </article>
 
-      <a class="card pull" href="https://beatwings.com/edc-thailand-2026/" target="_blank" rel="noopener">
-        <div class="shot"><img src="bw-island.jpg" alt="EDC Thailand"></div>
-        <span class="state soon"><i></i>Warteliste offen</span>
-        <h3>EDC Thailand</h3>
-        <p class="when">18. – 20. Dezember · Phuket</p>
-        <div class="foot"><span class="price">Bald<span>Buchung ab Februar</span></span><span class="go">Warteliste</span></div>
-      </a>
+    <article class="card pull" style="--d:160ms">
+      <div class="shot"><img src="bw-island.jpg" alt="EDC Thailand"></div>
+      <span class="state soon"><i></i>Warteliste offen</span>
+      <h3><a href="https://beatwings.com/edc-thailand-2026/" target="_blank" rel="noopener">EDC Thailand</a></h3>
+      <p class="when">Phuket · Termin wird von EDC Thailand bestätigt</p>
+      <div class="foot">
+        <span class="price">Preis folgt<span>Buchung ab Februar</span></span>
+        <a class="go soft" href="https://beatwings.com/edc-thailand-2026/" target="_blank" rel="noopener">Warteliste<span class="sr">: EDC Thailand</span></a>
+      </div>
+    </article>
 
-    </div>
-    <div class="hint"><span class="line" id="prog"></span> Scrollen</div>
   </div>
 </section>
 
@@ -649,7 +756,7 @@
 <section class="pad moments" id="moments">
   <div class="head">
     <h2 class="up">Festival Moments</h2>
-    <span class="kicker up" style="--d:60ms">Aus den letzten Reisen · Clips ohne Ton</span>
+    <span class="kicker up" style="--d:60ms">Fotos von unseren Reisen</span>
   </div>
 
   <div class="mosaic">
@@ -662,8 +769,6 @@
     <figure class="m m2 up pull" style="--d:90ms; margin:0;">
       <div class="shot">
         <img src="bw-rooftop.jpg" alt="Rooftop">
-        <span class="sound">Ohne Ton</span>
-        <button class="play" aria-pressed="false" aria-label="Abspielen"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
       </div>
       <figcaption><b>Welcome Party</b> SIN Rooftop, Bangkok</figcaption>
     </figure>
@@ -676,8 +781,6 @@
     <figure class="m m4 up pull" style="--d:90ms; margin:0;">
       <div class="shot">
         <img src="bw-songkran.jpg" alt="Songkran">
-        <span class="sound">Ohne Ton</span>
-        <button class="play" aria-pressed="false" aria-label="Abspielen"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
       </div>
       <figcaption><b>Wasserschlacht</b> Songkran, Bangkok</figcaption>
     </figure>
@@ -711,8 +814,6 @@
     <a class="feature up pull" href="#moments">
       <div class="shot">
         <img src="bw-songkran.jpg" alt="Songkran">
-        <span class="sound">Ohne Ton</span>
-        <button class="play" aria-pressed="false" aria-label="Abspielen"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
       </div>
       <div class="cap"><span class="tag">Video</span><span class="date">5. Oktober</span></div>
       <h3>Songkran, in drei Minuten</h3>
@@ -781,6 +882,8 @@
   <a class="cta up" style="--d:200ms" href="https://booking.beatwings.com" target="_blank" rel="noopener">Eintragen ↗</a>
 </section>
 
+</main>
+
 <footer class="pad wrap">
   <nav>
     <a href="beatwings.html">Start</a>
@@ -802,7 +905,7 @@
 
   var io = new IntersectionObserver(function(es){
     es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, {rootMargin:'0px 0px -9% 0px', threshold:.08});
+  }, {rootMargin:'0px 0px 0px 0px', threshold:.08});
   document.querySelectorAll('.up,.wipe,.pull').forEach(function(el){ io.observe(el); });
 
   var head = document.querySelector('header');
@@ -815,43 +918,11 @@
     var tick = function(){ i = (i + 1) % hls.length; mark(); };
     mark(); t = setInterval(tick, 5000);
     var box = document.getElementById('headlines');
-    box.addEventListener('mouseenter', function(){ clearInterval(t); });
-    box.addEventListener('mouseleave', function(){ t = setInterval(tick, 5000); });
+    var stop = function(){ clearInterval(t); }, start = function(){ t = setInterval(tick, 5000); };
+    box.addEventListener('mouseenter', stop); box.addEventListener('focusin', stop);
+    box.addEventListener('mouseleave', start); box.addEventListener('focusout', start);
   }
 
-  var runway = document.querySelector('.runway');
-  var track  = document.getElementById('track');
-  var prog   = document.getElementById('prog');
-  var wide   = matchMedia('(min-width:881px)');
-  function layout(){
-    if(!wide.matches || reduce){ runway.style.height = ''; track.style.transform = ''; return; }
-    var dist = track.scrollWidth - innerWidth;
-    runway.style.height = (innerHeight + Math.max(dist,0) * 1.1) + 'px';
-    move();
-  }
-  function move(){
-    if(!wide.matches || reduce) return;
-    var r = runway.getBoundingClientRect();
-    var total = runway.offsetHeight - innerHeight;
-    var p = total > 0 ? Math.min(Math.max(-r.top/total, 0), 1) : 0;
-    var dist = track.scrollWidth - innerWidth;
-    track.style.transform = 'translateX(' + (-p * Math.max(dist,0)) + 'px)';
-    if(prog) prog.style.setProperty('--p', p.toFixed(3));
-  }
-  addEventListener('scroll', move, {passive:true});
-  addEventListener('resize', layout);
-  layout();
-
-  document.addEventListener('click', function(e){
-    var btn = e.target.closest && e.target.closest('.play');
-    if(!btn) return;
-    e.preventDefault();
-    var playing = btn.getAttribute('aria-pressed') === 'true';
-    btn.setAttribute('aria-pressed', String(!playing));
-    btn.innerHTML = playing
-      ? '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>'
-      : '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg>';
-  });
 })();
 </script>
 
@@ -880,12 +951,14 @@
   function bauen(){
     var jetzt = aktuelle();
     cur.textContent = kuerzel(jetzt);
+    var name = (SPRACHEN.filter(function(x){return x[0]===jetzt;})[0] || ['de','Deutsch'])[1];
+    btn.setAttribute('aria-label', 'Sprache: ' + name + '. Sprache wechseln');
     menu.innerHTML = '';
     SPRACHEN.forEach(function(s){
       var b = document.createElement('button');
       b.type = 'button';
-      b.setAttribute('role','option');
-      b.setAttribute('aria-selected', s[0] === jetzt ? 'true' : 'false');
+      b.setAttribute('role','menuitemradio');
+      b.setAttribute('aria-checked', s[0] === jetzt ? 'true' : 'false');
       b.innerHTML = '<b>' + kuerzel(s[0]) + '</b><span>' + s[1] + '</span>';
       b.addEventListener('click', function(){ wechseln(s[0]); });
       menu.appendChild(b);
@@ -905,7 +978,17 @@
   function zu(){ wrap.classList.remove('open'); menu.hidden = true; btn.setAttribute('aria-expanded','false'); }
   btn.addEventListener('click', function(e){ e.stopPropagation(); menu.hidden ? auf() : zu(); });
   document.addEventListener('click', function(e){ if(!wrap.contains(e.target)) zu(); });
-  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') zu(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ zu(); btn.focus(); } });
+  btn.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowDown'){ e.preventDefault(); auf(); menu.querySelector('button').focus(); }
+  });
+  menu.addEventListener('keydown', function(e){
+    var b = [].slice.call(menu.querySelectorAll('button')), i = b.indexOf(document.activeElement);
+    if(e.key === 'ArrowDown'){ e.preventDefault(); b[(i + 1) % b.length].focus(); }
+    if(e.key === 'ArrowUp'){ e.preventDefault(); b[(i - 1 + b.length) % b.length].focus(); }
+    if(e.key === 'Home'){ e.preventDefault(); b[0].focus(); }
+    if(e.key === 'End'){ e.preventDefault(); b[b.length - 1].focus(); }
+  });
 
   bauen();
 
