@@ -1,10 +1,5 @@
-<!doctype html>
-<html lang="de">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Unit 5 Vokabeltrainer</title>
-<meta name="claude:viewport-fit-sides" content="cover">
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Spanisch Vokabeltrainer · Unidad 1–2</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&family=Caveat:wght@600;700&display=swap">
@@ -73,7 +68,7 @@ select.text{cursor:pointer}
 .face .word{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px 6px 18px}
 .front .word span{font-family:var(--f-display);font-weight:700;font-size:clamp(22px,3.6vw,34px);line-height:1.15;text-wrap:balance}
 .back .word{flex-direction:column;gap:2px}
-.back .en{font-family:var(--f-hand);font-weight:700;font-size:clamp(34px,5.6vw,54px);line-height:1;color:#23408f}
+.back .en{font-family:var(--f-hand);font-weight:700;font-size:clamp(30px,5vw,48px);line-height:1;color:#23408f}
 .back .de{font-size:14px;color:#5a6782}
 .back .yours{font-size:14px;margin-top:6px}
 .face.back.ok{box-shadow:0 0 0 3px var(--ok),var(--shadow)}
@@ -119,15 +114,23 @@ aside h2{font-family:var(--f-display);font-size:22px;margin:0}
 .empty{padding:14px;border:1.5px dashed var(--line);border-radius:10px;color:var(--muted);font-size:14px;margin-top:12px}
 .note{font-size:12px;color:var(--muted);margin-top:12px}
 .confirm{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px;font-size:14px}
+.back .ex{font-size:13px;color:#5a6782;font-style:italic;max-width:46ch;margin-top:6px;line-height:1.35}
+.back .ex b{font-style:normal;color:#16233b;font-weight:700}
+.back .hint-w{font-size:13px;font-weight:700;color:#b5760a}
+.accents{display:flex;gap:6px;flex-wrap:wrap}
+.accents button{min-width:40px;padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);font-weight:700;font-size:17px;cursor:pointer}
+.accents button:hover{border-color:var(--accent)}
+.stamp:empty{display:none}
+.chk{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;cursor:pointer;padding:12px 0}
+.chk input{width:18px;height:18px;accent-color:var(--accent)}
+.ok-btn{background:var(--ok);color:#fff}
 @media (prefers-reduced-motion:reduce){.card,.progress i,.btn{transition:none}}
 </style>
-</head>
-<body>
 
 <div class="wrap">
   <header>
     <div class="brand">
-      <span class="eyebrow">English · Unit 5 · <span id="total-count">0</span> Vokabeln</span>
+      <span class="eyebrow">Español · Unidad 1–2 · <span id="total-count">0</span> Vokabeln</span>
       <h1>Vokabeltrainer</h1>
     </div>
     <div class="who" id="who" hidden>Spieler: <b id="who-name"></b> · <button class="btn ghost small" id="switch-btn" type="button">Spieler wechseln</button></div>
@@ -139,8 +142,8 @@ aside h2{font-family:var(--f-display);font-size:22px;margin:0}
       <section id="screen-start" class="stage">
         <div class="scene" aria-hidden="true">
           <div class="card flipped">
-            <div class="face front"><div class="tag"><span>Part B</span><span>Deutsch</span></div><div class="word"><span>Würde</span></div></div>
-            <div class="face back"><div class="tag"><span>Part B</span><span>English</span></div><div class="word"><span class="en">dignity</span><span class="de">Würde</span></div></div>
+            <div class="face front"><div class="tag"><span>U2 · Bloque B</span><span>Deutsch</span></div><div class="word"><span>die Freizeit</span></div></div>
+            <div class="face back"><div class="tag"><span>U2 · Bloque B</span><span>Español</span></div><div class="word"><span class="en">el tiempo libre</span><span class="de">die Freizeit</span></div></div>
           </div>
         </div>
         <form class="panel" id="start-form" novalidate>
@@ -155,9 +158,13 @@ aside h2{font-family:var(--f-display);font-size:22px;margin:0}
                 <label for="part-select">Teil</label>
                 <select class="text" id="part-select">
                   <option value="all">Alle Teile</option>
-                  <option value="Words in context">Words in context</option>
-                  <option value="Part A">Part A</option>
-                  <option value="Part B">Part B</option>
+                  <option value="U1">Unidad 1 komplett</option>
+                  <option value="U1 · Primer paso">U1 · Primer paso</option>
+                  <option value="U1 · Bloque A">U1 · Bloque A</option>
+                  <option value="U2">Unidad 2 komplett</option>
+                  <option value="U2 · Primer paso">U2 · Primer paso</option>
+                  <option value="U2 · Bloque A">U2 · Bloque A</option>
+                  <option value="U2 · Bloque B">U2 · Bloque B</option>
                 </select>
               </div>
               <div class="field">
@@ -170,9 +177,21 @@ aside h2{font-family:var(--f-display);font-size:22px;margin:0}
                 </select>
               </div>
             </div>
+            <div class="row">
+              <div class="field">
+                <label for="dir-select">Richtung</label>
+                <select class="text" id="dir-select">
+                  <option value="de-es">Deutsch → Spanisch (tippen)</option>
+                  <option value="es-de">Spanisch → Deutsch (Karteikarte, selbst bewerten)</option>
+                </select>
+              </div>
+              <div class="field" style="justify-content:flex-end">
+                <label class="chk"><input type="checkbox" id="strict"> Streng: Akzente müssen stimmen</label>
+              </div>
+            </div>
             <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-              <button class="btn" type="submit" id="start-btn">Los geht's</button>
-              <span class="hint">Du siehst das deutsche Wort und tippst das englische. „sth“, „sb“ und „to“ kannst du weglassen.</span>
+              <button class="btn" type="submit" id="start-btn">¡Vamos!</button>
+              <span class="hint">Artikel (el/la/los/las) gehören dazu. ¿ ? ¡ ! und Akzente sind egal, „algo“ / „a alguien“ kannst du weglassen.</span>
             </div>
           </div>
         </form>
@@ -187,16 +206,23 @@ aside h2{font-family:var(--f-display);font-size:22px;margin:0}
         </div>
         <div class="scene">
           <div class="card" id="card">
-            <div class="face front"><div class="tag"><span id="f-part"></span><span>Deutsch</span></div><div class="word"><span id="f-de"></span></div></div>
-            <div class="face back" id="back"><div class="tag"><span id="b-part"></span><span>English</span></div><div class="word"><span class="en" id="b-en"></span><span class="de" id="b-de"></span><span class="yours" id="b-yours"></span></div><span class="stamp" id="stamp"></span></div>
+            <div class="face front"><div class="tag"><span id="f-part"></span><span id="f-lang">Deutsch</span></div><div class="word"><span id="f-de"></span></div></div>
+            <div class="face back" id="back"><div class="tag"><span id="b-part"></span><span id="b-lang">Español</span></div><div class="word"><span class="en" id="b-en"></span><span class="de" id="b-de"></span><span class="ex" id="b-ex"></span><span class="yours" id="b-yours"></span></div><span class="stamp" id="stamp"></span></div>
           </div>
         </div>
         <form class="answer" id="answer-form" novalidate autocomplete="off">
-          <input class="text" id="answer-input" placeholder="Englisches Wort eingeben …" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Englische Übersetzung">
+          <input class="text" id="answer-input" placeholder="Spanisch eingeben …" autocapitalize="off" autocorrect="off" spellcheck="false" lang="es" aria-label="Spanische Übersetzung">
           <button class="btn" type="submit" id="check-btn">Prüfen</button>
           <button class="btn ghost" type="button" id="skip-btn">Weiß ich nicht</button>
         </form>
-        <div class="keys"><kbd>Enter</kbd> prüfen / weiter · <kbd>Esc</kbd> weiß ich nicht · <span id="round-note"></span></div>
+        <div class="accents" id="accents" aria-label="Sonderzeichen"><button type="button">á</button><button type="button">é</button><button type="button">í</button><button type="button">ó</button><button type="button">ú</button><button type="button">ñ</button><button type="button">ü</button><button type="button">¿</button><button type="button">¡</button></div>
+        <div class="answer" id="self-form" hidden>
+          <button class="btn" type="button" id="flip-btn">Umdrehen</button>
+          <button class="btn ok-btn" type="button" id="knew-btn" hidden>Gewusst</button>
+          <button class="btn ghost" type="button" id="notknew-btn" hidden>Nicht gewusst</button>
+        </div>
+        <div class="keys" id="keys-type"><kbd>Enter</kbd> prüfen / weiter · <kbd>Esc</kbd> weiß ich nicht · <span id="round-note"></span></div>
+        <div class="keys" id="keys-self" hidden><kbd>Leertaste</kbd> umdrehen · <kbd>J</kbd> gewusst · <kbd>N</kbd> nicht gewusst</div>
       </section>
 
       <!-- RESULT -->
@@ -212,7 +238,7 @@ aside h2{font-family:var(--f-display);font-size:22px;margin:0}
             <ul class="wrong" id="r-wrong"></ul>
           </div>
           <div class="row" style="gap:10px">
-            <button class="btn" type="button" id="again-btn">Nochmal</button>
+            <button class="btn" type="button" id="again-btn">Neue Runde</button>
             <button class="btn ghost" type="button" id="wrong-btn">Nur falsche Wörter üben</button>
             <button class="btn ghost" type="button" id="new-btn">Neuer Spieler</button>
           </div>
@@ -223,7 +249,7 @@ aside h2{font-family:var(--f-display);font-size:22px;margin:0}
 
     <aside class="panel" aria-labelledby="lb-title">
       <div class="lb-head"><h2 id="lb-title">Bestenliste</h2><span class="live off" id="live">lädt …</span></div>
-      <span class="hint">Wie viele der <b id="lb-total">0</b> Vokabeln jemand schon richtig hatte.</span>
+      <span class="hint">Wie viele der <b id="lb-total">0</b> Vokabeln jemand schon richtig getippt hat (Deutsch → Spanisch).</span>
       <div class="empty" id="lb-empty">Noch keine Einträge. Spiel eine Runde, dann stehst du hier als Erste:r.</div>
       <ol class="lb" id="lb"></ol>
       <p class="note" id="lb-note"></p>
@@ -236,47 +262,55 @@ aside h2{font-family:var(--f-display);font-size:22px;margin:0}
 </div>
 
 <script>
-/* ===== SUPABASE: hier deine Daten eintragen (Project Settings → API) ===== */
-const SUPABASE_URL = "https://xcyyjbokpejmesjqapsj.supabase.co";      // z. B. "https://abcdefgh.supabase.co"
-const SUPABASE_KEY = "sb_publishable_fYXEeFAd8QNFhQYZ2t6qsA_WSdf9h63";      // der "anon public" Key
-/* ========================================================================= */
-const RAW = [["dictate sth", "etw diktieren, etw vorschreiben", "Words in context"], ["be fortunate", "(das) Glück haben", "Words in context"], ["shape one's own lifestyle", "das Leben nach den eigenen Vorstellungen gestalten", "Words in context"], ["colleague", "Kollege/-in", "Words in context"], ["lifestyle decisions pl", "Entscheidungen in Bezug auf die eigene Lebensweise", "Words in context"], ["goods pl", "Ware(n), Güter", "Words in context"], ["services pl", "Dienstleistungen", "Words in context"], ["individual action", "Einzelaktion, individuelle Maßnahme", "Words in context"], ["be conditioned by sth", "durch etw bedingt sein", "Words in context"], ["family background", "(familiäre) Herkunft, Familienverhältnisse", "Words in context"], ["role model", "Vorbild", "Words in context"], ["inspire sb to do sth", "jdn dazu anregen/inspirieren, etw zu tun", "Words in context"], ["rebel against sb/sth", "gegen jdn/etw rebellieren", "Words in context"], ["emancipate oneself from sth", "sich von etw emanzipieren", "Words in context"], ["traditional stereotype", "hergebrachtes Rollenbild", "Words in context"], ["prejudice", "Vorurteil(e)", "Words in context"], ["social norm", "gesellschaftliche Norm", "Words in context"], ["adopt an alternative lifestyle", "anders leben", "Words in context"], ["live up to one's dreams", "nicht den eigenen Wunschvorstellungen gerecht werden", "Words in context"], ["belief", "Überzeugung, Glaube(nssatz)", "Words in context"], ["family unit", "Familienverbund", "Words in context"], ["nuclear family", "Kernfamilie, Kleinfamilie", "Words in context"], ["divorce", "Scheidung", "Words in context"], ["rare", "selten", "Words in context"], ["family model", "Familienmodell", "Words in context"], ["separation", "Trennung", "Words in context"], ["remarriage", "Wiederheirat, erneutes Heiraten", "Words in context"], ["blended family", "Patchworkfamilie", "Words in context"], ["step-parents pl", "Stiefeltern", "Words in context"], ["half-siblings pl", "Halbgeschwister", "Words in context"], ["single-parent family", "Einelternfamilie", "Words in context"], ["same-sex marriage", "gleichgeschlechtliche Ehe", "Words in context"], ["generational conflict", "Generationenkonflikt", "Words in context"], ["caregiver", "Bezugsperson, Erziehungsberechtigte/r", "Words in context"], ["identity", "Identität", "Words in context"], ["be opposed to sth", "einer Sache entgegenstehen, sich nicht mit etw vereinbaren lassen", "Words in context"], ["sexuality", "Sexualität", "Words in context"], ["in spite of", "trotz", "Words in context"], ["close-knit community", "enge Gemeinschaft", "Words in context"], ["loyalty", "Loyalität, Bindung", "Words in context"], ["solidarity", "Solidarität", "Words in context"], ["family ties pl", "Familienbande", "Words in context"], ["aim in life", "Lebensziel", "Words in context"], ["live in harmony with sth", "im Einklang mit etw leben", "Words in context"], ["make sth up", "etw ausmachen", "Words in context"], ["be opposed to sth", "sich einer Sache widersetzen, gegen etw sein", "Words in context"], ["radical change", "Umbruch, radikaler Wandel", "Words in context"], ["as a result", "deshalb, aufgrund dessen", "Words in context"], ["pressure to conform", "Anpassungsdruck", "Words in context"], ["respectability", "soziales Ansehen, Anständigkeit", "Words in context"], ["question values", "Werte infrage stellen", "Words in context"], ["fulfilling", "erfüllend", "Words in context"], ["leave one's comfort zone", "Neues wagen", "Words in context"], ["well-off", "wohlhabend", "Part A"], ["step off sth", "aus etw aussteigen", "Part A"], ["hamster wheel", "Hamsterrad", "Part A"], ["by force", "gezwungenermaßen, zwangsweise", "Part A"], ["by choice", "freiwillig, aus freien Stücken", "Part A"], ["examine sb/sth with great scrutiny", "etw sehr genau überprüfen/untersuchen", "Part A"], ["fancy", "ausgefallen, raffiniert, teuer", "Part A"], ["detour", "Umweg, Abstecher", "Part A"], ["be on track to do sth", "auf dem besten Weg sein, etw zu tun", "Part A"], ["(school) administrator", "Schulleiter/in, Fachbereichsleiter/in", "Part A"], ["hairdresser", "Friseur/in", "Part A"], ["six-figure", "sechsstellig", "Part A"], ["question sth", "etw in Frage stellen, etw anzweifeln", "Part A"], ["obligation", "Verpflichtung", "Part A"], ["discontentment", "Unzufriedenheit", "Part A"], ["hollowness", "Leere, Sinnlosigkeit", "Part A"], ["release", "Entspannung, Ventil", "Part A"], ["trajectory", "Bahn, Weg, Lebensplanung", "Part A"], ["set sth in motion", "etw in Bewegung setzen", "Part A"], ["stroller AE", "Buggy, Kinderwagen", "Part A"], ["scheme", "planen, Pläne schmieden", "Part A"], ["cling to sth", "sich an etw klammern, an etw festhalten", "Part A"], ["status", "Ansehen, (soziale) Stellung", "Part A"], ["joy", "Freude", "Part A"], ["fragility", "Zerbrechlichkeit, Brüchigkeit", "Part A"], ["crumble", "zerbröseln, zerbröckeln, zerfallen", "Part A"], ["apocalypse", "Weltuntergang, Apokalypse", "Part A"], ["connect with sb", "mit jdm in Kontakt kommen, sich mit jdm (intensiv) austauschen", "Part A"], ["devise a plan", "einen Plan ausarbeiten", "Part A"], ["escape", "Flucht, Entkommen", "Part A"], ["nest egg", "finanzielles Polster, Notgroschen", "Part A"], ["confront sth", "sich einer Sache stellen", "Part A"], ["walk away from sth", "sich von etw verabschieden, etw verlassen", "Part A"], ["set out", "aufbrechen, sich auf den Weg machen", "Part A"], ["budget", "billig, preiswert", "Part A"], ["camp", "zelten", "Part A"], ["unlearn sth", "etw (absichtlich) vergessen, sich etw abgewöhnen", "Part A"], ["unease", "Unbehagen", "Part A"], ["revelation", "Offenbarung, Erkenntnis", "Part A"], ["anxiety", "Angst, Ängste", "Part A"], ["realization", "Erkenntnis, Einsicht", "Part A"], ["live one's heart's desire", "leben, wie es das Herz begehrt", "Part A"], ["confidence", "Selbstbewusstsein, Selbstvertrauen, Zuversicht", "Part A"], ["approval-seeking", "Suche/Jagd nach Anerkennung", "Part A"], ["people-pleasing", "Gefallsucht", "Part A"], ["wander", "umherstreifen", "Part A"], ["retreat", "Einkehr, Rückzug(sort)", "Part A"], ["ridge", "Gebirgskamm", "Part A"], ["volunteer", "ehrenamtlich arbeiten, (freiwillig) helfen", "Part A"], ["come across sth", "auf etw stoßen, etw (zufällig) finden", "Part A"], ["intrigue sb", "jdn faszinieren", "Part A"], ["stunning", "atemberaubend", "Part A"], ["homestead AE", "Gehöft", "Part A"], ["caked", "verkrustet", "Part A"], ["forage", "nach Essbarem suchen", "Part A"], ["knead dough", "Teig kneten", "Part A"], ["cabin", "Hütte", "Part A"], ["strum", "Gitarre spielen, klampfen", "Part A"], ["pluck", "(Saiten) zupfen", "Part A"], ["fiddle", "Geige spielen, fiedeln", "Part A"], ["fish", "angeln, fischen", "Part A"], ["fret over sth", "sich über etw aufregen", "Part A"], ["world affairs pl", "Weltgeschehen", "Part A"], ["quarantine", "Quarantäne", "Part A"], ["tangible", "greifbar, konkret, handfest", "Part A"], ["education", "Lernen, Unterricht, Schulbildung", "Part A"], ["confinement", "Eingesperrtsein, Enge", "Part A"], ["abstraction", "Abstraktion", "Part A"], ["reciprocal", "gegenseitig, wechselseitig", "Part A"], ["opposite", "Gegenteil, Gegensatz", "Part A"], ["groundedness", "Bodenständigkeit, Erdung", "Part A"], ["connectedness", "Verbundenheit", "Part A"], ["intentional", "absichtsvoll, beabsichtigt", "Part A"], ["outsider", "Außenseiter/in", "Part B"], ["dignity", "Würde", "Part B"], ["be endowed with sth", "mit etw ausgestattet sein, etw besitzen", "Part B"], ["reason", "Vernunft, Verstand", "Part B"], ["conscience", "Gewissen", "Part B"], ["spirit", "Geist", "Part B"], ["brotherhood", "Brüderlichkeit", "Part B"], ["be entitled to sth", "Anspruch auf etw haben, zu etw berechtigt sein", "Part B"], ["set sth forth", "etw darlegen, etw verkünden", "Part B"], ["distinction", "Unterscheidung, Abgrenzung", "Part B"], ["origin", "Herkunft, Ursprung", "Part B"], ["property", "Eigentum, Besitz", "Part B"], ["unreasonable", "überzogen, unvernünftig", "Part B"], ["dislike (for sb/sth)", "Abneigung (gegen jdn/etw)", "Part B"], ["custom", "Sitte, Brauch", "Part B"], ["boarding school", "Internat", "Part B"], ["grand", "herrschaftlich, stattlich, grandios", "Part B"], ["modest(ly)", "schlicht, bescheiden", "Part B"], ["wreath", "Kranz", "Part B"], ["evergreen", "immergrüne Pflanze", "Part B"], ["Jew", "Jude/Jüdin", "Part B"], ["envy", "Neid", "Part B"], ["villager", "Dorfbewohner/in", "Part B"], ["gift-wrapped", "als Geschenk verpackt", "Part B"], ["kinky", "(Haar:) kraus, gekräuselt", "Part B"], ["hooked nose", "Hakennase", "Part B"], ["vile", "niederträchtig, abscheulich", "Part B"], ["chancellor", "Kanzler/in", "Part B"], ["candlelight", "Kerzenlicht", "Part B"], ["dressed up", "feingemacht, fein angezogen", "Part B"], ["sip sth", "an etw nippen, etw in kleinen Schlückchen trinken", "Part B"], ["Christmas carol", "Weihnachtslied", "Part B"], ["tablecloth", "Tischdecke", "Part B"], ["china", "Porzellan", "Part B"], ["servant", "Bedienstete/r, Hausangestellte/r", "Part B"], ["maid", "Hausangestellte, Hausmädchen", "Part B"], ["appear", "auftauchen, erscheinen", "Part B"], ["crisp", "(Wäsche:) faltenfrei, gestärkt", "Part B"], ["apron", "Schürze", "Part B"], ["pause", "innehalten", "Part B"], ["announce sth", "etw verkünden, etw ankündigen", "Part B"], ["figure sth out", "etw herausfinden", "Part B"], ["uncomfortable", "unangenehm, unbehaglich, peinlich", "Part B"], ["stage", "Phase, Stadium, Etappe", "Part B"], ["guess", "vermuten", "Part B"], ["persist with sth", "etw unbeirrt fortsetzen, mit etw unbeirrt weitermachen", "Part B"], ["shrug", "mit den Achseln zucken", "Part B"], ["sigh", "seufzen", "Part B"], ["test tube", "Reagenzglas", "Part B"], ["artificial insemination", "künstliche Befruchtung", "Part B"], ["get oneself involved in sth", "sich in etw hineinziehen lassen, in etw verwickelt sein", "Part B"], ["Where do we go from here?", "Was machen wir jetzt?", "Part B"], ["weep", "weinen, schluchzen", "Part B"], ["sympathetic", "mitfühlend, verständnisvoll", "Part B"], ["To be continued.", "Fortsetzung folgt.", "Part B"], ["become acquainted", "miteinander bekannt werden, sich kennenlernen", "Part B"]];
-const V = RAW.map((r,i)=>({id:i,en:r[0],de:r[1],part:r[2]}));
+const RAW = [["¡Hola!", "Hallo!", "U1 · Primer paso", "", "", []], ["¿Qué tal?", "Wie geht's? (kurz, locker)", "U1 · Primer paso", "", "", []], ["¡Buenos días!", "Guten Morgen!; Guten Tag!", "U1 · Primer paso", "", "", []], ["Me llamo…", "Ich heiße …", "U1 · Primer paso", "Me llamo Thomas.", "Ich heiße Thomas.", []], ["y", "und", "U1 · Primer paso", "", "", []], ["Soy…", "Ich bin …", "U1 · Primer paso", "", "", []], ["de", "von; aus", "U1 · Primer paso", "", "", []], ["Soy de…", "Ich komme aus …; Ich bin aus …", "U1 · Primer paso", "Soy de Barcelona.", "Ich bin aus Barcelona.", []], ["tú", "du", "U1 · Primer paso", "", "", []], ["¿Cómo…?", "Wie …?", "U1 · Primer paso", "", "", []], ["¿Cómo te llamas?", "Wie heißt du?", "U1 · Primer paso", "Me llamo Carlos. Y tú, ¿cómo te llamas?", "Ich heiße Carlos. Und wie heißt du?", []], ["yo", "ich", "U1 · Primer paso", "", "", []], ["también", "auch", "U1 · Primer paso", "Soy también de Barcelona.", "Ich bin auch aus Barcelona.", []], ["el/la estudiante", "der Student/die Studentin; der Schüler/die Schülerin", "U1 · Primer paso", "", "", ["el estudiante", "la estudiante"]], ["el profesor/la profesora", "der Lehrer/die Lehrerin", "U1 · Primer paso", "", "", []], ["el español", "Spanisch; die spanische Sprache", "U1 · Primer paso", "", "", []], ["pero", "aber", "U1 · Primer paso", "", "", []], ["vivo", "ich lebe; ich wohne", "U1 · Primer paso", "", "", []], ["en", "in; auf; an", "U1 · Primer paso", "Vivo en Alicante.", "Ich wohne in Alicante.", []], ["¿Dónde…?", "Wo …?", "U1 · Primer paso", "", "", []], ["¿De dónde eres?", "Woher kommst du?; Woher bist du?", "U1 · Primer paso", "", "", []], ["muy", "sehr", "U1 · Primer paso", "", "", []], ["bien", "gut (Adv.)", "U1 · Primer paso", "", "", []], ["Gracias.", "Danke.; Vielen Dank.", "U1 · Primer paso", "", "", []], ["en alemán", "auf Deutsch", "U1 · Primer paso", "", "", []], ["se dice…", "man sagt …", "U1 · Primer paso", "En alemán se dice “Guten Tag”.", "Auf Deutsch sagt man „Guten Tag“.", []], ["¡Buenas tardes!", "Guten Tag!; Guten Abend! (nachmittags)", "U1 · Primer paso", "", "", []], ["¡Buenas noches!", "Guten Abend!; Gute Nacht!", "U1 · Primer paso", "", "", []], ["¡Buenas!", "umgangssprachliche Begrüßung", "U1 · Primer paso", "", "", []], ["¿Cómo estás?", "Wie geht es dir?", "U1 · Primer paso", "—¿Cómo estás? —Muy bien.", "– Wie geht es dir? – Sehr gut.", []], ["vives", "du lebst; du wohnst", "U1 · Primer paso", "—¿Dónde vives? —Vivo en Berlín.", "– Wo lebst du? – Ich lebe in Berlin.", []], ["el diálogo", "der Dialog; das Gespräch", "U1 · Bloque A", "", "", []], ["va con", "etw. passt zu; etw. gehört zu", "U1 · Bloque A", "", "", []], ["la foto", "das Foto", "U1 · Bloque A", "", "", []], ["señora", "Frau (in der Anrede)", "U1 · Bloque A", "", "", []], ["señor", "Herr (in der Anrede)", "U1 · Bloque A", "", "", []], ["usted, ustedes", "Sie (Höflichkeitsform, Sg./Pl.)", "U1 · Bloque A", "Me llamo Carlos. ¿Y usted?", "Ich heiße Carlos. Und Sie?", ["usted", "ustedes", "usted ustedes"]], ["¿Cómo está usted?", "Wie geht es Ihnen? (eine Person)", "U1 · Bloque A", "¡Buenos días, señora Ramírez! ¿Cómo está usted?", "Guten Tag, Frau Ramírez! Wie geht es Ihnen?", []], ["¿Cómo estáis?", "Wie geht es euch?", "U1 · Bloque A", "—¿Cómo estáis? —Muy bien.", "– Wie geht es euch? – Sehr gut.", []], ["sí", "ja", "U1 · Bloque A", "", "", []], ["Bueno…", "Nun (gut), …; Also, …", "U1 · Bloque A", "", "", []], ["así así", "so einigermaßen; Es geht so.", "U1 · Bloque A", "", "", []], ["mucho estrés", "viel Stress", "U1 · Bloque A", "", "", []], ["pues", "also", "U1 · Bloque A", "", "", []], ["¡Ánimo!", "Kopf hoch!", "U1 · Bloque A", "", "", []], ["¡Hasta luego!", "Bis später!", "U1 · Bloque A", "", "", []], ["¡Adiós!", "Auf Wiedersehen!; Tschüs!", "U1 · Bloque A", "", "", []], ["Vale.", "Einverstanden.; O.K.", "U1 · Bloque A", "", "", []], ["el beso", "der Kuss", "U1 · Bloque A", "un beso", "schriftliche Schlussformel", []], ["¡Hasta pronto!", "Bis bald!", "U1 · Bloque A", "", "", []], ["¡Hasta la próxima!", "Bis zum nächsten Mal!", "U1 · Bloque A", "", "", []], ["¿Cómo están ustedes?", "Wie geht es Ihnen? (mehrere Personen)", "U1 · Bloque A", "¡Buenos días, señora Ramírez y señor Gómez! ¿Cómo están ustedes?", "Guten Tag, Frau Ramírez, guten Tag, Herr Gómez. Wie geht es Ihnen?", []], ["genial", "ausgezeichnet; richtig gut; super; toll", "U1 · Bloque A", "", "", []], ["mal", "schlecht (Adv.)", "U1 · Bloque A", "", "", []], ["fatal", "(sehr) schlecht", "U1 · Bloque A", "", "", []], ["la plaza", "der Platz", "U1 · Bloque A", "", "", []], ["el estadio", "das Stadion", "U1 · Bloque A", "", "", []], ["la tapa", "die Tapa (Häppchen in Bars)", "U1 · Bloque A", "", "", []], ["el metro", "die U-Bahn", "U1 · Bloque A", "", "", []], ["el museo", "das Museum", "U1 · Bloque A", "", "", []], ["el parque", "der Park", "U1 · Bloque A", "", "", []], ["el símbolo", "das Symbol", "U1 · Bloque A", "", "", []], ["la calle", "die Straße", "U1 · Bloque A", "Vivo en la calle Goya.", "Ich wohne in der Goyastraße.", []], ["el chico", "der Junge", "U1 · Bloque A", "", "", []], ["la chica", "das Mädchen", "U1 · Bloque A", "", "", []], ["el problema", "das Problem", "U1 · Bloque A", "", "", []], ["el amigo/la amiga", "der Freund/die Freundin", "U1 · Bloque A", "", "", []], ["el teléfono", "das Telefon", "U1 · Bloque A", "", "", []], ["la playa", "der Strand", "U1 · Bloque A", "", "", []], ["el restaurante", "das Restaurant", "U1 · Bloque A", "", "", []], ["la guitarra", "die Gitarre", "U1 · Bloque A", "", "", []], ["el bar", "die Bar; die Kneipe", "U1 · Bloque A", "", "", []], ["Se escribe…", "Man schreibt …; … wird … geschrieben.", "U1 · Bloque A", "", "", []], ["tu", "dein/deine", "U1 · Bloque A", "", "", []], ["el nombre", "der Name", "U1 · Bloque A", "No me llamo Carlos. Mi nombre es Nacho.", "Ich heiße nicht Carlos. Mein Name ist Nacho.", []], ["el apellido", "der Nachname", "U1 · Bloque A", "¿Cómo se escribe tu apellido?", "Wie schreibt man deinen Nachnamen?", []], ["con", "mit", "U1 · Bloque A", "", "", []], ["con dos puntos", "mit Umlaut", "U1 · Bloque A", "Müller se escribe con dos eles y dos puntos en la u.", "Müller schreibt man mit zwei „l“ und mit U-Umlaut.", []], ["o", "oder", "U1 · Bloque A", "", "", []], ["el acento", "der Akzent", "U1 · Bloque A", "González se escribe con acento.", "González schreibt man mit Akzent.", []], ["la capital", "die Hauptstadt", "U1 · Bloque A", "Vivo en Madrid, la capital de España.", "Ich wohne in Madrid, der Hauptstadt Spaniens.", []], ["¿Cuántos años tienes?", "Wie alt bist du?", "U1 · Bloque A", "—¿Cuántos años tienes? —Tengo diecisiete años.", "– Wie alt bist du? – Ich bin siebzehn.", []], ["Tengo… años.", "Ich bin … Jahre alt.", "U1 · Bloque A", "", "", ["tengo años"]], ["es", "er/sie/es ist", "U1 · Bloque A", "", "", []], ["el número de teléfono", "die Telefonnummer", "U1 · Bloque A", "", "", []], ["¿Cuál es tu número de teléfono?", "Wie lautet deine Telefonnummer?", "U1 · Bloque A", "", "", []], ["el móvil", "das Handy", "U1 · Bloque A", "", "", []], ["mi", "mein, meine", "U1 · Bloque A", "", "", []], ["la dirección", "die Adresse", "U1 · Bloque A", "Mi dirección es calle Aranda, 17.", "Meine Adresse ist calle Aranda 17.", []], ["el correo electrónico", "die E-Mail", "U1 · Bloque A", "", "", []], ["la arroba", "das At-Zeichen (@)", "U1 · Bloque A", "", "", []], ["el punto", "der Punkt", "U1 · Bloque A", "", "", []], ["el guion", "der Bindestrich", "U1 · Bloque A", "", "", []], ["el guion bajo", "der Unterstrich", "U1 · Bloque A", "", "", []], ["la familia", "die Familie", "U2 · Primer paso", "Vivo con mi familia en Madrid.", "Ich wohne mit meiner Familie in Madrid.", []], ["mis", "meine (Pl.)", "U2 · Primer paso", "", "", []], ["el perro", "der Hund", "U2 · Primer paso", "", "", []], ["el padre", "der Vater", "U2 · Primer paso", "Mi padre es de Bilbao.", "Mein Vater ist aus Bilbao.", []], ["la madre", "die Mutter", "U2 · Primer paso", "", "", []], ["el hermano/la hermana", "der Bruder/die Schwester", "U2 · Primer paso", "Miguel es mi hermano y Julia mi hermana.", "Miguel ist mein Bruder und Julia ist meine Schwester.", []], ["la ciudad", "die Stadt", "U2 · Primer paso", "", "", []], ["el novio/la novia", "der feste Freund/die feste Freundin", "U2 · Primer paso", "Mi hermana es la novia de Miguel.", "Meine Schwester ist Miguels Freundin.", []], ["el mejor amigo/la mejor amiga", "der beste Freund/die beste Freundin", "U2 · Primer paso", "Luis es mi mejor amigo.", "Luis ist mein bester Freund.", []], ["el compañero de clase/la compañera de clase", "der Klassenkamerad/die Klassenkameradin", "U2 · Primer paso", "Alba y Daniel son compañeros de clase.", "Alba und Daniel sind Klassenkameraden.", []], ["Se llama…", "Er/sie/es heißt …", "U2 · Primer paso", "La madre de Ana se llama Carmen.", "Anas Mutter heißt Carmen.", []], ["tiene", "er, sie, es hat; Sie haben", "U2 · Primer paso", "Antonio tiene dos hermanas.", "Antonio hat zwei Schwestern.", []], ["¿Cómo se llama…?", "Wie heißt …?", "U2 · Primer paso", "—¿Cómo se llama tu perro? —Se llama Rufo.", "– Wie heißt dein Hund? – Er heißt Rufo.", []], ["la mascota", "das Haustier", "U2 · Primer paso", "Mi mascota es un perro. Se llama Foxi.", "Mein Haustier ist ein Hund. Er heißt Foxi.", []], ["¿Tienes…?", "Hast du …?", "U2 · Primer paso", "", "", []], ["tengo", "ich habe", "U2 · Primer paso", "—¿Tienes mascotas? —Sí, tengo dos perros, Fifi y Bobi.", "– Hast du Haustiere? – Ja, ich habe zwei Hunde, Fifi und Bobi.", []], ["no", "nein; kein, -e; nicht", "U2 · Primer paso", "—¿Tienes hermanos? —No, no tengo hermanos.", "– Hast du Geschwister? – Nein, ich habe keine Geschwister.", []], ["los hermanos", "die Geschwister", "U2 · Primer paso", "—¿Tienes hermanos? —Sí, dos hermanas y un hermano.", "– Hast du Geschwister? – Ja, zwei Schwestern und einen Bruder.", []], ["¿Verdad?", "Das stimmt doch, oder?; …, nicht wahr?", "U2 · Bloque A", "", "", []], ["¿Quién…?/¿Quiénes…?", "Wer …?", "U2 · Bloque A", "—¿Quiénes son las chicas? —Son las amigas de Laura.", "– Wer sind die Mädchen? – Das sind Lauras Freundinnen.", []], ["ser", "sein (Verb, unregelmäßig)", "U2 · Bloque A", "", "", []], ["el abuelo/la abuela", "der Großvater/die Großmutter", "U2 · Bloque A", "Mi abuelo se llama Juan y mi abuela se llama Marta.", "Mein Großvater heißt Juan und meine Großmutter heißt Marta.", []], ["el tío", "der Onkel", "U2 · Bloque A", "Mi tío Claudio es el hermano de mi padre.", "Mein Onkel Claudio ist der Bruder meines Vaters.", []], ["la tía", "die Tante", "U2 · Bloque A", "Mi tía Julia es la hermana de mi madre.", "Meine Tante Julia ist die Schwester meiner Mutter.", []], ["el primo/la prima", "der Cousin/die Cousine", "U2 · Bloque A", "Tengo cinco primas, pero no tengo primos.", "Ich habe fünf Cousinen, aber keine Cousins.", []], ["los padres", "die Eltern", "U2 · Bloque A", "", "", []], ["los abuelos", "die Großeltern", "U2 · Bloque A", "Mis abuelos son los padres de mi padre y de mi tío Juan.", "Meine Großeltern sind die Eltern meines Vaters und meines Onkels Juan.", []], ["hablar", "sprechen; reden", "U2 · Bloque A", "¿Hablas español con tus abuelos?", "Sprichst du mit deinen Großeltern Spanisch?", []], ["el idioma", "die Sprache", "U2 · Bloque A", "", "", []], ["el inglés", "Englisch; die englische Sprache", "U2 · Bloque A", "Pete habla inglés con su padre.", "Pete spricht mit seinem Vater Englisch.", []], ["el catalán", "Katalanisch; die katalanische Sprache", "U2 · Bloque A", "Mi familia es de Barcelona. Habla español y catalán.", "Meine Familie ist aus Barcelona. Sie spricht Spanisch und Katalanisch.", []], ["trabajar", "arbeiten", "U2 · Bloque A", "Vivo en Ávila, pero trabajo en Madrid.", "Ich wohne in Avila, arbeite aber in Madrid.", []], ["el instituto", "das Gymnasium", "U2 · Bloque A", "Mi madre es profesora de instituto.", "Meine Mutter ist Gymnasiallehrerin.", []], ["el hijo", "der Sohn", "U2 · Bloque A", "Mi primo Javier es el hijo de mi tía Ana.", "Mein Cousin Javier ist der Sohn meiner Tante Ana.", []], ["la hija", "die Tochter", "U2 · Bloque A", "", "", []], ["los hijos", "die Kinder (Söhne und Töchter)", "U2 · Bloque A", "", "", []], ["todos los días", "jeden Tag", "U2 · Bloque A", "", "", []], ["el ingeniero/la ingeniera", "der Ingenieur/die Ingenieurin", "U2 · Bloque A", "", "", []], ["el alemán", "Deutsch; die deutsche Sprache", "U2 · Bloque A", "—Hablo bien alemán. ¿Y tú? —Muy mal.", "– Ich spreche gut Deutsch. Und du? – Sehr schlecht.", []], ["la pareja", "der Partner/die Partnerin; der/die Lebensgefährte/-in", "U2 · Bloque A", "La pareja de Blanca se llama Ana.", "Blancas Lebensgefährtin heißt Ana.", []], ["el fotógrafo/la fotógrafa", "der Fotograf/die Fotografin", "U2 · Bloque A", "", "", []], ["cocinar algo", "etw. kochen", "U2 · Bloque A", "Carlos y Juan cocinan muy bien.", "Carlos und Juan kochen sehr gut.", []], ["siempre", "immer", "U2 · Bloque A", "Sara siempre estudia en casa.", "Sara lernt immer zu Hause.", []], ["escuchar algo/a alguien", "etw./jdn hören", "U2 · Bloque A", "", "", []], ["la música", "die Musik", "U2 · Bloque A", "Mi abuela escucha música todos los días.", "Meine Großmutter hört jeden Tag Musik.", []], ["estudiar", "lernen; studieren", "U2 · Bloque A", "Yo hablo inglés y estudio español.", "Ich spreche Englisch und lerne Spanisch.", []], ["un poco (de)", "ein bisschen", "U2 · Bloque A", "Hablo un poco de catalán.", "Ich spreche ein bisschen Katalanisch.", []], ["el francés", "Französisch; die französische Sprache", "U2 · Bloque A", "¿Cómo? ¿No hablas francés?", "Wie? Du sprichst kein Französisch?", []], ["pasar algo", "etw. verbringen", "U2 · Bloque A", "Mi perro pasa todos los días con mi abuelo.", "Mein Hund verbringt jeden Tag mit meinem Großvater.", []], ["las vacaciones", "die Ferien; der Urlaub", "U2 · Bloque A", "", "", []], ["el verano", "der Sommer", "U2 · Bloque A", "Carlos y Juan pasan las vacaciones de verano siempre en España.", "Carlos und Juan verbringen die Sommerferien immer in Spanien.", []], ["solo", "nur", "U2 · Bloque A", "Hablo solo un poco de francés.", "Ich spreche nur ein bisschen Französisch.", []], ["el gato", "die Katze", "U2 · Bloque A", "Mi gato y el perro de mi novia no son amigos.", "Meine Katze und der Hund meiner Freundin sind nicht gerade Freunde.", []], ["No es correcto.", "Das ist nicht richtig.; Das stimmt nicht.", "U2 · Bloque A", "¿La Paz es la capital de Perú? No es correcto.", "La Paz ist die Hauptstadt von Peru? Das ist nicht richtig.", []], ["su", "sein, -e; ihr, -e; Ihr, -e (Sg.)", "U2 · Bloque A", "", "", []], ["tus", "deine (Pl.)", "U2 · Bloque A", "", "", []], ["sus", "seine; ihre; Ihre (Pl.)", "U2 · Bloque A", "", "", []], ["¿Qué…?", "Welche, -r, -s …?; Was für ein, -e …?", "U2 · Bloque A", "", "", []], ["la persona", "die Person", "U2 · Bloque A", "", "", []], ["la casa", "das Haus", "U2 · Bloque A", "Vivo en Toledo, en la casa de mis abuelos.", "Ich wohne in Toledo, im Haus meiner Großeltern.", []], ["en casa", "zu Hause", "U2 · Bloque A", "¿Qué música escucháis en casa?", "Was für Musik hört ihr zu Hause?", []], ["tener algo", "etw. haben (unregelmäßig)", "U2 · Bloque B", "—¿Tenéis mascotas? —Sí. Tenemos dos gatos.", "– Habt ihr Haustiere? – Ja. Wir haben zwei Katzen.", []], ["hoy", "heute", "U2 · Bloque B", "", "", []], ["celebrar algo", "etw. feiern", "U2 · Bloque B", "", "", []], ["la fiesta", "die Party; das Fest", "U2 · Bloque B", "¿Celebramos la fiesta en la playa o en casa?", "Feiern wir am Strand oder zu Hause?", []], ["tener ganas", "Lust haben", "U2 · Bloque B", "Hoy es la fiesta de Blanca. Pero no tengo ganas.", "Heute ist Blancas Party. Aber ich habe keine Lust drauf.", []], ["¿Qué…?", "Was …?", "U2 · Bloque B", "", "", []], ["el cumpleaños", "der Geburtstag", "U2 · Bloque B", "Hoy es el cumpleaños de mi hermana.", "Heute hat meine Schwester Geburtstag.", []], ["Mira.", "Schau (mal).", "U2 · Bloque B", "Mira… Juan y su novia Lucía.", "Schau mal … Juan und seine Freundin Lucía.", []], ["aquí", "hier", "U2 · Bloque B", "¿El restaurante Los Amigos? Mira, aquí, en la calle Toledo.", "Das Restaurant Los Amigos? Schau mal: hier, in der Toledostraße.", []], ["este/esta es…", "das ist … (eine Person vorstellen)", "U2 · Bloque B", "Mira la foto: este es Carlos, mi mejor amigo.", "Schau mal das Foto an: Das ist Carlos, mein bester Freund.", ["este es", "esta es"]], ["como", "wie (Vergleich)", "U2 · Bloque B", "Cocinas muy bien, como mi abuela.", "Du kochst sehr gut, wie meine Großmutter.", []], ["el tiempo", "die Zeit", "U2 · Bloque B", "Juan, ¿tienes tiempo?", "Juan, hast du Zeit?", []], ["el tiempo libre", "die Freizeit", "U2 · Bloque B", "En mi tiempo libre siempre escucho música o cocino con mis amigos.", "In meiner Freizeit höre ich immer Musik oder ich koche mit Freunden.", []], ["bailar", "tanzen", "U2 · Bloque B", "¿Bailamos? ¿Tienes ganas?", "Tanzen wir? Hast du Lust?", []], ["la salsa", "der Salsa (lat.-am. Tanz)", "U2 · Bloque B", "¿Baila salsa?", "Tanzen Sie Salsa?", []], ["leer algo", "etw. lesen", "U2 · Bloque B", "", "", []], ["el cómic", "der Comic", "U2 · Bloque B", "En su tiempo libre, Fran solo lee cómics.", "In seiner Freizeit liest Fran nur Comics.", []], ["estos/estas son…", "das sind … (Personen vorstellen)", "U2 · Bloque B", "Esta es Sara y estos son Luis y Ana, sus hermanos.", "Das ist Sara und das sind Luis und Ana, ihre Geschwister.", ["estos son", "estas son"]], ["tocar algo", "etw. spielen (Musikinstrument)", "U2 · Bloque B", "", "", []], ["el horror", "der Horror", "U2 · Bloque B", "", "", []], ["¡Es un horror!", "Es ist einfach furchtbar!", "U2 · Bloque B", "¿Trabajar todos los días en el verano? ¡Es un horror!", "Im Sommer jeden Tag arbeiten? Das ist einfach furchtbar!", []], ["porque", "weil", "U2 · Bloque B", "Miguel y Ana hablan inglés muy bien porque su madre es de Estados Unidos.", "Miguel und Ana sprechen sehr gut Englisch, weil ihre Mutter aus den USA stammt.", []], ["vivir", "wohnen; leben", "U2 · Bloque B", "—¿Dónde vives? —Vivo en Berlín.", "– Wo wohnst du? – Ich wohne in Berlin.", []], ["escribir algo/a alguien", "etw./jdm schreiben", "U2 · Bloque B", "Todos los días, mi abuela escribe un correo electrónico.", "Meine Großmutter schreibt jeden Tag eine Mail.", []], ["el mensaje", "die Nachricht", "U2 · Bloque B", "¿Escribimos un mensaje?", "Schreiben wir eine Nachricht?", []], ["todo el día", "den ganzen Tag", "U2 · Bloque B", "En las vacaciones paso todo el día en la playa.", "In den Ferien verbringe ich den ganzen Tag am Strand.", []], ["allí", "dort", "U2 · Bloque B", "Mis abuelos viven en Cádiz. Pasamos siempre las vacaciones allí.", "Meine Großeltern wohnen in Cadiz. Wir verbringen dort immer unsere Ferien.", []], ["¡Qué guay!", "Toll!; Wie toll!; Einfach toll!", "U2 · Bloque B", "¿Vacaciones en la playa con los amigos? ¡Qué guay!", "Strandurlaub mit Freunden? Einfach toll!", []]];
+const V = RAW.map((r,i)=>({id:i,en:r[0],de:r[1],part:r[2],exEs:r[3],exDe:r[4],alts:r[5]||[]}));
 const N = V.length;
 const $ = id=>document.getElementById(id);
 $('total-count').textContent=N; $('lb-total').textContent=N;
 
 /* ---------- answer matching ---------- */
-function norm(s){return s.toLowerCase().replace(/[’`´]/g,"'").replace(/[.!?,;]/g,' ').replace(/\s+/g,' ').trim().replace(/^to /,'');}
-function variants(en){
-  const out=new Set();
-  const base=en.replace(/\s+(pl|AE)$/,'').replace(/\s+AE\b/,'');
-  const withParen=base.replace(/\(([^)]*)\)/g,'$1'); // modest(ly)->modestly, (school) administrator -> school administrator
-  const noParen=base.replace(/\([^)]*\)/g,'');     // modest, administrator, dislike
-  const joined=base.replace(/\(([^)]*)\)/g,(m,g)=>/^[a-z]+$/.test(g)&&/\w\(/.test(base)?g:' '+g+' ');
-  [base,withParen,noParen,joined].forEach(v=>{
-    out.add(norm(v));
-    const noObj=v.replace(/\b(sb\/sth|sb|sth|one's|oneself)\b/g,' ');
-    out.add(norm(noObj));
-  });
-  return [...out].filter(Boolean);
+const ART=/^(el|la|los|las)\s/;
+function norm(s){return s.toLowerCase().replace(/[“”„"'’]/g,'').replace(/[¿?¡!.,;:…—–-]/g,' ').replace(/\s+/g,' ').trim();}
+function deacc(s){return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
+function strip(s){return s.replace(/\b(algo\/a alguien|a alguien|algo)\b/g,' ').replace(/\s+/g,' ').trim();}
+function variants(v){
+  const out=new Set();const base=v.en;
+  const forms=[base,base.replace(/\(([^)]*)\)/g,'$1'),base.replace(/\([^)]*\)/g,'')];
+  if(base.includes('/')){const parts=base.split('/');if(parts.every(p=>ART.test(p.trim())||p.trim().startsWith('¿')))parts.forEach(p=>forms.push(p.trim()));}
+  v.alts.forEach(a=>forms.push(a));
+  forms.forEach(f=>{const n=norm(strip(f));if(n)out.add(n);const n2=norm(f);if(n2)out.add(n2);});
+  return [...out];
 }
-V.forEach(v=>v.ok=variants(v.en));
-function isRight(v,input){const a=norm(input).replace(/\b(sb\/sth|sb|sth|something|somebody|someone)\b/g,' ').replace(/\s+/g,' ').trim();
-  return v.ok.includes(norm(input))||v.ok.includes(a);}
+V.forEach(v=>v.ok=variants(v));
+let strict=false;
+// returns {ok:bool, note:string}
+function check(v,input){
+  const a=norm(strip(input)); const full=norm(input);
+  if(v.ok.includes(a)||v.ok.includes(full))return {ok:true,note:''};
+  const okD=v.ok.map(deacc);
+  if(okD.includes(deacc(a))||okD.includes(deacc(full)))return strict?{ok:false,note:'Fast! Nur der Akzent / das ñ stimmt nicht.'}:{ok:true,note:'Passt, nur der Akzent fehlt.'};
+  const noArt=okD.map(x=>x.replace(ART,''));
+  if(ART.test(v.en)&&noArt.includes(deacc(a).replace(ART,''))){
+    return {ok:false,note:ART.test(a)?'Falscher Artikel!':'Artikel vergessen!'};}
+  return {ok:false,note:''};
+}
 
 /* ---------- local storage helpers ---------- */
 const LS={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 const keyOf=n=>n.trim().toLowerCase().replace(/[^a-z0-9äöüß]+/g,'-').replace(/^-|-$/g,'').slice(0,40)||'spieler';
 
 /* ---------- state ---------- */
-let player=LS.get('voc-player',null); // {name,key}
+let player=LS.get('voc-es-player',null); // {name,key}
 let deck=[],idx=0,firstTry=new Map(),wrongIds=[],retryQueue=[],phase='ask',inRetry=false,roundCorrect=0,roundTotal=0;
+/* ===== SUPABASE (gleiche Datenbank wie der Englisch-Trainer; Spanisch-Spieler haben das Präfix "es:") ===== */
+const SUPABASE_URL = "https://xcyyjbokpejmesjqapsj.supabase.co";
+const SUPABASE_KEY = "sb_publishable_fYXEeFAd8QNFhQYZ2t6qsA_WSdf9h63";
+const PFX = "es:";
 const shared=!!(SUPABASE_URL&&SUPABASE_KEY);let remote=[],myRemote={};
 const API=SUPABASE_URL.replace(/\/$/,'')+'/rest/v1/scores';
 const H={apikey:SUPABASE_KEY,'Content-Type':'application/json'};
-if(!SUPABASE_KEY.startsWith('sb_'))H.Authorization='Bearer '+SUPABASE_KEY; // neue sb_publishable-Keys nur im apikey-Header
-let localBoard=LS.get('voc-board',{}); // key -> {name,known:[...]}
+if(!SUPABASE_KEY.startsWith('sb_'))H.Authorization='Bearer '+SUPABASE_KEY;
+let localBoard=LS.get('voc-es-board',{}); // key -> {name,known:[...]}
 
 function myKnown(){if(!player)return new Set();
   const s=new Set((localBoard[player.key]||{}).known||[]);((myRemote[player.key]||{}).known||[]).forEach(x=>s.add(x));return s;}
@@ -289,48 +323,80 @@ if(player)$('name-input').value=player.name;
 $('start-form').addEventListener('submit',e=>{e.preventDefault();
   const name=$('name-input').value.trim().slice(0,20);
   if(!name){$('name-err').hidden=false;$('name-input').focus();return}
-  $('name-err').hidden=true; player={name,key:keyOf(name)}; LS.set('voc-player',player); renderBoard();
+  $('name-err').hidden=true; player={name,key:keyOf(name)}; LS.set('voc-es-player',player); renderBoard();
   const part=$('part-select').value,count=$('count-select').value;
-  let pool=V.filter(v=>part==='all'||v.part===part);
-  if(count==='unknown'){const k=myKnown();pool=pool.filter(v=>!k.has(v.id));if(!pool.length){pool=V.filter(v=>part==='all'||v.part===part)}}
-  pool=shuffle(pool); if(count==='20'||count==='50')pool=pool.slice(0,+count);
-  startRound(pool);
+  mode=$('dir-select').value; strict=$('strict').checked; LS.set('voc-es-opts2',{mode,strict});
+  const inPart=v=>part==='all'||v.part===part||v.part.startsWith(part+' ');
+  let pool=V.filter(inPart);
+  if(count==='unknown'){const k=myKnown();pool=pool.filter(v=>!k.has(v.id));if(!pool.length){pool=V.filter(inPart)}}
+  lastPool=pool; lastCount=count; startRound(pick(pool,count));
 });
 $('switch-btn').addEventListener('click',()=>{show('start');$('name-input').select();});
-$('new-btn').addEventListener('click',()=>{player=null;LS.set('voc-player',null);$('name-input').value='';show('start');$('name-input').focus();renderBoard();});
-$('again-btn').addEventListener('click',()=>startRound(shuffle(lastDeck)));
+$('new-btn').addEventListener('click',()=>{player=null;LS.set('voc-es-player',null);$('name-input').value='';show('start');$('name-input').focus();renderBoard();});
+let lastPool=[],lastCount='20',seen=LS.get('voc-es-seen',{});
+// least-seen cards first, random within the same count -> cycles through everything before repeating
+function pick(pool,count){const s=shuffle(pool).sort((a,b)=>(seen[a.id]||0)-(seen[b.id]||0));
+  return (count==='20'||count==='50')?shuffle(s.slice(0,+count)):s;}
+function markSeen(v){seen[v.id]=(seen[v.id]||0)+1;LS.set('voc-es-seen',seen);}
+$('again-btn').addEventListener('click',()=>startRound(lastPool.length?pick(lastPool,lastCount):shuffle(lastDeck)));
 $('wrong-btn').addEventListener('click',()=>{const w=lastWrong.map(id=>V[id]);if(w.length)startRound(shuffle(w));});
 
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-let lastDeck=[],lastWrong=[];
+let lastDeck=[],lastWrong=[],mode='de-es';
+{const o=LS.get('voc-es-opts2',null);if(o){$('dir-select').value=o.mode;$('strict').checked=!!o.strict;}}
 function startRound(cards){deck=cards;lastDeck=cards;idx=0;firstTry=new Map();retryQueue=[];inRetry=false;roundCorrect=0;roundTotal=cards.length;show('game');showCard();}
 
 function current(){return inRetry?retryQueue[idx]:deck[idx]}
 function showCard(){
   const v=current(); phase='ask';
   $('card').classList.remove('flipped'); $('back').className='face back';
-  $('f-part').textContent=v.part; $('b-part').textContent=v.part; $('f-de').textContent=v.de;
-  setTimeout(()=>{$('b-en').textContent=v.en;$('b-de').textContent=v.de;},inRetry||idx?250:0);
-  const inp=$('answer-input'); inp.value=''; inp.className='text'; inp.disabled=false; inp.focus();
+  const typing=mode==='de-es';
+  $('f-part').textContent=v.part; $('b-part').textContent=v.part;
+  $('f-lang').textContent=typing?'Deutsch':'Español'; $('b-lang').textContent=typing?'Español':'Deutsch';
+  $('f-de').textContent=typing?v.de:v.en;
+  setTimeout(fillBack,inRetry||idx?250:0);
+  $('answer-form').hidden=!typing; $('accents').hidden=!typing; $('keys-type').hidden=!typing;
+  $('self-form').hidden=typing; $('keys-self').hidden=typing;
+  $('flip-btn').hidden=false; $('knew-btn').hidden=true; $('notknew-btn').hidden=true;
+  $('b-yours').textContent=''; $('stamp').textContent=''; $('stamp').className='stamp';
+  const inp=$('answer-input'); inp.value=''; inp.className='text'; inp.disabled=false;
+  if(typing)inp.focus(); else $('flip-btn').focus();
   $('check-btn').textContent='Prüfen'; $('skip-btn').disabled=false;
   const done=inRetry?roundTotal:idx; $('counter').textContent=inRetry?`Wiederholung ${idx+1} / ${retryQueue.length}`:`${idx+1} / ${roundTotal}`;
   $('bar').style.width=(inRetry?100:(idx/roundTotal*100))+'%';
   $('score').textContent=roundCorrect+' richtig';
   $('round-note').textContent=inRetry?'Falsche Wörter kommen nochmal, ohne Punkte.':'';
 }
-function reveal(right,given){
-  const v=current(); phase='shown';
-  if(!inRetry&&!firstTry.has(v.id)){firstTry.set(v.id,right);if(right)roundCorrect++;}
+function fillBack(){const v=current(),typing=mode==='de-es';
+  $('b-en').textContent=typing?v.en:v.de; $('b-de').textContent=typing?v.de:v.en;
+  const ex=$('b-ex'); ex.textContent='';
+  if(v.exEs){const b=document.createElement('b');b.textContent=v.exEs;ex.append(b);if(v.exDe)ex.append(' · '+v.exDe);}}
+function flip(){if(phase!=='ask')return;phase='flipped';fillBack();$('card').classList.add('flipped');
+  $('flip-btn').hidden=true;$('knew-btn').hidden=false;$('notknew-btn').hidden=false;$('knew-btn').focus();}
+function selfGrade(right){if(phase!=='flipped')return;const v=current();phase='shown';
+  if(!inRetry&&!firstTry.has(v.id)){firstTry.set(v.id,right);if(right)roundCorrect++;markSeen(v);}
+  if(!right&&!inRetry)retryQueue.push(v);
+  $('back').className='face back '+(right?'ok':'bad');
+  $('stamp').textContent=right?'Gewusst':'Üben';$('stamp').className='stamp '+(right?'ok':'bad');
+  $('score').textContent=roundCorrect+' richtig';
+  setTimeout(next,right?350:700);}
+$('flip-btn').addEventListener('click',flip);
+$('knew-btn').addEventListener('click',()=>selfGrade(true));
+$('notknew-btn').addEventListener('click',()=>selfGrade(false));
+function reveal(right,given,note){
+  const v=current(); phase='shown'; fillBack();
+  if(!inRetry&&!firstTry.has(v.id)){firstTry.set(v.id,right);if(right)roundCorrect++;markSeen(v);}
   if(!right&&!inRetry)retryQueue.push(v);
   const back=$('back'); back.className='face back '+(right?'ok':'bad');
   $('b-en').textContent=v.en; $('b-de').textContent=v.de;
-  $('b-yours').textContent=right?'':(given?'Deine Antwort: '+given:'Nicht gewusst');
+  $('b-yours').textContent=(note?note+' ':'')+(right?'':(given?'Deine Antwort: '+given:'Nicht gewusst'));
+  $('b-yours').className='yours'+(note?' hint-w':'');
   $('stamp').textContent=right?'Richtig':'Falsch'; $('stamp').className='stamp '+(right?'ok':'bad');
   $('card').classList.add('flipped');
   const inp=$('answer-input'); inp.className='text '+(right?'ok':'bad'); inp.disabled=true;
   $('check-btn').textContent='Weiter'; $('skip-btn').disabled=true; $('check-btn').focus();
   $('score').textContent=roundCorrect+' richtig';
-  if(right&&!inRetry)queueSave();
+  if(right&&!inRetry&&mode==='de-es')queueSave();
 }
 function next(){
   idx++;
@@ -341,15 +407,23 @@ function next(){
 $('answer-form').addEventListener('submit',e=>{e.preventDefault();
   if(phase==='shown')return next();
   const val=$('answer-input').value; if(!val.trim()){$('answer-input').focus();return}
-  reveal(isRight(current(),val),val.trim());
+  const r=check(current(),val); reveal(r.ok,val.trim(),r.note);
 });
 $('skip-btn').addEventListener('click',()=>{if(phase==='ask')reveal(false,'')});
 document.addEventListener('keydown',e=>{
   if($('screen-game').hidden)return;
+  if(mode==='es-de'){
+    if(e.key===' '&&phase==='ask'){e.preventDefault();flip()}
+    else if((e.key==='j'||e.key==='J')&&phase==='flipped'){e.preventDefault();selfGrade(true)}
+    else if((e.key==='n'||e.key==='N')&&phase==='flipped'){e.preventDefault();selfGrade(false)}
+    return;}
   if(e.key==='Escape'&&phase==='ask'){e.preventDefault();reveal(false,'')}
   else if(e.key==='Enter'&&phase==='shown'&&document.activeElement!==$('check-btn')){e.preventDefault();next()}
 });
 
+$('accents').addEventListener('mousedown',e=>{if(e.target.tagName==='BUTTON')e.preventDefault();});
+$('accents').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const inp=$('answer-input');if(inp.disabled)return;
+  const s=inp.selectionStart??inp.value.length,t=inp.selectionEnd??s;inp.value=inp.value.slice(0,s)+b.textContent+inp.value.slice(t);inp.focus();inp.setSelectionRange(s+1,s+1);});
 function finish(){
   lastWrong=[...firstTry].filter(([,r])=>!r).map(([id])=>id);
   $('r-score').textContent=`${roundCorrect} / ${roundTotal}`;
@@ -371,17 +445,19 @@ function mergedRecord(prev){
 }
 async function saveNow(){
   clearTimeout(saveTimer); if(!player)return;
-  localBoard[player.key]=mergedRecord(localBoard[player.key]); LS.set('voc-board',localBoard);
+  if(mode!=='de-es'){$('save-note').textContent='Karteikarten-Runden zählen nicht für die Bestenliste. Dafür Deutsch → Spanisch tippen.';return}
+  localBoard[player.key]=mergedRecord(localBoard[player.key]); LS.set('voc-es-board',localBoard);
   if(!shared){$('save-note').textContent='Dein Fortschritt ist auf diesem Gerät gespeichert.';renderBoard();return}
+  const pk=PFX+player.key;
   try{
-    const r=await fetch(API+'?player_key=eq.'+encodeURIComponent(player.key)+'&select=known',{headers:H});
+    const r=await fetch(API+'?player_key=eq.'+encodeURIComponent(pk)+'&select=known',{headers:H});
     const ex=r.ok?await r.json():[]; const known=new Set(localBoard[player.key].known);
     (ex[0]&&ex[0].known||[]).forEach(x=>known.add(x));
     const arr=[...known].sort((a,b)=>a-b);
     const w=await fetch(API+'?on_conflict=player_key',{method:'POST',headers:{...H,Prefer:'resolution=merge-duplicates,return=minimal'},
-      body:JSON.stringify({player_key:player.key,name:player.name,known:arr,known_count:arr.length,updated_at:new Date().toISOString()})});
+      body:JSON.stringify({player_key:pk,name:player.name,known:arr,known_count:arr.length,updated_at:new Date().toISOString()})});
     if(!w.ok)throw new Error(w.status);
-    myRemote[player.key]={known:arr}; localBoard[player.key].known=arr; LS.set('voc-board',localBoard);
+    myRemote[player.key]={known:arr}; localBoard[player.key].known=arr; LS.set('voc-es-board',localBoard);
     $('save-note').textContent='Gespeichert. Die Bestenliste ist für alle aktualisiert.'; await loadBoard();
   }catch(e){$('save-note').textContent='Konnte gerade nicht online speichern. Dein Fortschritt ist auf diesem Gerät gesichert und wird beim nächsten Mal mitgeschickt.';renderBoard();}
 }
@@ -389,8 +465,8 @@ async function saveNow(){
 /* ---------- leaderboard ---------- */
 function rows(){
   const out=[];
-  if(shared){remote.forEach(x=>{let k=x.known_count;const mine=player&&x.player_key===player.key;if(mine)k=Math.max(k,myKnown().size);out.push({name:String(x.name||'?').slice(0,20),known:k,mine})});
-    if(player&&!remote.some(x=>x.player_key===player.key)&&myKnown().size)out.push({name:player.name,known:myKnown().size,mine:true});}
+  if(shared){remote.forEach(x=>{const key=String(x.player_key).slice(PFX.length);let k=x.known_count;const mine=player&&key===player.key;if(mine)k=Math.max(k,myKnown().size);out.push({name:String(x.name||'?').slice(0,20),known:k,mine})});
+    if(player&&!remote.some(x=>x.player_key===PFX+player.key)&&myKnown().size)out.push({name:player.name,known:myKnown().size,mine:true});}
   else Object.entries(localBoard).forEach(([k,p])=>out.push({name:p.name,known:(p.known||[]).length,mine:player&&k===player.key}));
   return out.filter(r=>r.known>0).sort((a,b)=>b.known-a.known||a.name.localeCompare(b.name));
 }
@@ -409,14 +485,14 @@ function renderBoard(){
 $('reset-btn').addEventListener('click',()=>{$('reset-confirm').hidden=false});
 $('reset-no').addEventListener('click',()=>{$('reset-confirm').hidden=true});
 $('reset-yes').addEventListener('click',async()=>{$('reset-confirm').hidden=true;if(!player)return;
-  delete localBoard[player.key];LS.set('voc-board',localBoard);myRemote[player.key]={known:[]};
+  delete localBoard[player.key];LS.set('voc-es-board',localBoard);myRemote[player.key]={known:[]};
   if(shared){try{await fetch(API+'?on_conflict=player_key',{method:'POST',headers:{...H,Prefer:'resolution=merge-duplicates,return=minimal'},
-    body:JSON.stringify({player_key:player.key,name:player.name,known:[],known_count:0,updated_at:new Date().toISOString()})});await loadBoard();}catch(e){}}
+    body:JSON.stringify({player_key:PFX+player.key,name:player.name,known:[],known_count:0,updated_at:new Date().toISOString()})});await loadBoard();}catch(e){}}
   renderBoard();});
 
 /* ---------- shared leaderboard (Supabase) ---------- */
 async function loadBoard(){
-  try{const r=await fetch(API+'?select=player_key,name,known_count&known_count=gt.0&order=known_count.desc&limit=100',{headers:H});
+  try{const r=await fetch(API+'?select=player_key,name,known_count&player_key=like.'+encodeURIComponent(PFX+'*')+'&known_count=gt.0&order=known_count.desc&limit=100',{headers:H});
     if(!r.ok)throw new Error(r.status); remote=await r.json();
     $('live').textContent='live';$('live').className='live';
     $('lb-note').textContent='Alle, die diese Seite öffnen, sehen dieselbe Bestenliste. Gleicher Name = gleicher Spieler, auch auf anderen Geräten.';
@@ -428,5 +504,5 @@ if(shared){loadBoard();setInterval(()=>{if(document.visibilityState==='visible'&
   if(player&&localBoard[player.key])setTimeout(()=>{firstTry=new Map();saveNow()},800);}
 else{$('live').textContent='nur dieses Gerät';$('live').className='live off';$('lb-note').textContent='Noch keine Datenbank verbunden: Die Bestenliste gilt nur für diesen Browser.';}
 </script>
-</body>
-</html>
+
+</body></html>
