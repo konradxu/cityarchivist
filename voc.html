@@ -461,14 +461,20 @@ $('mic-btn').hidden=false;$('mic-btn').addEventListener('click',()=>{
   if(!SR){$('speak-hint').textContent='Spracheingabe geht in diesem Browser nicht. Am iPhone: Safari nehmen, am Android/PC: Chrome.';return}
   if(rec){rec.stop();return}
   try{rec=new SR();}catch(e){return}
-  rec.lang='es-ES';rec.interimResults=false;rec.maxAlternatives=5;
+  rec.lang='es-ES';rec.interimResults=true;rec.continuous=false;rec.maxAlternatives=5;
   $('mic-btn').classList.add('on');
-  rec.onresult=ev=>{$('speak-hint').textContent='';const alts=[...ev.results[0]].map(a=>a.transcript.trim());
-    const v=current();const hit=alts.find(a=>check(v,a).ok)||alts[0]||'';
-    $('answer-input').value=hit; if(hit)$('answer-form').requestSubmit();};
-  rec.onerror=ev=>{const m={'not-allowed':'Mikro ist blockiert. In den Browser-Einstellungen für diese Seite erlauben.','service-not-allowed':'Spracheingabe ist auf diesem Gerät aus (iPhone: Einstellungen → Allgemein → Tastatur → Diktierfunktion an).','no-speech':'Nichts gehört. Nochmal 🎤 drücken und deutlich sprechen.','network':'Spracheingabe braucht Internet.'};
+  let best='',done=false,quiet=null;
+  const finishRec=()=>{if(done)return;done=true;clearTimeout(quiet);try{rec&&rec.stop();}catch(e){}
+    if(best&&phase==='ask'){$('answer-input').value=best;$('answer-form').requestSubmit();}
+    else if(!best)$('speak-hint').textContent='Nichts verstanden. Nochmal 🎤 drücken, kurz warten, dann sprechen.';};
+  rec.onresult=ev=>{const v=current();let fin=false;
+    for(let k=ev.resultIndex;k<ev.results.length;k++){const r=ev.results[k];const alts=[...r].map(a=>a.transcript.trim()).filter(Boolean);
+      best=alts.find(a=>check(v,a).ok)||alts[0]||best; if(r.isFinal)fin=true;}
+    $('answer-input').value=best; $('speak-hint').textContent='Gehört: „'+best+'“';
+    clearTimeout(quiet); if(fin)finishRec(); else quiet=setTimeout(finishRec,1200);};
+  rec.onerror=ev=>{done=true;clearTimeout(quiet);const m={'not-allowed':'Mikro ist blockiert. In den Browser-Einstellungen für diese Seite erlauben.','service-not-allowed':'Spracheingabe ist auf diesem Gerät aus (iPhone: Einstellungen → Allgemein → Tastatur → Diktierfunktion an).','no-speech':'Nichts gehört. Nochmal 🎤 drücken und deutlich sprechen.','network':'Spracheingabe braucht Internet.'};
     $('speak-hint').textContent=m[ev.error]||('Spracheingabe-Fehler: '+ev.error);};
-  rec.onend=()=>{rec=null;$('mic-btn').classList.remove('on');};
+  rec.onend=()=>{const r=rec;rec=null;$('mic-btn').classList.remove('on');if(typeof finishRec==='function')finishRec();};
   $('speak-hint').textContent='Ich höre zu … sag das Wort auf Spanisch.';
   try{rec.start();}catch(e){rec=null;$('mic-btn').classList.remove('on');$('speak-hint').textContent='Spracheingabe konnte nicht starten.';}});
 function finish(){
