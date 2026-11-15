@@ -121,6 +121,10 @@ aside h2{font-family:var(--f-display);font-size:22px;margin:0}
 .accents button{min-width:40px;padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);font-weight:700;font-size:17px;cursor:pointer}
 .accents button:hover{border-color:var(--accent)}
 .stamp:empty{display:none}
+.voice{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.mic{font-size:18px;padding:11px 14px}
+.mic.on{background:var(--bad);color:#fff;border-color:transparent;animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.6}}
 .chk{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;cursor:pointer;padding:12px 0}
 .chk input{width:18px;height:18px;accent-color:var(--accent)}
 .ok-btn{background:var(--ok);color:#fff}
@@ -188,6 +192,7 @@ aside h2{font-family:var(--f-display);font-size:22px;margin:0}
               </div>
               <div class="field" style="justify-content:flex-end">
                 <label class="chk"><input type="checkbox" id="strict"> Streng: Akzente müssen stimmen</label>
+                <label class="chk" style="padding-top:0"><input type="checkbox" id="autospeak" checked> Spanisch automatisch vorlesen</label>
               </div>
             </div>
             <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
@@ -213,9 +218,11 @@ aside h2{font-family:var(--f-display);font-size:22px;margin:0}
         </div>
         <form class="answer" id="answer-form" novalidate autocomplete="off">
           <input class="text" id="answer-input" placeholder="Spanisch eingeben …" autocapitalize="off" autocorrect="off" spellcheck="false" lang="es" aria-label="Spanische Übersetzung">
+          <button class="btn ghost mic" type="button" id="mic-btn" title="Antwort auf Spanisch sprechen" hidden>🎤</button>
           <button class="btn" type="submit" id="check-btn">Prüfen</button>
           <button class="btn ghost" type="button" id="skip-btn">Weiß ich nicht</button>
         </form>
+        <div class="voice"><button class="btn ghost small" type="button" id="speak-btn" title="Spanisch vorlesen (Taste V)">🔊 Anhören</button><span class="hint" id="speak-hint"></span></div>
         <div class="accents" id="accents" aria-label="Sonderzeichen"><button type="button">á</button><button type="button">é</button><button type="button">í</button><button type="button">ó</button><button type="button">ú</button><button type="button">ñ</button><button type="button">ü</button><button type="button">¿</button><button type="button">¡</button></div>
         <div class="answer" id="self-form" hidden>
           <button class="btn" type="button" id="flip-btn">Umdrehen</button>
@@ -326,7 +333,7 @@ $('start-form').addEventListener('submit',e=>{e.preventDefault();
   if(!name){$('name-err').hidden=false;$('name-input').focus();return}
   $('name-err').hidden=true; player={name,key:keyOf(name)}; LS.set('voc-es-player',player); renderBoard();
   const part=$('part-select').value,count=$('count-select').value;
-  mode=$('dir-select').value; strict=$('strict').checked; LS.set('voc-es-opts2',{mode,strict});
+  mode=$('dir-select').value; strict=$('strict').checked; LS.set('voc-es-opts2',{mode,strict,auto:$('autospeak').checked});
   const inPart=v=>part==='all'||v.part===part||v.part.startsWith(part+' ');
   let pool=V.filter(inPart);
   if(count==='unknown'){const k=myKnown();pool=pool.filter(v=>!k.has(v.id));if(!pool.length){pool=V.filter(inPart)}}
@@ -344,7 +351,7 @@ $('wrong-btn').addEventListener('click',()=>{const w=lastWrong.map(id=>V[id]);if
 
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 let lastDeck=[],lastWrong=[],mode='de-es';
-{const o=LS.get('voc-es-opts2',null);if(o){$('dir-select').value=o.mode;$('strict').checked=!!o.strict;}}
+{const o=LS.get('voc-es-opts2',null);if(o){$('dir-select').value=o.mode;$('strict').checked=!!o.strict;if(o.auto===false)$('autospeak').checked=false;}}
 function startRound(cards){deck=cards;lastDeck=cards;idx=0;firstTry=new Map();retryQueue=[];inRetry=false;roundCorrect=0;roundTotal=cards.length;show('game');showCard();}
 
 function current(){return inRetry?retryQueue[idx]:deck[idx]}
@@ -362,6 +369,8 @@ function showCard(){
   $('b-yours').textContent=''; $('stamp').textContent=''; $('stamp').className='stamp';
   const inp=$('answer-input'); inp.value=''; inp.className='text'; inp.disabled=false;
   if(typing)inp.focus(); else $('flip-btn').focus();
+  $('mic-btn').disabled=false; setTimeout(updSpeak,0);
+  if(!typing&&$('autospeak').checked)setTimeout(()=>speak(v.en),300);
   $('check-btn').textContent='Prüfen'; $('skip-btn').disabled=false;
   const done=inRetry?roundTotal:idx; $('counter').textContent=inRetry?`Wiederholung ${idx+1} / ${retryQueue.length}`:`${idx+1} / ${roundTotal}`;
   $('bar').style.width=(inRetry?100:(idx/roundTotal*100))+'%';
@@ -395,7 +404,8 @@ function reveal(right,given,note){
   $('stamp').textContent=right?'Richtig':'Falsch'; $('stamp').className='stamp '+(right?'ok':'bad');
   $('card').classList.add('flipped');
   const inp=$('answer-input'); inp.className='text '+(right?'ok':'bad'); inp.disabled=true;
-  $('check-btn').textContent='Weiter'; $('skip-btn').disabled=true; $('check-btn').focus();
+  $('check-btn').textContent='Weiter'; $('skip-btn').disabled=true; $('mic-btn').disabled=true; $('check-btn').focus();
+  updSpeak(); if($('autospeak').checked)speak(v.en);
   $('score').textContent=roundCorrect+' richtig';
   if(right&&!inRetry&&mode==='de-es')queueSave();
 }
@@ -425,6 +435,32 @@ document.addEventListener('keydown',e=>{
 $('accents').addEventListener('mousedown',e=>{if(e.target.tagName==='BUTTON')e.preventDefault();});
 $('accents').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const inp=$('answer-input');if(inp.disabled)return;
   const s=inp.selectionStart??inp.value.length,t=inp.selectionEnd??s;inp.value=inp.value.slice(0,s)+b.textContent+inp.value.slice(t);inp.focus();inp.setSelectionRange(s+1,s+1);});
+/* ---------- Sprachfunktion ---------- */
+const TTS='speechSynthesis' in window; let esVoice=null;
+function pickVoice(){if(!TTS)return;const vs=speechSynthesis.getVoices();
+  esVoice=vs.find(v=>/^es[-_]ES/i.test(v.lang)&&/google|mónica|monica|jorge|lucia/i.test(v.name))||vs.find(v=>/^es[-_]ES/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang))||null;}
+if(TTS){pickVoice();speechSynthesis.onvoiceschanged=pickVoice;}
+function sayable(s){return s.replace(/…|\.\.\./g,' ').replace(/\s*\/\s*/g,', ').replace(/[()]/g,'').replace(/—/g,'').trim();}
+function speak(text){if(!TTS||!text)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(sayable(text));
+  u.lang=esVoice?esVoice.lang:'es-ES';if(esVoice)u.voice=esVoice;u.rate=.9;speechSynthesis.speak(u);}
+function canSpeakNow(){return mode==='es-de'||phase!=='ask';}
+function updSpeak(){const b=$('speak-btn');b.disabled=!TTS||!canSpeakNow();
+  $('speak-hint').textContent=!TTS?'Vorlesen geht in diesem Browser nicht.':(canSpeakNow()?'':'Erst nach dem Prüfen, sonst verrät es die Lösung.');}
+$('speak-btn').addEventListener('click',()=>{const v=current();if(v&&canSpeakNow())speak(v.en);});
+document.addEventListener('keydown',e=>{if($('screen-game').hidden||e.target.tagName==='INPUT')return;
+  if((e.key==='v'||e.key==='V')&&canSpeakNow()){e.preventDefault();speak(current().en);}});
+// Spracheingabe (Chrome, Edge, Safari)
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition; let rec=null;
+if(SR){$('mic-btn').hidden=false;$('mic-btn').addEventListener('click',()=>{
+  if(rec){rec.stop();return}
+  try{rec=new SR();}catch(e){return}
+  rec.lang='es-ES';rec.interimResults=false;rec.maxAlternatives=5;
+  $('mic-btn').classList.add('on');
+  rec.onresult=ev=>{const alts=[...ev.results[0]].map(a=>a.transcript.trim());
+    const v=current();const hit=alts.find(a=>check(v,a).ok)||alts[0]||'';
+    $('answer-input').value=hit; if(hit)$('answer-form').requestSubmit();};
+  rec.onerror=()=>{};rec.onend=()=>{rec=null;$('mic-btn').classList.remove('on');};
+  rec.start();});}
 function finish(){
   lastWrong=[...firstTry].filter(([,r])=>!r).map(([id])=>id);
   $('r-score').textContent=`${roundCorrect} / ${roundTotal}`;
