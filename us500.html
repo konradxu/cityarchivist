@@ -198,55 +198,19 @@
   .error{color:var(--down);font-size:14px;line-height:1.5}
 
   footer{margin-top:28px;color:var(--muted);font-size:11px;text-align:center;padding:0 8px}
-
-  /* Login gate */
-  #login-gate{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:1000;padding:20px}
-  .login-box{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:32px 24px;width:100%;max-width:340px}
-  .login-brand{font-size:22px;font-weight:700;letter-spacing:-0.02em;text-align:center;margin-bottom:4px}
-  .login-sub{font-size:12px;color:var(--muted);text-align:center;margin-bottom:24px}
-  .login-box form{display:flex;flex-direction:column;gap:10px}
-  .login-box input{background:var(--panel-2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-size:15px;font-family:inherit;-webkit-appearance:none;appearance:none;outline:none;transition:border-color .15s ease}
-  .login-box input:focus{border-color:var(--accent)}
-  .login-box button{background:var(--accent);color:#0b0d12;border:none;border-radius:10px;padding:12px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;margin-top:6px}
-  .login-box button:active{opacity:.85}
-  .login-err{color:var(--down);font-size:12px;text-align:center;margin-top:10px;min-height:16px}
-  .login-hint{font-size:11px;color:var(--muted);text-align:center;margin-top:20px;line-height:1.5}
-
-  /* Small user pill in header */
-  .user-pill{margin-left:auto;display:inline-flex;align-items:center;gap:8px;font-size:11px;color:var(--muted)}
-  .user-pill button{background:none;border:none;color:var(--muted);cursor:pointer;font-size:11px;font-family:inherit;padding:2px 6px;border-radius:4px}
-  .user-pill button:hover{color:var(--down);background:rgba(239,68,68,.1)}
 </style>
 </head>
 <body>
 
-<div id="login-gate">
-  <div class="login-box">
-    <div class="login-brand">US500 · 每日追踪</div>
-    <div class="login-sub">请登录以继续</div>
-    <form id="login-form" autocomplete="on">
-      <input type="text" id="login-user" placeholder="用户名" autocomplete="username" autocapitalize="off" autocorrect="off" spellcheck="false" required>
-      <input type="password" id="login-pass" placeholder="密码" autocomplete="current-password" required>
-      <button type="submit">登录</button>
-    </form>
-    <div class="login-err" id="login-err"></div>
-    <div class="login-hint">私人页面 · 仅限受邀用户</div>
-  </div>
-</div>
-
-<div class="wrap" id="main-app" style="display:none">
+<div class="wrap">
 
   <header class="top">
-    <div class="greeting" id="greeting">你好，Juli</div>
+    <div class="greeting" id="greeting">你好</div>
     <div class="sub" id="today-date">—</div>
     <div class="status">
       <span class="dot" id="live-dot"></span>
       <span id="live-txt">加载实时行情…</span>
       <span id="live-age" style="margin-left:6px;opacity:.7"></span>
-      <span class="user-pill">
-        <span id="user-name">—</span>
-        <button id="logout-btn" title="退出登录">退出</button>
-      </span>
     </div>
   </header>
 
@@ -337,84 +301,9 @@
 </div>
 
 <script>
-// ---------- Auth (client-side gate) ----------
-// SHA-256 of `cityarchivist:USERNAME:PASSWORD`. NOT enterprise security —
-// prevents casual visitors, would not stop someone determined with DevTools.
-const ACCOUNTS = {
-  "Juli":  "ba8baff4c828c7db4638bd40f2081a6005995d837373b40d52b9e7ca9257a31e",
-  "Chris": "f37fa06fd73a1cba060c74c7817a839c34e454db9b6806dfc66dda4660e589f3",
-};
-const SESSION_KEY = "caLogin";
-const SESSION_MAX_DAYS = 30;
-
-async function sha256Hex(str){
-  const buf  = new TextEncoder().encode(str);
-  const hash = await crypto.subtle.digest("SHA-256", buf);
-  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, "0")).join("");
-}
-
-function getSession(){
-  try {
-    const s = JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
-    if (!s || !s.user || !ACCOUNTS[s.user]) return null;
-    if (Date.now() - (s.ts || 0) > SESSION_MAX_DAYS * 86400_000) return null;
-    return s.user;
-  } catch { return null; }
-}
-
-function setSession(user){
-  localStorage.setItem(SESSION_KEY, JSON.stringify({ user, ts: Date.now() }));
-}
-function clearSession(){ localStorage.removeItem(SESSION_KEY); }
-
-async function attemptLogin(user, pass){
-  user = (user || "").trim();
-  if (!ACCOUNTS[user]) return false;
-  const hash = await sha256Hex(`cityarchivist:${user}:${pass}`);
-  return hash === ACCOUNTS[user];
-}
-
-function showApp(user){
-  window.__currentUser = user;
-  document.getElementById("login-gate").style.display = "none";
-  document.getElementById("main-app").style.display = "";
-  document.getElementById("user-name").textContent = user;
-  document.getElementById("logout-btn").addEventListener("click", () => {
-    if (confirm("确定要退出登录吗？")) { clearSession(); location.reload(); }
-  });
-  bootApp();  // start the main app AFTER we know the user
-}
-
-function showLogin(prefillUser){
-  document.getElementById("login-gate").style.display = "";
-  document.getElementById("main-app").style.display  = "none";
-  if (prefillUser) document.getElementById("login-user").value = prefillUser;
-  document.getElementById("login-form").addEventListener("submit", async e => {
-    e.preventDefault();
-    const err  = document.getElementById("login-err");
-    const u    = document.getElementById("login-user").value;
-    const p    = document.getElementById("login-pass").value;
-    err.textContent = "";
-    if (await attemptLogin(u, p)) {
-      setSession(u.trim());
-      location.reload();
-    } else {
-      err.textContent = "用户名或密码错误";
-      document.getElementById("login-pass").value = "";
-    }
-  });
-}
-
-(() => {
-  const user = getSession();
-  if (user) showApp(user);
-  else showLogin();
-})();
-
 // ---------- Main app ----------
-function bootApp(){
+(function bootApp(){
   // ---------- Greeting ----------
-  const name = window.__currentUser || "Juli";
   function greet(){
     const h = new Date().getHours();
     let g;
@@ -424,7 +313,7 @@ function bootApp(){
     else if (h < 18) g = "下午好";
     else if (h < 22) g = "晚上好";
     else            g = "晚安";
-    document.getElementById("greeting").textContent = `${g}，${name}`;
+    document.getElementById("greeting").textContent = g;
     const d = new Date();
     document.getElementById("today-date").textContent =
       d.toLocaleDateString("zh-CN",{weekday:"long", day:"2-digit", month:"long", year:"numeric"});
@@ -1212,7 +1101,7 @@ function bootApp(){
   document.getElementById("fly-refresh").addEventListener("click", loadFly);
   loadFly();
   setInterval(loadFly, 5 * 60_000);  // refresh every 5 min
-}  // end bootApp
+})();  // end bootApp (IIFE)
 </script>
 </body>
 </html>
