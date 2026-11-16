@@ -272,7 +272,7 @@
   </section>
 
   <section class="card today" style="margin-bottom:14px">
-    <h2>标普500 · 今日 <span class="pill">^GSPC</span> <span id="sentiment"></span></h2>
+    <h2>标普500 · 今日 <span class="pill">^GSPC</span> <span class="pill" id="vix-pill" title="VIX · CBOE 波动率指数（30 天隐含波动率代理）">VIX —</span> <span id="sentiment"></span></h2>
     <div class="row">
       <div class="price" id="price">—</div>
       <div class="chg" id="chg">—</div>
@@ -327,13 +327,13 @@
   </section>
 
   <section class="card">
-    <h2>近期交易日</h2>
+    <h2>近期 30 日 · SPX & VIX <span class="pill">^GSPC · ^VIX</span></h2>
     <div class="scroll-x">
       <div id="history-wrap"><div class="loading">加载历史…</div></div>
     </div>
   </section>
 
-  <footer>数据：雅虎财经 (^GSPC) · 非投资建议</footer>
+  <footer>数据：雅虎财经 (^GSPC, ^VIX) · 非投资建议</footer>
 </div>
 
 <script>
@@ -439,16 +439,26 @@ function bootApp(){
   const fmtDate = ts => new Date(ts*1000).toLocaleDateString("zh-CN",{day:"2-digit",month:"2-digit"});
   const nextBiz = d => { do { d.setDate(d.getDate()+1); } while (d.getDay()===0||d.getDay()===6); return d; };
 
-  // ---------- Snapshot fallback ----------
-  const SNAPSHOT = {"symbol":"^GSPC","asOf":1787595166,"timestamp":[1779802200,1779888600,1779975000,1780061400,1780320600,1780407000,1780493400,1780579800,1780666200,1780925400,1781011800,1781098200,1781184600,1781271000,1781530200,1781616600,1781703000,1781789400,1782135000,1782221400,1782307800,1782394200,1782480600,1782739800,1782826200,1782912600,1782999000,1783344600,1783431000,1783517400,1783603800,1783690200,1783949400,1784035800,1784122200,1784208600,1784295000,1784554200,1784640600,1784727000,1784813400,1784899800,1785159000,1785245400,1785331800,1785418200,1785504600,1785763800,1785850200,1785936600,1786023000,1786109400,1786368600,1786455000,1786541400,1786627800,1786714200,1786973400,1787059800,1787146200,1787232600,1787319000,1787578200],"open":[7511.79,7526.01,7519.82,7579.33,7582.29,7595.4,7605.31,7516.54,7537.36,7440.57,7438.66,7350.54,7287.67,7410.85,7516.75,7548.78,7524.5,7487.36,7500.44,7366.51,7370.88,7404.91,7312.74,7391.88,7441.27,7478.84,7495.14,7506.96,7516.63,7476.54,7491.6,7547.64,7547.53,7536.7,7571.72,7558.8,7447.52,7489.18,7489.95,7497.47,7418.29,7406.3,7464.2,7395.55,7418.16,7390.45,7462.13,7504.78,7630.62,7771.62,7713.79,7735.18,7751.74,7767.51,7765.46,7763.18,7806.6,7790.68,7700.04,7716.74,7690.49,7665.68,7663.38],"high":[7539.09,7530.72,7568.72,7599.38,7617.66,7620.9,7605.35,7598.19,7541.81,7466.81,7483.15,7396.56,7412.68,7456.4,7577.92,7564.96,7532.17,7511.07,7530.01,7424.17,7428.06,7419.08,7392.95,7444.32,7508.29,7521.81,7540.75,7551.31,7536.06,7488.51,7546.89,7579.93,7565.37,7557.44,7581.5,7570.74,7498.47,7513.23,7515.31,7525.94,7450.12,7460.98,7480.57,7452.09,7450.84,7448.75,7512.04,7610.04,7758.21,7793.68,7742.85,7763.08,7773.76,7767.51,7766.01,7816.7,7810.01,7790.68,7713.95,7743.93,7699.96,7697.11,7670.3],"low":[7501.1,7499.72,7508.04,7563.55,7562.61,7582.99,7551.22,7516.54,7368.63,7395.13,7237.85,7265.93,7257.33,7363.01,7516.75,7508.68,7402.61,7468.32,7460.01,7347.6,7336.82,7323.5,7294.18,7348.88,7438.04,7449.63,7427.55,7500.97,7478.63,7421.82,7481.73,7508.16,7506.41,7513.23,7526.95,7504.02,7431.26,7440.53,7467.86,7485.85,7376.0,7396.53,7382.74,7382.95,7313.92,7370.98,7399.83,7504.78,7629.1,7720.17,7698.15,7719.19,7743.11,7717.25,7737.95,7763.18,7776.31,7744.88,7688.63,7700.07,7639.01,7660.06,7638.17],"close":[7519.12,7520.36,7563.63,7580.06,7599.96,7609.78,7553.68,7584.31,7383.74,7405.73,7386.65,7266.99,7394.3,7431.46,7554.29,7511.35,7420.1,7500.58,7472.79,7365.46,7358.22,7357.49,7354.02,7440.43,7499.36,7483.23,7483.24,7537.43,7503.85,7482.71,7543.64,7575.39,7515.34,7543.59,7572.4,7533.77,7457.69,7443.28,7509.2,7498.96,7408.3,7411.98,7413.18,7428.78,7316.15,7437.63,7489.72,7600.5,7736.52,7723.55,7709.96,7757.64,7753.11,7728.2,7748.5,7798.99,7785.76,7745.06,7691.76,7707.98,7641.16,7674.37,7656.84]};
+  // ---------- Snapshot fallback (SPX, last 45 trading days to 2026-11-13) ----------
+  const SNAPSHOT = {"symbol":"^GSPC","asOf":1794580200,"timestamp":[1789392600,1789479000,1789565400,1789651800,1789738200,1789997400,1790083800,1790170200,1790256600,1790343000,1790602200,1790688600,1790775000,1790861400,1790947800,1791207000,1791293400,1791379800,1791466200,1791552600,1791811800,1791898200,1791984600,1792071000,1792157400,1792416600,1792503000,1792589400,1792675800,1792762200,1793021400,1793107800,1793194200,1793280600,1793367000,1793629800,1793716200,1793802600,1793889000,1793975400,1794234600,1794321000,1794407400,1794493800,1794580200],"open":[7611.44,7612.30,7601.25,7631.44,7657.17,7692.83,7770.81,7761.94,7666.99,7709.86,7721.70,7699.60,7688.99,7666.47,7726.24,7730.86,7805.96,7792.98,7778.45,7786.36,7813.04,7795.27,7774.18,7687.31,7745.32,7702.77,7679.01,7736.43,7694.62,7637.18,7639.70,7699.47,7735.56,7699.61,7631.07,7610.83,7552.92,7635.81,7678.72,7377.65,7422.24,7513.09,7586.65,7550.84,7616.85],"high":[7647.99,7617.26,7626.79,7646.86,7657.17,7779.22,7782.19,7761.94,7719.01,7752.07,7724.15,7699.60,7722.88,7684.75,7754.67,7794.35,7844.52,7807.02,7797.79,7820.57,7821.67,7814.15,7789.15,7754.15,7756.84,7731.18,7748.42,7770.40,7702.94,7660.15,7702.13,7736.24,7758.43,7732.21,7637.48,7662.23,7594.61,7715.57,7681.29,7444.20,7577.39,7543.92,7647.20,7652.76,7621.78],"low":[7592.28,7572.69,7507.77,7611.81,7610.52,7691.19,7756.26,7694.89,7662.57,7693.08,7666.60,7653.55,7651.54,7616.78,7700.51,7727.59,7805.96,7763.34,7731.26,7779.34,7796.94,7786.11,7693.31,7669.66,7631.77,7684.79,7668.03,7709.34,7637.36,7612.07,7639.70,7677.16,7718.37,7690.94,7527.56,7539.38,7545.39,7635.81,7350.35,7369.55,7422.24,7470.43,7571.88,7550.84,7499.40],"close":[7619.98,7585.73,7551.81,7637.76,7650.50,7764.70,7764.64,7706.03,7704.13,7743.41,7683.69,7670.84,7651.54,7666.45,7722.72,7773.95,7818.93,7801.77,7765.36,7811.54,7807.24,7805.45,7718.94,7744.06,7659.44,7690.73,7712.57,7757.17,7663.43,7623.68,7676.77,7722.60,7743.98,7720.39,7580.07,7541.40,7568.92,7688.62,7353.73,7376.86,7549.94,7520.93,7619.38,7592.40,7561.67]};
+
+  // VIX daily Open/Close, index-aligned to SNAPSHOT.timestamp (first 2 null = VIX series started later)
+  const VIX_SNAPSHOT = {"open":[null,null,16.91,16.03,15.07,14.96,14.64,14.16,15.83,15.61,16.16,16.17,15.93,16.33,16.15,16.24,15.50,15.21,15.68,15.34,15.39,15.61,15.17,17.55,16.02,18.37,18.42,17.25,18.29,19.18,19.66,18.43,17.47,17.15,18.43,19.05,21.66,19.20,17.14,27.68,25.08,19.76,18.81,18.36,18.78],"close":[null,null,17.71,15.44,14.81,14.87,14.21,15.18,15.67,14.87,16.07,16.04,16.34,16.39,15.31,15.52,15.01,15.08,15.41,14.84,15.21,15.27,16.87,16.46,19.99,18.44,17.31,16.68,19.03,19.45,18.39,17.52,16.91,17.20,19.42,21.15,20.83,16.61,28.18,25.64,19.92,19.46,17.49,18.70,19.30]};
 
   const WORKER = "https://cityarchivist-spx.cityarchivist.workers.dev";
-  const YAHOO  = "https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?range=3mo&interval=1d";
+  const YAHOO     = "https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?range=3mo&interval=1d";
+  const YAHOO_VIX = "https://query1.finance.yahoo.com/v8/finance/chart/%5EVIX?range=3mo&interval=1d";
   const LIVE_URLS = [
     WORKER ? `${WORKER}/?symbol=^GSPC&range=3mo&interval=1d` : null,
     YAHOO,
     "https://corsproxy.io/?" + encodeURIComponent(YAHOO),
     "https://api.allorigins.win/raw?url=" + encodeURIComponent(YAHOO),
+  ].filter(Boolean);
+  const VIX_URLS = [
+    WORKER ? `${WORKER}/?symbol=^VIX&range=3mo&interval=1d` : null,
+    YAHOO_VIX,
+    "https://corsproxy.io/?" + encodeURIComponent(YAHOO_VIX),
+    "https://api.allorigins.win/raw?url=" + encodeURIComponent(YAHOO_VIX),
   ].filter(Boolean);
 
   function snapshotToResult(s){
@@ -469,6 +479,37 @@ function bootApp(){
     }
     return null;
   }
+  async function fetchVix(){
+    for (const url of VIX_URLS){
+      try{
+        const r = await fetch(url, {cache:"no-store"});
+        if (!r.ok) continue;
+        const j = await r.json();
+        if (j?.chart?.result?.[0]) return j.chart.result[0];
+      }catch(e){}
+    }
+    return null;
+  }
+  // Align a VIX chart result to SPX timestamps by NY trading-day date.
+  // Returns { open:[...], close:[...] } with the same length as spxTs, null where VIX is missing.
+  function alignVix(vixRes, spxTs){
+    const out = { open: new Array(spxTs.length).fill(null), close: new Array(spxTs.length).fill(null) };
+    if (!vixRes) return out;
+    const vq = vixRes.indicators?.quote?.[0];
+    if (!vq) return out;
+    const dateInNY = ts => new Intl.DateTimeFormat("en-CA",{
+      timeZone:"America/New_York", year:"numeric", month:"2-digit", day:"2-digit"
+    }).format(new Date(ts*1000));
+    const byDate = new Map();
+    vixRes.timestamp.forEach((t, k) => {
+      if (vq.open?.[k] != null || vq.close?.[k] != null) byDate.set(dateInNY(t), {o: vq.open?.[k], c: vq.close?.[k]});
+    });
+    spxTs.forEach((t, i) => {
+      const hit = byDate.get(dateInNY(t));
+      if (hit){ out.open[i] = hit.o ?? null; out.close[i] = hit.c ?? null; }
+    });
+    return out;
+  }
   function setLive(state, msg){
     const dot = document.getElementById("live-dot");
     const txt = document.getElementById("live-txt");
@@ -477,7 +518,7 @@ function bootApp(){
   }
 
   // ---------- Top card ----------
-  function renderTop(res){
+  function renderTop(res, vix){
     const q = res.indicators.quote[0], ts = res.timestamp;
     const closes = q.close, highs = q.high, lows = q.low, opens = q.open;
     let i = closes.length - 1;
@@ -490,36 +531,69 @@ function bootApp(){
     chgEl.className = "chg " + (chg>=0?"up":"down");
     document.getElementById("today-high").textContent = fmt(highs[i]);
     document.getElementById("today-low").textContent  = fmt(lows[i]);
-    return {ts, opens, closes, highs, lows, i};
+
+    const vixOpen  = vix?.open  || new Array(ts.length).fill(null);
+    const vixClose = vix?.close || new Array(ts.length).fill(null);
+    const vixPill = document.getElementById("vix-pill");
+    if (vixPill){
+      const vc = vixClose[i];
+      if (vc != null){
+        vixPill.textContent = `VIX ${vc.toFixed(2)}`;
+        vixPill.style.color = vc > 25 ? "var(--down)" : (vc < 15 ? "var(--up)" : "");
+      } else {
+        vixPill.textContent = "VIX —";
+        vixPill.style.color = "";
+      }
+    }
+
+    return {ts, opens, closes, highs, lows, vixOpen, vixClose, i};
   }
 
-  // ---------- History table ----------
+  // ---------- History table (30 days · SPX OHLC + daily range + VIX O/C) ----------
   function renderHistory(d){
     const rows = [];
-    const N = Math.min(15, d.closes.length);
+    const N = Math.min(30, d.closes.length);
     for (let k = d.i; k > d.i - N && k >= 0; k--){
       if (d.closes[k]==null) continue;
       const prev = d.closes[k-1];
       const pct = prev ? ((d.closes[k]-prev)/prev)*100 : null;
-      rows.push({t:d.ts[k], o:d.opens[k], h:d.highs[k], l:d.lows[k], c:d.closes[k], pct});
+      const range = (d.highs[k]!=null && d.lows[k]!=null) ? (d.highs[k]-d.lows[k]) : null;
+      rows.push({
+        t: d.ts[k], o: d.opens[k], h: d.highs[k], l: d.lows[k], c: d.closes[k],
+        pct, range,
+        vo: d.vixOpen ? d.vixOpen[k] : null,
+        vc: d.vixClose ? d.vixClose[k] : null,
+      });
     }
+    // Highlight extreme-vol rows (big range OR elevated VIX close)
+    const warnRow = r => (r.range!=null && r.range>200) || (r.vc!=null && r.vc>=25);
     document.getElementById("history-wrap").innerHTML = `
       <table>
         <thead><tr>
           <th>日期</th>
           <th class="hide-sm">开盘</th>
-          <th>最高</th><th>最低</th><th>收盘</th><th>涨跌</th>
+          <th>最高</th><th>最低</th><th>收盘</th>
+          <th class="hide-sm">波幅</th>
+          <th>涨跌</th>
+          <th class="hide-sm">VIX 开</th>
+          <th>VIX 收</th>
         </tr></thead>
         <tbody>
-          ${rows.map(r=>`
-            <tr>
+          ${rows.map(r=>{
+            const warn = warnRow(r);
+            return `
+            <tr${warn?' style="background:rgba(245,158,11,.06)"':""}>
               <td>${new Date(r.t*1000).toLocaleDateString("zh-CN",{weekday:"short",day:"2-digit",month:"2-digit"})}</td>
               <td class="hide-sm">${fmt(r.o)}</td>
               <td class="pos">${fmt(r.h)}</td>
               <td class="neg">${fmt(r.l)}</td>
               <td>${fmt(r.c)}</td>
+              <td class="hide-sm"${r.range!=null && r.range>200?' style="color:var(--warn);font-weight:600"':""}>${r.range==null?"—":fmt(r.range)}</td>
               <td class="${r.pct>=0?"pos":"neg"}">${r.pct==null?"—":fmtPct(r.pct)}</td>
-            </tr>`).join("")}
+              <td class="hide-sm">${r.vo==null?"—":r.vo.toFixed(2)}</td>
+              <td${r.vc!=null && r.vc>=25?' style="color:var(--warn);font-weight:600"':""}>${r.vc==null?"—":r.vc.toFixed(2)}</td>
+            </tr>`;
+          }).join("")}
         </tbody>
       </table>`;
   }
@@ -754,26 +828,28 @@ function bootApp(){
   setInterval(()=>{ document.getElementById("live-age").textContent = ageString(); }, 5_000);
 
   async function tick(isFirst){
-    const res = await fetchLive();
+    const [res, vixRes] = await Promise.all([fetchLive(), fetchVix()]);
     if (res){
       setLive("ok","实时数据已加载");
+      const vix = alignVix(vixRes, res.timestamp);
+      render(res, vix);
+      return;
     } else if (isFirst){
       const snap = snapshotToResult(SNAPSHOT);
       const dt = new Date(SNAPSHOT.asOf*1000)
         .toLocaleDateString("zh-CN",{day:"2-digit",month:"2-digit",year:"numeric"});
       setLive("warn", `${dt} 的快照（实时数据不可用）`);
-      render(snap);
+      render(snap, { open: VIX_SNAPSHOT.open, close: VIX_SNAPSHOT.close });
       return;
     } else {
       // keep prior render, just note we couldn't refresh
       setLive("warn", "实时刷新失败 — 显示上次数据");
       return;
     }
-    render(res);
   }
 
-  function render(res){
-    const d = renderTop(res);
+  function render(res, vix){
+    const d = renderTop(res, vix);
     if (lastPrice != null) flashPrice(d.closes[d.i]);
     lastPrice = d.closes[d.i];
     lastLoadedAt = Date.now();
