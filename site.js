@@ -19,6 +19,10 @@
       es.forEach(function(e){ if(e.isIntersecting){ links.forEach(function(a, i){ a.setAttribute('aria-current', secs[i] === e.target ? 'true' : 'false'); }); } });
     }, {rootMargin:'-45% 0px -50% 0px'});
     secs.forEach(function(s){ if(s) so.observe(s); });
+    var hero = document.querySelector('.hero');
+    if(hero) new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting) links.forEach(function(a){ a.setAttribute('aria-current','false'); }); });
+    }, {rootMargin:'-45% 0px -50% 0px'}).observe(hero);
   }
 
   window.BW_READY(function(){
@@ -90,7 +94,7 @@
     if(bar && document.getElementById('reels-grid') && consent() === null) showBar();
 
     /* ---------- Reels ----------
-       Die Liste steht in inhalte/reels.csv (Spalten: plattform;link). Neueste zuerst, höchstens 4 werden gezeigt.
+       Die Liste steht in reels.csv (Spalten: plattform;link). Neueste zuerst, höchstens 4 werden gezeigt.
        Ist die Liste leer, zeigt die Seite (nach Einwilligung) das TikTok-Profil mit den neuesten Videos. */
     var box = document.getElementById('reels-grid');
     var PROFIL = {instagram:'https://www.instagram.com/beatwingsadventure/', tiktok:'https://www.tiktok.com/@beatwingsadventure'};
@@ -135,7 +139,7 @@
       });
     }
     if(box){
-      fetch((document.querySelector('script[src*="site.js"]').src.replace(/assets\/site\.js.*$/, '')) + 'inhalte/reels.csv', {cache:'no-cache'})
+      fetch((document.querySelector('script[src*="site.js"]').src.replace(/site\.js.*$/, '')) + 'reels.csv', {cache:'no-cache'})
         .then(function(r){ return r.ok ? r.text() : ''; })
         .then(function(t){
           LIST = t.replace(/^﻿/, '').split(/\r?\n/).slice(1).map(function(l){
@@ -162,41 +166,26 @@
   });
 })();
 
-/* ---------- Bilderkarussell (Startseite) ---------- */
+/* ---------- Moments-Laufband (Startseite) ---------- */
 (function(){
-  var track = document.getElementById('track'); if(!track) return;
-  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var pauseBtn = document.getElementById('car-pause'), prev = document.getElementById('car-prev'), next = document.getElementById('car-next');
-  var T = function(id, fb){ return window.BW_T ? window.BW_T(id, fb) : fb; };
-  var rtl = function(){ return document.documentElement.dir === 'rtl'; };
-  function step(){ var s = track.querySelector('.slide'); return s ? s.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || 0) : 300; }
-  function go(dir){
-    var max = track.scrollWidth - track.clientWidth, pos = Math.abs(track.scrollLeft), sign = rtl() ? -1 : 1;
-    if(dir > 0 && pos >= max - 4) track.scrollTo({left:0, behavior:'smooth'});
-    else if(dir < 0 && pos <= 4) track.scrollTo({left:sign * max, behavior:'smooth'});
-    else track.scrollBy({left:sign * dir * step(), behavior:'smooth'});
+  var mq = document.getElementById('mq'); if(!mq) return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){ var m=document.getElementById('marquee'); m.setAttribute('tabindex','0'); return; }
+  function build(){
+    var orig = Array.prototype.slice.call(mq.children);
+    orig.forEach(function(f){
+      var c = f.cloneNode(true);
+      c.setAttribute('aria-hidden','true');
+      var img = c.querySelector('img'); if(img){ img.alt = ''; img.loading = 'eager'; }
+      mq.appendChild(c);
+    });
+    function size(){
+      var gap = parseFloat(getComputedStyle(mq).columnGap) || 0;
+      var w = 0; orig.forEach(function(f){ w += f.getBoundingClientRect().width + gap; });
+      mq.style.setProperty('--mq-shift', (-w) + 'px');
+      mq.style.setProperty('--mq-dur', Math.max(30, w / 45) + 's');
+    }
+    size(); addEventListener('resize', size);
+    orig.forEach(function(f){ var i=f.querySelector('img'); if(i && !i.complete) i.addEventListener('load', size); });
   }
-  prev.addEventListener('click', function(){ go(-1); });
-  next.addEventListener('click', function(){ go(1); });
-  track.addEventListener('keydown', function(e){
-    if(e.key === 'ArrowRight'){ e.preventDefault(); go(rtl() ? -1 : 1); }
-    if(e.key === 'ArrowLeft'){ e.preventDefault(); go(rtl() ? 1 : -1); }
-  });
-  var timer = null, userPaused = reduce, hover = false;
-  function label(){
-    pauseBtn.classList.toggle('paused', userPaused);
-    pauseBtn.setAttribute('aria-label', userPaused ? T('t.car.play','Karussell abspielen') : T('t.car.pause','Karussell anhalten'));
-  }
-  function run(){ clearInterval(timer); if(!userPaused && !hover && !document.hidden) timer = setInterval(function(){ go(1); }, 4500); }
-  pauseBtn.addEventListener('click', function(){ userPaused = !userPaused; label(); run(); });
-  [track].forEach(function(el){
-    el.addEventListener('mouseenter', function(){ hover = true; run(); });
-    el.addEventListener('mouseleave', function(){ hover = false; run(); });
-    el.addEventListener('focusin', function(){ hover = true; run(); });
-    el.addEventListener('focusout', function(){ hover = false; run(); });
-    el.addEventListener('touchstart', function(){ hover = true; run(); }, {passive:true});
-    el.addEventListener('touchend', function(){ hover = false; setTimeout(run, 4000); }, {passive:true});
-  });
-  document.addEventListener('visibilitychange', run);
-  window.BW_READY ? window.BW_READY(function(){ label(); run(); }) : (label(), run());
+  window.BW_READY ? window.BW_READY(build) : build();
 })();

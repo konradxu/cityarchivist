@@ -2,7 +2,7 @@
 
 <html lang="de">
 <head>
-<!-- Stand 17.11.2026 – Texte kommen aus i18n/sprachen.csv. Änderungen siehe _fuer-bjoern/2026-11-17-Umbau.md -->
+<!-- Stand 17.11.2026 – Texte kommen aus sprachen.csv. Änderungen siehe _fuer-bjoern/2026-11-17-Umbau.md -->
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <meta content="#000000" name="theme-color"/>
@@ -19,8 +19,8 @@
 <title>BEATWINGS</title>
 <link href="favicon.png" rel="icon" type="image/png"/>
 <link href="favicon.png" rel="apple-touch-icon"/>
-<script src="i18n/i18n.js"></script>
-<link href="assets/site.css" rel="stylesheet"/>
+<script src="i18n.js"></script>
+<link href="site.css" rel="stylesheet"/>
 <link as="image" href="bw-fairy.jpg" rel="preload"/>
 </head>
 <body>
@@ -77,7 +77,7 @@
 <section class="sec" id="erlebnisse">
 <div class="wrap">
 <div class="head up">
-<div><span class="kicker" data-t="erlebnisse">Erlebnisse</span><h2 data-t="unser-erstes-erlebnis-tomorrowland-thailand">Unser erstes Erlebnis: Tomorrowland Thailand.</h2></div>
+<div><span class="kicker" data-t="erlebnisse">Erlebnisse</span><h2 data-t="unser-erstes-erlebnis">Unser erstes Erlebnis.</h2></div>
 <p class="lead" data-t="festival-reise-und-leute-die">Festival, Reise und Leute, die genauso ticken wie du. Vom ersten Drink bis zum letzten Set.</p>
 </div>
 <article class="feature up">
@@ -101,15 +101,13 @@
 <section aria-labelledby="op-t" class="sec" id="official-partner">
 <div class="wrap">
 <div class="partner up">
-<div>
-<span class="kicker">Official Partner</span>
+<div class="p-txt">
+<span class="badge"><i></i>Official Travel Partner</span>
 <h2 data-t="offizieller-reisepartner-des-tomorrowland-thailand" id="op-t">Offizieller Reisepartner des Tomorrowland Thailand</h2>
 <p data-t="fuer-deutschland-und-oesterreich-wir">Für Deutschland und Österreich. Wir bringen dich zum Festival – mit Reise, Crew und allem drumherum.</p>
-</div>
-<div class="side">
-<span class="badge"><i></i>Official Travel Partner</span>
 <a class="tlink" data-t="auf-der-offiziellen-partnerliste-ansehen" href="https://thailand.tomorrowland.com/en/sales-info/official-travel-partners/" rel="noopener" target="_blank">Auf der offiziellen Partnerliste ansehen ↗</a>
 </div>
+<div class="p-img"><img alt="Festivalgelände bei Sonnenuntergang" data-ta="alt=festivalgelaende-bei-sonnenuntergang" loading="lazy" src="bw-tml.jpg"/></div>
 </div>
 </div>
 </section>
@@ -119,8 +117,9 @@
 <div><span class="kicker">Moments</span><h2 data-t="so-fuehlt-sich-beatwings-an">So fühlt sich BEATWINGS an.</h2></div>
 <p class="lead" data-t="bilder-von-unseren-reisen-buehnen">Bilder von unseren Reisen: Bühnen, Rooftops und Sonnenuntergänge.</p>
 </div>
-<div aria-label="Moments" aria-roledescription="carousel" class="carousel up" id="carousel" role="region">
-<div class="track" id="track" tabindex="0">
+</div>
+<div aria-label="Moments" class="marquee up" id="marquee" role="region">
+<div class="mq-track" id="mq">
 <figure class="m slide"><img alt="Feuerwerk über der Hauptbühne bei Nacht" data-ta="alt=feuerwerk-ueber-der-hauptbuehne-bei" loading="lazy" src="bw-night.jpg"/><figcaption>Main Stage</figcaption></figure>
 <figure class="m slide"><img alt="Festivalbesucherin mit Blumenkranz und Feenflügeln am Strand" data-ta="alt=festivalbesucherin-mit-blumenkranz-und-feenfluegeln" loading="lazy" src="bw-fairy.jpg"/><figcaption data-t="festival-look">Festival-Look</figcaption></figure>
 <figure class="m slide"><img alt="Rooftop-Bar über Bangkok in der Dämmerung" data-ta="alt=rooftop-bar-ueber-bangkok-in" loading="lazy" src="bw-rooftop.jpg"/><figcaption data-t="welcome-party-bangkok">Welcome Party, Bangkok</figcaption></figure>
@@ -132,15 +131,9 @@
 <figure class="m slide"><img alt="Menschenmenge beim Songkran-Fest auf einer Straße in Bangkok" data-ta="alt=menschenmenge-beim-songkran-fest-auf" loading="lazy" src="bw-songkran.jpg"/><figcaption data-t="songkran-in-bangkok">Songkran in Bangkok</figcaption></figure>
 <figure class="m slide"><img alt="Katamaran auf türkisblauem Meer von oben" data-ta="alt=katamaran-auf-tuerkisblauem-meer-von" loading="lazy" src="bw-island.jpg"/><figcaption data-t="inselhopping">Inselhopping</figcaption></figure>
 </div>
-<div class="car-ctrl">
-<a class="btn line" data-t="alle-moments-ansehen" href="moments.html">Alle Moments ansehen →</a>
-<div class="car-btns">
-<button aria-label="Karussell anhalten" class="cbtn" data-ta="aria-label=karussell-anhalten" id="car-pause" type="button"><svg aria-hidden="true" viewbox="0 0 16 16"><path class="i-pause" d="M4 3h3v10H4zM9 3h3v10H9z" fill="currentColor"></path><path class="i-play" d="M5 3l8 5-8 5z" fill="currentColor"></path></svg></button>
-<button aria-label="Vorheriges Bild" class="cbtn" data-ta="aria-label=vorheriges-bild" id="car-prev" type="button"><svg aria-hidden="true" viewbox="0 0 16 16"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button>
-<button aria-label="Nächstes Bild" class="cbtn" data-ta="aria-label=naechstes-bild" id="car-next" type="button"><svg aria-hidden="true" viewbox="0 0 16 16"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg></button>
 </div>
-</div>
-</div>
+<div class="wrap">
+<div class="cta-row mq-cta up"><a class="btn line" data-t="alle-moments-ansehen" href="moments.html">Alle Moments ansehen →</a></div>
 </div>
 </section>
 <section class="sec" id="reels">
@@ -202,6 +195,6 @@
 <button class="btn line" data-consent="no" data-t="nein-danke" type="button">Nein, danke</button>
 </div>
 </div>
-<script src="assets/site.js"></script>
+<script src="site.js"></script>
 </body>
 </html>

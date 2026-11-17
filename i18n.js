@@ -1,5 +1,5 @@
 /* BEATWINGS – Sprachen aus einer Tabelle (Stand 17.11.2026)
-   Alle Texte der Website stehen in i18n/sprachen.csv: eine Zeile pro Text, eine Spalte pro Sprache.
+   Alle Texte der Website stehen in sprachen.csv: eine Zeile pro Text, eine Spalte pro Sprache.
    - Text ändern: Zelle in der Tabelle ändern, speichern, hochladen. Fertig.
    - Neue Sprache: neue Spalte mit Sprachcode (z. B. "sv") anlegen und Zeile "_name" ausfüllen (z. B. "Svenska").
      Der Sprachumschalter zeigt automatisch alle Spalten der Tabelle.

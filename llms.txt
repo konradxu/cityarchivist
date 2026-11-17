@@ -13,7 +13,7 @@ Stand: 17. November 2026.
 - Amtsgericht Münster, HRB 23224; Geschäftsführer: Björn Weiß
 - Kontakt: info@beatwings.com (auch für Partneranfragen)
 - Social Media: @beatwingsadventure auf Instagram und TikTok
-- Website-Sprachen: Deutsch sowie 14 Übersetzungen (en, fr, es, it, nl, pl, pt, ru, tr, th, ja, ko, zh-CN, ar), abrufbar mit ?lang=, z. B. beatwings.html?lang=en. Alle Texte stehen in i18n/sprachen.csv. Rechtstexte nur auf Deutsch.
+- Website-Sprachen: Deutsch sowie 14 Übersetzungen (en, fr, es, it, nl, pl, pt, ru, tr, th, ja, ko, zh-CN, ar), abrufbar mit ?lang=, z. B. beatwings.html?lang=en. Alle Texte stehen in sprachen.csv. Rechtstexte nur auf Deutsch.
 
 ## Erlebnisse
 
