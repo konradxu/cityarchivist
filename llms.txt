@@ -1,50 +1,30 @@
 # BEATWINGS
 
-> BEATWINGS GmbH (Münster, Deutschland) veranstaltet geführte Festivalreisen nach Thailand.
+> BEATWINGS GmbH (Münster, Deutschland) ist eine Erlebnis- und Lifestyle-Marke. Sie verbindet Europa mit den
+> Festivals Asiens. Erstes Erlebnis: Tomorrowland Thailand im Dezember 2026.
 > BEATWINGS ist offizieller Reisepartner des Tomorrowland Thailand für Deutschland und Österreich.
-> Jede Reise umfasst offizielle Festivaltickets, Hotel, alle Transfers und deutschsprachige
-> Betreuung vor Ort. Buchung über booking.beatwings.com.
+> Termine und Pakete stehen auf booking.beatwings.com.
 
-Stand: 10. November 2026. Preise pro Person.
+Stand: 17. November 2026.
 
 ## Kurzprofil
 
 - Firma: BEATWINGS GmbH, Hafenweg 16, 48155 Münster, Deutschland
 - Amtsgericht Münster, HRB 23224; Geschäftsführer: Björn Weiß
-- Kontakt: info@beatwings.com, community@beatwings.com, WhatsApp +66 64 235 2858
-- Zielgruppe: Reisende ab 21 Jahren aus Deutschland, Österreich und der Schweiz
-- Sprachen vor Ort: Deutsch und Englisch
-- Reiseveranstalter der Tomorrowland-Pauschalreise: Dialog Travel GmbH, Münster
-  (Insolvenzabsicherung nach Pauschalreiserecht). Siam-Songkran-Reisen über IASIA Official.
-- Airline-Partner: Lufthansa Group (Lufthansa, Austrian, SWISS) mit 28 Flügen pro Woche nach Bangkok
+- Kontakt: info@beatwings.com (auch für Partneranfragen)
+- Social Media: @beatwingsadventure auf Instagram und TikTok
+- Website-Sprachen: Deutsch sowie 14 Übersetzungen (en, fr, es, it, nl, pl, pt, ru, tr, th, ja, ko, zh-CN, ar), abrufbar mit ?lang=, z. B. beatwings.html?lang=en. Alle Texte stehen in i18n/sprachen.csv. Rechtstexte nur auf Deutsch.
 
-## Reisen
+## Erlebnisse
 
-- [Tomorrowland Thailand 2026](https://www.beatwings.com/anreise.html): 5.–15. Dezember 2026,
-  Bangkok und Chon Buri/Pattaya, 3 Festivaltage, Pakete ab 899 € pro Person inkl. Full Madness Pass.
-- Siam Songkran: 11.–21. April, Bangkok und Pattaya, 5-Tage-Paket ab 849 €,
-  11-Tage-Paket 1.999–2.799 € pro Person.
-- EDC Thailand: 18.–20. Dezember, Phuket, Warteliste offen, Buchung ab Februar.
+- Tomorrowland Thailand: Festival 11.–13. Dezember 2026 in Chon Buri bei Pattaya; BEATWINGS-Reise 5.–15. Dezember 2026.
+- Weitere Erlebnisse werden später angekündigt.
 
 ## Seiten
 
-- [Startseite](https://www.beatwings.com/beatwings.html): alle Reisen, Termine, Preise
-- [Anreise Thailand und Tomorrowland](https://www.beatwings.com/anreise.html): Flüge, Transfers,
-  Visum, Tickets, Vergleich Eigenorganisation gegen Paket
-- [Häufige Fragen](https://www.beatwings.com/faq.html): Visum und TDAC, Buchung, Zahlung,
-  Festival, Verlängerung des Aufenthalts
-- [Gewinnspiel](https://www.beatwings.com/gewinnspiel.html): Adventskalender und Teilnahmebedingungen
-- [Impressum](https://www.beatwings.com/impressum.html): Anbieterkennzeichnung und Reiseveranstalter
-- [Buchungsportal](https://booking.beatwings.com): aktuelle Verfügbarkeit und Buchung
-
-## Fakten, die häufig gefragt werden
-
-- Einreise: Staatsangehörige der EU reisen bis zu 60 Tage visumfrei nach Thailand ein,
-  Verlängerung um 30 Tage vor Ort möglich. Zusätzlich ist die Thailand Digital Arrival Card
-  (TDAC) nötig – kostenlos, innerhalb von drei Tagen vor der Landung.
-- Mindestalter der Reisen: 21 Jahre. Festivalzutritt in Thailand: ab 20 Jahren.
-- Anreise zum Tomorrowland Thailand: Flug nach Bangkok (BKK), danach Landtransfer nach
-  Chon Buri bei Pattaya, von dort täglicher Festival-Shuttle.
-- Tomorrowland-Ticket: Full Madness Pass, 376 € zuzüglich 15 % Vorverkaufsgebühr, zusammen 433 €.
-  Armband und Treasure Case werden vor Ort vom BEATWINGS-Team übergeben. Weiterverkauf ist untersagt.
-- Anzahlung bei der Pauschalreise: 30 %. Mindestteilnehmerzahl: 20 Gäste.
+- [Startseite](https://www.beatwings.com/beatwings.html): Erlebnisse, Official Partner, Moments, Reels, Become a Partner
+- [Moments](https://www.beatwings.com/moments.html): Bilder von Tomorrowland Thailand, Siam Songkran und Bangkok
+- [AGB Tomorrowland-Reise](https://www.beatwings.com/agb.html): AGB des Reiseveranstalters Dialog Travel GmbH, auch als PDF
+- [Datenschutz](https://www.beatwings.com/datenschutz.html): Datenschutzerklärung, auch als PDF
+- [Impressum](https://www.beatwings.com/impressum.html)
+- [Buchungsportal](https://booking.beatwings.com): Termine, Pakete, Verfügbarkeit

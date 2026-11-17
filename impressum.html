@@ -1,654 +1,144 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="de">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#F8F8F8" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#161616" media="(prefers-color-scheme: dark)">
-<meta name="description" content="Impressum der BEATWINGS GmbH, Hafenweg 16, 48155 Münster – Anbieterkennzeichnung nach § 5 DDG.">
-<link rel="canonical" href="https://www.beatwings.com/impressum.html">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="BEATWINGS">
-<meta property="og:locale" content="de_DE">
-<meta property="og:title" content="Impressum – BEATWINGS">
-<meta property="og:description" content="Impressum der BEATWINGS GmbH, Hafenweg 16, 48155 Münster – Anbieterkennzeichnung nach § 5 DDG.">
-<meta property="og:image" content="https://www.beatwings.com/bw-night.jpg">
-<meta name="twitter:card" content="summary_large_image">
-<title>Impressum – BEATWINGS</title>
-<link rel="icon" type="image/png" href="favicon.png">
-<link rel="apple-touch-icon" href="favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#F8F8F8; --bg-2:#F1F1F1; --card:#FFFFFF; --line:#E9E9E9; --line-2:#F0F0F0;
-    --ink:#464646; --text:#656565; --mute:#8A8A8A;
-    --lime:#E3FF87; --lime-ink:#3A4A10; --amber:#C98A2E; --amber-soft:#F7EEDF;
-    --r-s:8px; --r-m:12px; --r-l:16px;
-    --shadow:0 4px 16px rgba(0,0,0,.10);
-    --ease:cubic-bezier(.22,.68,.26,1);
-    --grain:0;
-  }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --bg:#161616; --bg-2:#1D1D1D; --card:#202020; --line:#2F2F2F; --line-2:#272727;
-      --ink:#F2F2F2; --text:#B4B4B4; --mute:#8A8A8A;
-      --lime:#E3FF87; --lime-ink:#2A3608; --amber:#E0A44A; --amber-soft:#2E2515;
-      --shadow:0 4px 16px rgba(0,0,0,.45);
-      --grain:0;
-    }
-  }
-  :root[data-theme="dark"]{
-    --bg:#161616; --bg-2:#1D1D1D; --card:#202020; --line:#2F2F2F; --line-2:#272727;
-    --ink:#F2F2F2; --text:#B4B4B4; --mute:#8A8A8A;
-    --lime:#E3FF87; --lime-ink:#2A3608; --amber:#E0A44A; --amber-soft:#2E2515;
-    --shadow:0 4px 16px rgba(0,0,0,.45);
-    --grain:0;
-  }
-
-  *{box-sizing:border-box;}
-  [hidden]{display:none !important;}
-  html{scroll-behavior:smooth;}
-  body{margin:0; background:var(--bg); color:var(--text); font-family:'Montserrat',system-ui,sans-serif; font-size:15px; line-height:1.72;}
-  a{color:inherit;}
-  img{display:block; max-width:100%;}
-  h1,h2,h3{color:var(--ink); margin:0; font-family:'Montserrat',sans-serif; font-weight:700;
-           letter-spacing:-.035em; line-height:1.03;}
-  .pad{padding-inline:clamp(18px,4.6vw,60px);}
-  .kicker{font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--mute); font-weight:600;}
-  .wrap{max-width:1180px; margin:0 auto;}
-
-  @media (max-width:880px){ .grain{display:none;} }
-  .grain{position:fixed; inset:0; z-index:90; pointer-events:none; opacity:var(--grain);
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");}
-
-  .anim .up{opacity:0; transform:translateY(22px);}
-  .anim .up.in{opacity:1; transform:none; transition:opacity .85s var(--ease) var(--d,0ms), transform .9s var(--ease) var(--d,0ms);}
-  @media (prefers-reduced-motion: reduce){
-    html{scroll-behavior:auto;}
-    .anim .up{opacity:1 !important; transform:none !important; transition:none !important;}
-  }
-
-
-  /* ---------- größere Tippflächen auf dem Handy ---------- */
-  @media (max-width:920px){
-    footer nav a{display:inline-block; padding-block:9px;}
-    footer nav{gap:14px 22px;}
-    .head a,.sechead a{display:inline-block; padding-block:8px;}
-    .hl{padding-block:17px;}
-  }
-
-  /* ---------- Navigation auf dem Handy ---------- */
-  .mobnav{display:none;}
-  @media (max-width:920px){
-    .mobnav{display:flex; gap:20px; overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch;
-            padding-block:12px; border-bottom:1px solid var(--line); background:var(--bg);}
-    .mobnav::-webkit-scrollbar{display:none;}
-    .mobnav a{font-size:13.5px; color:var(--text); white-space:nowrap; padding-block:4px; text-decoration:none;}
-    .mobnav a.on{color:var(--ink); border-bottom:2px solid var(--lime);}
-  }
-
-  header{position:sticky; top:0; z-index:40; background:color-mix(in srgb, var(--bg) 88%, transparent);
-         backdrop-filter:blur(14px); border-bottom:1px solid transparent; transition:border-color .35s var(--ease);}
-  header.stuck{border-bottom-color:var(--line);}
-  .bar{display:flex; align-items:center; justify-content:space-between; gap:18px; padding-block:15px;}
-  .brand{display:flex; align-items:center; gap:10px; text-decoration:none;}
-  
-
-  nav.top{display:flex; gap:24px;}
-  nav.top a{font-size:13px; color:var(--text); text-decoration:none;}
-  nav.top a:hover,nav.top a.on{color:var(--ink);}
-  .book{font-size:12.5px; font-weight:600; border:1px solid var(--ink); color:var(--ink); padding:10px 17px;
-        text-decoration:none; white-space:nowrap; transition:background .3s var(--ease), color .3s var(--ease);}
-  .book:hover{background:var(--ink); color:var(--bg);}
-  @media (max-width:920px){ nav.top{display:none;} }
-
-  .shot{position:relative; overflow:hidden; background:var(--bg-2);}
-  .shot img{width:100%; height:100%; object-fit:cover; filter:saturate(.94) contrast(1.05);}
-  .cta{display:inline-flex; align-items:center; gap:10px; background:var(--lime); color:var(--lime-ink);
-       font-weight:600; font-size:13.5px; padding:15px 24px; text-decoration:none; border:none; cursor:pointer;
-       transition:transform .3s var(--ease);}
-  .cta:hover{transform:translateY(-2px);}
-  .cta.plain{background:transparent; color:var(--ink); border:1px solid var(--line);}
-
-  /* ----- Kopf ----- */
-  .pagehead{display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(24px,4vw,60px); align-items:center;
-       padding-block:clamp(34px,5vw,72px); border-bottom:1px solid var(--line);}
-  @media (max-width:880px){ .pagehead{grid-template-columns:1fr;} }
-  .top h1{font-size:clamp(32px,5.2vw,62px); margin-top:14px; max-width:16ch;}
-  .top p{margin:20px 0 0; max-width:48ch;}
-  .top .shot{aspect-ratio:4/3;}
-  .top .badge{position:absolute; left:0; bottom:0; background:var(--lime); color:var(--lime-ink);
-              font-family:'Montserrat',sans-serif; font-weight:700; font-size:13px; padding:11px 16px;}
-
-  /* ----- zwei Gewinnspiele ----- */
-  .two{display:grid; grid-template-columns:1fr 1fr; gap:clamp(16px,2.4vw,30px); padding-block:clamp(36px,5vw,72px);
-       border-bottom:1px solid var(--line);}
-  @media (max-width:860px){ .two{grid-template-columns:1fr;} }
-  .gs{border:1px solid var(--line); padding:clamp(20px,2.6vw,32px); background:var(--card); display:flex; flex-direction:column;}
-  .gs .no{font-family:'Montserrat',sans-serif; font-weight:700; font-size:12px; letter-spacing:.14em;
-          text-transform:uppercase; color:var(--amber);}
-  .gs h2{font-size:clamp(22px,2.8vw,32px); margin-top:10px;}
-  .gs .rows{margin-top:18px;}
-  .gs .row{display:grid; grid-template-columns:130px 1fr; gap:14px; padding-block:10px; border-top:1px solid var(--line-2);
-           font-size:13.5px;}
-  .gs .row:first-child{border-top:none;}
-  .gs .row dt{color:var(--mute); font-size:12px; letter-spacing:.1em; text-transform:uppercase;}
-  .gs .row dd{margin:0; color:var(--ink); font-weight:500;}
-  .gs .prizes{margin-top:18px; border-top:2px solid var(--ink); padding-top:14px;}
-  .gs .prize{display:grid; grid-template-columns:auto 1fr; gap:12px; padding-block:7px; font-size:13.5px;}
-  .gs .prize b{font-family:'Montserrat',sans-serif; color:var(--amber); font-size:12.5px;}
-  @media (max-width:560px){ .gs .row{grid-template-columns:1fr; gap:3px;} }
-
-
-  /* ----- Adventskalender ----- */
-  .advent{padding-block:clamp(34px,5vw,70px); border-bottom:1px solid var(--line);}
-  .advent .ahead{display:flex; align-items:flex-end; justify-content:space-between; gap:20px; flex-wrap:wrap; margin-bottom:22px;}
-  .advent h2{font-size:clamp(24px,3.2vw,38px); margin-top:12px;}
-  .legend{display:flex; gap:18px; flex-wrap:wrap; align-items:center;}
-  .legend span{display:inline-flex; align-items:center; gap:8px; font-size:12px; color:var(--mute);}
-  .legend i{width:9px; height:9px; border-radius:50%;}
-  .legend i.nik{background:var(--lime);}
-  .legend i.xmas{background:var(--amber);}
-  .countdown{font-size:12.5px; color:var(--mute);}
-  .countdown b{color:var(--ink); font-weight:600;}
-
-  .cal{display:grid; grid-template-columns:repeat(6,1fr); gap:clamp(8px,1.1vw,14px);}
-  @media (max-width:900px){ .cal{grid-template-columns:repeat(4,1fr);} }
-  @media (max-width:520px){ .cal{grid-template-columns:repeat(3,1fr);} }
-
-  .door{position:relative; aspect-ratio:1; border:none; padding:0; background:none; cursor:pointer;
-        perspective:900px; font-family:inherit; -webkit-tap-highlight-color:transparent;}
-  .door:disabled{cursor:default;}
-  .door .leaf{position:absolute; inset:0; transform-style:preserve-3d; transition:transform .75s var(--ease);}
-  .door.open .leaf{transform:rotateY(180deg);}
-  .door .face{position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden;
-              display:flex; overflow:hidden;}
-
-  /* Vorderseite */
-  .door .front{background:var(--card); border:1px solid var(--line); flex-direction:column;
-               align-items:center; justify-content:center; gap:4px; transition:border-color .3s var(--ease), background .3s var(--ease);}
-  .door:not(:disabled):hover .front{border-color:var(--ink);}
-  .door .front .n{font-family:'Montserrat',sans-serif; font-weight:700; letter-spacing:-.04em;
-                  font-size:clamp(22px,2.6vw,32px); color:var(--ink); line-height:1;}
-  .door .front .edge{position:absolute; top:0; left:0; right:0; height:3px;}
-  .door.nik .front .edge{background:var(--lime);}
-  .door.xmas .front .edge{background:var(--amber);}
-  .door:disabled .front{background:var(--bg-2);}
-  .door:disabled .front .n{color:var(--mute);}
-  .door .lock{position:absolute; bottom:9px; width:11px; height:11px; color:var(--mute);}
-  .door.today .front{border-color:var(--ink); box-shadow:0 0 0 3px color-mix(in srgb, var(--lime) 55%, transparent);}
-
-  /* Rückseite */
-  .door .back{transform:rotateY(180deg); background:var(--ink); color:var(--bg);
-              flex-direction:column; align-items:flex-start; justify-content:flex-end; padding:11px; text-align:left;}
-  .door .back img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.5;}
-  .door .back .veil{position:absolute; inset:0; background:linear-gradient(to top, rgba(10,10,9,.92), rgba(10,10,9,.3));}
-  .door .back .dn{position:relative; font-family:'Montserrat',sans-serif; font-weight:700; font-size:13px;
-                  color:var(--lime); line-height:1;}
-  .door.xmas .back .dn{color:var(--amber);}
-  .door .back .dt{position:relative; font-size:11px; line-height:1.35; color:#F4F3EE; margin-top:5px;}
-
-  .calnote{margin-top:16px; font-size:12.5px; color:var(--mute); max-width:70ch;}
-  .calnote b{color:var(--ink); font-weight:600;}
-
-  /* geöffnetes Türchen als Detail darunter */
-  .peek{margin-top:18px; border:1px solid var(--line); background:var(--card); padding:clamp(16px,2.2vw,24px);
-        display:grid; grid-template-columns:auto 1fr auto; gap:clamp(14px,2vw,26px); align-items:center;}
-  @media (max-width:700px){ .peek{grid-template-columns:1fr; gap:12px;} }
-  .peek .big{font-family:'Montserrat',sans-serif; font-weight:700; font-size:clamp(34px,5vw,56px);
-             line-height:1; color:var(--ink); letter-spacing:-.04em;}
-  .peek .lbl{font-size:11px; letter-spacing:.18em; text-transform:uppercase; font-weight:600;}
-  .peek .lbl.nik{color:var(--lime-ink); background:var(--lime); padding:3px 8px; display:inline-block;}
-  .peek .lbl.xmas{color:var(--amber); background:var(--amber-soft); padding:3px 8px; display:inline-block;}
-  .peek p{margin:9px 0 0; font-size:13.5px;}
-  .peek .cta{white-space:nowrap;}
-
-  /* ----- Teilnahme ----- */
-  .how{padding-block:clamp(40px,5.5vw,80px); border-bottom:1px solid var(--line);}
-  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(16px,2.4vw,32px); margin-top:26px;}
-  @media (max-width:820px){ .steps{grid-template-columns:1fr; max-width:520px;} }
-  .step{border-top:2px solid var(--ink); padding-top:16px;}
-  .step b{font-family:'Montserrat',sans-serif; font-size:12px; letter-spacing:.14em; color:var(--amber);}
-  .step h3{font-size:19px; margin-top:9px;}
-  .step p{margin:9px 0 0; font-size:13.5px; color:var(--mute);}
-  .rules{margin-top:30px; display:grid; gap:0; max-width:760px;}
-  .rule{display:grid; grid-template-columns:auto 1fr; gap:12px; padding-block:11px; border-top:1px solid var(--line-2); font-size:13.5px;}
-  .rule:last-child{border-bottom:1px solid var(--line-2);}
-  .rule i{font-style:normal; color:var(--lime-ink); background:var(--lime); width:19px; height:19px; display:flex;
-          align-items:center; justify-content:center; font-size:11px; font-weight:700; margin-top:2px;}
-  .rule.no i{background:var(--amber-soft); color:var(--amber);}
-
-  /* ----- Hinweis ----- */
-  .warn{border:1px solid var(--amber); background:var(--amber-soft); padding:clamp(18px,2.4vw,28px);
-        margin-block:clamp(30px,4vw,48px);}
-  .warn h3{font-size:17px; color:var(--amber);}
-  .warn p{margin:10px 0 0; font-size:13.5px; max-width:70ch; color:var(--ink);}
-
-  /* ----- Bedingungen ----- */
-  .terms{padding-block:clamp(40px,5.5vw,80px);}
-  .terms .lead{max-width:64ch; margin-top:16px;}
-  .block{border-top:1px solid var(--line); padding-block:24px; display:grid; grid-template-columns:210px 1fr;
-         gap:clamp(16px,3vw,44px); align-items:start;}
-  @media (max-width:760px){ .block{grid-template-columns:1fr; gap:10px;} }
-  .block h3{font-size:16px;}
-  .block .num{font-family:'Montserrat',sans-serif; font-size:12px; color:var(--amber); display:block; margin-bottom:6px;}
-  .block p{margin:0 0 12px; font-size:14px; max-width:66ch;}
-  .block p:last-child{margin-bottom:0;}
-  .block ul{margin:0 0 12px; padding-left:1.1em; font-size:14px; max-width:66ch;}
-  .block li{margin-bottom:6px;}
-  .block h4{margin:16px 0 6px; font-size:14px; color:var(--ink); font-family:'Montserrat'; font-weight:600;}
-  .block > *{min-width:0;}
-  .tablewrap{overflow-x:auto; overscroll-behavior-x:contain; margin:0 0 14px;}
-  table{border-collapse:collapse; width:100%; min-width:460px; font-size:13.5px;}
-  th,td{text-align:left; padding:10px 12px; border-bottom:1px solid var(--line-2); vertical-align:top;}
-  th{font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--mute); font-weight:600;
-     border-bottom:1px solid var(--line);}
-  td:first-child{color:var(--ink); font-weight:500; white-space:nowrap;}
-
-  footer{border-top:1px solid var(--line); padding-block:30px; display:flex; justify-content:space-between;
-         gap:16px; flex-wrap:wrap; align-items:center;}
-  footer nav{display:flex; gap:20px; flex-wrap:wrap;}
-  footer a{font-size:12px; color:var(--mute); text-decoration:none;}
-  footer small{font-size:12px; color:var(--mute);}
-
-  /* ----- Aufklappbare Fragen ----- */
-  .faq{border-bottom:1px solid var(--line-2);}
-  .faq:first-of-type{border-top:1px solid var(--line-2);}
-  .faq summary{list-style:none; cursor:pointer; padding:14px 30px 14px 0; position:relative;
-               font-size:14.5px; font-weight:600; color:var(--ink);}
-  .faq summary::-webkit-details-marker{display:none;}
-  .faq summary::after{content:""; position:absolute; right:6px; top:50%; width:9px; height:9px;
-                      border-right:1.5px solid var(--mute); border-bottom:1.5px solid var(--mute);
-                      transform:translateY(-70%) rotate(45deg); transition:transform .3s var(--ease);}
-  .faq[open] summary::after{transform:translateY(-30%) rotate(225deg);}
-  .faq summary:hover{color:var(--amber);}
-  .faq summary:focus-visible{outline:2px solid var(--amber); outline-offset:3px;}
-  .faq p{margin:0 0 16px; font-size:14px; max-width:66ch; color:var(--text);}
-
-  /* ----- Original-Logo ----- */
-  .brand img, .mark img{height:46px; width:auto; display:block;}
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]) .brand img{filter:invert(1);}
-  }
-  :root[data-theme="dark"] .brand img{filter:invert(1);}
-  @media (max-width:560px){ .brand img{height:40px;} }
-  /* ---------- Design 1:1 vom Buchungsportal booking.beatwings.com ---------- */
-  .kicker{font-size:11px; font-weight:700; letter-spacing:1.65px;}
-  h1,h2,h3{font-weight:800; letter-spacing:-.01em;}
-  .shot{border-radius:var(--r-l);}
-  .cta,.book,.tag,.badge{border-radius:var(--r-s);}
-  .card .foot,.hl,.step,.faq,.rule{border-radius:0;}
-  .peek,.warn,.calnote,.legend,.two > div,.gs,.tablewrap{border-radius:var(--r-m);}
-  .door .front,.door .back{border-radius:var(--r-m);}
-  .grain{display:none;}
-
-  .actions{display:flex; align-items:center; gap:12px; flex:0 0 auto;}
-  .langbtn{height:40px; padding:0 12px;}
-  .book{display:inline-flex; align-items:center; height:40px; padding:0 17px;}
-
-  /* ---------- Sprachumschalter ---------- */
-  .lang{position:relative; flex:0 0 auto;}
-  .langbtn{display:inline-flex; align-items:center; gap:6px; background:var(--card);
-    border:1px solid var(--line); border-radius:var(--r-s); color:var(--ink);
-    font-family:'Montserrat',sans-serif; font-size:13px; font-weight:600;
-    padding:5px 10px; cursor:pointer; line-height:1.4; transition:border-color .2s var(--ease);}
-  .langbtn:hover{border-color:var(--mute);}
-  .langbtn svg{width:9px; height:9px; opacity:.65; transition:transform .2s var(--ease);}
-  .lang.open .langbtn svg{transform:rotate(180deg);}
-  .langmenu{position:absolute; right:0; top:calc(100% + 8px); z-index:80; min-width:168px;
-    max-height:min(62vh,420px); overflow-y:auto; background:var(--card);
-    border:1px solid var(--line); border-radius:var(--r-m); box-shadow:var(--shadow); padding:5px 0;}
-  .langmenu button{display:flex; align-items:center; gap:11px; width:100%; background:none; border:0;
-    padding:9px 14px; font-family:'Montserrat',sans-serif; font-size:13px; color:var(--text);
-    text-align:left; cursor:pointer; transition:background .15s var(--ease);}
-  .langmenu button:hover{background:var(--bg-2);}
-  .langmenu button b{font-weight:600; color:var(--ink); min-width:22px; font-size:12px;}
-  .langmenu button[aria-checked="true"]{color:var(--ink);}
-  .langmenu button[aria-checked="true"]::after{content:"\2713"; margin-left:auto; color:var(--ink); font-size:12px;}
-  /* Google-Translate-Leiste ausblenden */
-  .skiptranslate{display:none !important;}
-  body{top:0 !important;}
-  #google_translate_element{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0);}
-  @media (max-width:560px){ .langmenu{min-width:152px;} }
-  /* ---------- Korrekturen aus dem Design-Review ---------- */
-  /* Kontraste: Amber und Lime waren als Text-/Signalfarbe im Hellmodus unlesbar */
-  :root{ --amber:#8A5A12; --lime-line:#6F8A18; }
-  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --amber:#E0A44A; --lime-line:#D8F56F; } }
-  :root[data-theme="dark"]{ --amber:#E0A44A; --lime-line:#D8F56F; }
-
-  /* Fokus: war ausser bei den FAQ-Aufklappern nirgends definiert */
-  :where(a,button,summary,[tabindex]):focus-visible{
-    outline:2px solid var(--ink); outline-offset:3px; border-radius:3px;}
-  .faq summary:focus-visible{outline:2px solid var(--ink); outline-offset:3px;}
-  .langmenu button:focus-visible{outline:none; box-shadow:inset 0 0 0 2px var(--ink);}
-  .skip{position:absolute; left:-9999px;}
-  .skip:focus{left:18px; top:10px; z-index:200; background:var(--lime); color:var(--lime-ink);
-    padding:12px 18px; border-radius:var(--r-s); font-weight:700; font-size:13px;}
-
-  /* Knopfkonturen hatten 1,14:1 - sahen aus wie Text */
-  .cta.plain{border:1px solid var(--ink); color:var(--ink);}
-  .langbtn{border:1px solid var(--mute);}
-  .langbtn:hover{border-color:var(--ink); background:var(--bg-2);}
-
-  /* Tippflaechen auf 44px */
-  .mobnav{gap:2px; padding-inline-end:36px;
-    -webkit-mask-image:linear-gradient(to right,#000 calc(100% - 32px),transparent);
-            mask-image:linear-gradient(to right,#000 calc(100% - 32px),transparent);}
-  .mobnav a{min-height:44px; display:inline-flex; align-items:center; padding:0 10px; padding-block:0;}
-  .mobnav a[aria-current="page"]{color:var(--ink); border-bottom:0; box-shadow:inset 0 -2px 0 var(--ink);}
-  .top a[aria-current="page"]{color:var(--ink); box-shadow:inset 0 -2px 0 var(--ink);}
-  .langmenu button{min-height:44px;}
-
-  /* Footer-Links hatten 3,25:1 - ausgerechnet AGB, Datenschutz, Impressum */
-  footer a{color:var(--text);}
-  footer a:hover{color:var(--ink); text-decoration:underline; text-underline-offset:3px;}
-
-  /* Druckzustand fehlte ganz; Hover nur auf Geraeten mit echtem Zeiger */
-  @media (hover:hover){ .cta:hover{transform:translateY(-2px);} }
-  @media (hover:none){ .cta:hover{transform:none;} }
-  .cta:active,.book:active,.langbtn:active{transform:scale(.97); transition-duration:.06s;}
-
-  /* Einblendungen waren mit 0,85-1,4s zu traege und sprangen erst bei -8% an */
-  .anim .up.in{transition:opacity .45s var(--ease) var(--d,0ms), transform .5s var(--ease) var(--d,0ms);}
-  .anim .wipe{animation-duration:.6s;}
-  .anim .now{animation-duration:.5s;}
-  .anim .pull.in .shot img{transition:transform .8s var(--ease) var(--d,0ms);}
-
-  @media (max-width:920px){
-    .ticker{display:none;}            /* reine Deko (aria-hidden), frass 40px vom Handyschirm */
-  }
-  @media (max-width:560px){
-    .brand img{height:34px;}
-    .bar{padding-block:10px;}
-  }
-</style>
-<script type="application/ld+json">
-{
- "@context": "https://schema.org",
- "@graph": [
-  {
-   "@type": [
-    "TravelAgency",
-    "Organization"
-   ],
-   "@id": "https://www.beatwings.com/#organisation",
-   "name": "BEATWINGS",
-   "legalName": "BEATWINGS GmbH",
-   "url": "https://www.beatwings.com/beatwings.html",
-   "logo": {
-    "@type": "ImageObject",
-    "url": "https://www.beatwings.com/bw-logo.png",
-    "width": 420,
-    "height": 420
-   },
-   "image": "https://www.beatwings.com/bw-night.jpg",
-   "description": "BEATWINGS veranstaltet geführte Festivalreisen nach Thailand mit offiziellen Festivaltickets, Hotels, allen Transfers und deutschsprachiger Betreuung vor Ort. BEATWINGS ist offizieller Reisepartner des Tomorrowland Thailand für Deutschland und Österreich.",
-   "slogan": "Such dir das Festival aus. Den Rest machen wir.",
-   "email": "info@beatwings.com",
-   "telephone": "+49 251 5355680017",
-   "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Hafenweg 16",
-    "postalCode": "48155",
-    "addressLocality": "Münster",
-    "addressCountry": "DE"
-   },
-   "founder": {
-    "@type": "Person",
-    "name": "Björn Weiß"
-   },
-   "knowsLanguage": [
-    "de",
-    "en"
-   ],
-   "areaServed": [
-    {
-     "@type": "Country",
-     "name": "Deutschland"
-    },
-    {
-     "@type": "Country",
-     "name": "Österreich"
-    },
-    {
-     "@type": "Country",
-     "name": "Schweiz"
-    }
-   ],
-   "knowsAbout": [
-    "Tomorrowland Thailand",
-    "Siam Songkran",
-    "EDC Thailand",
-    "Festivalreisen Thailand",
-    "Bangkok",
-    "Pattaya",
-    "Chon Buri"
-   ],
-   "contactPoint": [
-    {
-     "@type": "ContactPoint",
-     "contactType": "customer support",
-     "email": "community@beatwings.com",
-     "telephone": "+66 64 235 2858",
-     "availableLanguage": [
-      "de",
-      "en"
-     ]
-    }
-   ],
-   "sameAs": [
-    "https://booking.beatwings.com",
-    "https://thailand.tomorrowland.com/en/sales-info/official-travel-partners/"
-   ]
-  }
- ]
-}
-</script>
+<!-- Stand 17.11.2026 – Texte kommen aus i18n/sprachen.csv. Änderungen siehe _fuer-bjoern/2026-11-17-Umbau.md -->
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#000000" name="theme-color"/>
+<meta content="Impressum der BEATWINGS GmbH, Hafenweg 16, 48155 Münster – Anbieterkennzeichnung nach § 5 DDG." data-ta="content=impressum-der-beatwings-gmbh-hafenweg" name="description"/>
+<link href="https://www.beatwings.com/impressum.html" rel="canonical"/>
+<meta content="https://www.beatwings.com/impressum.html" property="og:url"/>
+<meta content="website" property="og:type"/>
+<meta content="BEATWINGS" property="og:site_name"/>
+<meta content="de_DE" property="og:locale"/>
+<meta content="Impressum – BEATWINGS" property="og:title"/>
+<meta content="Impressum der BEATWINGS GmbH, Hafenweg 16, 48155 Münster – Anbieterkennzeichnung nach § 5 DDG." property="og:description"/>
+<meta content="https://www.beatwings.com/bw-fairy.jpg" property="og:image"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<title data-t="impressum-beatwings">Impressum – BEATWINGS</title>
+<link href="favicon.png" rel="icon" type="image/png"/>
+<link href="favicon.png" rel="apple-touch-icon"/>
+<script src="i18n/i18n.js"></script>
+<link href="assets/site.css" rel="stylesheet"/>
 </head>
 <body>
-<a class="skip" href="#main">Zum Inhalt springen</a>
-
-<header class="pad">
-  <div class="bar">
-    <a class="brand notranslate" translate="no" href="beatwings.html">
-      <img src="bw-logo.png" alt="BEATWINGS" width="420" height="420">
-    </a>
-    <nav class="top">
-      <a href="beatwings.html#trips">Reisen</a>
-      <a href="beatwings.html#moments">Moments</a>
-      <a href="anreise.html">Anreise</a>
-      <a href="gewinnspiel.html">Gewinnspiel</a>
-      <a href="faq.html">FAQ</a>
-    </nav>
-    <div class="actions">
-      <div class="lang notranslate" id="lang">
-      <button class="langbtn" id="langbtn" type="button" aria-haspopup="true" aria-expanded="false">
-        <span id="langcur">DE</span>
-        <svg viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-      <div class="langmenu" id="langmenu" role="menu" aria-label="Sprache wählen" hidden></div>
-    </div>
-      <a class="book" href="https://booking.beatwings.com" target="_blank" rel="noopener">Booking ↗</a>
-    </div>
-  </div>
-</header>
-
-<nav class="mobnav pad">
-  <a href="beatwings.html#trips">Reisen</a>
-  <a href="beatwings.html#moments">Moments</a>
-  <a href="anreise.html">Anreise</a>
-  <a href="gewinnspiel.html">Gewinnspiel</a>
-  <a href="faq.html">FAQ</a>
+<a class="skip" data-t="zum-inhalt-springen" href="#main">Zum Inhalt springen</a>
+<header>
+<div class="bar">
+<a aria-label="BEATWINGS – zur Startseite" class="brand notranslate" data-ta="aria-label=beatwings-zur-startseite" href="beatwings.html" translate="no">
+<img alt="BEATWINGS" height="420" src="bw-logo.png" width="420"/>
+</a>
+<nav aria-label="Hauptmenü" class="top" data-ta="aria-label=hauptmenue">
+<a data-t="erlebnisse" href="beatwings.html#erlebnisse">Erlebnisse</a>
+<a href="moments.html">Moments</a>
+<a href="beatwings.html#reels">Reels</a>
+<a href="beatwings.html#partner-werden">Become a Partner</a>
 </nav>
-
-<main id="main" class="wrap">
-  <section class="pad terms">
-    <span class="kicker up">Rechtliches</span>
-    <h1 class="up" style="--d:60ms; font-size:clamp(28px,4vw,48px); margin-top:12px;">Impressum</h1>
-
-    <div class="block up" style="margin-top:28px;">
-      <div><span class="num">01</span><h3>Anbieter</h3></div>
-      <div>
-        <p><b>BEATWINGS GmbH</b><br>Hafenweg 16<br>48155 Münster<br>Deutschland</p>
-        <p>Telefon: <a href="tel:+492515355680017">+49 251 5355680017</a><br>
+<div class="actions">
+<div class="lang notranslate" id="lang">
+<button aria-expanded="false" aria-haspopup="true" class="langbtn" id="langbtn" type="button">
+<span id="langcur">DE</span>
+<svg aria-hidden="true" fill="none" viewbox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path></svg>
+</button>
+<div aria-label="Sprache wählen" class="langmenu" hidden="" id="langmenu" role="menu"></div>
+</div>
+<button aria-controls="drawer" aria-expanded="false" aria-label="Menü öffnen" class="burger" data-ta="aria-label=menue-oeffnen" id="burger" type="button"><span></span><span></span><span></span></button>
+</div>
+</div>
+</header>
+<nav aria-label="Menü" class="drawer" data-ta="aria-label=menue" hidden="" id="drawer">
+<a class="big" data-t="erlebnisse" href="beatwings.html#erlebnisse">Erlebnisse</a>
+<a class="big" href="moments.html">Moments</a>
+<a class="big" href="beatwings.html#reels">Reels</a>
+<a class="big" href="beatwings.html#partner-werden">Become a Partner</a>
+<div class="soc">
+<a href="https://www.instagram.com/beatwingsadventure/" rel="noopener" target="_blank">Instagram ↗</a>
+<a href="https://www.tiktok.com/@beatwingsadventure" rel="noopener" target="_blank">TikTok ↗</a>
+</div>
+</nav>
+<main id="main">
+<section class="terms">
+<span class="kicker up" data-t="rechtliches">Rechtliches</span>
+<h1 class="up" data-t="impressum">Impressum</h1>
+<div data-i18n-skip="legal">
+<div class="block up">
+<div><span class="num">01</span><h3>Anbieter</h3></div>
+<div>
+<p><b>BEATWINGS GmbH</b><br/>Hafenweg 16<br/>48155 Münster<br/>Deutschland</p>
+<p>Telefon: <a href="tel:+492515355680017">+49 251 5355680017</a><br/>
            E-Mail: <a href="mailto:info@beatwings.com">info@beatwings.com</a></p>
-      </div>
-    </div>
-
-    <div class="block up">
-      <div><span class="num">02</span><h3>Registereintrag</h3></div>
-      <div><p>Registergericht: Amtsgericht Münster<br>Registernummer: HRB 23224</p></div>
-    </div>
-
-    <div class="block up">
-      <div><span class="num">03</span><h3>Vertretung</h3></div>
-      <div><p>Geschäftsführer: Björn Weiß</p></div>
-    </div>
-
-    <div class="block up">
-      <div><span class="num">04</span><h3>Aufsichtsbehörde</h3></div>
-      <div>
-        <p>Zuständige Aufsichtsbehörde für das Angebot audiovisueller Mediendienste:</p>
-        <p>Landesanstalt für Medien NRW<br>Zollhof 2<br>40221 Düsseldorf<br>Deutschland</p>
-      </div>
-    </div>
-
-    <div class="block up">
-      <div><span class="num">05</span><h3>Streitbeilegung</h3></div>
-      <div>
-        <p>Wir sind zur Teilnahme an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle
+</div>
+</div>
+<div class="block up">
+<div><span class="num">02</span><h3>Registereintrag</h3></div>
+<div><p>Registergericht: Amtsgericht Münster<br/>Registernummer: HRB 23224</p></div>
+</div>
+<div class="block up">
+<div><span class="num">03</span><h3>Vertretung</h3></div>
+<div><p>Geschäftsführer: Björn Weiß</p></div>
+</div>
+<div class="block up">
+<div><span class="num">04</span><h3>Aufsichtsbehörde</h3></div>
+<div>
+<p>Zuständige Aufsichtsbehörde für das Angebot audiovisueller Mediendienste:</p>
+<p>Landesanstalt für Medien NRW<br/>Zollhof 2<br/>40221 Düsseldorf<br/>Deutschland</p>
+</div>
+</div>
+<div class="block up">
+<div><span class="num">05</span><h3>Streitbeilegung</h3></div>
+<div>
+<p>Wir sind zur Teilnahme an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle
            weder verpflichtet noch bereit.</p>
-      </div>
-    </div>
-
-    <div class="block up">
-      <div><span class="num">06</span><h3>Reiseveranstalter</h3></div>
-      <div>
-        <p>Veranstalter der Pauschalreise „BEATWINGS X Tomorrowland Thailand Adventure" ist die
+</div>
+</div>
+<div class="block up">
+<div><span class="num">06</span><h3>Reiseveranstalter</h3></div>
+<div>
+<p>Reiseveranstalter der Reise „BEATWINGS X Tomorrowland Thailand Adventure" ist die
            Dialog Travel GmbH, Cheruskerring 21, 48147 Münster. Es gelten deren
-           <a href="https://beatwings.com/wp-content/uploads/2026/03/AGB-Dialog-Travel-GmbH.pdf" target="_blank" rel="noopener">Allgemeine Geschäftsbedingungen</a>.</p>
-        <p>Die Siam-Songkran-Reisen werden über unseren Reisepartner IASIA Official gebucht, bezahlt und durchgeführt.</p>
-      </div>
-    </div>
-
-    <div class="block up">
-      <div><span class="num">07</span><h3>Datenschutz</h3></div>
-      <div>
-        <p>Informationen zur Verarbeitung personenbezogener Daten finden Sie in unserer
-           <a href="https://beatwings.com/privacy-policy/" target="_blank" rel="noopener">Datenschutzerklärung</a>.</p>
-      </div>
-    </div>
-  </section>
+           <a href="agb-dialog-travel-gmbh.pdf" rel="noopener" target="_blank">Allgemeine Geschäftsbedingungen</a>.</p>
+<p>Die Siam-Songkran-Reisen werden über unseren Reisepartner IAsia (Thailand) Co., Ltd. gebucht, bezahlt und durchgeführt.</p>
+</div>
+</div>
+<div class="block up">
+<div><span class="num">07</span><h3>Datenschutz</h3></div>
+<div>
+<p>Informationen zur Verarbeitung personenbezogener Daten finden Sie in unserer
+           <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
+</div>
+</div>
+</div>
+</section>
 </main>
-
-<footer class="pad wrap">
-  <nav>
-    <a href="beatwings.html">Start</a>
-    <a href="beatwings.html#trips">Reisen</a>
-    <a href="anreise.html">Anreise</a>
-    <a href="gewinnspiel.html">Gewinnspiel</a>
-    <a href="faq.html">FAQ</a>
-    <a href="impressum.html">Impressum</a>
-    <a href="https://beatwings.com/wp-content/uploads/2026/03/AGB-Dialog-Travel-GmbH.pdf" target="_blank" rel="noopener">AGB</a>
-    <a href="https://beatwings.com/privacy-policy/" target="_blank" rel="noopener">Datenschutz</a>
-  </nav>
-  <small>©2026 BEATWINGS GmbH · info@beatwings.com</small>
+<footer>
+<div class="wrap">
+<div class="head">
+<div><span class="kicker" data-t="bleib-dabei">Bleib dabei</span><h2 data-t="folge-beatwingsadventure">Folge @beatwingsadventure</h2></div>
+<div class="soc">
+<a class="btn line" href="https://www.instagram.com/beatwingsadventure/" rel="noopener" target="_blank">Instagram ↗</a>
+<a class="btn line" href="https://www.tiktok.com/@beatwingsadventure" rel="noopener" target="_blank">TikTok ↗</a>
+</div>
+</div>
+<div class="legal">
+<nav aria-label="Rechtliches" data-ta="aria-label=rechtliches">
+<a data-t="impressum" href="impressum.html">Impressum</a>
+<a data-t="datenschutz" href="datenschutz.html">Datenschutz</a>
+<a data-t="agb-tomorrowland-reise" href="agb.html">AGB Tomorrowland-Reise</a>
+<button class="linkbtn" data-consent="open" data-t="video-einstellungen" type="button">Video-Einstellungen</button>
+</nav>
+<a href="mailto:info@beatwings.com">©2026 BEATWINGS GmbH · info@beatwings.com</a>
+</div>
+</div>
 </footer>
-
-<script>
-(function(){
-  document.documentElement.classList.add('anim');
-  var io = new IntersectionObserver(function(es){
-    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, {rootMargin:'0px 0px 0px 0px', threshold:.08});
-  document.querySelectorAll('.up').forEach(function(el){ io.observe(el); });
-  var head = document.querySelector('header');
-  addEventListener('scroll', function(){ head.classList.toggle('stuck', scrollY > 8); }, {passive:true});
-})();
-</script>
-
-<div id="google_translate_element" aria-hidden="true"></div>
-<script>
-/* Sprachen und Mechanik 1:1 wie booking.beatwings.com (Google Translate Element) */
-(function(){
-  var SPRACHEN = [
-    ['de','Deutsch'],['en','English'],['fr','Français'],['es','Español'],['it','Italiano'],
-    ['nl','Nederlands'],['pl','Polski'],['pt','Português'],['ru','Русский'],['tr','Türkçe'],
-    ['th','ภาษาไทย'],['ja','日本語'],['ko','한국어'],['zh-CN','中文'],['ar','العربية']
-  ];
-  var KUERZEL = {'zh-CN':'ZH'};
-  var btn = document.getElementById('langbtn'),
-      menu = document.getElementById('langmenu'),
-      wrap = document.getElementById('lang'),
-      cur  = document.getElementById('langcur');
-  if(!btn) return;
-
-  function aktuelle(){
-    var m = document.cookie.match(/googtrans=\/[^\/]+\/([^;]+)/);
-    return m ? decodeURIComponent(m[1]) : 'de';
-  }
-  function kuerzel(code){ return KUERZEL[code] || code.toUpperCase(); }
-
-  function bauen(){
-    var jetzt = aktuelle();
-    cur.textContent = kuerzel(jetzt);
-    var name = (SPRACHEN.filter(function(x){return x[0]===jetzt;})[0] || ['de','Deutsch'])[1];
-    btn.setAttribute('aria-label', 'Sprache: ' + name + '. Sprache wechseln');
-    menu.innerHTML = '';
-    SPRACHEN.forEach(function(s){
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.setAttribute('role','menuitemradio');
-      b.setAttribute('aria-checked', s[0] === jetzt ? 'true' : 'false');
-      b.innerHTML = '<b>' + kuerzel(s[0]) + '</b><span>' + s[1] + '</span>';
-      b.addEventListener('click', function(){ wechseln(s[0]); });
-      menu.appendChild(b);
-    });
-  }
-
-  function wechseln(code){
-    var host = location.hostname;
-    var wert = code === 'de' ? '' : '/de/' + code;
-    ['', '; domain=' + host, '; domain=.' + host.replace(/^www\./,'')].forEach(function(d){
-      document.cookie = 'googtrans=' + wert + '; path=/' + d + (wert ? '' : '; expires=Thu, 01 Jan 1970 00:00:00 GMT');
-    });
-    location.reload();
-  }
-
-  function auf(){ wrap.classList.add('open'); menu.hidden = false; btn.setAttribute('aria-expanded','true'); }
-  function zu(){ wrap.classList.remove('open'); menu.hidden = true; btn.setAttribute('aria-expanded','false'); }
-  btn.addEventListener('click', function(e){ e.stopPropagation(); menu.hidden ? auf() : zu(); });
-  document.addEventListener('click', function(e){ if(!wrap.contains(e.target)) zu(); });
-  document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ zu(); btn.focus(); } });
-  btn.addEventListener('keydown', function(e){
-    if(e.key === 'ArrowDown'){ e.preventDefault(); auf(); menu.querySelector('button').focus(); }
-  });
-  menu.addEventListener('keydown', function(e){
-    var b = [].slice.call(menu.querySelectorAll('button')), i = b.indexOf(document.activeElement);
-    if(e.key === 'ArrowDown'){ e.preventDefault(); b[(i + 1) % b.length].focus(); }
-    if(e.key === 'ArrowUp'){ e.preventDefault(); b[(i - 1 + b.length) % b.length].focus(); }
-    if(e.key === 'Home'){ e.preventDefault(); b[0].focus(); }
-    if(e.key === 'End'){ e.preventDefault(); b[b.length - 1].focus(); }
-  });
-
-  bauen();
-
-  /* Google Translate nur laden, wenn eine andere Sprache als Deutsch aktiv ist */
-  if(aktuelle() !== 'de'){
-    window.googleTranslateElementInit = function(){
-      new google.translate.TranslateElement(
-        {pageLanguage:'de',
-         includedLanguages:'en,de,fr,es,th,pl,nl,it,pt,ru,ja,ko,zh-CN,ar,tr',
-         autoDisplay:false}, 'google_translate_element');
-    };
-    var s = document.createElement('script');
-    s.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-    s.async = true;
-    document.head.appendChild(s);
-  }
-})();
-</script>
+<div aria-labelledby="consent-t" class="consent" hidden="" id="consent" role="dialog">
+<b data-t="reels-von-instagram-und-tiktok" id="consent-t">Reels von Instagram und TikTok anzeigen?</b>
+<p data-t="wenn-du-zustimmst-laden-wir">Wenn du zustimmst, laden wir die Videos direkt von Instagram und TikTok und spielen sie automatisch ab. Dabei werden Daten wie deine IP-Adresse an Meta und TikTok übertragen. Du kannst das jederzeit unter „Video-Einstellungen“ ändern. <a href="datenschutz.html#einbettungen">Datenschutz</a></p>
+<div class="row">
+<button class="btn lime" data-consent="yes" data-t="videos-zulassen" type="button">Videos zulassen</button>
+<button class="btn line" data-consent="no" data-t="nein-danke" type="button">Nein, danke</button>
+</div>
+</div>
+<script src="assets/site.js"></script>
 </body>
 </html>
